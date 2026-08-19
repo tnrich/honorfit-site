@@ -164,6 +164,18 @@ h2 .accent { color: var(--orange); }
   border: 1px solid var(--border);
 }
 
+/* Bio */
+.bio {
+  color: var(--text-dim);
+  max-width: 640px;
+}
+.bio strong { color: var(--text); }
+.bio.made-in {
+  margin-top: 14px;
+  color: var(--gold);
+  font-weight: 600;
+}
+
 /* Prose pages (support / privacy) */
 .prose { padding: 48px 0 72px; }
 .prose h1 { font-size: 2rem; margin-bottom: 8px; letter-spacing: -0.02em; }
