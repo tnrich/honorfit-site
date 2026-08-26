@@ -49,11 +49,16 @@
 <section>
   <div class="wrap">
     <h2>See it in <span class="accent">action</span></h2>
-    <div class="shots">
-      <img src="img/01-home-wheels.png" alt="Rep wheels screen — log pushups, situps, pull ups, and squats">
-      <img src="img/02-balance.png" alt="Screen-time balance counting down">
-      <img src="img/04-blocklist.png" alt="Choosing which apps to block">
-      <img src="img/05-stats.png" alt="Stats screen — total reps, workouts, best streak, and 14-day chart">
+    <div class="carousel">
+      <button class="arrow prev" aria-label="Previous screenshot">&#8249;</button>
+      <div class="shots">
+        <img src="img/01-home-wheels.png" alt="Rep wheels screen — log pushups, situps, pull ups, and squats">
+        <img src="img/02-balance.png" alt="Screen-time balance counting down">
+        <img src="img/04-blocklist.png" alt="Choosing which apps to block">
+        <img src="img/05-stats.png" alt="Stats screen — total reps, workouts, best streak, and 14-day chart">
+      </div>
+      <button class="arrow next" aria-label="Next screenshot">&#8250;</button>
+      <div class="dots"></div>
     </div>
   </div>
 </section>
@@ -125,6 +130,15 @@
     lbImg.src = img.src; lbImg.alt = img.alt; lb.classList.add('open');
   }));
   lb.addEventListener('click', () => lb.classList.remove('open'));
+
+  const track = document.querySelector('.shots'), slides = [...track.children], dots = document.querySelector('.dots');
+  slides.forEach((_, i) => { const d = document.createElement('button'); d.setAttribute('aria-label', 'Screenshot ' + (i + 1)); d.onclick = () => go(i); dots.appendChild(d); });
+  const go = i => track.scrollTo({ left: slides[(i + slides.length) % slides.length].offsetLeft, behavior: 'smooth' });
+  const current = () => Math.round(track.scrollLeft / track.clientWidth);
+  document.querySelector('.arrow.prev').onclick = () => go(current() - 1);
+  document.querySelector('.arrow.next').onclick = () => go(current() + 1);
+  const sync = () => [...dots.children].forEach((d, i) => d.classList.toggle('active', i === current()));
+  track.addEventListener('scroll', sync, { passive: true }); sync();
   document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('open'); });
 </script>
 
