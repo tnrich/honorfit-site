@@ -39,17 +39,17 @@
     <h2>How does the app know I actually did the exercise?</h2>
     <p>It doesn't — that's the point. HonorFit runs on the honor system. There's no camera, no motion tracking, and no AI verification. You log your own reps. If you cheat, the only person you're lying to is the one doing zero pushups.</p>
 
-    <h2>Why does the app ask for accessibility / screen time permissions?</h2>
+    <h2>Why does the app ask for usage access / screen time permissions?</h2>
     <p>Blocking apps requires knowing when a blocked app comes to the foreground.</p>
     <ul>
-      <li><strong>Android:</strong> HonorFit uses an accessibility service that is configured so it <strong>cannot read your screen content, keystrokes, or text</strong>. The only signal it receives is which app is in the foreground.</li>
+      <li><strong>Android:</strong> HonorFit uses the Usage Access permission to see which app is in the foreground, and the &ldquo;Display over other apps&rdquo; permission to draw the lock screen. It does <strong>not</strong> use an Accessibility Service, so it <strong>cannot read your screen content, keystrokes, or text</strong>.</li>
       <li><strong>iOS:</strong> HonorFit uses Apple's Screen Time (Family Controls) framework. Apple's system does the blocking; HonorFit never sees your activity.</li>
     </ul>
 
     <h2>An app I blocked isn't being blocked. What do I check?</h2>
     <ul>
       <li>Make sure the app is still on your blocklist in HonorFit.</li>
-      <li><strong>Android:</strong> confirm HonorFit's accessibility service is still enabled in Settings → Accessibility (some devices disable it after battery optimization or an update).</li>
+      <li><strong>Android:</strong> confirm Usage Access and &ldquo;Display over other apps&rdquo; are still granted, and that HonorFit is exempt from battery optimization (some devices revoke these after an update, which stops the monitor service).</li>
       <li><strong>iOS:</strong> confirm Screen Time permission is still granted in Settings.</li>
       <li>Restart the app (or your phone) after changing permissions.</li>
     </ul>
@@ -69,6 +69,7 @@
   <div class="wrap">
     <span>© 2026 HonorFit Blocker</span>
     <a href="../">Home</a>
+    <a href="../pushup-app-blocker/">Pushup app blockers</a>
     <a href="../privacy/">Privacy Policy</a>
   </div>
 </footer>

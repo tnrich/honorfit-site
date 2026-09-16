@@ -45,8 +45,8 @@
       <li>No data collection, transmission, sale, or sharing of any kind</li>
     </ul>
 
-    <h2>Accessibility service (Android)</h2>
-    <p>On Android the app uses an AccessibilityService to detect when an app you have blocked comes to the foreground, so it can intercept it. The service is configured so that it <strong>cannot read screen content, keystrokes, or text</strong> (<code>canRetrieveWindowContent="false"</code>). The only signal it receives is the package name of the foreground app, which is compared against your blocklist on-device and never stored beyond that check or transmitted.</p>
+    <h2>Usage Access and the lock overlay (Android)</h2>
+    <p>On Android the app uses the <strong>Usage Access</strong> permission (<code>PACKAGE_USAGE_STATS</code>) to detect when an app you have blocked comes to the foreground, and the <strong>Display over other apps</strong> permission (<code>SYSTEM_ALERT_WINDOW</code>) to draw the lock screen over it. HonorFit does <strong>not</strong> use an Accessibility Service, so it has no ability to read your screen content, keystrokes, or text. The only signal it receives is the package name of the foreground app, which is compared against your blocklist on-device and never stored beyond that check or transmitted. The <code>QUERY_ALL_PACKAGES</code> permission populates the in-app blocklist picker with your installed apps; that list is never transmitted.</p>
 
     <h2>Installed app list</h2>
     <p>To let you choose which apps to block, the app lists the apps installed on your device. This list is shown only inside the app's picker and never leaves your device.</p>
@@ -69,6 +69,7 @@
   <div class="wrap">
     <span>© 2026 HonorFit Blocker</span>
     <a href="../">Home</a>
+    <a href="../pushup-app-blocker/">Pushup app blockers</a>
     <a href="../support/">Support</a>
   </div>
 </footer>
