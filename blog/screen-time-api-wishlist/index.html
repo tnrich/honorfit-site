@@ -31,6 +31,9 @@
     .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
     .ask strong { color: var(--text); }
     .ask ol, .ask ul { margin: 6px 0 0; }
+    figure.single { max-width: 380px; margin: 18px auto 22px; }
+    figure.single img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    figure.single figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; text-align: center; }
     @media (max-width: 480px) { .compare { gap: 10px; } }
   </style>
   <script type="application/ld+json">
@@ -74,6 +77,10 @@
     <h2 id="one-app">1. You can only have one Screen Time app at a time</h2>
     <p>Say you already use Brick, Opal or one sec, and you want to try HonorFit too. On iPhone you can't. When the second app asks for Screen Time access, iOS doesn't even show the permission prompt. It just throws an error saying Family Controls is available for only one application at a time. I've seen that error myself, and <a href="https://developer.apple.com/forums/thread/847096">other developers are hitting it too</a>.</p>
     <p>To switch, you have to go to <strong>Settings &rsaquo; Screen Time &rsaquo; Apps with Screen Time Access</strong>, turn off the other app, and sometimes restart your phone. HonorFit now detects the error and walks people through that, because the raw error message means nothing to a normal person.</p>
+    <figure class="single">
+      <img src="../../img/blog/ios-screen-time-conflict.webp" alt="HonorFit alert on iPhone: Another app is using Screen Time. iOS only lets one app control Screen Time at a time, with steps to turn off the other app in Settings" width="660" height="720" loading="lazy">
+      <figcaption>What iPhone users see in HonorFit when another app already has Screen Time access. iOS itself just hands the app an error, so this explanation is ours.</figcaption>
+    </figure>
     <p>Here's the weird part: when Apple introduced this kind of authorization at WWDC22, <a href="https://developer.apple.com/videos/play/wwdc2022/110336/">they said</a> that unlike parental-control authorization, individual authorization can be used by any number of apps on a device. That's not what happens today, and I couldn't find it documented anywhere.</p>
     <p><strong>Why this isn't in users' best interest:</strong> people mix tools. Somebody might use a Brick for hard focus sessions at work and HonorFit to earn their evening scrolling. Apple already has a rule for combining restrictions: when several <code>ManagedSettingsStore</code>s set the same thing, <a href="https://developer.apple.com/videos/play/wwdc2022/110336/">in Apple's words</a> "the most restrictive setting always wins." Doing the same across apps would let people use both, and a phone can only end up <em>more</em> locked down that way, never less.</p>
     <div class="ask">
