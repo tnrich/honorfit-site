@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get HonorFit Blocker — App Store &amp; Google Play | HonorFit</title>
+  <meta name="description" content="Download HonorFit Blocker, the pushup app blocker: your distracting apps stay locked until you earn time back with exercise. Honor system, no camera, no AI.">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://honorfitapp.com/get/">
+  <meta name="theme-color" content="#0D1117">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/get/">
+  <meta property="og:title" content="Get HonorFit Blocker — Earn your screen time with pushups">
+  <meta property="og:description" content="A pushup app blocker: your distracting apps stay locked until you earn time back with exercise. Honor system, no camera, no AI.">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Get HonorFit Blocker — Earn your screen time with pushups">
+  <meta name="twitter:description" content="Block the apps that steal your time until you've earned them back with pushups. Honor system, zero AI.">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <meta name="apple-itunes-app" content="app-id=6802871620">
+  <link rel="icon" href="../img/favicon.png">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .get-status { margin-top: 20px; color: var(--text-dim); font-size: 0.95rem; min-height: 1.6em; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../img/icon.png" alt="">
+    <a class="brand" href="../">HonorFit Blocker</a>
+    <a class="link" href="../support/">Support</a>
+    <a class="link" href="../privacy/">Privacy</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <img class="icon" src="../img/icon.png" alt="HonorFit Blocker app icon">
+    <h1>Get HonorFit Blocker</h1>
+    <p class="tagline">Earn your screen time.</p>
+    <p class="sub">A pushup app blocker: Instagram, TikTok, YouTube stay locked until you earn them back with exercise. Honor system, no camera, no AI.</p>
+    <div class="stores">
+      <a id="ios-link" href="https://apps.apple.com/app/id6802871620?ct=site&amp;mt=8">Download on the App Store</a>
+      <a id="android-link" class="alt" href="https://play.google.com/store/apps/details?id=com.honorfit.blocker&amp;referrer=utm_source%3Dsite%26utm_medium%3Dlink">Get it on Google Play</a>
+    </div>
+    <p class="get-status" id="get-status" aria-live="polite"></p>
+    <noscript>
+      <p class="get-status">
+        <a href="https://apps.apple.com/app/id6802871620?ct=site&amp;mt=8">iPhone: App Store</a> &middot;
+        <a href="https://play.google.com/store/apps/details?id=com.honorfit.blocker&amp;referrer=utm_source%3Dsite%26utm_medium%3Dlink">Android: Google Play</a>
+      </p>
+    </noscript>
+  </div>
+</header>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../">Home</a>
+    <a href="../support/">Support</a>
+    <a href="../privacy/">Privacy Policy</a>
+  </div>
+</footer>
+
+<script>
+  // Smart store link for bio links and campaigns: /get/?c=<channel>
+  //   iPhone / iPad  -> App Store, with ct=<channel> (and pt= once PROVIDER_ID is set)
+  //   Android        -> Google Play, with an install referrer utm_source=<channel>
+  //   anything else  -> stay on this page and show both store links.
+  const PROVIDER_ID = '120468516'; // App Store Connect provider token (pt=); empty = omit pt=
+
+  (function () {
+    const raw = new URLSearchParams(location.search).get('c') || '';
+    const channel = raw.toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40) || 'site';
+
+    const iosUrl = 'https://apps.apple.com/app/id6802871620?' +
+      (PROVIDER_ID ? 'pt=' + encodeURIComponent(PROVIDER_ID) + '&' : '') +
+      'ct=' + channel + '&mt=8';
+    const androidUrl = 'https://play.google.com/store/apps/details?id=com.honorfit.blocker' +
+      '&referrer=utm_source%3D' + channel + '%26utm_medium%3Dlink';
+
+    document.getElementById('ios-link').href = iosUrl;
+    document.getElementById('android-link').href = androidUrl;
+
+    const ua = navigator.userAgent || '';
+    // iPadOS 13+ reports itself as a Mac; a touch-capable "Mac" is an iPad.
+    const isIOS = /iPhone|iPad|iPod/.test(ua) ||
+      (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+    const isAndroid = /Android/i.test(ua);
+    if (!isIOS && !isAndroid) return; // desktop: just show the links
+
+    const target = isIOS ? iosUrl : androidUrl;
+    document.getElementById('get-status').textContent =
+      isIOS ? 'Opening the App Store…' : 'Opening Google Play…';
+
+    // Give the Cloudflare Web Analytics beacon (a deferred module script at the
+    // end of <body>) a chance to load and record the pageview before we leave:
+    // wait for the load event, which fires only after module scripts have run,
+    // then another ~300ms. The beacon flushes with navigator.sendBeacon on
+    // pagehide, which survives the navigation. A hard 1.5s cap keeps a slow or
+    // blocked beacon from stranding the visitor here.
+    let done = false;
+    const go = () => { if (!done) { done = true; location.replace(target); } };
+    const soon = () => setTimeout(go, 300);
+    if (document.readyState === 'complete') soon();
+    else window.addEventListener('load', soon);
+    setTimeout(go, 1500);
+  })();
+</script>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
