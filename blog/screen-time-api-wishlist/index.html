@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3 Things I Wish Apple Would Fix in the Screen Time API | HonorFit</title>
+  <meta name="description" content="Building the same app blocker on iPhone and Android: why iOS only lets one Screen Time app run at a time, why the app picker is so clunky, and why you can't see a live countdown.">
+  <link rel="canonical" href="https://honorfitapp.com/blog/screen-time-api-wishlist/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/blog/screen-time-api-wishlist/">
+  <meta property="og:title" content="3 things I wish Apple would fix in the Screen Time API">
+  <meta property="og:description" content="Same app on iPhone and Android. The Android one is just nicer to use, and it comes down to three Screen Time API limits that don't need to exist.">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-09-30">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="3 things I wish Apple would fix in the Screen Time API">
+  <meta name="twitter:description" content="One Screen Time app at a time, a picker you can't customize, and no live countdown. None of it needs to cost users any privacy.">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <link rel="icon" href="../../img/favicon.png">
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose blockquote { border-left: 3px solid var(--border); margin: 14px 0 18px; padding: 4px 0 4px 16px; color: var(--text-dim); }
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0 8px; }
+    .compare figure { margin: 0; }
+    .compare img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    .compare figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; }
+    .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
+    .ask strong { color: var(--text); }
+    .ask ol, .ask ul { margin: 6px 0 0; }
+    @media (max-width: 480px) { .compare { gap: 10px; } }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "3 things I wish Apple would fix in the Screen Time API",
+    "description": "Building the same app blocker on iPhone and Android: one Screen Time app at a time, a picker that can't be customized, and no live countdown of remaining time.",
+    "url": "https://honorfitapp.com/blog/screen-time-api-wishlist/",
+    "mainEntityOfPage": "https://honorfitapp.com/blog/screen-time-api-wishlist/",
+    "datePublished": "2026-09-30",
+    "dateModified": "2026-09-30",
+    "image": "https://honorfitapp.com/img/og.png",
+    "inLanguage": "en",
+    "keywords": "Screen Time API, FamilyControls, FamilyActivityPicker, DeviceActivity, Live Activities, app blocker, iOS vs Android",
+    "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+    "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../../support/">Support</a>
+    <a class="link" href="../../privacy/">Privacy</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>3 things I wish Apple would fix in the Screen Time API</h1>
+    <p class="meta">What I ran into building the same app blocker for iPhone and Android. By Thomas Willheim &middot; September 30, 2026</p>
+
+    <p>I make <a href="../../">HonorFit</a>, an app blocker where you earn screen time by doing pushups (honor system, no camera). It's the same app on iPhone and Android, same idea, same code for most of it. And honestly? The Android version is nicer to use.</p>
+    <p>That's not because Android is better at blocking apps. iOS's Screen Time API is actually really solid at the blocking part. It's because iOS boxes you in on three specific things, and none of them seem to be there to protect users. So here's my list, with what I'd ask Apple for. I tried to stick to things that wouldn't cost anybody any privacy.</p>
+    <p>(If you want the nuts-and-bolts version of building on this API, I wrote that up separately: <a href="../ios-screen-time-api-guide/">what Apple's docs don't tell you</a>.)</p>
+
+    <h2 id="one-app">1. You can only have one Screen Time app at a time</h2>
+    <p>Say you already use Brick, Opal or one sec, and you want to try HonorFit too. On iPhone you can't. When the second app asks for Screen Time access, iOS doesn't even show the permission prompt. It just throws an error saying Family Controls is available for only one application at a time. I've seen that error myself, and <a href="https://developer.apple.com/forums/thread/847096">other developers are hitting it too</a>.</p>
+    <p>To switch, you have to go to <strong>Settings &rsaquo; Screen Time &rsaquo; Apps with Screen Time Access</strong>, turn off the other app, and sometimes restart your phone. HonorFit now detects the error and walks people through that, because the raw error message means nothing to a normal person.</p>
+    <p>Here's the weird part: when Apple introduced this kind of authorization at WWDC22, <a href="https://developer.apple.com/videos/play/wwdc2022/110336/">they said</a> that unlike parental-control authorization, individual authorization can be used by any number of apps on a device. That's not what happens today, and I couldn't find it documented anywhere.</p>
+    <p><strong>Why this isn't in users' best interest:</strong> people mix tools. Somebody might use a Brick for hard focus sessions at work and HonorFit to earn their evening scrolling. Apple already has a rule for combining restrictions: when several <code>ManagedSettingsStore</code>s set the same thing, <a href="https://developer.apple.com/videos/play/wwdc2022/110336/">in Apple's words</a> "the most restrictive setting always wins." Doing the same across apps would let people use both, and a phone can only end up <em>more</em> locked down that way, never less.</p>
+    <div class="ask">
+      <strong>What I'd ask for:</strong> let more than one app hold individual Screen Time authorization, like WWDC22 described, and merge their shields with the same "most restrictive wins" rule. If there's a real reason for the limit, document it and give apps a proper error code so they can explain it.
+    </div>
+
+    <h2 id="picker">2. The app picker is clunky, and apps can't customize it</h2>
+    <p>On iPhone, picking which apps to block means Apple's <code>FamilyActivityPicker</code>. It's a system sheet the app can't change, except for a line of header and footer text. It opens on a list of categories (Social, Games, Entertainment...), and you tap into a category to find the actual apps. On Android, I build the list myself, so HonorFit shows your installed apps sorted by how much you used each one in the last 24 hours.</p>
+
+    <div class="compare">
+      <figure>
+        <img src="../../img/blog/ios-app-picker.webp" alt="The iOS Screen Time app picker: a list of app categories with checkboxes" width="660" height="1308" loading="lazy">
+        <figcaption><strong>iPhone:</strong> Apple's picker. Categories first, no usage, same for every app.</figcaption>
+      </figure>
+      <figure>
+        <img src="../../img/blog/android-app-picker.webp" alt="HonorFit's Android app picker: apps listed with time used in the last 24 hours, most-used first" width="660" height="1308" loading="lazy">
+        <figcaption><strong>Android:</strong> HonorFit's own list, sorted by time used, so your worst apps are right on top.</figcaption>
+      </figure>
+    </div>
+
+    <p>Two things bug me about the iOS one:</p>
+    <ul>
+      <li><strong>It's really easy to block a whole category by accident.</strong> Tap the category row instead of opening it, and you've just picked every app in it, including ones you install later. For a lot of apps that's never what you want. You want Instagram and TikTok, not "Social".</li>
+      <li><strong>You can't see which apps are actually eating your day.</strong> The whole reason someone opens an app blocker is "I spend too much time on my phone." The picker is the one moment they're deciding what to block, and it gives them zero info about where their time goes. Your iPhone knows exactly how long you spent in each app (it's right there in Settings), but the picker doesn't show it.</li>
+    </ul>
+    <p><strong>This wouldn't cost any privacy.</strong> The picker is drawn by iOS in its own process. The app never sees what's in it, only opaque tokens for whatever you picked. HonorFit literally can't tell which apps you chose. So iOS could show usage times right inside the picker, and the app still wouldn't learn a thing. Apple already does something like this with <code>DeviceActivityReport</code> extensions, which show your usage inside a sandbox the app can't read.</p>
+    <div class="ask">
+      <strong>What I'd ask for:</strong>
+      <ol>
+        <li>A picker option to choose <strong>whole categories or just apps</strong>, so an app blocker can offer an apps-only list with no accidental category picks (and hide websites if it doesn't use them).</li>
+        <li>An option to <strong>sort by, and show, measured screen time</strong> next to each app, rendered by iOS so the app never sees the numbers.</li>
+      </ol>
+    </div>
+
+    <h2 id="countdown">3. You can't see an accurate countdown of your time left</h2>
+    <p>In HonorFit, your earned time only runs down while you're actually in a blocked app. So the obvious thing to show is a countdown: "12:34 left", ticking down while you scroll and stopping when you leave.</p>
+    <p><strong>On Android that's easy.</strong> HonorFit's background service checks which app is on screen every second, and the notification uses Android's built-in countdown timer, so the notification shade redraws it every second by itself. You pull down the shade and see exactly how much time you have left, to the second.</p>
+    <p><strong>On iPhone it isn't possible</strong>, and here's why:</p>
+    <ul>
+      <li>iOS never tells the app when you open or leave a blocked app. All you get is "this much usage has piled up" events. HonorFit sets one for every 15 seconds of use, and they're delivered to a background extension that updates the notification.</li>
+      <li>A regular notification can't count down by itself, so the best HonorFit can do is swap in new text each time an event arrives. That's why the iPhone notification says "~12:30 remaining" with a squiggle: it jumps in 15-second steps.</li>
+      <li>Those events don't always show up on time either. On iOS 26 I've seen them come late, or several at once.</li>
+      <li>Live Activities <em>can</em> count down by themselves, but they can't pause. Nothing tells the app you left Instagram, so a Live Activity would keep ticking while your phone sits on the table, which would be wrong.</li>
+    </ul>
+    <p>So iPhone users get a rough estimate, while Android users get the real number.</p>
+    <div class="ask">
+      <strong>What I'd ask for:</strong> let a <code>DeviceActivity</code> event drive a countdown that iOS renders itself: in a notification, a Live Activity or the shield, running only while the monitored apps are on screen. iOS already tracks that usage to the second, so it could show the time without handing the app anything new. Even simple "blocked app opened / closed" callbacks to the monitor extension would fix most of it.</div>
+
+    <h2 id="wrap-up">That's it</h2>
+    <p>To be fair to Apple, the privacy model here is really good. The app never learns what you blocked or how much you use it, and I'd hate for that to change. None of the three things above would change it. They'd just let iPhone apps be as helpful as the Android versions already are.</p>
+    <p>If you build on Screen Time too and want any of these, please file it in <a href="https://feedbackassistant.apple.com/">Feedback Assistant</a>. From what I understand, duplicate reports are how things get noticed. And if you just want to try the app, <a href="https://honorfitapp.com/get/?c=blog-wishlist">HonorFit is free on iPhone and Android</a>. Maybe some of y'all will enjoy it!</p>
+
+    <h2>Keep reading</h2>
+    <div class="readnext">
+      <a href="../ios-screen-time-api-guide/">The Screen Time API: what the docs don&rsquo;t tell you &rarr;</a>
+      <a href="../../vs-screen-time/">HonorFit vs. iPhone Screen Time &rarr;</a>
+      <a href="../">All posts &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">Home</a>
+    <a href="../">Blog</a>
+    <a href="../../support/">Support</a>
+    <a href="../../privacy/">Privacy Policy</a>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
