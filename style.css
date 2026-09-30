@@ -46,11 +46,16 @@ nav .brand {
   margin-right: auto;
 }
 nav a.link {
+  white-space: nowrap;
   color: var(--text-dim);
   text-decoration: none;
   font-size: 0.95rem;
 }
 nav a.link:hover { color: var(--orange-bright); }
+@media (max-width: 420px) {
+  nav .wrap { gap: 10px; }
+  nav a.link { font-size: 0.85rem; }
+}
 
 /* Hero */
 .hero {
