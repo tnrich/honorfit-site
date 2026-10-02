@@ -383,3 +383,8 @@ footer .langs a[aria-current] { color: var(--text); }
 .prose th { color: var(--text); background: var(--bg-raised); }
 .prose td:first-child { color: var(--text); font-weight: 600; }
 .prose p + p { margin-top: 14px; }
+
+/* Founder story */
+.story .bio p + p { margin-top: 14px; }
+.story .bio p:not(.sig) { color: var(--text); font-size: 1.05rem; }
+.story .bio .sig { margin-top: 18px; font-size: 0.95rem; }
