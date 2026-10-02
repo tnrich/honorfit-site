@@ -1,24 +1,202 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://honorfitapp.com/</loc><lastmod>2026-09-30</lastmod><priority>1.0</priority></url>
-  <url><loc>https://honorfitapp.com/es/</loc><lastmod>2026-09-30</lastmod><priority>0.9</priority></url>
-  <url><loc>https://honorfitapp.com/pt-br/</loc><lastmod>2026-09-30</lastmod><priority>0.9</priority></url>
-  <url><loc>https://honorfitapp.com/de/</loc><lastmod>2026-09-30</lastmod><priority>0.9</priority></url>
-  <url><loc>https://honorfitapp.com/fr/</loc><lastmod>2026-09-30</lastmod><priority>0.9</priority></url>
-  <url><loc>https://honorfitapp.com/ja/</loc><lastmod>2026-09-30</lastmod><priority>0.9</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://honorfitapp.com/</loc><lastmod>2026-10-02</lastmod><priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/es/</loc><lastmod>2026-10-02</lastmod><priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/pt-br/</loc><lastmod>2026-10-02</lastmod><priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/de/</loc><lastmod>2026-10-02</lastmod><priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/fr/</loc><lastmod>2026-10-02</lastmod><priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/ja/</loc><lastmod>2026-10-02</lastmod><priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/"/>
+  </url>
   <url><loc>https://honorfitapp.com/pushup-app-blocker/</loc><lastmod>2026-09-30</lastmod><priority>0.8</priority></url>
-  <url><loc>https://honorfitapp.com/best-pushup-app-blockers/</loc><lastmod>2026-09-30</lastmod><priority>0.8</priority></url>
+  <url><loc>https://honorfitapp.com/best-pushup-app-blockers/</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
   <url><loc>https://honorfitapp.com/block-instagram-with-pushups/</loc><lastmod>2026-09-30</lastmod><priority>0.8</priority></url>
   <url><loc>https://honorfitapp.com/block-tiktok-with-pushups/</loc><lastmod>2026-09-30</lastmod><priority>0.8</priority></url>
   <url><loc>https://honorfitapp.com/block-youtube-with-pushups/</loc><lastmod>2026-09-30</lastmod><priority>0.8</priority></url>
   <url><loc>https://honorfitapp.com/block-reddit-with-pushups/</loc><lastmod>2026-09-30</lastmod><priority>0.8</priority></url>
-  <url><loc>https://honorfitapp.com/how-to-stop-doomscrolling/</loc><lastmod>2026-09-30</lastmod><priority>0.8</priority></url>
-  <url><loc>https://honorfitapp.com/app-blocker-without-camera/</loc><lastmod>2026-09-30</lastmod><priority>0.8</priority></url>
-  <url><loc>https://honorfitapp.com/vs-screen-time/</loc><lastmod>2026-09-30</lastmod><priority>0.8</priority></url>
+  <url>
+    <loc>https://honorfitapp.com/how-to-stop-doomscrolling/</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/how-to-stop-doomscrolling/"/>
+  </url>
+  <url><loc>https://honorfitapp.com/app-blocker-without-camera/</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
+  <url><loc>https://honorfitapp.com/vs-screen-time/</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
+  <url>
+    <loc>https://honorfitapp.com/app-blocker-for-adhd/</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/app-blocker-for-adhd/"/>
+  </url>
+  <url><loc>https://honorfitapp.com/opal-alternative/</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
+  <url><loc>https://honorfitapp.com/one-sec-alternative/</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
+  <url><loc>https://honorfitapp.com/screenzen-alternative/</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
+  <url><loc>https://honorfitapp.com/pushscroll-alternative/</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
+  <url><loc>https://honorfitapp.com/brick-alternative/</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
   <url><loc>https://honorfitapp.com/blog/</loc><lastmod>2026-09-30</lastmod><priority>0.7</priority></url>
   <url><loc>https://honorfitapp.com/blog/ios-screen-time-api-guide/</loc><lastmod>2026-09-30</lastmod><priority>0.7</priority></url>
   <url><loc>https://honorfitapp.com/support/</loc><lastmod>2026-09-16</lastmod><priority>0.5</priority></url>
   <url><loc>https://honorfitapp.com/privacy/</loc><lastmod>2026-09-16</lastmod><priority>0.3</priority></url>
   <url><loc>https://honorfitapp.com/terms/</loc><lastmod>2026-09-16</lastmod><priority>0.3</priority></url>
   <url><loc>https://honorfitapp.com/blog/screen-time-api-wishlist/</loc><lastmod>2026-09-30</lastmod><priority>0.7</priority></url>
+  <url>
+    <loc>https://honorfitapp.com/es/how-to-stop-doomscrolling/</loc><lastmod>2026-10-02</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/how-to-stop-doomscrolling/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/pt-br/how-to-stop-doomscrolling/</loc><lastmod>2026-10-02</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/how-to-stop-doomscrolling/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/de/how-to-stop-doomscrolling/</loc><lastmod>2026-10-02</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/how-to-stop-doomscrolling/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/fr/how-to-stop-doomscrolling/</loc><lastmod>2026-10-02</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/how-to-stop-doomscrolling/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/ja/how-to-stop-doomscrolling/</loc><lastmod>2026-10-02</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/how-to-stop-doomscrolling/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/how-to-stop-doomscrolling/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/es/app-blocker-for-adhd/</loc><lastmod>2026-10-02</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/app-blocker-for-adhd/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/pt-br/app-blocker-for-adhd/</loc><lastmod>2026-10-02</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/app-blocker-for-adhd/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/de/app-blocker-for-adhd/</loc><lastmod>2026-10-02</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/app-blocker-for-adhd/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/fr/app-blocker-for-adhd/</loc><lastmod>2026-10-02</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/app-blocker-for-adhd/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/ja/app-blocker-for-adhd/</loc><lastmod>2026-10-02</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/app-blocker-for-adhd/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/app-blocker-for-adhd/"/>
+  </url>
 </urlset>
