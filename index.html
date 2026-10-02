@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="msvalidate.01" content="C6C0461B5B0B6218BDB787519D0F2447">
-  <title>HonorFit Blocker — Pushup App Blocker With No Camera or AI</title>
-  <meta name="description" content="HonorFit Blocker locks the apps that steal your time until you've earned them with exercise. Honor system — zero AI, no camera, no data collection.">
+  <title>HonorFit (Honor Fit) — Pushup App Blocker With No Camera or AI</title>
+  <meta name="description" content="HonorFit (Honor Fit) locks the apps that steal your time until you've earned them with exercise. Honor system — zero AI, no camera, no data collection.">
   <link rel="icon" href="img/favicon.png">
   <link rel="canonical" href="https://honorfitapp.com/">
   <link rel="alternate" hreflang="en" href="https://honorfitapp.com/">
@@ -43,7 +43,7 @@
 
 <header class="hero">
   <div class="wrap">
-    <img class="icon" src="img/icon.png" alt="HonorFit Blocker app icon">
+    <img class="icon" src="img/icon.png" alt="HonorFit (Honor Fit) app icon">
     <h1>HonorFit Blocker</h1>
     <p class="tagline">Earn your screen time. 💪</p>
     <p class="sub">Instagram, TikTok, YouTube — locked until you earn them back with pushups.</p>
@@ -169,6 +169,10 @@
         <p>Yes. On iPhone, Apple&rsquo;s Screen Time does the blocking; on Android, HonorFit does.</p>
       </details>
       <details>
+        <summary>Why is it called HonorFit?</summary>
+        <p>Honor + fit: it runs on the honor system, and it gets you fit. Some people write it as &ldquo;Honor Fit&rdquo; &mdash; same app. HonorFit is an indie app and isn&rsquo;t affiliated with HONOR phones, watches or the HONOR Health app.</p>
+      </details>
+      <details>
         <summary>Does HonorFit collect my data?</summary>
         <p>No. No accounts, no analytics — everything stays on your phone.</p>
       </details>
@@ -240,9 +244,33 @@
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "WebSite",
+      "@id": "https://honorfitapp.com/#website",
+      "name": "HonorFit",
+      "alternateName": ["Honor Fit", "HonorFit Blocker", "HonorFit app"],
+      "url": "https://honorfitapp.com/",
+      "inLanguage": ["en", "es", "pt-BR", "de", "fr", "ja"],
+      "publisher": { "@id": "https://honorfitapp.com/#org" }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://honorfitapp.com/#org",
+      "name": "HonorFit",
+      "alternateName": ["Honor Fit", "HonorFit Blocker"],
+      "url": "https://honorfitapp.com/",
+      "logo": "https://honorfitapp.com/img/icon.png",
+      "founder": { "@type": "Person", "name": "Thomas Willheim" },
+      "sameAs": [
+        "https://apps.apple.com/us/app/honorfit-push-up-blocker/id6802871620",
+        "https://play.google.com/store/apps/details?id=com.honorfit.blocker",
+        "https://www.producthunt.com/products/honorfit",
+        "https://www.saashub.com/honorfit"
+      ]
+    },
+    {
       "@type": "MobileApplication",
       "name": "HonorFit Blocker",
-      "alternateName": ["HonorFit Push-Up Blocker", "HonorFit"],
+      "alternateName": ["HonorFit", "Honor Fit", "HonorFit app", "Honor Fit app", "HonorFit Push-Up Blocker"],
       "operatingSystem": "iOS",
       "applicationCategory": "HealthApplication",
       "applicationSubCategory": "App Blocker",
@@ -253,6 +281,7 @@
       "downloadUrl": "https://apps.apple.com/us/app/honorfit-push-up-blocker/id6802871620",
       "image": "https://honorfitapp.com/img/icon.png",
       "author": { "@type": "Person", "name": "Thomas Willheim" },
+      "publisher": { "@id": "https://honorfitapp.com/#org" },
       "offers": [
         { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free" },
         { "@type": "Offer", "price": "3.00", "priceCurrency": "USD", "description": "HonorFit Pro, monthly subscription" },
@@ -262,6 +291,7 @@
     {
       "@type": "MobileApplication",
       "name": "HonorFit Blocker",
+      "alternateName": ["HonorFit", "Honor Fit", "HonorFit app", "Honor Fit app", "HonorFit Push-Up Blocker"],
       "operatingSystem": "Android",
       "applicationCategory": "HealthApplication",
       "url": "https://honorfitapp.com/",
@@ -269,6 +299,7 @@
       "downloadUrl": "https://play.google.com/store/apps/details?id=com.honorfit.blocker",
       "image": "https://honorfitapp.com/img/icon.png",
       "author": { "@type": "Person", "name": "Thomas Willheim" },
+      "publisher": { "@id": "https://honorfitapp.com/#org" },
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
     },
     {
@@ -289,6 +320,8 @@
           "acceptedAnswer": { "@type": "Answer", "text": "It doesn\u2019t. If you cheat, the only person you are lying to is the one doing zero pushups." } },
         { "@type": "Question", "name": "Does HonorFit work on both iPhone and Android?",
           "acceptedAnswer": { "@type": "Answer", "text": "Yes. On iPhone, Apple\u2019s Screen Time does the blocking; on Android, HonorFit does." } },
+        { "@type": "Question", "name": "Why is it called HonorFit?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Honor + fit: it runs on the honor system, and it gets you fit. Some people write it as \u201cHonor Fit\u201d \u2014 same app. HonorFit is an indie app and isn\u2019t affiliated with HONOR phones, watches or the HONOR Health app." } },
         { "@type": "Question", "name": "Does HonorFit collect my data?",
           "acceptedAnswer": { "@type": "Answer", "text": "No. No accounts, no analytics \u2014 everything stays on your phone." } },
         { "@type": "Question", "name": "What languages is HonorFit available in?",
