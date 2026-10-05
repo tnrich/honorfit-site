@@ -57,6 +57,33 @@ nav a.link:hover { color: var(--orange-bright); }
   nav a.link { font-size: 0.85rem; }
 }
 
+/* Language suggestion (English homepage) */
+.lang-suggest {
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.95rem;
+}
+.lang-suggest .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.lang-suggest a { color: var(--orange-bright); font-weight: 600; text-decoration: none; }
+.lang-suggest a:hover { text-decoration: underline; }
+.lang-suggest button {
+  background: none;
+  border: 0;
+  color: var(--text-dim);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.lang-suggest button:hover { color: var(--text); }
+
 /* Hero */
 .hero {
   text-align: center;

@@ -41,6 +41,40 @@
   </div>
 </nav>
 
+<div class="lang-suggest" id="lang-suggest" hidden>
+  <div class="wrap"><a href="es/"></a><button type="button" aria-label="Close">&times;</button></div>
+</div>
+<script>
+  // Offer the visitor's own language (never auto-redirect: crawlers and English readers keep this page).
+  (() => {
+    const L = {
+      es: ['es/', 'es', '¿Prefieres español? Ver en español →'],
+      pt: ['pt-br/', 'pt-BR', 'Prefere português? Ver em português →'],
+      de: ['de/', 'de', 'Lieber auf Deutsch? Zur deutschen Seite →'],
+      fr: ['fr/', 'fr', 'Tu préfères le français ? Voir en français →'],
+      ja: ['ja/', 'ja', '日本語のページを見る →'],
+    };
+    const off = () => { try { localStorage.setItem('langSuggest', 'off'); } catch {} };
+    try { if (localStorage.getItem('langSuggest') === 'off') return; } catch {}
+    // Came here from a translated page's language switcher: they chose English.
+    try {
+      const r = new URL(document.referrer);
+      if (r.host === location.host && /^\/(es|pt-br|de|fr|ja)\//.test(r.pathname)) return off();
+    } catch {}
+    let pick;
+    for (const tag of navigator.languages || [navigator.language || '']) {
+      const p = tag.toLowerCase().split('-')[0];
+      if (p === 'en') break;
+      if (L[p]) { pick = L[p]; break; }
+    }
+    if (!pick) return;
+    const box = document.getElementById('lang-suggest'), a = box.querySelector('a');
+    a.href = pick[0]; a.hreflang = pick[1]; a.lang = pick[1]; a.textContent = pick[2];
+    box.hidden = false;
+    box.querySelector('button').onclick = () => { box.hidden = true; off(); };
+  })();
+</script>
+
 <header class="hero">
   <div class="wrap">
     <img class="icon" src="img/icon.png" alt="HonorFit (Honor Fit) app icon">
@@ -99,8 +133,8 @@
       <button class="arrow prev" aria-label="Previous screenshot">&#8249;</button>
       <div class="shots">
         <img src="img/shots/01.jpg" width="1080" height="1920" alt="Replace doomscrolling with pushups — the rep wheels screen, where every rep buys screen time">
-        <img src="img/shots/02.jpg" width="1080" height="1920" loading="lazy" alt="Exercise to unlock your apps — 44 reps banked 33 minutes of screen time">
         <img src="img/shots/03.jpg" width="1080" height="1920" loading="lazy" alt="Block the apps that steal your time — choosing Instagram, TikTok and YouTube">
+        <img src="img/shots/02.jpg" width="1080" height="1920" loading="lazy" alt="Exercise to unlock your apps — 44 reps banked 33 minutes of screen time">
         <img src="img/shots/04.jpg" width="1080" height="1920" loading="lazy" alt="Build a streak that sticks — weekly reps chart and stats">
         <img src="img/shots/05.jpg" width="1080" height="1920" loading="lazy" alt="Your workout, your rules — custom exercises, rep values and timed workouts">
         <img src="img/shots/06.jpg" width="1080" height="1920" loading="lazy" alt="Zero AI, zero camera, just your word — the honor system, and everything stays on device">
