@@ -177,6 +177,10 @@ if let actions = userDefaults?.array(forKey: triggeredBy) { /* run them */ }</co
 
     <h2 id="tokens">4. Tokens are opaque, and the picker</h2>
     <p>The picker hands your app <code>ApplicationToken</code>s, <code>ActivityCategoryToken</code>s and <code>WebDomainToken</code>s, and nothing else. By design, the app can&rsquo;t turn a token back into &ldquo;Instagram&rdquo;. What it can do is count them, so my blocklist screen shows &ldquo;3 apps, 1 category&rdquo;. That&rsquo;s the whole privacy model, and it&rsquo;s a good one: my app literally doesn&rsquo;t know what you blocked.</p>
+    <figure>
+      <img src="../../img/blog/ios-app-picker.webp" alt="The iOS Screen Time app picker: a list of app categories, with Health &amp; Fitness expanded to show its apps" width="660" height="1310" loading="lazy">
+      <figcaption>Apple&rsquo;s <code>FamilyActivityPicker</code>. The user sees app names and icons; your app only gets opaque tokens back.</figcaption>
+    </figure>
     <p>The shield extension is different. There, the system passes you an <code>Application</code> for the app being shielded, and I use its <code>localizedDisplayName</code> in the shield text. The app itself only ever sees tokens.</p>
     <p>Two practical notes:</p>
     <ul>
