@@ -13,7 +13,16 @@
   <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/">
   <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/">
   <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/">
   <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/">
   <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/">
   <meta name="theme-color" content="#0D1117">
   <meta property="og:type" content="website">
@@ -52,19 +61,30 @@
       pt: ['pt-br/', 'pt-BR', 'Prefere português? Ver em português →'],
       de: ['de/', 'de', 'Lieber auf Deutsch? Zur deutschen Seite →'],
       fr: ['fr/', 'fr', 'Tu préfères le français ? Voir en français →'],
+      it: ['it/', 'it', 'Preferisci l’italiano? Vedi in italiano →'],
+      nl: ['nl/', 'nl', 'Liever in het Nederlands? Bekijk de Nederlandse pagina →'],
+      pl: ['pl/', 'pl', 'Wolisz po polsku? Zobacz po polsku →'],
+      tr: ['tr/', 'tr', 'Türkçe mi tercih edersin? Türkçe sayfaya git →'],
+      id: ['id/', 'id', 'Lebih suka Bahasa Indonesia? Lihat versi Indonesia →'],
+      vi: ['vi/', 'vi', 'Xem bằng tiếng Việt →'],
+      th: ['th/', 'th', 'ดูเป็นภาษาไทย →'],
       ja: ['ja/', 'ja', '日本語のページを見る →'],
+      ko: ['ko/', 'ko', '한국어로 보기 →'],
+      zh: ['zh-hant/', 'zh-Hant', '查看繁體中文版 →'],
     };
     const off = () => { try { localStorage.setItem('langSuggest', 'off'); } catch {} };
     try { if (localStorage.getItem('langSuggest') === 'off') return; } catch {}
     // Came here from a translated page's language switcher: they chose English.
     try {
       const r = new URL(document.referrer);
-      if (r.host === location.host && /^\/(es|pt-br|de|fr|ja)\//.test(r.pathname)) return off();
+      if (r.host === location.host && /^\/(es|pt-br|de|fr|it|nl|pl|tr|id|vi|th|ja|ko|zh-hant)\//.test(r.pathname)) return off();
     } catch {}
     let pick;
     for (const tag of navigator.languages || [navigator.language || '']) {
       const p = tag.toLowerCase().split('-')[0];
       if (p === 'en') break;
+      // Only Traditional Chinese readers get the zh-Hant page.
+      if (p === 'zh' && !/-(hant|tw|hk|mo)\b/.test(tag.toLowerCase())) continue;
       if (L[p]) { pick = L[p]; break; }
     }
     if (!pick) return;
@@ -178,8 +198,8 @@
         <p>Total reps, workouts, best streak, a per-exercise breakdown, and weekly, monthly and yearly charts.</p>
       </div>
       <div class="card">
-        <h3>Six languages</h3>
-        <p>English, Español, Português, Deutsch, Français and 日本語. HonorFit follows your phone&rsquo;s language, or pick one in Settings.</p>
+        <h3>15 languages</h3>
+        <p>English, Español, Português, Deutsch, Français, Italiano, Nederlands, Polski, Türkçe, Bahasa Indonesia, Tiếng Việt, ไทย, 日本語, 한국어 and 繁體中文. HonorFit follows your phone&rsquo;s language, or pick one in Settings.</p>
       </div>
       <div class="card">
         <h3>Pro</h3>
@@ -212,7 +232,7 @@
       </details>
       <details>
         <summary>What languages is HonorFit available in?</summary>
-        <p>English, Spanish, Brazilian Portuguese, German, French and Japanese. It uses your phone&rsquo;s language automatically, and you can switch any time in Settings &rsaquo; Language.</p>
+        <p>English, Spanish, Brazilian Portuguese, German, French, Italian, Dutch, Polish, Turkish, Indonesian, Vietnamese, Thai, Japanese, Korean and Traditional Chinese. It uses your phone&rsquo;s language automatically, and you can switch any time in Settings &rsaquo; Language.</p>
       </details>
       <details>
         <summary>What does HonorFit cost?</summary>
@@ -250,7 +270,7 @@
     <span>© 2026 HonorFit Blocker</span>
     <a href="support/">Support</a>
     <a href="privacy/">Privacy Policy</a>
-    <span class="langs"><a href="./" hreflang="en" lang="en" aria-current="page">English</a><a href="es/" hreflang="es" lang="es">Español</a><a href="pt-br/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="de/" hreflang="de" lang="de">Deutsch</a><a href="fr/" hreflang="fr" lang="fr">Français</a><a href="ja/" hreflang="ja" lang="ja">日本語</a></span>
+    <span class="langs"><a href="./" hreflang="en" lang="en" aria-current="page">English</a><a href="es/" hreflang="es" lang="es">Español</a><a href="pt-br/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="de/" hreflang="de" lang="de">Deutsch</a><a href="fr/" hreflang="fr" lang="fr">Français</a><a href="it/" hreflang="it" lang="it">Italiano</a><a href="nl/" hreflang="nl" lang="nl">Nederlands</a><a href="pl/" hreflang="pl" lang="pl">Polski</a><a href="tr/" hreflang="tr" lang="tr">Türkçe</a><a href="id/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="vi/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="th/" hreflang="th" lang="th">ไทย</a><a href="ja/" hreflang="ja" lang="ja">日本語</a><a href="ko/" hreflang="ko" lang="ko">한국어</a><a href="zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></span>
   </div>
 </footer>
 
@@ -359,7 +379,7 @@
         { "@type": "Question", "name": "Does HonorFit collect my data?",
           "acceptedAnswer": { "@type": "Answer", "text": "No. No accounts, no analytics \u2014 everything stays on your phone." } },
         { "@type": "Question", "name": "What languages is HonorFit available in?",
-          "acceptedAnswer": { "@type": "Answer", "text": "English, Spanish, Brazilian Portuguese, German, French and Japanese. It uses your phone\u2019s language automatically, and you can switch any time in Settings \u203a Language." } },
+          "acceptedAnswer": { "@type": "Answer", "text": "English, Spanish, Brazilian Portuguese, German, French, Italian, Dutch, Polish, Turkish, Indonesian, Vietnamese, Thai, Japanese, Korean and Traditional Chinese. It uses your phone\u2019s language automatically, and you can switch any time in Settings \u203a Language." } },
         { "@type": "Question", "name": "What does HonorFit cost?",
           "acceptedAnswer": { "@type": "Answer", "text": "Free. Pro lifts the 20-minute cap on banked time and adds the extras \u2014 $3.00 a month, or $19.99 once." } }
       ]
