@@ -37,7 +37,16 @@ const LANGS = [
 ];
 
 // Pages that exist in more than one language.
-const PAGES = ['', 'how-to-stop-doomscrolling/', 'app-blocker-for-adhd/'];
+const PAGES = [
+  '',
+  'how-to-stop-doomscrolling/',
+  'app-blocker-for-adhd/',
+  'best-pushup-app-blockers/',
+  'honor-system-pushup-blocker/',
+  'blog/',
+  'blog/ios-screen-time-api-guide/',
+  'blog/screen-time-api-wishlist/',
+];
 
 // English homepage banner, keyed by the browser language's primary subtag.
 const SUGGEST = {

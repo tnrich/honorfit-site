@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3 dingen die Apple moet oplossen in de Screen Time API | HonorFit</title>
+  <meta name="description" content="Dezelfde app blocker bouwen voor iPhone en Android: waarom iOS maar één Schermtijd-app tegelijk toestaat, waarom de app-kiezer zo onhandig is en waarom je geen live aftelling kunt zien.">
+  <link rel="canonical" href="https://honorfitapp.com/nl/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/screen-time-api-wishlist/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/nl/blog/screen-time-api-wishlist/">
+  <meta property="og:title" content="3 dingen die Apple wat mij betreft moet oplossen in de Screen Time API">
+  <meta property="og:description" content="Dezelfde app op iPhone en Android. De Android-versie is gewoon fijner in gebruik, en dat komt door drie beperkingen van de Screen Time API die niet nodig zijn.">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-09-30">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="3 dingen die Apple wat mij betreft moet oplossen in de Screen Time API">
+  <meta name="twitter:description" content="Maar één Schermtijd-app tegelijk, een kiezer die je niet kunt aanpassen en geen live aftelling. Niets daarvan hoeft gebruikers ook maar iets aan privacy te kosten.">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose blockquote { border-left: 3px solid var(--border); margin: 14px 0 18px; padding: 4px 0 4px 16px; color: var(--text-dim); }
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0 8px; }
+    .compare figure { margin: 0; }
+    .compare img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    .compare figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; }
+    .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
+    .ask strong { color: var(--text); }
+    .ask ol, .ask ul { margin: 6px 0 0; }
+    figure.single { max-width: 380px; margin: 18px auto 22px; }
+    figure.single img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    figure.single figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; text-align: center; }
+    @media (max-width: 480px) { .compare { gap: 10px; } }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "3 dingen die Apple wat mij betreft moet oplossen in de Screen Time API",
+    "description": "Dezelfde app blocker bouwen voor iPhone en Android: maar één Schermtijd-app tegelijk, een kiezer die niet aan te passen is en geen live aftelling van de resterende tijd.",
+    "url": "https://honorfitapp.com/nl/blog/screen-time-api-wishlist/",
+    "mainEntityOfPage": "https://honorfitapp.com/nl/blog/screen-time-api-wishlist/",
+    "datePublished": "2026-09-30",
+    "dateModified": "2026-09-30",
+    "image": "https://honorfitapp.com/img/og.png",
+    "inLanguage": "nl",
+    "keywords": "Screen Time API, Schermtijd, FamilyControls, FamilyActivityPicker, DeviceActivity, Live Activities, app blocker, iOS vs Android",
+    "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+    "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">Blog</a>
+    <a class="link" href="../../../support/">Support</a>
+    <a class="link" href="../../../privacy/">Privacy</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>3 dingen die Apple wat mij betreft moet oplossen in de Screen Time API</h1>
+    <p class="meta">Waar ik tegenaan liep bij het bouwen van dezelfde app blocker voor iPhone en Android. Door Thomas Willheim &middot; 30 september 2026</p>
+
+    <p>Ik maak <a href="../../">HonorFit</a>, een app blocker waarmee je schermtijd verdient door op te drukken (op erewoord, geen camera). Het is dezelfde app op iPhone en Android, hetzelfde idee, en grotendeels dezelfde code. En eerlijk gezegd? De Android-versie is fijner in gebruik.</p>
+    <p>Dat komt niet doordat Android beter is in het blokkeren van apps. De Screen Time API van iOS is juist heel degelijk in het blokkeren zelf. Het komt doordat iOS je op drie specifieke punten beperkt, en geen van die beperkingen lijkt er te zijn om gebruikers te beschermen. Dus hier is mijn lijstje, met wat ik Apple zou vragen. Ik heb geprobeerd het te houden bij dingen die niemand privacy kosten.</p>
+    <p>(Wil je de technische kant van bouwen op deze API, dan heb ik die apart beschreven: <a href="../ios-screen-time-api-guide/">wat de documentatie van Apple je niet vertelt</a>.)</p>
+
+    <h2 id="one-app">1. Je kunt maar één Schermtijd-app tegelijk hebben</h2>
+    <p>Stel dat je Brick, Opal of one sec al gebruikt en HonorFit er ook bij wilt proberen. Op de iPhone kan dat niet. Als de tweede app toegang tot Schermtijd vraagt, laat iOS niet eens de toestemmingsvraag zien. Het gooit gewoon een foutmelding dat Family Controls maar voor één app tegelijk beschikbaar is. Ik heb die fout zelf gezien, en <a href="https://developer.apple.com/forums/thread/847096">andere ontwikkelaars lopen er ook tegenaan</a>.</p>
+    <p>Om te wisselen moet je naar <strong>Instellingen &rsaquo; Schermtijd &rsaquo; Apps met toegang tot Schermtijd</strong>, de andere app uitzetten en soms je telefoon herstarten. HonorFit herkent die fout nu en loodst mensen erdoorheen, want de kale foutmelding zegt een normaal mens helemaal niets.</p>
+    <figure class="single">
+      <img src="../../../img/blog/ios-screen-time-conflict.webp" alt="Melding van HonorFit op de iPhone: een andere app gebruikt Schermtijd. iOS laat maar één app tegelijk Schermtijd beheren, met stappen om de andere app uit te zetten in Instellingen" width="660" height="720" loading="lazy">
+      <figcaption>Wat iPhone-gebruikers in HonorFit zien als een andere app al toegang tot Schermtijd heeft. iOS zelf geeft de app alleen een foutmelding, dus deze uitleg komt van ons.</figcaption>
+    </figure>
+    <p>Het rare is: toen Apple dit soort toestemming introduceerde op WWDC22, <a href="https://developer.apple.com/videos/play/wwdc2022/110336/">zeiden ze</a> dat individuele toestemming, anders dan toestemming voor ouderlijk toezicht, door een onbeperkt aantal apps op een toestel gebruikt kan worden. Zo werkt het vandaag niet, en ik kon het nergens gedocumenteerd vinden.</p>
+    <p><strong>Waarom dit niet in het belang van gebruikers is:</strong> mensen combineren hulpmiddelen. Iemand gebruikt misschien een Brick voor diepe focussessies op het werk en HonorFit om zijn scrolltijd voor de avond te verdienen. Apple heeft al een regel voor het combineren van beperkingen: als meerdere <code>ManagedSettingsStore</code>s hetzelfde instellen, dan geldt <a href="https://developer.apple.com/videos/play/wwdc2022/110336/">in de woorden van Apple</a> "the most restrictive setting always wins" (de strengste instelling wint altijd). Als dat ook tussen apps zou gelden, kunnen mensen ze allebei gebruiken, en dan kan een telefoon alleen <em>strenger</em> op slot gaan, nooit minder streng.</p>
+    <div class="ask">
+      <strong>Wat ik zou vragen:</strong> laat meer dan één app individuele toestemming voor Schermtijd hebben, zoals op WWDC22 beschreven, en voeg hun shields samen met dezelfde regel dat de strengste wint. Is er een echte reden voor de beperking, documenteer die dan en geef apps een fatsoenlijke foutcode, zodat ze het kunnen uitleggen.
+    </div>
+
+    <h2 id="picker">2. De app-kiezer is onhandig, en apps kunnen hem niet aanpassen</h2>
+    <p>Op de iPhone kies je de apps die je wilt blokkeren in de <code>FamilyActivityPicker</code> van Apple. Dat is een systeemscherm dat de app niet kan veranderen, op een regel tekst boven- en onderaan na. Het opent met een lijst categorie&euml;n (Sociaal, Games, Amusement...), en je tikt een categorie open om de apps zelf te vinden. Op Android maak ik de lijst zelf, dus daar toont HonorFit je ge&iuml;nstalleerde apps, gesorteerd op hoeveel je ze de afgelopen 24 uur hebt gebruikt.</p>
+
+    <div class="compare">
+      <figure>
+        <img src="../../../img/blog/ios-app-picker.webp" alt="De app-kiezer van Schermtijd op iOS: een lijst met app-categorie&euml;n, waarvan Gezondheid en fitness is opengeklapt met de apps erin" width="660" height="1310" loading="lazy">
+        <figcaption><strong>iPhone:</strong> de kiezer van Apple. Eerst categorie&euml;n, geen gebruiksgegevens, voor elke app hetzelfde.</figcaption>
+      </figure>
+      <figure>
+        <img src="../../../img/blog/android-app-picker.webp" alt="De app-kiezer van HonorFit op Android: apps met hun gebruikstijd van de afgelopen 24 uur, meestgebruikte bovenaan" width="660" height="1308" loading="lazy">
+        <figcaption><strong>Android:</strong> de eigen lijst van HonorFit, gesorteerd op gebruikstijd, dus je ergste apps staan meteen bovenaan.</figcaption>
+      </figure>
+    </div>
+
+    <p>Twee dingen zitten me dwars aan die van iOS:</p>
+    <ul>
+      <li><strong>Je blokkeert heel makkelijk per ongeluk een hele categorie.</strong> Tik je op de rij van de categorie in plaats van hem open te klappen, dan heb je zomaar elke app daarin gekozen, ook apps die je later nog installeert. Voor veel apps is dat nooit wat je wilt. Je wilt Instagram en TikTok, niet &lsquo;Sociaal&rsquo;.</li>
+      <li><strong>Je ziet niet welke apps eigenlijk je dag opvreten.</strong> De hele reden dat iemand een app blocker opent, is &lsquo;ik zit te veel op mijn telefoon&rsquo;. De kiezer is precies het moment waarop je beslist wat je blokkeert, en hij geeft je nul informatie over waar je tijd heen gaat. Je iPhone weet precies hoe lang je in elke app hebt gezeten (het staat gewoon in Instellingen), maar de kiezer laat het niet zien.</li>
+    </ul>
+    <p><strong>Dit zou geen privacy kosten.</strong> De kiezer wordt door iOS getekend, in zijn eigen proces. De app ziet nooit wat erin staat, alleen ondoorzichtige tokens voor wat je hebt gekozen. HonorFit kan letterlijk niet zien welke apps je hebt gekozen. iOS zou dus gebruikstijden in de kiezer zelf kunnen tonen, en de app zou nog steeds niets te weten komen. Apple doet al zoiets met <code>DeviceActivityReport</code>-extensies, die je gebruik laten zien in een sandbox die de app niet kan uitlezen.</p>
+    <div class="ask">
+      <strong>Wat ik zou vragen:</strong>
+      <ol>
+        <li>Een optie in de kiezer om te kiezen tussen <strong>hele categorie&euml;n of alleen apps</strong>, zodat een app blocker een lijst met alleen apps kan aanbieden zonder per ongeluk gekozen categorie&euml;n (en websites kan verbergen als hij die niet gebruikt).</li>
+        <li>Een optie om <strong>te sorteren op gemeten schermtijd en die te tonen</strong> naast elke app, getekend door iOS zodat de app de cijfers nooit ziet.</li>
+      </ol>
+    </div>
+
+    <h2 id="countdown">3. Je kunt geen nauwkeurige aftelling van je resterende tijd zien</h2>
+    <p>In HonorFit loopt je verdiende tijd alleen af terwijl je echt in een geblokkeerde app zit. Het meest logische om te tonen is dus een aftelling: &lsquo;nog 12:34&rsquo;, die afloopt terwijl je scrolt en stopt als je de app verlaat.</p>
+    <p><strong>Op Android is dat makkelijk.</strong> De achtergrondservice van HonorFit kijkt elke seconde welke app op het scherm staat, en de melding gebruikt de ingebouwde afteltimer van Android, dus het meldingenpaneel tekent hem zelf elke seconde opnieuw. Je trekt het paneel omlaag en ziet precies hoeveel tijd je nog hebt, tot op de seconde.</p>
+    <p><strong>Op de iPhone kan het niet</strong>, en dit is waarom:</p>
+    <ul>
+      <li>iOS vertelt de app nooit wanneer je een geblokkeerde app opent of verlaat. Je krijgt alleen events in de trant van &lsquo;er is zoveel gebruik opgebouwd&rsquo;. HonorFit stelt er een in voor elke 15 seconden gebruik, en die worden afgeleverd bij een extensie op de achtergrond die de melding bijwerkt.</li>
+      <li>Een gewone melding kan niet zelf aftellen, dus het beste wat HonorFit kan doen, is nieuwe tekst invullen elke keer dat er een event binnenkomt. Daarom staat er in de melding op de iPhone &lsquo;Nog ~12:30&rsquo; met een golfje: hij springt in stappen van 15 seconden.</li>
+      <li>Die events komen ook niet altijd op tijd binnen. Op iOS 26 heb ik ze te laat zien komen, of meerdere tegelijk.</li>
+      <li>Live Activity&rsquo;s <em>kunnen</em> wel zelf aftellen, maar ze kunnen niet pauzeren. Niets vertelt de app dat je Instagram hebt verlaten, dus een Live Activity zou doortikken terwijl je telefoon op tafel ligt, en dat zou niet kloppen.</li>
+    </ul>
+    <p>Dus iPhone-gebruikers krijgen een ruwe schatting, terwijl Android-gebruikers het echte getal zien.</p>
+    <div class="ask">
+      <strong>Wat ik zou vragen:</strong> laat een <code>DeviceActivity</code>-event een aftelling aansturen die iOS zelf tekent: in een melding, een Live Activity of het shield, en die alleen loopt terwijl de gemonitorde apps op het scherm staan. iOS houdt dat gebruik al tot op de seconde bij, dus het zou de tijd kunnen tonen zonder de app iets nieuws te geven. Zelfs simpele callbacks naar de monitor-extensie voor &lsquo;geblokkeerde app geopend / gesloten&rsquo; zouden het grootste deel oplossen.</div>
+
+    <h2 id="wrap-up">Dat was het</h2>
+    <p>Om eerlijk te zijn tegenover Apple: het privacymodel is hier echt goed. De app komt nooit te weten wat je hebt geblokkeerd of hoeveel je het gebruikt, en ik zou het jammer vinden als dat veranderde. Geen van de drie punten hierboven zou daar iets aan veranderen. Ze zouden iPhone-apps alleen net zo behulpzaam laten zijn als de Android-versies al zijn.</p>
+    <p>Bouw jij ook op Schermtijd en wil je een van deze dingen, dien het dan in via <a href="https://feedbackassistant.apple.com/">Feedbackassistent</a>. Voor zover ik weet, worden dingen opgemerkt doordat er dubbele meldingen binnenkomen. En wil je de app gewoon proberen: <a href="https://honorfitapp.com/get/?c=blog-wishlist-nl">HonorFit is gratis voor iPhone en Android</a>. Misschien vinden sommigen van jullie het wel leuk!</p>
+
+    <h2>Lees verder</h2>
+    <div class="readnext">
+      <a href="../ios-screen-time-api-guide/">De Screen Time API: wat de documentatie je niet vertelt &rarr;</a>
+      <a href="../../../vs-screen-time/">HonorFit vs. Schermtijd op de iPhone (Engels) &rarr;</a>
+      <a href="../../../best-pushup-app-blockers/">De beste apps waarbij je moet sporten om je telefoon te ontgrendelen (Engels) &rarr;</a>
+      <a href="../">Alle berichten &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">Home</a>
+    <a href="../">Blog</a>
+    <a href="../../../support/">Support</a>
+    <a href="../../../privacy/">Privacybeleid</a>
+    <span class="langs"><a href="../../../blog/screen-time-api-wishlist/" hreflang="en" lang="en">English</a><a href="../../../es/blog/screen-time-api-wishlist/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/screen-time-api-wishlist/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/screen-time-api-wishlist/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/screen-time-api-wishlist/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/screen-time-api-wishlist/" hreflang="it" lang="it">Italiano</a><a href="./" hreflang="nl" lang="nl" aria-current="page">Nederlands</a><a href="../../../pl/blog/screen-time-api-wishlist/" hreflang="pl" lang="pl">Polski</a><a href="../../../tr/blog/screen-time-api-wishlist/" hreflang="tr" lang="tr">Türkçe</a><a href="../../../id/blog/screen-time-api-wishlist/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/screen-time-api-wishlist/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../../th/blog/screen-time-api-wishlist/" hreflang="th" lang="th">ไทย</a><a href="../../../ja/blog/screen-time-api-wishlist/" hreflang="ja" lang="ja">日本語</a><a href="../../../ko/blog/screen-time-api-wishlist/" hreflang="ko" lang="ko">한국어</a><a href="../../../zh-hant/blog/screen-time-api-wishlist/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

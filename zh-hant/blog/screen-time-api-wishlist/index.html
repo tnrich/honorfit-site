@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>我希望 Apple 修好 Screen Time API 的 3 件事 | HonorFit</title>
+  <meta name="description" content="同一個 App 封鎖工具做在 iPhone 和 Android 上：為什麼 iOS 一次只能有一個螢幕使用時間 App、為什麼 App 選擇器這麼難用，還有為什麼你看不到即時倒數。">
+  <link rel="canonical" href="https://honorfitapp.com/zh-hant/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/screen-time-api-wishlist/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/zh-hant/blog/screen-time-api-wishlist/">
+  <meta property="og:title" content="我希望 Apple 修好 Screen Time API 的 3 件事">
+  <meta property="og:description" content="同一個 App 做在 iPhone 和 Android 上，Android 版就是比較好用，原因出在 Screen Time API 三個其實不必存在的限制。">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-09-30">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="我希望 Apple 修好 Screen Time API 的 3 件事">
+  <meta name="twitter:description" content="一次只能有一個螢幕使用時間 App、一個沒辦法自訂的選擇器，還有沒有即時倒數。這些改了，都不會讓使用者犧牲任何隱私。">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose blockquote { border-left: 3px solid var(--border); margin: 14px 0 18px; padding: 4px 0 4px 16px; color: var(--text-dim); }
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0 8px; }
+    .compare figure { margin: 0; }
+    .compare img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    .compare figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; }
+    .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
+    .ask strong { color: var(--text); }
+    .ask ol, .ask ul { margin: 6px 0 0; }
+    figure.single { max-width: 380px; margin: 18px auto 22px; }
+    figure.single img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    figure.single figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; text-align: center; }
+    @media (max-width: 480px) { .compare { gap: 10px; } }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "我希望 Apple 修好 Screen Time API 的 3 件事",
+    "description": "同一個 App 封鎖工具做在 iPhone 和 Android 上：一次只能有一個螢幕使用時間 App、一個沒辦法自訂的選擇器，還有看不到剩餘時間的即時倒數。",
+    "url": "https://honorfitapp.com/zh-hant/blog/screen-time-api-wishlist/",
+    "mainEntityOfPage": "https://honorfitapp.com/zh-hant/blog/screen-time-api-wishlist/",
+    "datePublished": "2026-09-30",
+    "dateModified": "2026-09-30",
+    "image": "https://honorfitapp.com/img/og.png",
+    "inLanguage": "zh-Hant",
+    "keywords": "Screen Time API, 螢幕使用時間, FamilyControls, FamilyActivityPicker, DeviceActivity, Live Activities, 即時動態, App 封鎖, iOS vs Android",
+    "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+    "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">部落格</a>
+    <a class="link" href="../../../support/">客服支援</a>
+    <a class="link" href="../../../privacy/">隱私權</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>我希望 Apple 修好 Screen Time API 的 3 件事</h1>
+    <p class="meta">同一個 App 封鎖工具做在 iPhone 和 Android 上，我遇到的事。作者：Thomas Willheim &middot; 2026 年 9 月 30 日</p>
+
+    <p>我做了 <a href="../../">HonorFit</a>，一個靠做伏地挺身賺螢幕使用時間的 App 封鎖工具（誠實制，不用鏡頭）。iPhone 和 Android 上是同一個 App，同一個概念，大部分的程式碼也是同一套。老實說呢？Android 版比較好用。</p>
+    <p>這不是因為 Android 比較會封鎖 App。iOS 的 Screen Time API 在「封鎖」這件事上其實非常扎實。問題在於 iOS 在三件特定的事情上把你綁得死死的，而這三件事看起來都不是為了保護使用者。所以這是我的清單，附上我想跟 Apple 要求的東西。我盡量只挑那些不會讓任何人犧牲隱私的項目。</p>
+    <p>（如果你想看用這個 API 開發的實作細節，我另外寫了一篇：<a href="../ios-screen-time-api-guide/">Apple 文件沒告訴你的事</a>。）</p>
+
+    <h2 id="one-app">1. 一次只能有一個螢幕使用時間 App</h2>
+    <p>假設你已經在用 Brick、Opal 或 one sec，也想試試 HonorFit。在 iPhone 上辦不到。第二個 App 要求取用螢幕使用時間的時候，iOS 連權限提示都不會跳出來，只會丟出一個錯誤，意思是 Family Controls 一次只能給一個 App 使用。我自己就碰過這個錯誤，<a href="https://developer.apple.com/forums/thread/847096">其他開發者也遇到了</a>。</p>
+    <p>想換的話，你得到<strong>「設定」&rsaquo;「螢幕使用時間」&rsaquo;「可取用螢幕使用時間的 App」</strong>，把另一個 App 關掉，有時候還得重新開機。HonorFit 現在會偵測這個錯誤，一步一步帶使用者處理，因為原始的錯誤訊息對一般人來說根本看不懂。</p>
+    <figure class="single">
+      <img src="../../../img/blog/ios-screen-time-conflict.webp" alt="iPhone 上的 HonorFit 提示：另一個 App 正在使用螢幕使用時間。iOS 一次只允許一個 App 控制螢幕使用時間，並列出到「設定」關閉另一個 App 的步驟" width="660" height="720" loading="lazy">
+      <figcaption>當另一個 App 已經取得螢幕使用時間權限時，iPhone 使用者在 HonorFit 裡看到的畫面。iOS 本身只會丟給 App 一個錯誤，這段說明是我們自己寫的。</figcaption>
+    </figure>
+    <p>奇怪的地方在這裡：Apple 在 WWDC22 推出這種授權的時候，<a href="https://developer.apple.com/videos/play/wwdc2022/110336/">他們說過</a>，跟家長監護用的授權不同，個人授權可以讓同一台裝置上任意數量的 App 使用。但現在實際上不是這樣，而且我在任何地方都找不到相關的文件說明。</p>
+    <p><strong>為什麼這對使用者沒有好處：</strong>大家會混著用不同的工具。有人可能上班時用 Brick 來進入深度專注，晚上再用 HonorFit 賺滑手機的時間。Apple 其實已經有一套合併限制的規則：當好幾個 <code>ManagedSettingsStore</code> 設定了同一件事，<a href="https://developer.apple.com/videos/play/wwdc2022/110336/">用 Apple 的話來說</a>就是「the most restrictive setting always wins」（最嚴格的設定永遠優先）。在不同 App 之間也照這樣做，大家就能同時使用兩個 App，而手機只會因此被鎖得<em>更</em>緊，絕對不會更鬆。</p>
+    <div class="ask">
+      <strong>我想要求的：</strong>讓不只一個 App 能取得個人的螢幕使用時間授權，就像 WWDC22 說的那樣，並用同樣的「最嚴格者優先」規則來合併它們的封鎖畫面。如果這個限制真的有理由，就把它寫進文件，再給 App 一個像樣的錯誤代碼，讓 App 能跟使用者解釋。
+    </div>
+
+    <h2 id="picker">2. App 選擇器很難用，而且 App 沒辦法自訂</h2>
+    <p>在 iPhone 上，要挑選封鎖哪些 App，就只能用 Apple 的 <code>FamilyActivityPicker</code>。它是一個 App 無法修改的系統畫面，頂多只能改一行標題和頁尾文字。它一打開是一串類別（社交、遊戲、娛樂……），你得點進類別裡才找得到真正的 App。在 Android 上，清單是我自己做的，所以 HonorFit 會把你裝的 App 依照過去 24 小時的使用時間排序。</p>
+
+    <div class="compare">
+      <figure>
+        <img src="../../../img/blog/ios-app-picker.webp" alt="iOS 的螢幕使用時間 App 選擇器：一串 App 類別，其中「健康與健身」展開顯示裡面的 App" width="660" height="1310" loading="lazy">
+        <figcaption><strong>iPhone：</strong>Apple 的選擇器。先看到類別，沒有使用時間，每個 App 看到的都一樣。</figcaption>
+      </figure>
+      <figure>
+        <img src="../../../img/blog/android-app-picker.webp" alt="HonorFit 的 Android App 選擇器：列出每個 App 過去 24 小時的使用時間，用最多的排最前面" width="660" height="1308" loading="lazy">
+        <figcaption><strong>Android：</strong>HonorFit 自己的清單，依使用時間排序，最殺時間的 App 就在最上面。</figcaption>
+      </figure>
+    </div>
+
+    <p>iOS 的選擇器有兩件事讓我很困擾：</p>
+    <ul>
+      <li><strong>很容易一不小心就封鎖了整個類別。</strong>如果你點的是類別那一列，而不是把它展開，你就選了裡面所有的 App，包括你之後才安裝的。對很多 App 來說，這從來都不是你想要的。你要的是 Instagram 和 TikTok，不是整個「社交」。</li>
+      <li><strong>你看不到哪些 App 真正吃掉了你的一天。</strong>會打開 App 封鎖工具的人，理由就是「我花太多時間在手機上了」。選擇器是他們決定要封鎖什麼的那一刻，但它完全沒告訴他們時間花到哪裡去了。你的 iPhone 明明清楚知道你在每個 App 花了多久（「設定」裡就看得到），選擇器卻不顯示。</li>
+    </ul>
+    <p><strong>這不會犧牲任何隱私。</strong>選擇器是 iOS 在它自己的程序裡畫出來的。App 永遠看不到裡面的內容，只會拿到你選的項目對應的不透明 token。HonorFit 真的沒辦法知道你選了哪些 App。所以 iOS 大可以直接在選擇器裡顯示使用時間，App 還是什麼都不會知道。Apple 其實已經用 <code>DeviceActivityReport</code> extension 做過類似的事：在一個 App 讀不到的沙盒裡顯示你的使用情況。</p>
+    <div class="ask">
+      <strong>我想要求的：</strong>
+      <ol>
+        <li>選擇器提供一個選項，可以設定成<strong>能選整個類別，或只能選 App</strong>，這樣 App 封鎖工具就能提供一份只有 App 的清單，不會不小心選到類別（如果用不到網站，也可以把網站藏起來）。</li>
+        <li>提供一個選項，可以<strong>依照實際的螢幕使用時間排序，並顯示出來</strong>，放在每個 App 旁邊，由 iOS 負責繪製，App 永遠看不到這些數字。</li>
+      </ol>
+    </div>
+
+    <h2 id="countdown">3. 你看不到剩餘時間的準確倒數</h2>
+    <p>在 HonorFit 裡，你賺到的時間只有在你真的打開被封鎖的 App 時才會扣。所以最理所當然要顯示的，就是倒數計時：「剩 12:34」，你滑的時候往下跳，離開時就停住。</p>
+    <p><strong>在 Android 上這很簡單。</strong>HonorFit 的背景服務每秒檢查一次畫面上是哪個 App，通知用的是 Android 內建的倒數計時器，所以通知欄每秒都會自己重畫。把通知欄拉下來，就能看到你還剩多少時間，精確到秒。</p>
+    <p><strong>在 iPhone 上做不到</strong>，原因是這樣的：</p>
+    <ul>
+      <li>iOS 從來不會告訴 App 你什麼時候打開或離開被封鎖的 App。你只會收到「使用時間已經累積到這麼多」的事件。HonorFit 每 15 秒的使用設一個事件，這些事件會送到一個背景 extension，由它來更新通知。</li>
+      <li>一般的通知沒辦法自己倒數，所以 HonorFit 頂多只能在每次事件進來時換上新的文字。這就是為什麼 iPhone 上的通知會寫「大約剩 12:30」，前面加個「大約」：它是以 15 秒為單位跳動的。</li>
+      <li>這些事件也不一定會準時到。在 iOS 26 上，我看過它們晚到，或好幾個一起到。</li>
+      <li>即時動態（Live Activities）<em>可以</em>自己倒數，但不能暫停。沒有任何東西會告訴 App 你已經離開 Instagram 了，所以即時動態會在你的手機放在桌上時繼續倒數，這樣就錯了。</li>
+    </ul>
+    <p>所以 iPhone 使用者拿到的是一個粗略的估計值，Android 使用者看到的則是真正的數字。</p>
+    <div class="ask">
+      <strong>我想要求的：</strong>讓 <code>DeviceActivity</code> 事件能驅動一個由 iOS 自己繪製的倒數計時：放在通知、即時動態或封鎖畫面上，只在被監控的 App 顯示在畫面上時才跑。iOS 本來就把這些使用時間記錄到秒，所以它可以直接顯示時間，不用交給 App 任何新的資料。就算只是給監控 extension 簡單的「被封鎖的 App 打開了／關閉了」回呼，也能解決大部分的問題。</div>
+
+    <h2 id="wrap-up">就這樣</h2>
+    <p>說句公道話，Apple 在這裡的隱私模型真的很好。App 永遠不會知道你封鎖了什麼、用了多少，我也很不希望這點改變。上面這三件事都不會改變它。它們只是讓 iPhone App 能跟 Android 版一樣好用而已。</p>
+    <p>如果你也在用螢幕使用時間開發 App，也想要這些功能，請到<a href="https://feedbackassistant.apple.com/">意見回饋輔助程式（Feedback Assistant）</a>提出回報。據我所知，重複的回報越多，越容易被注意到。如果你只是想試試這個 App，<a href="https://honorfitapp.com/get/?c=blog-wishlist-zh-hant">HonorFit 在 iPhone 和 Android 上都免費</a>。也許你們有些人會喜歡它！</p>
+
+    <h2>延伸閱讀</h2>
+    <div class="readnext">
+      <a href="../ios-screen-time-api-guide/">Screen Time API：文件沒告訴你的事 &rarr;</a>
+      <a href="../../../vs-screen-time/">HonorFit 和 iPhone 螢幕使用時間比較（英文） &rarr;</a>
+      <a href="../../../best-pushup-app-blockers/">要你運動才能解鎖手機的最佳 App（英文） &rarr;</a>
+      <a href="../">所有文章 &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">首頁</a>
+    <a href="../">部落格</a>
+    <a href="../../../support/">客服支援</a>
+    <a href="../../../privacy/">隱私權政策</a>
+    <span class="langs"><a href="../../../blog/screen-time-api-wishlist/" hreflang="en" lang="en">English</a><a href="../../../es/blog/screen-time-api-wishlist/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/screen-time-api-wishlist/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/screen-time-api-wishlist/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/screen-time-api-wishlist/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/screen-time-api-wishlist/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/screen-time-api-wishlist/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/screen-time-api-wishlist/" hreflang="pl" lang="pl">Polski</a><a href="../../../tr/blog/screen-time-api-wishlist/" hreflang="tr" lang="tr">Türkçe</a><a href="../../../id/blog/screen-time-api-wishlist/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/screen-time-api-wishlist/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../../th/blog/screen-time-api-wishlist/" hreflang="th" lang="th">ไทย</a><a href="../../../ja/blog/screen-time-api-wishlist/" hreflang="ja" lang="ja">日本語</a><a href="../../../ko/blog/screen-time-api-wishlist/" hreflang="ko" lang="ko">한국어</a><a href="./" hreflang="zh-Hant" lang="zh-Hant" aria-current="page">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iOS Screen Time APIのハマりどころ：FamilyControls・DeviceActivity（2026年版）</title>
+  <meta name="description" content="iOSのアプリブロッカーをリリースして分かったこと：FamilyControlsのEntitlement、発火しないDeviceActivityのしきい値、iOS 26のファントムイベント、シールド、React Native。">
+  <link rel="canonical" href="https://honorfitapp.com/ja/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/ios-screen-time-api-guide/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/ja/blog/ios-screen-time-api-guide/">
+  <meta property="og:title" content="2026年版 iOS Screen Time API：Appleのドキュメントに書かれていないこと">
+  <meta property="og:description" content="iOSのアプリブロッカーをリリースして分かったこと：FamilyControlsのEntitlement、発火しないDeviceActivityのしきい値、iOS 26のファントムイベント、シールド、React Native。">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-09-30">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="2026年版 iOS Screen Time API：Appleのドキュメントに書かれていないこと">
+  <meta name="twitter:description" content="アプリブロッカーをリリースして分かった、FamilyControls・DeviceActivity・シールドExtensionの実際：面倒なEntitlement申請、ファントムしきい値、スケジュールの罠、そしてアプリを開けないシールド。">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose ol { padding-left: 24px; }
+    .prose pre {
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 14px 0 20px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    .prose pre code { background: none; border: 0; padding: 0; font-size: inherit; color: var(--text); }
+    .prose .label { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--border); border-radius: 999px; padding: 1px 10px; margin-right: 6px; vertical-align: 1px; }
+    .toc { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 16px 22px; margin: 8px 0 28px; }
+    .toc strong { color: var(--text); }
+    .toc ol { margin: 8px 0 0; }
+    .toc li { margin: 3px 0; }
+    .toc a { text-decoration: none; }
+    .table-scroll { overflow-x: auto; margin: 14px 0 20px; }
+    .prose table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+    .prose th, .prose td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; color: var(--text-dim); }
+    .prose th { color: var(--text); background: var(--bg-raised); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "2026年版 iOS Screen Time API：Appleのドキュメントに書かれていないこと",
+        "description": "FamilyControls・DeviceActivity・ManagedSettingsでiOSのアプリブロッカーをリリースした実践メモ：ExtensionごとのEntitlement、App Group、中身の見えないトークン、しきい値イベント、iOS 26のファントムしきい値、スケジュールの挙動、シールドExtension、React Native。",
+        "url": "https://honorfitapp.com/ja/blog/ios-screen-time-api-guide/",
+        "mainEntityOfPage": "https://honorfitapp.com/ja/blog/ios-screen-time-api-guide/",
+        "datePublished": "2026-09-30",
+        "dateModified": "2026-09-30",
+        "image": "https://honorfitapp.com/img/og.png",
+        "inLanguage": "ja",
+        "proficiencyLevel": "Expert",
+        "keywords": "Screen Time API, スクリーンタイム, FamilyControls, DeviceActivity, ManagedSettings, ShieldConfiguration extension, ShieldAction, DeviceActivityMonitor, eventDidReachThreshold, React Native, Expo, react-native-device-activity",
+        "about": ["FamilyControls", "DeviceActivity", "ManagedSettings", "iOS app extensions"],
+        "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+        "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+      },
+      {
+        "@type": "FAQPage",
+        "inLanguage": "ja",
+        "mainEntity": [
+          { "@type": "Question", "name": "すべてのExtensionにFamily ControlsのEntitlementが必要ですか？",
+            "acceptedAnswer": { "@type": "Answer", "text": "はい。Family Controls (Distribution) EntitlementはBundle IDごとに付与されます。DeviceActivityMonitor、ShieldConfiguration、ShieldActionの3つのExtensionを持つアプリなら、4つのBundle IDそれぞれで承認が必要です。さらに、各App IDに共有のApp Groupも設定する必要があります。" } },
+          { "@type": "Question", "name": "DeviceActivityのeventDidReachThresholdが発火しないのはなぜですか？",
+            "acceptedAnswer": { "@type": "Answer", "text": "僕がいちばんよく遭遇した原因は、intervalStartを現在時刻にした非繰り返しスケジュールです。iOSが評価する時点でその時刻はもう過去なので、次に一致するインターバル（翌日）が予約され、当日は何も発火しません。開始時刻を数分さかのぼらせたら直りました。また、iOS 26で断続的に使った場合、後半の1分未満のしきい値が落ちることもありました。新しいモニターを登録し直すと改善しました。" } },
+          { "@type": "Question", "name": "ShieldActionやShieldConfigurationのExtensionから親アプリを開けますか？",
+            "acceptedAnswer": { "@type": "Answer", "text": "サポートされたAPIではできません。NSExtensionContextのopenを使う回避策は、僕が試した限り現行のiOSでは何も起きませんでした。僕が実際にリリースしている回避策は、シールドが表示されたときにShieldConfiguration Extensionからローカル通知を送る方法です。通知をタップするとアプリが開きます。" } },
+          { "@type": "Question", "name": "iOSシミュレータでScreen Time APIをテストできますか？",
+            "acceptedAnswer": { "@type": "Answer", "text": "一部だけです。iOS 26のシミュレータでは認可ダイアログとピッカーは表示されますが、僕の環境では認可を完了できず、ピッカーには表示するアプリがなく、DeviceActivityMonitor Extensionも一度も実行されませんでした。シールドや使用時間のしきい値が絡むものはすべて実機が必要です。" } }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">ブログ</a>
+    <a class="link" href="../../../support/">サポート</a>
+    <a class="link" href="../../../privacy/">プライバシー</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>2026年版 iOS Screen Time API：Appleのドキュメントに書かれていないこと</h1>
+    <p class="meta">アプリブロッカーをリリースして分かった、FamilyControls・DeviceActivity・シールドExtensionの実際。Thomas Willheim &middot; 2026年9月30日</p>
+
+    <p>2026年の8月から9月にかけて、iOS向けのアプリブロッカーをリリースしました。Screen Time系のフレームワーク（FamilyControls、DeviceActivity、ManagedSettings、ManagedSettingsUI）をReact Nativeから使っていて、Expo SDK 57と<a href="https://github.com/kingstinct/react-native-device-activity">react-native-device-activity</a>ライブラリ（0.6.1）を経由しています。Appleのドキュメントには、それぞれの型が何なのかは書いてあります。でも、実機で、夜をまたいで、iOS 26でどう動くのかについてはほとんど書かれていません。</p>
+    <p>この記事は、最初に知っておきたかったことのリストです。実機では確認できたもののドキュメントが見つからない挙動には<span class="label">観測</span>ラベルを付けています。すべてのiOSバージョンで当てはまるとは限りません。React Nativeライブラリ固有の項目には<span class="label">ライブラリ</span>ラベルを付けています。Swiftで直接書いている人は読み飛ばしてください。</p>
+
+    <div class="toc">
+      <strong>目次</strong>
+      <ol>
+        <li><a href="#moving-parts">構成要素</a></li>
+        <li><a href="#entitlements">Entitlement：Bundle IDごとに1つ</a></li>
+        <li><a href="#app-group">App Groupが唯一の通り道</a></li>
+        <li><a href="#tokens">トークンは中身が見えない、そしてピッカーのこと</a></li>
+        <li><a href="#thresholds">しきい値イベントで使用時間を計測する</a></li>
+        <li><a href="#schedules">スケジュールは思ったタイミングで始まらない</a></li>
+        <li><a href="#stop-monitoring">stopMonitoringでintervalDidEndが呼ばれる</a></li>
+        <li><a href="#phantom">iOS 26のファントムしきい値</a></li>
+        <li><a href="#shield">シールドからアプリは開けない</a></li>
+        <li><a href="#expo">prebuildでカスタムExtensionを消さない</a></li>
+        <li><a href="#testing">Xcode 26、シミュレータ、テスト</a></li>
+        <li><a href="#android">Androidの場合</a></li>
+        <li><a href="#checklist">チェックリスト</a></li>
+        <li><a href="#faq">よくある質問</a></li>
+        <li><a href="#why">なぜここまでやったのか</a></li>
+      </ol>
+    </div>
+
+    <h2 id="moving-parts">1. 構成要素</h2>
+    <p>「Screen Time API」の実体は、4つのフレームワークと、実際には3つのApp Extensionです。</p>
+    <ul>
+      <li><strong>FamilyControls</strong>：認可（<code>AuthorizationCenter</code>。自分の使用を制限するアプリなら<code>.individual</code>）と<code>FamilyActivityPicker</code>。ピッカーは、アプリ・カテゴリ・Webドメインのトークンを含む<code>FamilyActivitySelection</code>を返します。</li>
+      <li><strong>ManagedSettings</strong>：そのトークンを入れてシールドをかけるための<code>ManagedSettingsStore</code>。</li>
+      <li><strong>DeviceActivity</strong>：スケジュールと使用時間のしきい値イベント。コールバック（<code>intervalDidStart</code>、<code>intervalDidEnd</code>、<code>eventDidReachThreshold</code>、それぞれのwarning版）は、アプリではなく<code>DeviceActivityMonitor</code> Extensionに届きます。</li>
+      <li><strong>ManagedSettingsUI</strong>：シールドの見た目を決める<code>ShieldConfigurationDataSource</code> Extensionと、シールドのボタンを処理する<code>ShieldActionDelegate</code> Extension。</li>
+    </ul>
+    <p>肝心なのはExtensionのほうです。ユーザーの時間が切れる時点では、たいていアプリはサスペンドされているか終了しているので、シールドを元に戻すのはモニターExtensionの役目になります。何かが起きるときにアプリのプロセスは絶対にいない、という前提で設計してください。</p>
+
+    <h2 id="entitlements">2. Entitlement：Bundle IDごとに1回申請</h2>
+    <p>Family Controls (Distribution) Entitlementは<strong>Bundle IDごと</strong>に承認されます。Extensionが3つなら、申請は4回です。僕の場合はこうでした。</p>
+    <ul>
+      <li><code>com.honorfit.blocker</code>（アプリ本体）</li>
+      <li><code>com.honorfit.blocker.ShieldConfiguration</code></li>
+      <li><code>com.honorfit.blocker.ShieldAction</code></li>
+      <li><code>com.honorfit.blocker.ActivityMonitorExtension</code></li>
+    </ul>
+    <p>承認されたら、Developerポータルで<em>それぞれの</em>App IDにFamily Controls (Distribution) のCapabilityを有効にし、App Groupを1つ作って4つすべてに紐づけます。1つでも漏れると、そのターゲットはプロビジョニングできません。承認はすぐには下りないので、まだコードをほとんど書いていない初日のうちに、4つとも申請しておきましょう。</p>
+    <p>どのExtensionのentitlementsファイルも、最終的に同じ内容になります。</p>
+<pre><code>&lt;key&gt;com.apple.developer.family-controls&lt;/key&gt;
+&lt;true/&gt;
+&lt;key&gt;com.apple.security.application-groups&lt;/key&gt;
+&lt;array&gt;
+  &lt;string&gt;group.com.honorfit.blocker&lt;/string&gt;
+&lt;/array&gt;</code></pre>
+    <p>Expo/EASの場合、ビルドサービスは自分が把握しているExtensionの分しかプロビジョニングプロファイルを作りません。僕は<code>app.json</code>の<code>extra.eas.build.experimental.ios.appExtensions</code>に、各ターゲットをEntitlementと一緒に宣言しています。</p>
+<pre><code>"appExtensions": [
+  {
+    "bundleIdentifier": "com.honorfit.blocker.ShieldConfiguration",
+    "targetName": "ShieldConfiguration",
+    "entitlements": {
+      "com.apple.developer.family-controls": true,
+      "com.apple.security.application-groups": ["group.com.honorfit.blocker"]
+    }
+  }
+  // ...same for ShieldAction and ActivityMonitorExtension
+]</code></pre>
+
+    <h2 id="app-group">3. App Groupが唯一の通り道</h2>
+    <p>アプリとExtensionは別々のプロセスで、同時に動いていることはほとんどありません。共有できるのはApp Groupのコンテナだけで、たいていは<code>UserDefaults(suiteName:)</code>として使います。Extensionが必要とするもの（保存した選択内容、シールドの文言、しきい値が発火したときの処理）は、すべて事前にそこへ書き込んでおく必要があります。</p>
+    <p>react-native-device-activityはこれを徹底しています。アプリは<code>actions_for_{activity}_{callback}_{event}</code>のようなキーに「アクション」のリストを書き込み、モニターExtensionは<em>コールバックが発火した時点で</em>それを読みにいきます。便利な副産物として、すでに動いているモニターの挙動を、再起動せずに変えられます。また、Extensionは読み込みの前に<code>CFPreferencesAppSynchronize</code>を呼ぶので、アプリの最新の書き込みが見えます。</p>
+<pre><code>let appGroup = Bundle.main.object(
+  forInfoDictionaryKey: "REACT_NATIVE_DEVICE_ACTIVITY_APP_GROUP") as? String
+var userDefaults = UserDefaults(suiteName: appGroup)
+
+// in each callback:
+CFPreferencesAppSynchronize(kCFPreferencesCurrentApplication)
+if let actions = userDefaults?.array(forKey: triggeredBy) { /* run them */ }</code></pre>
+
+    <h2 id="tokens">4. トークンは中身が見えない、そしてピッカーのこと</h2>
+    <p>ピッカーがアプリに渡すのは<code>ApplicationToken</code>、<code>ActivityCategoryToken</code>、<code>WebDomainToken</code>だけです。設計上、アプリはトークンを「Instagram」に戻すことができません。できるのは数を数えることなので、僕のブロックリスト画面には「3個のアプリ・1カテゴリ」と表示しています。これがプライバシーモデルのすべてで、良い設計だと思います。僕のアプリは、あなたが何をブロックしたのか文字通り知りません。</p>
+    <figure>
+      <img src="../../../img/blog/ios-app-picker.webp" alt="iOSのスクリーンタイムのアプリ選択画面：アプリのカテゴリが並び、Health &amp; Fitnessを展開して中のアプリを表示している" width="660" height="1310" loading="lazy">
+      <figcaption>Appleの<code>FamilyActivityPicker</code>。ユーザーにはアプリ名とアイコンが見えますが、アプリに返ってくるのは中身の見えないトークンだけです。</figcaption>
+    </figure>
+    <p>シールドExtensionは事情が違います。こちらはシステムがシールド対象アプリの<code>Application</code>を渡してくれるので、僕はその<code>localizedDisplayName</code>をシールドの文言に使っています。アプリ本体から見えるのは、あくまでトークンだけです。</p>
+    <p>実用上の注意が2つあります。</p>
+    <ul>
+      <li><strong>カテゴリはカテゴリのまま。</strong>ユーザーが「ソーシャル」を選ぶと、返ってくるのはカテゴリのトークンで、中のアプリではありません。ただし、選択内容が<code>includeEntireCategory</code>付きで作られた場合は別です。僕はこれを<code>false</code>にして、表示する数が正直なものになるようにしています（名前も分からないアプリの数ではなく「1カテゴリ」と出す）。</li>
+      <li><span class="label">ライブラリ</span> react-native-device-activityの永続化ピッカーは、<code>includeEntireCategory</code> propを渡したとき（値は<em>何でも</em>かまいません）にしか、保存済みの選択内容（再度開いたときのチェックマーク）をプリロードしません。読み込みのきっかけになっているのが、そのネイティブ側のsetterだからです。propを渡さないと、選択内容は保存されているのに、ピッカーは毎回空の状態で開きます。</li>
+    </ul>
+<pre><code>&lt;DeviceActivitySelectionSheetViewPersisted
+  familyActivitySelectionId="distracting-apps"
+  includeEntireCategory={false}   // must be present, or nothing preloads
+  onSelectionChange={(e) =&gt; setCounts(e.nativeEvent)}
+  onDismissRequest={() =&gt; setPickerVisible(false)}
+/&gt;</code></pre>
+    <p><span class="label">ライブラリ</span> もう1つ。ライブラリの<code>blockSelection</code>は、永続化されたブロックリストにトークンを<em>追加</em>します。ユーザーが選択内容を編集しても、外したアプリにはシールドがかかったままです。僕は毎回、先に<code>resetBlocks()</code>を呼んでから、現在の選択内容をブロックし直しています。</p>
+
+    <h2 id="thresholds">5. しきい値イベントで使用時間を計測する</h2>
+    <p>HonorFitでは、分単位の残高があり、それはブロック中のアプリが画面に表示されているあいだだけ減ります。DeviceActivityには「どれだけ使ったか教えて」というAPIがありません。あるのは、選択したアプリの累計使用時間が指定した長さに達したときに発火するしきい値イベントです。そこで、使用15秒ごとにイベントを1つ登録し、名前は分単位にしています。<code>used-0.25</code>、<code>used-0.5</code>、&hellip;と、残高の分まで続きます。0.25刻みの値は2進浮動小数点で正確に表せるので、名前を<code>Number()</code>に通しても値がずれません。ライブラリの下で動いているのは、素のApple APIです。</p>
+<pre><code>let schedule = DeviceActivitySchedule(
+  intervalStart: DateComponents(hour: 9, minute: 45, second: 0),  // see section 6
+  intervalEnd: DateComponents(hour: 23, minute: 59, second: 59),
+  repeats: false
+)
+let event = DeviceActivityEvent(
+  applications: selection.applicationTokens,
+  categories: selection.categoryTokens,
+  webDomains: selection.webDomainTokens,
+  threshold: DateComponents(minute: 0, second: 15),
+  includesPastActivity: false          // iOS 17.4+
+)
+try DeviceActivityCenter().startMonitoring(
+  DeviceActivityName("honorfit-distracting-apps-1790000000000"),
+  during: schedule,
+  events: [DeviceActivityEvent.Name("used-0.25"): event]  // ...one per step
+)</code></pre>
+    <p><code>includesPastActivity: false</code>（デフォルト）は、イベントを登録する前の使用時間はカウントしない、という意味です。これが次のセクションで紹介するスケジュールの小技で効いてきます。</p>
+    <p>最後のイベントが発火すると、モニターExtensionがシールドをかけ直し、「時間切れ」の通知を送ります。15秒ごとのイベントでは固定IDの通知を1件だけ更新するので、通知がその場で置き換わり、おおまかなライブカウントダウンとして機能します。<code>interruptionLevel = .passive</code>にすると、バナーを出さずに通知センターへ静かに届きます。</p>
+    <p><span class="label">ライブラリ</span> <strong>イベント名やアクティビティ名にアンダースコアを使わないこと。</strong>ライブラリは発火したイベントを<code>events_{activity}_{callback}_{eventName}</code>というキーで保存し、<code>_</code>で分割してパースし直します。<code>used_7</code>というイベントは<code>used</code>として戻ってくるので、何もマッチしません。僕のところでは、残高がまったく減らないという症状で現れました。</p>
+
+    <h2 id="schedules">6. スケジュールは思ったタイミングで始まらない</h2>
+    <p>しきい値イベントが黙って一度も発火しないなら、たぶんこれが原因です。</p>
+    <h3>「今」はもう過去になっている</h3>
+    <p><span class="label">観測</span> 非繰り返しの<code>DeviceActivitySchedule</code>は日時コンポーネントで照合され、モニターは次に一致するインターバルで動きます。<code>intervalStart</code>に現在の時刻を渡すと、フレームワークが評価する時点で、その瞬間はもう過ぎています。次に一致するのは<strong>翌日</strong>で、今日は何も発火しません。しきい値も、コールバックも、エラーもなしです。解決策は、開始時刻をさかのぼらせて「今」がインターバルの中に入るようにすることです。</p>
+<pre><code>const now = new Date();
+const backdated = new Date(now.getTime() - 15 * 60_000);
+const intervalStart =
+  backdated.getDate() === now.getDate()
+    ? { hour: backdated.getHours(), minute: backdated.getMinutes(), second: backdated.getSeconds() }
+    : { hour: 0, minute: 0, second: 0 };   // don't wrap past midnight
+
+await startMonitoring(activityName,
+  { intervalStart, intervalEnd: { hour: 23, minute: 59, second: 59 }, repeats: false },
+  events);</code></pre>
+    <p>開始時刻をさかのぼらせても、<code>includesPastActivity: false</code>があるので、それ以前のスクロール分をユーザーの残高から引いてしまうことはありません。インターバルをAppleの最小値以上に保つ効果もあります。15分より短いスケジュールは拒否されるので、深夜0時の直前にセッションを始めるとここでつまずきます。</p>
+    <h3>「今」を含むスケジュールはすぐに始まる</h3>
+    <p><span class="label">観測</span> 逆に、00:00&ndash;23:59:59のスケジュールは現在時刻を含むので、次の0時ではなく<em>今すぐ</em>始まります。翌日の分を予約する方法として、僕が見つけたのは2つです。</p>
+    <ul>
+      <li><strong>すでに終わっているスケジュール。</strong><code>[00:00, T)</code>で、Tは現在時刻の1分前。今日の分はもう終わっているので、フレームワークは翌日の分を予約します。僕はこれを使って、使い切らなかった残高を0時以降に持ち越しています。</li>
+      <li><strong><code>repeats: true</code>とガード付きのアクション。</strong>今日の分はすぐに始まりますが、何もしません（すべてのアクションにガードがかかっています。次のセクションを参照）。実際の処理をするのは翌日の分です。</li>
+    </ul>
+    <p><span class="label">観測</span> 特定の日付を狙うために、スケジュールに年・月・日まで指定するのはやめましょう。僕が試したときはExtensionのコールバックが不安定になりましたし、Apple Developer Forumsでの報告（<a href="https://developer.apple.com/forums/thread/729841">スレッド729841</a>）とも一致しています。時・分・秒だけにしておくのが無難です。</p>
+    <p>注意点として、こうした0時まわりの挙動は、実機で夜をまたがないと現れません。対策のガードは入れてありますが、実際の0時をまたぐケースを思ったほど多くは計測できていないので、このセクションは仕様ではなく「僕が見たこと」として読んでください。</p>
+
+    <h2 id="stop-monitoring">7. stopMonitoringでintervalDidEndが呼ばれる</h2>
+    <p><span class="label">観測</span> <code>stopMonitoring</code>を呼ぶか、すでに動いているモニターと同じ名前で<code>startMonitoring</code>を呼ぶと、iOSはスケジュールが自然に終わったかのように、Extensionの<code>intervalDidEnd</code>を呼びます。<code>intervalDidEnd</code>で安全策としてシールドをかけ直している場合（僕はそうしています。モニターが期限切れになって、アプリのブロックが外れたままになるのを防ぐためです）、アプリがモニターを止めるたびに、Extensionが一瞬すべてにシールドをかけることになります。</p>
+    <p>ユーザーから報告された症状は、HonorFitを開くたびにSpotifyが一時停止する、というものでした。モニターを止めたことでExtensionが一瞬だけ選択内容にシールドをかけ、それでSpotifyがサスペンドされ、そのあとアプリがシールドを外していたのです。</p>
+    <p>対策は2つで、両方とも必要です。まず、止める<em>前に</em>Extensionのアクションを削除して、実行するものがない状態にします。</p>
+<pre><code>function stopActivities(names: string[]): void {
+  for (const name of names) RNDA.cleanUpAfterActivity(name); // clear actions first
+  RNDA.stopMonitoring(names);                                // then stop
+}</code></pre>
+    <p>次に、すべての<code>intervalDidEnd</code>と<code>intervalDidStart</code>のアクションに、スケジュールの本来の境界時刻から1分の余裕を引いた「この時刻より前は実行しない」タイムスタンプを持たせます。Extensionは、何かを実行する前にそれをチェックします。</p>
+<pre><code>// TypeScript: register the safety net
+RNDA.configureActions({
+  activityName,
+  callbackName: 'intervalDidEnd',
+  actions: [{
+    type: 'blockSelection',
+    familyActivitySelectionId: 'distracting-apps',
+    neverTriggerBefore: new Date(intervalEndMs - 60_000),
+  }],
+});
+
+// Swift, in the DeviceActivityMonitor extension
+if let neverTriggerBefore = neverTriggerBefore {
+  let now = Date().timeIntervalSince1970 * 1000
+  if now &lt; neverTriggerBefore { return false }   // skip this action
+}</code></pre>
+    <p>素のSwiftで書くなら、本来の終了時刻をApp Groupに保存しておき、早すぎるタイミングで呼ばれたら<code>intervalDidEnd</code>で何もせずに抜けるようにします。</p>
+
+    <h2 id="phantom">8. iOS 26のファントムしきい値</h2>
+    <p>iOS 26.xでは、実際の使用がまったくないのに<code>eventDidReachThreshold</code>が発火することがあります。スケジュールした直後や、しばらくロックされたままだったスマホを手に取ったり充電器につないだりしたときです。Appleはデベロッパーフォーラムのスレッド（<a href="https://developer.apple.com/forums/thread/809410">809410</a>、<a href="https://developer.apple.com/forums/thread/811305">811305</a>、<a href="https://developer.apple.com/forums/thread/814559">814559</a>）でこの問題を認めています。26.5のベータで修正されたと言われていますが、その後も報告は続いていました。僕のアプリでは、スマホをポケットに入れていただけなのに「時間切れ」になる、という症状でした。Extensionがシールドをかけ直し、残高がゼロまで減ってしまったためです。</p>
+    <p>イベントの発火そのものは止められませんが、それを信じないことはできます。本物のしきい値について言える次の2つの事実で、ほとんど対処できます。</p>
+    <ol>
+      <li><strong>使用時間が実時間を追い越すことはない。</strong><code>used-7</code>が、モニターを開始してから7分未満で正当に発火することはありえません。すべてのしきい値アクションに<code>neverTriggerBefore = armedAt + N minutes &minus; 5s</code>を持たせ、ありえないほど早い発火をExtensionがスキップするようにしています。</li>
+      <li><strong>本物の使用は少しずつ届き、ファントムはまとめて届く。</strong>発火したイベントをアプリが読み返すとき、最小と最大のしきい値が約3秒以内に発火しているのに、使用時間としては1分以上離れていれば、ファントムとして扱います。</li>
+    </ol>
+<pre><code>// Guard 1: drop thresholds that fired before they could have been reached
+if (at &lt; startedAt + minutes * 60_000 - 5_000) continue;
+
+// Guard 2: lowest and highest fired in the same instant, a minute or more apart
+if (highest.minutes - lowest.minutes &gt;= 1 &amp;&amp;
+    Math.abs(highest.at - lowest.at) &lt;= 3_000) {
+  return { usedMinutes: 0, partialMs: 0 };   // phantom: ignore the lot
+}</code></pre>
+    <p>Guard 2はExtensionではなくアプリ側で動くので、ファントムでもシールドはかかってしまいます。ただし残高は守られ、次にアプリを開いたときにシールドが外れます。このまとめて発火の検出をExtensionの中でやるにはカスタムのSwiftが必要で、まだ書けていません。</p>
+    <p><span class="label">観測</span> 逆方向の関連問題もあります。発火するはずのしきい値が発火しないケースです。iOS 26でアプリを開いたり閉じたりしながら使っていると、新しいモニターの最初の15秒のしきい値は時間どおりに発火するのに、それ以降はまとめられたり、完全に落ちたりしました（<code>used-0.25</code>は発火し、<code>used-0.5</code>以降は一度も発火しない）。僕の回避策は、すでに使用時間を計測したモニターを古いものとみなし、アプリがバックグラウンドに移るたびに、残りの残高分で新しいモニターを登録し直すことです。登録し直すたびに最大15秒分の使用を見逃すことになりますが、そこは許容しています。</p>
+
+    <h2 id="shield">9. シールドからアプリは開けない</h2>
+    <p>すぐに思いつく設計は、シールドに「もっと時間を稼ぐ」ボタンを置いて、アプリを開くことです。でも、サポートされた方法はありません。Apple DTSによれば、シールドExtensionから親アプリを起動するAPIは存在しません。<code>ShieldActionDelegate</code>はボタンが押されると<code>ShieldActionResponse</code>（<code>.none</code>、<code>.close</code>、<code>.defer</code>）を返しますが、どれも何かを開くものではありません。</p>
+    <p><span class="label">観測</span> よく見かける回避策（ShieldAction Extensionから<code>NSExtensionContext().open(url)</code>を呼ぶもので、ライブラリでは<code>openUrl</code>として公開されています）は、2026年9月に実機で試したところ、現行のiOSでは何も起きませんでした。ボタンを押しても、シールドが閉じるだけです。ボタンのタップで通知を送る方法も、僕の環境では不安定でした。</p>
+    <p>代わりに僕がリリースしている方法はこうです。シールドのボタンは「閉じる」1つだけにして、シールドが<em>表示</em>されるたびに<strong>ShieldConfiguration</strong> Extensionからローカル通知を送ります。ユーザーがバナーをタップすると、アプリが開きます。通知のペイロードはアプリが事前にApp Groupへ書き込んでおき、アプリがフォアグラウンドに来たら通知を消します。iOSは1回の表示でシールドの設定を何度か要求することがあるので、通知の送信はデバウンスしています。</p>
+<pre><code>func postShieldShownNotification(placeholders: [String: String?]) {
+  guard let config = userDefaults?.dictionary(forKey: "honorfitShieldShownNotification"),
+        let payload = config["payload"] as? [String: Any] else { return }
+
+  let minInterval = config["minIntervalSeconds"] as? Double ?? 30
+  let now = Date().timeIntervalSince1970
+  let lastSentAt = userDefaults?.double(forKey: "honorfitShieldShownNotificationLastSentAt") ?? 0
+  if now - lastSentAt &lt; minInterval { return }
+  userDefaults?.set(now, forKey: "honorfitShieldShownNotificationLastSentAt")
+
+  // builds a UNMutableNotificationContent and adds a UNNotificationRequest
+  // with a fixed identifier, so repeats replace rather than stack
+  sendNotification(contents: payload, placeholders: placeholders)
+}
+
+class ShieldConfigurationExtension: ShieldConfigurationDataSource {
+  override func configuration(shielding application: Application) -&gt; ShieldConfiguration {
+    postShieldShownNotification(placeholders: [
+      "applicationOrDomainDisplayName": application.localizedDisplayName
+    ])
+    return buildShield(/* title, subtitle, colors from the App Group */)
+  }
+  // ...same hook in the category and web-domain overloads
+}</code></pre>
+    <p>ハックですし、ユーザーが通知を許可していることが前提ですが、僕の環境で確実にアプリへ戻ってこられた方法はこれだけでした。</p>
+
+    <h2 id="expo">10. prebuildでカスタムExtensionを消さない</h2>
+    <p><span class="label">ライブラリ</span> Expoを使っている場合、<code>expo prebuild</code>はreact-native-device-activityのconfig pluginを実行します。このプラグインはデフォルトで、実行のたびにライブラリ標準のExtensionのソースを<code>./targets</code>にコピーします。僕がカスタマイズしたShieldConfigurationは、気づかないうちに上書きされていました。解決策はプラグインのオプション1つです。</p>
+<pre><code>["react-native-device-activity", {
+  "appleTeamId": "XXXXXXXXXX",
+  "appGroup": "group.com.honorfit.blocker",
+  "copyToTargetFolder": false
+}]</code></pre>
+    <p>その代わり、ライブラリをアップグレードしたときは、ライブラリの<code>targets/</code>と共有のSwiftコードを自分のものと手作業で突き合わせて、変更を当て直す必要があります。</p>
+
+    <h2 id="testing">11. Xcode 26、シミュレータ、テスト</h2>
+    <ul>
+      <li><strong>iOS 26 SDKでビルドする。</strong>App Store Connectは現在、iOS 26より古いSDKでビルドしたアップロードを受け付けません（ITMS-90725）。EASでは、ビルドイメージを<code>macos-tahoe-26.5-xcode-26.6</code>に固定しています。</li>
+      <li><strong>シミュレータで確認できるのは途中まで。</strong>iOS 26のシミュレータでも、認可ダイアログとピッカーは表示されます。でも認可は完了しませんし（「Allow with Passcode」（パスコードで許可）はデバイスのパスコードを求めますが、シミュレータでは設定できません）、ピッカーには表示するアプリがなく、モニターExtensionも動きません。セクション5〜9の内容は、すべて実機が必要です。</li>
+      <li><strong>ManagedSettingsの呼び出しは認可状態でガードする。</strong>未認可の状態でストアに触ると、シミュレータでシステムのパスコード入力が出てきて、UIテストが壊れました。僕はシールド関連の呼び出しの前に、必ず認可状態を確認しています。</li>
+      <li><strong>認可エラーはUIに出す。</strong>TestFlightのテスターはコンソールを見られません。<code>requestAuthorization</code>が黙って失敗すると、ボタンが壊れているようにしか見えません。僕はエラーとステータスをアラートで表示しています。</li>
+      <li><strong>夜をまたいでテストする。</strong>いちばんひどかったバグ（時間が残っているのに一晩中ブロックされる、音楽が止まる）は、コードレビューでは見えず、実機で何時間も使ってようやく再現しました。</li>
+    </ul>
+
+    <h2 id="android">12. Androidの場合</h2>
+    <p>比較のために書いておくと、Androidには公式の同等機能がないので、自分で作ることになります。HonorFitのAndroid版ブロッカーはフォアグラウンドサービス（タイプは<code>specialUse</code>。アプリのブロックは、用意されているどのタイプにも当てはまらないため）で、画面がオンのあいだ1秒ごとに<code>UsageStatsManager</code>をポーリングして、前面にあるアプリを調べています。ブロック対象のアプリが表示されていて残高がゼロなら、その上に<code>TYPE_APPLICATION_OVERLAY</code>でロック画面を描画します（「他のアプリの上に重ねて表示」）。端末の再起動やアプリのアップデート、メーカー独自の強力なバッテリー管理でサービスが止まっても、起動時のレシーバーとウォッチドッグ用のアラームで再起動します。</p>
+    <p>トレードオフはiOSと正反対です。実際のパッケージ名が見えるので、プライバシーはOSが強制してくれるものではなく、自分で守る約束になります。ブロック対象のアプリが最大でポーリング1回分の時間は見えてしまいますし、オーバーレイの下でアプリは動き続けます。それに、フォアグラウンドサービスのタイプ、オーバーレイの権限、パッケージの公開設定について、Play Consoleで申告を書くことになります。審査がいちばん厳しいAccessibilityServiceは、意図的に避けました。</p>
+
+    <h2 id="checklist">13. チェックリスト</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th scope="col">症状</th><th scope="col">考えられる原因</th><th scope="col">対処</th></tr></thead>
+        <tbody>
+          <tr><td>特定のターゲットだけプロビジョニングに失敗する</td><td>そのBundle IDにEntitlementかApp Groupがない</td><td>すべてのBundle IDでFamily Controls (Distribution)を申請し、App Groupを紐づける</td></tr>
+          <tr><td>しきい値イベントが一度も来ない</td><td><code>intervalStart</code>が現在時刻で、モニターが翌日に予約されている</td><td>開始時刻をさかのぼらせる。インターバルは15分以上に保つ</td></tr>
+          <tr><td>翌日用のモニターが今日動く</td><td>スケジュールが現在時刻を含んでいる</td><td>今日すでに終わった<code>[00:00, T)</code>のスケジュールか、<code>repeats: true</code>とガード付きアクション</td></tr>
+          <tr><td>アプリを開くと一瞬シールドがかかる</td><td><code>stopMonitoring</code>で<code>intervalDidEnd</code>が呼ばれる</td><td>止める前にアクションを消す。「この時刻より前は実行しない」でガードする</td></tr>
+          <tr><td>放置していただけなのに「時間切れ」になる</td><td>iOS 26のファントムしきい値</td><td>実時間ガードと、まとめて発火のフィルタ</td></tr>
+          <tr><td>後半のしきい値が発火しない</td><td>断続的な使用で落ちる／まとめられる</td><td>バックグラウンドに移るたびに新しいモニターを登録し直す</td></tr>
+          <tr><td>シールドのボタンでアプリが開かない</td><td>サポートされたAPIがない</td><td>表示時にShieldConfigurationから通知を送る</td></tr>
+          <tr><td>発火したイベントがマッチしない（RN）</td><td>イベント名にアンダースコアがある</td><td><code>used_7</code>ではなく<code>used-7</code>を使う</td></tr>
+          <tr><td>ピッカーが空の状態で開く（RN）</td><td><code>includeEntireCategory</code> propがない</td><td>値は何でもいいので渡す</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="faq">14. よくある質問</h2>
+    <div class="faq">
+      <details>
+        <summary>すべてのExtensionにFamily ControlsのEntitlementが必要ですか？</summary>
+        <p>はい。Bundle IDごとに付与されます。アプリ本体に加えてDeviceActivityMonitor、ShieldConfiguration、ShieldActionの各Extensionで4つの承認が必要で、各App IDには共有のApp Groupも必要です。</p>
+      </details>
+      <details>
+        <summary>DeviceActivityのeventDidReachThresholdが発火しないのはなぜですか？</summary>
+        <p>僕の場合、たいていは「今」から始まる非繰り返しスケジュールが原因で、翌日に予約されていました。<code>intervalStart</code>をさかのぼらせてください。iOS 26でアプリを開いたり閉じたりしながら使っていると、後半の1分未満のしきい値も落ちました。新しいモニターを登録し直すと改善しました。</p>
+      </details>
+      <details>
+        <summary>ShieldActionやShieldConfigurationのExtensionから親アプリを開けますか？</summary>
+        <p>サポートされたAPIではできませんし、<code>NSExtensionContext</code>を使う回避策も、僕が試した限り現行のiOSでは何も起きませんでした。僕がリリースしているのは、シールドが表示されたときにShieldConfigurationからローカル通知を送る方法です。</p>
+      </details>
+      <details>
+        <summary>iOSシミュレータでScreen Time APIをテストできますか？</summary>
+        <p>一部だけです。iOS 26のシミュレータでも認可ダイアログとピッカーは表示されますが、認可は完了せず、ピッカーには何も表示されず、モニターExtensionも動きませんでした。実機を使ってください。</p>
+      </details>
+    </div>
+
+    <h2 id="why">15. なぜここまでやったのか</h2>
+    <p>僕は<a href="../../">HonorFit</a>というアプリブロッカーを作っています。腕立て伏せをするとスクリーンタイムを稼げるアプリです。自己申告制で、回数は自分で入力します。カメラもAIも使わず、ネットワーク通信もしません。ここまでに書いたことはすべて、「稼いだ時間は、ブロック中のアプリが画面に表示されているあいだだけ減る」をiPhoneで実現するために必要だったことです。実際に動くところを見たい人は、<a href="https://honorfitapp.com/get/?c=blog-ja">App StoreとGoogle Playにあります</a>。作る側ではなく、そういうアプリを使いたくてここにたどり着いた人向けに、<a href="../../../pushup-app-blocker/">腕立て伏せアプリブロッカーのしくみ</a>と、競合も含めた<a href="../../../best-pushup-app-blockers/">正直なまとめ</a>も書いています（どちらも英語です）。ここに載っていないScreen Timeの挙動に出会った人や、新しいiOSで上の内容が違っていると気づいた人は、ぜひ教えてください。</p>
+
+    <h2>あわせて読みたい</h2>
+    <div class="readnext">
+      <a href="../screen-time-api-wishlist/">Screen Time APIでAppleに直してほしい3つのこと &rarr;</a>
+      <a href="../../../best-pushup-app-blockers/">運動しないとスマホのロックが解除されないアプリのまとめ（英語） &rarr;</a>
+      <a href="../">すべての記事 &rarr;</a>
+      <a href="../../../vs-screen-time/">HonorFitとiPhoneのスクリーンタイムの比較（英語） &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">ホーム</a>
+    <a href="../">ブログ</a>
+    <a href="../../../support/">サポート</a>
+    <a href="../../../privacy/">プライバシーポリシー</a>
+    <span class="langs"><a href="../../../blog/ios-screen-time-api-guide/" hreflang="en" lang="en">English</a><a href="../../../es/blog/ios-screen-time-api-guide/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/ios-screen-time-api-guide/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/ios-screen-time-api-guide/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/ios-screen-time-api-guide/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/ios-screen-time-api-guide/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/ios-screen-time-api-guide/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/ios-screen-time-api-guide/" hreflang="pl" lang="pl">Polski</a><a href="../../../tr/blog/ios-screen-time-api-guide/" hreflang="tr" lang="tr">Türkçe</a><a href="../../../id/blog/ios-screen-time-api-guide/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/ios-screen-time-api-guide/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../../th/blog/ios-screen-time-api-guide/" hreflang="th" lang="th">ไทย</a><a href="./" hreflang="ja" lang="ja" aria-current="page">日本語</a><a href="../../../ko/blog/ios-screen-time-api-guide/" hreflang="ko" lang="ko">한국어</a><a href="../../../zh-hant/blog/ios-screen-time-api-guide/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

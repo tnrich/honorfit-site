@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iOS Screen Time API: FamilyControls ve DeviceActivity Tuzakları (2026)</title>
+  <meta name="description" content="Bir iOS uygulama engelleyicisi yayınlarken aldığım saha notları: FamilyControls entitlement'ları, tetiklenmeyen DeviceActivity eşikleri, iOS 26 hayalet olayları, kalkanlar, React Native.">
+  <link rel="canonical" href="https://honorfitapp.com/tr/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/ios-screen-time-api-guide/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/tr/blog/ios-screen-time-api-guide/">
+  <meta property="og:title" content="2026'da iOS Screen Time API'si: Apple'ın Belgelerinin Söylemedikleri">
+  <meta property="og:description" content="Bir iOS uygulama engelleyicisi yayınlarken aldığım saha notları: FamilyControls entitlement'ları, tetiklenmeyen DeviceActivity eşikleri, iOS 26 hayalet olayları, kalkanlar, React Native.">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-09-30">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="2026'da iOS Screen Time API'si: Apple'ın Belgelerinin Söylemedikleri">
+  <meta name="twitter:description" content="Bir uygulama engelleyici yayınlarken FamilyControls, DeviceActivity ve kalkan uzantıları: entitlement dansı, hayalet eşikler, zamanlamalar ve uygulamanı açamayan kalkanlar.">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose ol { padding-left: 24px; }
+    .prose pre {
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 14px 0 20px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    .prose pre code { background: none; border: 0; padding: 0; font-size: inherit; color: var(--text); }
+    .prose .label { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--border); border-radius: 999px; padding: 1px 10px; margin-right: 6px; vertical-align: 1px; }
+    .toc { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 16px 22px; margin: 8px 0 28px; }
+    .toc strong { color: var(--text); }
+    .toc ol { margin: 8px 0 0; }
+    .toc li { margin: 3px 0; }
+    .toc a { text-decoration: none; }
+    .table-scroll { overflow-x: auto; margin: 14px 0 20px; }
+    .prose table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+    .prose th, .prose td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; color: var(--text-dim); }
+    .prose th { color: var(--text); background: var(--bg-raised); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "2026'da iOS Screen Time API'si: Apple'ın Belgelerinin Söylemedikleri",
+        "description": "FamilyControls, DeviceActivity ve ManagedSettings ile bir iOS uygulama engelleyicisi yayınlarken aldığım saha notları: uzantı başına entitlement, App Group'lar, opak token'lar, eşik olayları, iOS 26 hayalet eşikleri, zamanlamaların davranışı, kalkan uzantıları ve React Native.",
+        "url": "https://honorfitapp.com/tr/blog/ios-screen-time-api-guide/",
+        "mainEntityOfPage": "https://honorfitapp.com/tr/blog/ios-screen-time-api-guide/",
+        "datePublished": "2026-09-30",
+        "dateModified": "2026-09-30",
+        "image": "https://honorfitapp.com/img/og.png",
+        "inLanguage": "tr",
+        "proficiencyLevel": "Expert",
+        "keywords": "Screen Time API, Ekran Süresi, FamilyControls, DeviceActivity, ManagedSettings, ShieldConfiguration extension, ShieldAction, DeviceActivityMonitor, eventDidReachThreshold, React Native, Expo, react-native-device-activity",
+        "about": ["FamilyControls", "DeviceActivity", "ManagedSettings", "iOS app extensions"],
+        "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+        "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+      },
+      {
+        "@type": "FAQPage",
+        "inLanguage": "tr",
+        "mainEntity": [
+          { "@type": "Question", "name": "Her uzantı için Family Controls entitlement'ı gerekiyor mu?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Evet. Family Controls (Distribution) entitlement'ı bundle ID başına verilir. DeviceActivityMonitor, ShieldConfiguration ve ShieldAction uzantıları olan bir uygulamanın dört bundle ID için onay alması gerekir ve her App ID'ye ortak App Group'un da eklenmesi gerekir." } },
+          { "@type": "Question", "name": "DeviceActivity eventDidReachThreshold neden tetiklenmiyor?",
+            "acceptedAnswer": { "@type": "Answer", "text": "En sık karşılaştığım sebep: intervalStart değeri şu anki saat olan, tekrarlanmayan bir zamanlama. iOS onu değerlendirdiğinde o an çoktan geçmiş oluyor, bu yüzden eşleşen bir sonraki aralığı (yarını) planlıyor ve bugün hiçbir şey tetiklenmiyor. Başlangıcı birkaç dakika geriye almak sorunu çözdü. iOS 26'da aralıklı kullanımda sonraki dakika altı eşiklerin de düştüğünü gördüm; yeni bir izleyiciyi baştan kurmak işe yaradı." } },
+          { "@type": "Question", "name": "Bir ShieldAction ya da ShieldConfiguration uzantısı ana uygulamayı açabilir mi?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Desteklenen hiçbir API ile açamaz. Testlerimde NSExtensionContext open geçici çözümü güncel iOS'ta hiçbir şey yapmadı. Benim yayına aldığım geçici çözüm, kalkan gösterildiğinde ShieldConfiguration uzantısından yerel bir bildirim göndermek; bildirime dokununca uygulama açılıyor." } },
+          { "@type": "Question", "name": "Screen Time API'sini iOS Simulator'da test edebilir miyim?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sadece kısmen. iOS 26 simülatörlerinde yetkilendirme istemi ve seçici görünüyor, ama bende yetkilendirme tamamlanamadı, seçicide gösterilecek uygulama yoktu ve DeviceActivityMonitor uzantısı hiç çalışmadı. Kalkanları ya da kullanım eşiklerini içeren her şey için fiziksel bir cihaz gerekiyor." } }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">Blog</a>
+    <a class="link" href="../../../support/">Destek</a>
+    <a class="link" href="../../../privacy/">Gizlilik</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>2026'da iOS Screen Time API'si: Apple'ın belgelerinin söylemedikleri</h1>
+    <p class="meta">Bir uygulama engelleyiciyi yayına alırken FamilyControls, DeviceActivity ve kalkan (shield) uzantıları. Yazan: Thomas Willheim &middot; 30 Eylül 2026</p>
+
+    <p>Ağustos ve Eylül 2026'yı iOS'ta bir uygulama engelleyiciyi yayına almakla geçirdim. Uygulama, Screen Time framework'lerini (FamilyControls, DeviceActivity, ManagedSettings ve ManagedSettingsUI) React Native'den, Expo SDK 57 ve <a href="https://github.com/kingstinct/react-native-device-activity">react-native-device-activity</a> kütüphanesi (0.6.1) üzerinden kullanıyor. Apple'ın belgeleri her türün ne olduğunu anlatıyor. Ama gerçek bir telefonda, gece boyunca, iOS 26'da nasıl davrandıkları hakkında pek bir şey söylemiyor.</p>
+    <p>Bu, keşke elimde olsaydı dediğim liste. Cihazda gördüğüm ama belgelenmiş halini bulamadığım davranışlar <span class="label">gözlem</span> olarak işaretli; her iOS sürümünde geçerli olmayabilirler. React Native kütüphanesine özgü maddeler <span class="label">kütüphane</span> olarak işaretli; doğrudan Swift yazıyorsan bunları atlayabilirsin.</p>
+
+    <div class="toc">
+      <strong>İçindekiler</strong>
+      <ol>
+        <li><a href="#moving-parts">Parçalar</a></li>
+        <li><a href="#entitlements">Entitlement'lar: bundle ID başına bir tane</a></li>
+        <li><a href="#app-group">Tek iletişim kanalı App Group</a></li>
+        <li><a href="#tokens">Token'lar opak, bir de seçici</a></li>
+        <li><a href="#thresholds">Eşik olaylarıyla kullanımı ölçmek</a></li>
+        <li><a href="#schedules">Zamanlamalar sandığın anda başlamıyor</a></li>
+        <li><a href="#stop-monitoring">stopMonitoring, intervalDidEnd'i tetikliyor</a></li>
+        <li><a href="#phantom">iOS 26 hayalet eşikleri</a></li>
+        <li><a href="#shield">Kalkan uygulamanı açamıyor</a></li>
+        <li><a href="#expo">Özel uzantıları prebuild'den sağ çıkarmak</a></li>
+        <li><a href="#testing">Xcode 26, Simulator ve test</a></li>
+        <li><a href="#android">Bir de Android'de</a></li>
+        <li><a href="#checklist">Kontrol listesi</a></li>
+        <li><a href="#faq">Kısa cevaplar</a></li>
+        <li><a href="#why">Bütün bunlara neden ihtiyacım vardı</a></li>
+      </ol>
+    </div>
+
+    <h2 id="moving-parts">1. Parçalar</h2>
+    <p>&ldquo;Screen Time API&rdquo; dediğimiz şey dört framework ve pratikte üç uygulama uzantısından oluşuyor:</p>
+    <ul>
+      <li><strong>FamilyControls</strong>: yetkilendirme (<code>AuthorizationCenter</code>, öz denetim uygulaması için <code>.individual</code> ile) ve uygulama, kategori ve web alan adı token'larından oluşan bir <code>FamilyActivitySelection</code> döndüren <code>FamilyActivityPicker</code>.</li>
+      <li><strong>ManagedSettings</strong>: bu token'ları kalkanla korumak için içine koyduğun bir <code>ManagedSettingsStore</code>.</li>
+      <li><strong>DeviceActivity</strong>: zamanlamalar ve kullanım eşiği olayları. Callback'ler (<code>intervalDidStart</code>, <code>intervalDidEnd</code>, <code>eventDidReachThreshold</code> ve uyarı varyantları) uygulamana değil, bir <code>DeviceActivityMonitor</code> uzantısına iletiliyor.</li>
+      <li><strong>ManagedSettingsUI</strong>: kalkanın görünümünü belirleyen bir <code>ShieldConfigurationDataSource</code> uzantısı ve düğmelerini yöneten bir <code>ShieldActionDelegate</code> uzantısı.</li>
+    </ul>
+    <p>İşin özü uzantılar. Kullanıcının süresi bittiğinde uygulamam genelde askıya alınmış ya da kapatılmış oluyor, yani kalkanı yeniden kaldıran şey izleyici uzantısı. Tasarımını, bir şey olduğunda uygulamanın süreci hiç orada olmayacakmış gibi yap.</p>
+
+    <h2 id="entitlements">2. Entitlement'lar: bundle ID başına bir başvuru</h2>
+    <p>Family Controls (Distribution) entitlement'ı <strong>bundle ID başına</strong> onaylanıyor. Üç uzantıyla bu, dört başvuru demek. Benimkiler şunlardı:</p>
+    <ul>
+      <li><code>com.honorfit.blocker</code> (uygulama)</li>
+      <li><code>com.honorfit.blocker.ShieldConfiguration</code></li>
+      <li><code>com.honorfit.blocker.ShieldAction</code></li>
+      <li><code>com.honorfit.blocker.ActivityMonitorExtension</code></li>
+    </ul>
+    <p>Onaylandıktan sonra geliştirici portalında <em>her bir</em> App ID için Family Controls (Distribution) capability'sini etkinleştir, sonra bir App Group oluşturup dördüne de ekle. Birini atlarsan o target'ın provisioning'i başarısız olur. Onaylar anında gelmiyor, bu yüzden dört başvurunun hepsini ilk gün, daha fazla kod yazmadan yap.</p>
+    <p>Her uzantının entitlements dosyası sonunda aynı oluyor:</p>
+<pre><code>&lt;key&gt;com.apple.developer.family-controls&lt;/key&gt;
+&lt;true/&gt;
+&lt;key&gt;com.apple.security.application-groups&lt;/key&gt;
+&lt;array&gt;
+  &lt;string&gt;group.com.honorfit.blocker&lt;/string&gt;
+&lt;/array&gt;</code></pre>
+    <p>Expo/EAS'te build servisi yalnızca bildiği uzantılar için provisioning profile oluşturuyor. Her target'ı entitlement'larıyla birlikte <code>app.json</code> içinde <code>extra.eas.build.experimental.ios.appExtensions</code> altında tanımlıyorum:</p>
+<pre><code>"appExtensions": [
+  {
+    "bundleIdentifier": "com.honorfit.blocker.ShieldConfiguration",
+    "targetName": "ShieldConfiguration",
+    "entitlements": {
+      "com.apple.developer.family-controls": true,
+      "com.apple.security.application-groups": ["group.com.honorfit.blocker"]
+    }
+  }
+  // ...same for ShieldAction and ActivityMonitorExtension
+]</code></pre>
+
+    <h2 id="app-group">3. Tek iletişim kanalı App Group</h2>
+    <p>Uygulaman ve uzantıların ayrı süreçler ve neredeyse hiçbir zaman aynı anda çalışmıyorlar. Paylaştıkları tek şey, genelde <code>UserDefaults(suiteName:)</code> olarak kullanılan App Group container'ı. Uzantıların ihtiyaç duyduğu her şeyin (kaydedilmiş seçim, kalkan metni, bir eşik tetiklendiğinde ne yapılacağı) önceden oraya yazılmış olması gerekiyor.</p>
+    <p>react-native-device-activity bunu sonuna kadar götürüyor. Uygulama, <code>actions_for_{activity}_{callback}_{event}</code> gibi bir anahtarın altına bir &ldquo;eylemler&rdquo; listesi yazıyor ve izleyici uzantısı bunlara <em>callback tetiklendiği anda</em> bakıyor. Bunun işe yarar bir sonucu var: zaten çalışan bir izleyicinin ne yapacağını, onu yeniden başlatmadan değiştirebilirsin. Uzantılar ayrıca okumadan önce <code>CFPreferencesAppSynchronize</code> çağırıyor, böylece uygulamanın en son yazdıklarını görüyorlar:</p>
+<pre><code>let appGroup = Bundle.main.object(
+  forInfoDictionaryKey: "REACT_NATIVE_DEVICE_ACTIVITY_APP_GROUP") as? String
+var userDefaults = UserDefaults(suiteName: appGroup)
+
+// in each callback:
+CFPreferencesAppSynchronize(kCFPreferencesCurrentApplication)
+if let actions = userDefaults?.array(forKey: triggeredBy) { /* run them */ }</code></pre>
+
+    <h2 id="tokens">4. Token'lar opak, bir de seçici</h2>
+    <p>Seçici uygulamana <code>ApplicationToken</code>'lar, <code>ActivityCategoryToken</code>'lar ve <code>WebDomainToken</code>'lar veriyor, başka hiçbir şey değil. Tasarım gereği uygulama bir token'ı tekrar &ldquo;Instagram&rdquo;a çeviremiyor. Yapabildiği şey onları saymak, bu yüzden engelleme listesi ekranım &ldquo;3 uygulama, 1 kategori&rdquo; gösteriyor. Bütün gizlilik modeli bu ve iyi bir model: uygulamam neyi engellediğini kelimenin tam anlamıyla bilmiyor.</p>
+    <figure>
+      <img src="../../../img/blog/ios-app-picker.webp" alt="iOS Ekran Süresi uygulama seçicisi: uygulama kategorilerinden oluşan bir liste, Health &amp; Fitness kategorisi açılmış ve içindeki uygulamalar görünüyor" width="660" height="1310" loading="lazy">
+      <figcaption>Apple'ın <code>FamilyActivityPicker</code>'ı. Kullanıcı uygulama adlarını ve simgelerini görüyor; senin uygulamana ise sadece opak token'lar dönüyor.</figcaption>
+    </figure>
+    <p>Kalkan uzantısında durum farklı. Orada sistem, kalkanla korunan uygulama için sana bir <code>Application</code> veriyor ve ben onun <code>localizedDisplayName</code> değerini kalkan metninde kullanıyorum. Uygulamanın kendisi ise her zaman sadece token görüyor.</p>
+    <p>İki pratik not:</p>
+    <ul>
+      <li><strong>Kategoriler kategori olarak kalıyor.</strong> Kullanıcı &ldquo;Sosyal&rdquo;i seçerse, seçim <code>includeEntireCategory</code> ile oluşturulmadıysa içindeki uygulamaları değil, bir kategori token'ını alıyorsun. Gösterdiğim sayılar dürüst olsun diye bunu <code>false</code> tutuyorum (adını söyleyemediğim uygulamaların sayısı değil, &ldquo;1 kategori&rdquo;).</li>
+      <li><span class="label">kütüphane</span> react-native-device-activity'nin kalıcı seçicisi, kaydedilmiş seçimi (yeniden açtığında görünen onay işaretlerini) yalnızca <code>includeEntireCategory</code> prop'unu, <em>herhangi bir</em> değerle, verirsen önceden yüklüyor. Yüklemeyi tetikleyen şey onun native setter'ı. Bu prop olmadan, seçim kaydedilmiş olsa bile seçici her seferinde boş açılıyor.</li>
+    </ul>
+<pre><code>&lt;DeviceActivitySelectionSheetViewPersisted
+  familyActivitySelectionId="distracting-apps"
+  includeEntireCategory={false}   // must be present, or nothing preloads
+  onSelectionChange={(e) =&gt; setCounts(e.nativeEvent)}
+  onDismissRequest={() =&gt; setPickerVisible(false)}
+/&gt;</code></pre>
+    <p><span class="label">kütüphane</span> Bir tane daha: kütüphanenin <code>blockSelection</code>'ı token'ları kalıcı bir engelleme listesine <em>ekliyor</em>. Kullanıcı seçimini düzenledikten sonra çıkarılan uygulamalar kalkanlı kalmaya devam ediyor. Ben her seferinde önce <code>resetBlocks()</code> çağırıyor, sonra güncel seçimi yeniden engelliyorum.</p>
+
+    <h2 id="thresholds">5. Eşik olaylarıyla kullanımı ölçmek</h2>
+    <p>HonorFit sana sadece engelli bir uygulama ekrandayken azalan bir dakika bakiyesi veriyor. DeviceActivity'de &ldquo;ne kadar kullandığını söyle&rdquo; diye bir çağrı yok; bir seçimin toplam kullanımı belirli bir süreye ulaştığında bir kez tetiklenen eşik olayları var. Ben de her 15 saniyelik kullanım için, adı dakika cinsinden olan bir olay kaydediyorum: <code>used-0.25</code>, <code>used-0.5</code>, &hellip; bakiyeye kadar. Çeyrekler ikili kayan noktada tam olarak temsil edildiği için bu adlar <code>Number()</code>'dan kayıpsız geri dönüyor. Kütüphanenin altında bu, düz Apple API'si:</p>
+<pre><code>let schedule = DeviceActivitySchedule(
+  intervalStart: DateComponents(hour: 9, minute: 45, second: 0),  // see section 6
+  intervalEnd: DateComponents(hour: 23, minute: 59, second: 59),
+  repeats: false
+)
+let event = DeviceActivityEvent(
+  applications: selection.applicationTokens,
+  categories: selection.categoryTokens,
+  webDomains: selection.webDomainTokens,
+  threshold: DateComponents(minute: 0, second: 15),
+  includesPastActivity: false          // iOS 17.4+
+)
+try DeviceActivityCenter().startMonitoring(
+  DeviceActivityName("honorfit-distracting-apps-1790000000000"),
+  during: schedule,
+  events: [DeviceActivityEvent.Name("used-0.25"): event]  // ...one per step
+)</code></pre>
+    <p><code>includesPastActivity: false</code> (varsayılan) olayların kaydedilmesinden önceki kullanımın sayılmadığı anlamına geliyor. Bu, bir sonraki bölümdeki zamanlama numarası için önemli.</p>
+    <p>Son olay tetiklendiğinde izleyici uzantısı kalkanı yeniden uyguluyor ve bir &ldquo;süre doldu&rdquo; bildirimi gönderiyor. Her 15 saniyelik olay, sabit bir kimliği olan tek bir bildirimi güncelliyor; böylece bildirim yerinde değişiyor ve kaba bir canlı geri sayım gibi çalışıyor. <code>interruptionLevel = .passive</code> onu banner göstermeden, sessizce Bildirim Merkezi'ne iletiyor.</p>
+    <p><span class="label">kütüphane</span> <strong>Olay ya da aktivite adlarında alt çizgi kullanma.</strong> Kütüphane tetiklenen olayları <code>events_{activity}_{callback}_{eventName}</code> altında saklıyor ve geri okurken <code>_</code> karakterine göre bölüyor. <code>used_7</code> adlı bir olay <code>used</code> olarak geri geliyor ve hiçbir şey eşleşmiyor. Belirtisi, hiç azalmayan bir bakiyeydi.</p>
+
+    <h2 id="schedules">6. Zamanlamalar sandığın anda başlamıyor</h2>
+    <p>Eşik olayların sessizce hiç tetiklenmiyorsa, sebebi büyük ihtimalle bu.</p>
+    <h3>&ldquo;Şimdi&rdquo; zaten geçmişte kalmış</h3>
+    <p><span class="label">gözlem</span> Tekrarlanmayan bir <code>DeviceActivitySchedule</code> tarih bileşenleriyle eşleştiriliyor ve izleyici eşleşen bir sonraki aralığı çalıştırıyor. <code>intervalStart</code> olarak o anki saati verirsen, framework onu değerlendirene kadar o an geçmiş oluyor. Bir sonraki eşleşme <strong>yarın</strong> ve bugün hiçbir şey tetiklenmiyor: eşik yok, callback yok, hata yok. Çözüm, başlangıcı geriye alıp &ldquo;şimdi&rdquo;nin aralığın içinde kalmasını sağlamak:</p>
+<pre><code>const now = new Date();
+const backdated = new Date(now.getTime() - 15 * 60_000);
+const intervalStart =
+  backdated.getDate() === now.getDate()
+    ? { hour: backdated.getHours(), minute: backdated.getMinutes(), second: backdated.getSeconds() }
+    : { hour: 0, minute: 0, second: 0 };   // don't wrap past midnight
+
+await startMonitoring(activityName,
+  { intervalStart, intervalEnd: { hour: 23, minute: 59, second: 59 }, repeats: false },
+  events);</code></pre>
+    <p>Başlangıcı geriye almak, <code>includesPastActivity: false</code> sayesinde kullanıcıdan önceki scroll süresi için kesinti yapamaz. Ayrıca aralığı Apple'ın alt sınırının üstünde tutar: 15 dakikadan kısa zamanlamalar reddediliyor ve bu, gece yarısından hemen önce seans başlatan herkesin başına iş açıyor.</p>
+    <h3>&ldquo;Şimdi&rdquo;yi içeren bir zamanlama hemen başlıyor</h3>
+    <p><span class="label">gözlem</span> İşin öbür yüzü: 00:00&ndash;23:59:59 arası bir zamanlama o anki saati içerdiği için bir sonraki gece yarısında değil, <em>hemen</em> başlıyor. Yarın için planlamanın bulduğum iki yolu:</p>
+    <ul>
+      <li><strong>Süresi zaten dolmuş bir zamanlama.</strong> T, günün şu anki saatinden bir dakika öncesi olmak üzere <code>[00:00, T)</code>. Bugünkü örnek bitmiş olduğu için framework yarınkini planlıyor. Harcanmamış bir bakiyeyi gece yarısının ötesine taşımak için bunu kullanıyorum.</li>
+      <li><strong>Korumalı eylemlerle <code>repeats: true</code>.</strong> Bugünkü örnek hemen başlıyor ve hiçbir şey yapmıyor (her eylem korumalı, bir sonraki bölüme bak). Asıl işi yarınki yapıyor.</li>
+    </ul>
+    <p><span class="label">gözlem</span> Belirli bir tarihi hedeflemek için zamanlamada tam yıl/ay/gün bileşenleri kullanma. Denediğimde uzantı callback'leri güvenilmez hale geldi; bu da Apple Developer Forums'taki raporlarla örtüşüyor (<a href="https://developer.apple.com/forums/thread/729841">thread 729841</a>). Saat/dakika/saniyede kal.</p>
+    <p>Bir uyarı: bu gece yarısı davranışları sadece cihazda, gece boyunca ortaya çıkıyor. Etraflarına korumalar kurdum ama istediğim kadar çok gerçek gece yarısını kayıt altına almadım, o yüzden bu bölümü bir spesifikasyon olarak değil, &ldquo;benim gördüklerim&rdquo; olarak oku.</p>
+
+    <h2 id="stop-monitoring">7. stopMonitoring, intervalDidEnd'i tetikliyor</h2>
+    <p><span class="label">gözlem</span> <code>stopMonitoring</code> çağırmak ya da zaten çalışan bir izleyicinin adıyla <code>startMonitoring</code> çağırmak, iOS'un uzantında zamanlama doğal olarak bitmiş gibi <code>intervalDidEnd</code> çağırmasına yol açıyor. <code>intervalDidEnd</code>'in bir güvenlik ağı olarak kalkanı yeniden kaldırıyorsa (benimki kaldırıyor, böylece bir izleyicinin süresi dolup uygulamaları engelsiz bırakamıyor), uygulama her izleyici durdurduğunda uzantı kısa bir süreliğine her şeyi kalkanla kapatıyor.</p>
+    <p>Bir kullanıcı belirtiyi bildirdi: HonorFit'i her açtığında Spotify duraklıyordu. İzleyiciyi durdurmak, uzantının seçimi bir anlığına kalkanla kapatmasına yol açıyordu; bu da uygulama kalkanları yeniden kaldırmadan önce Spotify'ı askıya alıyordu.</p>
+    <p>İki çözüm var ve ikisi de gerekli. Birincisi, durdurmadan <em>önce</em> uzantının eylemlerini sil, böylece çalıştıracak hiçbir şeyi kalmasın:</p>
+<pre><code>function stopActivities(names: string[]): void {
+  for (const name of names) RNDA.cleanUpAfterActivity(name); // clear actions first
+  RNDA.stopMonitoring(names);                                // then stop
+}</code></pre>
+    <p>İkincisi, her <code>intervalDidEnd</code> ve <code>intervalDidStart</code> eylemine, zamanlamanın gerçek sınırından bir dakikalık pay çıkarılmış bir &ldquo;bundan önce değil&rdquo; zaman damgası ver. Uzantı bir şey çalıştırmadan önce bunu kontrol ediyor:</p>
+<pre><code>// TypeScript: register the safety net
+RNDA.configureActions({
+  activityName,
+  callbackName: 'intervalDidEnd',
+  actions: [{
+    type: 'blockSelection',
+    familyActivitySelectionId: 'distracting-apps',
+    neverTriggerBefore: new Date(intervalEndMs - 60_000),
+  }],
+});
+
+// Swift, in the DeviceActivityMonitor extension
+if let neverTriggerBefore = neverTriggerBefore {
+  let now = Date().timeIntervalSince1970 * 1000
+  if now &lt; neverTriggerBefore { return false }   // skip this action
+}</code></pre>
+    <p>Düz Swift'te: gerçek bitiş zamanını App Group'ta sakla ve <code>intervalDidEnd</code> erken çağrıldığında hiçbir şey yapmadan çıksın.</p>
+
+    <h2 id="phantom">8. iOS 26 hayalet eşikleri</h2>
+    <p>iOS 26.x'te <code>eventDidReachThreshold</code> bazen hiçbir gerçek kullanım olmadan tetikleniyor: zamanlamayı kurduktan hemen sonra ya da bir süre kilitli duran telefon eline alındığında ya da şarja takıldığında. Apple bunu geliştirici forumu başlıklarında kabul etti (<a href="https://developer.apple.com/forums/thread/809410">809410</a>, <a href="https://developer.apple.com/forums/thread/811305">811305</a>, <a href="https://developer.apple.com/forums/thread/814559">814559</a>). Söylenene göre bir 26.5 betasında düzeltildi, ama insanlar sonrasında da bildirmeye devam etti. Benim uygulamamda belirti, telefon cepte durduktan sonra &ldquo;süre bitti&rdquo; olmasıydı; çünkü uzantı kalkanı yeniden kaldırıyor ve bakiye sıfıra iniyordu.</p>
+    <p>Olayın tetiklenmesini durduramazsın, ama ona inanmayı reddedebilirsin. Gerçek eşiklere dair iki olgu işin çoğunu görüyor:</p>
+    <ol>
+      <li><strong>Kullanım gerçek saatten hızlı ilerleyemez.</strong> <code>used-7</code>, izleyici kurulduktan sonraki 7 dakikadan daha erken meşru bir şekilde tetiklenemez. Her eşik eylemi <code>neverTriggerBefore = armedAt + N minutes &minus; 5s</code> taşıyor, böylece uzantı imkânsız derecede erken tetiklenmeleri atlıyor.</li>
+      <li><strong>Gerçek kullanım parça parça gelir; hayaletler topluca gelir.</strong> Uygulama tetiklenen olayları geri okurken, en düşük ve en yüksek eşik birbirinden yaklaşık 3 saniye içinde tetiklenmiş ama arada bir dakika ya da daha fazla kullanım farkı varsa bunu hayalet olarak kabul ediyor.</li>
+    </ol>
+<pre><code>// Guard 1: drop thresholds that fired before they could have been reached
+if (at &lt; startedAt + minutes * 60_000 - 5_000) continue;
+
+// Guard 2: lowest and highest fired in the same instant, a minute or more apart
+if (highest.minutes - lowest.minutes &gt;= 1 &amp;&amp;
+    Math.abs(highest.at - lowest.at) &lt;= 3_000) {
+  return { usedMinutes: 0, partialMs: 0 };   // phantom: ignore the lot
+}</code></pre>
+    <p>İkinci koruma uzantıda değil uygulamada çalışıyor, yani bir hayalet yine de kalkanı kaldırabiliyor. Ama bakiye korunuyor ve uygulama bir sonraki açılışta kalkanı yeniden indiriyor. Toplu tetiklenme tespitini uzantının içinde yapmak özel Swift kodu gerektirir ve onu henüz yazmadım.</p>
+    <p><span class="label">gözlem</span> İlgili bir sorun ters yönde işliyor: tetiklenmesi gereken ama tetiklenmeyen eşikler. iOS 26'da girip çıkmalı kullanımda, yeni bir izleyicinin ilk 15 saniyelik eşiğinin zamanında tetiklendiğini, sonrakilerinse birleştirildiğini ya da tamamen düştüğünü gördüm (<code>used-0.25</code> tetiklendi, <code>used-0.5</code> ve sonrası hiç tetiklenmedi). Benim geçici çözümüm, zaten kullanım ölçmüş her izleyiciyi bayatlamış kabul edip uygulama her arka plana geçtiğinde kalan bakiye üzerinden yeni bir izleyici kurmak. Bu, her yeniden başlatmada en fazla 15 saniyelik kullanımı affetmek demek ve bence sorun değil.</p>
+
+    <h2 id="shield">9. Kalkan uygulamanı açamıyor</h2>
+    <p>Akla gelen ilk tasarım, &ldquo;Daha fazla süre kazan&rdquo; yazan ve uygulamanı açan bir kalkan düğmesi. Bunu yapmanın desteklenen bir yolu yok; Apple DTS, bir kalkan uzantısının ana uygulamasını başlatması için bir API olmadığını söylüyor. Bir <code>ShieldActionDelegate</code>, düğmeye basılmasına bir <code>ShieldActionResponse</code> ile (<code>.none</code>, <code>.close</code> ya da <code>.defer</code>) cevap veriyor ve bunların hiçbiri bir şey açmıyor.</p>
+    <p><span class="label">gözlem</span> Karşına çıkacak geçici çözüm (ShieldAction uzantısından <code>NSExtensionContext().open(url)</code>; kütüphane bunu <code>openUrl</code> olarak sunuyor), Eylül 2026'da bir cihazda test ettiğimde güncel iOS'ta hiçbir şey yapmadı. Düğme sadece kalkanı kapattı. Düğmeye dokunulduğunda bildirim göndermek de bende güvenilir çalışmadı.</p>
+    <p>Onun yerine yayına aldığım şey şu: kalkanda tek bir &ldquo;Kapat&rdquo; düğmesi var ve <strong>ShieldConfiguration</strong> uzantısı, kalkan her <em>gösterildiğinde</em> yerel bir bildirim gönderiyor. Kullanıcı banner'a dokunuyor ve uygulamaya düşüyor. Uygulama bildirimin içeriğini önceden App Group'a yazıyor ve ön plana geldiğinde bildirimi kaldırıyor. iOS tek bir gösterim için kalkan yapılandırmasını birkaç kez isteyebiliyor, bu yüzden gönderim debounce ediliyor:</p>
+<pre><code>func postShieldShownNotification(placeholders: [String: String?]) {
+  guard let config = userDefaults?.dictionary(forKey: "honorfitShieldShownNotification"),
+        let payload = config["payload"] as? [String: Any] else { return }
+
+  let minInterval = config["minIntervalSeconds"] as? Double ?? 30
+  let now = Date().timeIntervalSince1970
+  let lastSentAt = userDefaults?.double(forKey: "honorfitShieldShownNotificationLastSentAt") ?? 0
+  if now - lastSentAt &lt; minInterval { return }
+  userDefaults?.set(now, forKey: "honorfitShieldShownNotificationLastSentAt")
+
+  // builds a UNMutableNotificationContent and adds a UNNotificationRequest
+  // with a fixed identifier, so repeats replace rather than stack
+  sendNotification(contents: payload, placeholders: placeholders)
+}
+
+class ShieldConfigurationExtension: ShieldConfigurationDataSource {
+  override func configuration(shielding application: Application) -&gt; ShieldConfiguration {
+    postShieldShownNotification(placeholders: [
+      "applicationOrDomainDisplayName": application.localizedDisplayName
+    ])
+    return buildShield(/* title, subtitle, colors from the App Group */)
+  }
+  // ...same hook in the category and web-domain overloads
+}</code></pre>
+    <p>Bu bir hack ve kullanıcının bildirimlere izin vermesine bağlı, ama benim için uygulamaya güvenilir şekilde ulaşan tek yol buydu.</p>
+
+    <h2 id="expo">10. Özel uzantıları prebuild'den sağ çıkarmak</h2>
+    <p><span class="label">kütüphane</span> Expo kullanıyorsan, <code>expo prebuild</code> react-native-device-activity config plugin'ini çalıştırıyor ve bu plugin varsayılan olarak her çalıştırmada kütüphanenin hazır uzantı kaynaklarını <code>./targets</code> içine kopyalıyor. Özelleştirdiğim ShieldConfiguration sessizce üzerine yazıldı. Çözüm tek bir plugin seçeneği:</p>
+<pre><code>["react-native-device-activity", {
+  "appleTeamId": "XXXXXXXXXX",
+  "appGroup": "group.com.honorfit.blocker",
+  "copyToTargetFolder": false
+}]</code></pre>
+    <p>Bedeli: kütüphaneyi güncellediğinde, onun <code>targets/</code> klasörünü ve paylaşılan Swift kodunu seninkilerle elle karşılaştırıp değişikliklerini yeniden uygulaman gerekiyor.</p>
+
+    <h2 id="testing">11. Xcode 26, Simulator ve test</h2>
+    <ul>
+      <li><strong>iOS 26 SDK ile derle.</strong> App Store Connect artık iOS 26'dan eski bir SDK ile derlenmiş yüklemeleri reddediyor (ITMS-90725). EAS'te build imajını <code>macos-tahoe-26.5-xcode-26.6</code> olarak sabitliyorum.</li>
+      <li><strong>Simulator seni ancak yolun bir kısmına kadar götürür.</strong> iOS 26 simülatörlerinde yetkilendirme istemi ve seçici görünüyor. Ama yetkilendirme hiçbir zaman tamamlanmıyor (&ldquo;Allow with Passcode&rdquo; (Parolayla İzin Ver), Simulator'ın ayarlayamadığı bir cihaz parolası istiyor), seçicide listelenecek uygulama yok ve izleyici uzantısı hiç çalışmıyor. 5. ile 9. bölümler arasındaki her şey fiziksel bir cihaz gerektiriyor.</li>
+      <li><strong>ManagedSettings çağrılarını yetkilendirmeye bağla.</strong> Yetki yokken store'a dokunmak Simulator'da bir sistem parolası istemi açtı ve bu UI testlerimi bozdu. Herhangi bir kalkan çağrısından önce yetkilendirme durumunu kontrol ediyorum.</li>
+      <li><strong>Yetkilendirme hatalarını arayüzde göster.</strong> TestFlight test kullanıcılarının bir konsolu yok. <code>requestAuthorization</code> sessizce başarısız olursa düğme sadece bozukmuş gibi görünür. Hatayı ve durumu bir uyarıda gösteriyorum.</li>
+      <li><strong>Gece boyunca test et.</strong> En kötü hatalarım (süre kaldığı halde bütün gece engelli kalmak, müziğin duraklaması) kod incelemesinde görünmüyordu ve sadece bir cihazda saatler içinde ortaya çıkıyordu.</li>
+    </ul>
+
+    <h2 id="android">12. Bir de Android'de</h2>
+    <p>Karşılaştırma için: Android'de resmi bir karşılığı yok, o yüzden kendin yapıyorsun. HonorFit'in Android engelleyicisi bir ön plan hizmeti (uygulama engelleme listedeki türlerin hiçbirine uymadığı için türü <code>specialUse</code>); ekran açıkken hangi uygulamanın önde olduğunu öğrenmek için saniyede bir <code>UsageStatsManager</code>'ı yokluyor. Engelli bir uygulama açıkken bakiye sıfırsa, üstüne bir <code>TYPE_APPLICATION_OVERLAY</code> kilit ekranı çiziyor (&ldquo;Diğer uygulamaların üzerinde göster&rdquo;). Bir boot receiver ve bir watchdog alarmı, yeniden başlatmalardan, uygulama güncellemelerinden ve agresif üretici pil yöneticilerinden sonra hizmeti yeniden başlatıyor.</p>
+    <p>Ödünleşimler iOS'takinin tam tersi yönde. Gerçek paket adlarını görüyorsun, yani gizlilik işletim sisteminin dayattığı değil, senin tuttuğun bir söz. Engelli bir uygulama bir yoklama aralığı kadar görünür kalabiliyor ve overlay'in altında çalışmaya devam ediyor. Ayrıca ön plan hizmeti türü, overlay izni ve paket görünürlüğü için Play Console beyanları yazacaksın. AccessibilityService'ten bilerek kaçındım; en sıkı incelemeden geçen o.</p>
+
+    <h2 id="checklist">13. Kontrol listesi</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th scope="col">Belirti</th><th scope="col">Muhtemel sebep</th><th scope="col">Çözüm</th></tr></thead>
+        <tbody>
+          <tr><td>Bir target için provisioning başarısız</td><td>O bundle ID'de entitlement ya da App Group eksik</td><td>Her bundle ID için Family Controls (Distribution) iste ve App Group'u ekle</td></tr>
+          <tr><td>Hiçbir zaman eşik olayı gelmiyor</td><td><code>intervalStart</code> = şimdi, yani izleyici yarına planlanmış</td><td>Başlangıcı geriye al; aralığı &ge; 15 dk tut</td></tr>
+          <tr><td>Yarın için kurulan izleyici bugün çalışıyor</td><td>Zamanlama şu anki saati içeriyor</td><td>Bugün süresi dolmuş bir <code>[00:00, T)</code> zamanlaması ya da korumalı eylemlerle <code>repeats: true</code></td></tr>
+          <tr><td>Uygulaman açıldığında uygulamalar bir anlığına kalkanlanıyor</td><td><code>stopMonitoring</code>, <code>intervalDidEnd</code>'i tetikliyor</td><td>Durdurmadan önce eylemleri temizle; bir &ldquo;bundan önce değil&rdquo; zamanıyla koru</td></tr>
+          <tr><td>Telefon boşta durduktan sonra &ldquo;süre bitti&rdquo;</td><td>iOS 26 hayalet eşikleri</td><td>Gerçek saat koruması ve toplu tetiklenme filtresi</td></tr>
+          <tr><td>Sonraki eşikler hiç tetiklenmiyor</td><td>Aralıklı kullanımda düşüyor/birleştiriliyor</td><td>Her arka plana geçişte yeni bir izleyici kur</td></tr>
+          <tr><td>Kalkan düğmesi uygulamayı açmıyor</td><td>Desteklenen bir API yok</td><td>Kalkan gösterildiğinde ShieldConfiguration'dan bildirim gönder</td></tr>
+          <tr><td>Tetiklenen olaylar eşleşmiyor (RN)</td><td>Olay adında alt çizgi var</td><td><code>used_7</code> değil, <code>used-7</code> kullan</td></tr>
+          <tr><td>Seçici boş açılıyor (RN)</td><td><code>includeEntireCategory</code> prop'u eksik</td><td>Herhangi bir değerle ver</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="faq">14. Kısa cevaplar</h2>
+    <div class="faq">
+      <details>
+        <summary>Her uzantı için Family Controls entitlement'ı gerekiyor mu?</summary>
+        <p>Evet. Bundle ID başına veriliyor. Uygulama artı bir DeviceActivityMonitor, bir ShieldConfiguration ve bir ShieldAction uzantısı dört onay demek ve her App ID'ye ortak App Group'un da eklenmesi gerekiyor.</p>
+      </details>
+      <details>
+        <summary>DeviceActivity eventDidReachThreshold neden tetiklenmiyor?</summary>
+        <p>Bende sebep genelde &ldquo;şimdi&rdquo; başlayan, tekrarlanmayan bir zamanlamaydı; o da yarına planlanıyor. <code>intervalStart</code>'ı geriye al. iOS 26'da, girip çıkmalı kullanımda sonraki dakika altı eşikler de düştü; yeni bir izleyici kurmak işe yaradı.</p>
+      </details>
+      <details>
+        <summary>Bir ShieldAction ya da ShieldConfiguration uzantısı ana uygulamayı açabilir mi?</summary>
+        <p>Desteklenen bir API ile açamaz ve testlerimde <code>NSExtensionContext</code> geçici çözümü güncel iOS'ta hiçbir şey yapmadı. Benim yayına aldığım şey, kalkan gösterildiğinde ShieldConfiguration'dan gönderilen yerel bir bildirim.</p>
+      </details>
+      <details>
+        <summary>Screen Time API'sini iOS Simulator'da test edebilir miyim?</summary>
+        <p>Kısmen. İstem ve seçici iOS 26 simülatörlerinde görünüyor, ama yetkilendirme tamamlanmadı, seçicide listelenecek bir şey yoktu ve izleyici uzantısı hiç çalışmadı. Bir cihaz kullan.</p>
+      </details>
+    </div>
+
+    <h2 id="why">15. Bütün bunlara neden ihtiyacım vardı</h2>
+    <p>Ekran süresini şınav çekerek kazandığın bir uygulama engelleyici olan <a href="../../">HonorFit</a>'i yaptım. Onur sistemiyle çalışıyor: tekrarlarını kendin giriyorsun; kamera yok, yapay zekâ yok, ağ çağrısı yok. Yukarıdaki her şey, &ldquo;kazandığın dakikalar sadece engelli bir uygulama ekrandayken azalır&rdquo; fikrini bir iPhone'da çalıştırmak için gerekenlerdi. Çalışırken görmek istersen, <a href="https://honorfitapp.com/get/?c=blog-tr">App Store'da ve Google Play'de</a>. Buraya böyle bir uygulama yapmak için değil de kullanmak için geldiysen, <a href="../../../pushup-app-blocker/">şınavlı uygulama engelleyicilerin nasıl çalıştığını</a> ve rakipler dahil <a href="../../../best-pushup-app-blockers/">mevcut olanların dürüst bir derlemesini</a> yazdım. Burada olmayan bir Screen Time davranışıyla karşılaştıysan ya da yukarıdaki bir şeyin daha yeni bir iOS'ta yanlış olduğunu fark ettiysen, duymak isterim.</p>
+
+    <h2>Okumaya devam et</h2>
+    <div class="readnext">
+      <a href="../screen-time-api-wishlist/">Screen Time API'sinde Apple'ın düzeltmesini istediğim 3 şey &rarr;</a>
+      <a href="../../../best-pushup-app-blockers/">Telefonunun kilidini açmak için seni spor yaptıran en iyi uygulamalar &rarr;</a>
+      <a href="../">Tüm yazılar &rarr;</a>
+      <a href="../../../vs-screen-time/">HonorFit ile iPhone Ekran Süresi karşılaştırması &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">Ana sayfa</a>
+    <a href="../">Blog</a>
+    <a href="../../../support/">Destek</a>
+    <a href="../../../privacy/">Gizlilik Politikası</a>
+    <span class="langs"><a href="../../../blog/ios-screen-time-api-guide/" hreflang="en" lang="en">English</a><a href="../../../es/blog/ios-screen-time-api-guide/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/ios-screen-time-api-guide/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/ios-screen-time-api-guide/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/ios-screen-time-api-guide/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/ios-screen-time-api-guide/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/ios-screen-time-api-guide/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/ios-screen-time-api-guide/" hreflang="pl" lang="pl">Polski</a><a href="./" hreflang="tr" lang="tr" aria-current="page">Türkçe</a><a href="../../../id/blog/ios-screen-time-api-guide/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/ios-screen-time-api-guide/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../../th/blog/ios-screen-time-api-guide/" hreflang="th" lang="th">ไทย</a><a href="../../../ja/blog/ios-screen-time-api-guide/" hreflang="ja" lang="ja">日本語</a><a href="../../../ko/blog/ios-screen-time-api-guide/" hreflang="ko" lang="ko">한국어</a><a href="../../../zh-hant/blog/ios-screen-time-api-guide/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

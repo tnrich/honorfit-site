@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ブログ：アプリブロッカー開発ノート｜HonorFit</title>
+  <meta name="description" content="iPhone・Android向けの腕立て伏せアプリブロッカー「HonorFit」の開発ノート。iOSのScreen Time API、Androidでの使用状況の監視、リリースまでに学んだこと。">
+  <link rel="canonical" href="https://honorfitapp.com/ja/blog/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/">
+  <meta name="theme-color" content="#0D1117">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/ja/blog/">
+  <meta property="og:title" content="ブログ：アプリブロッカー開発ノート｜HonorFit">
+  <meta property="og:description" content="iPhone・Android向けの腕立て伏せアプリブロッカー「HonorFit」の開発ノート。iOSのScreen Time API、Androidでの使用状況の監視、リリースまでに学んだこと。">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="apple-itunes-app" content="app-id=6802871620">
+  <link rel="icon" href="../../img/favicon.png">
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    .posts { list-style: none; padding: 0 !important; margin: 0; }
+    .posts li { border-bottom: 1px solid var(--border); padding: 20px 0; margin: 0 !important; }
+    .posts li:first-child { border-top: 1px solid var(--border); }
+    .posts h2 { margin: 0 0 6px; font-size: 1.2rem; }
+    .posts h2 a { color: var(--text); text-decoration: none; }
+    .posts h2 a:hover { color: var(--orange-bright); }
+    .posts .date { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 6px; }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "HonorFitブログ",
+    "url": "https://honorfitapp.com/ja/blog/",
+    "inLanguage": "ja",
+    "description": "iPhone・Android向けの腕立て伏せアプリブロッカー「HonorFit」の開発ノート。",
+    "author": { "@type": "Person", "name": "Thomas Willheim" },
+    "blogPost": [
+      {
+        "@type": "TechArticle",
+        "headline": "2026年版 iOS Screen Time API：Appleのドキュメントに書かれていないこと",
+        "url": "https://honorfitapp.com/ja/blog/ios-screen-time-api-guide/",
+        "datePublished": "2026-09-30",
+        "inLanguage": "ja",
+        "author": { "@type": "Person", "name": "Thomas Willheim" }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../img/icon.png" alt="">
+    <a class="brand" href="../">HonorFit Blocker</a>
+    <a class="link" href="./">ブログ</a>
+    <a class="link" href="../../support/">サポート</a>
+    <a class="link" href="../../privacy/">プライバシー</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>ブログ</h1>
+    <p class="meta">iPhone・Android向けの腕立て伏せアプリブロッカー、HonorFitの開発ノート。</p>
+
+    <ul class="posts">
+      <li>
+        <h2><a href="screen-time-api-wishlist/">Screen Time APIでAppleに直してほしい3つのこと</a></h2>
+        <p class="date"><time datetime="2026-09-30">2026年9月30日</time></p>
+        <p>iPhoneとAndroidで同じアプリなのに、Android版のほうが使いやすい。スクリーンタイムを使えるアプリは一度に1つだけ、アプリ側でカスタマイズできないピッカー、そして残り時間のリアルタイムなカウントダウンがないこと。</p>
+      </li>
+      <li>
+        <h2><a href="ios-screen-time-api-guide/">2026年版 iOS Screen Time API：Appleのドキュメントに書かれていないこと</a></h2>
+        <p class="date"><time datetime="2026-09-30">2026年9月30日</time></p>
+        <p>実際にリリースしたアプリで使ったFamilyControls、DeviceActivity、シールドのExtensionについて。ExtensionごとのEntitlement、発火しないしきい値イベント、iOS 26のファントムしきい値、思った時刻に始まらないスケジュール、そしてシールドからアプリを開けない理由。</p>
+      </li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../">ホーム</a>
+    <a href="../../support/">サポート</a>
+    <a href="../../privacy/">プライバシーポリシー</a>
+    <span class="langs"><a href="../../blog/" hreflang="en" lang="en">English</a><a href="../../es/blog/" hreflang="es" lang="es">Español</a><a href="../../pt-br/blog/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../de/blog/" hreflang="de" lang="de">Deutsch</a><a href="../../fr/blog/" hreflang="fr" lang="fr">Français</a><a href="../../it/blog/" hreflang="it" lang="it">Italiano</a><a href="../../nl/blog/" hreflang="nl" lang="nl">Nederlands</a><a href="../../pl/blog/" hreflang="pl" lang="pl">Polski</a><a href="../../tr/blog/" hreflang="tr" lang="tr">Türkçe</a><a href="../../id/blog/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../vi/blog/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../th/blog/" hreflang="th" lang="th">ไทย</a><a href="./" hreflang="ja" lang="ja" aria-current="page">日本語</a><a href="../../ko/blog/" hreflang="ko" lang="ko">한국어</a><a href="../../zh-hant/blog/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

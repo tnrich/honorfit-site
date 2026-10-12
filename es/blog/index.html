@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog: notas de cómo construí un bloqueador de apps | HonorFit</title>
+  <meta name="description" content="Notas técnicas de cómo construí HonorFit, un bloqueador de apps con flexiones para iPhone y Android: la Screen Time API de iOS, el monitoreo de uso en Android y lo que aprendí al publicarlo.">
+  <link rel="canonical" href="https://honorfitapp.com/es/blog/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/">
+  <meta name="theme-color" content="#0D1117">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/es/blog/">
+  <meta property="og:title" content="Blog: notas de cómo construí un bloqueador de apps | HonorFit">
+  <meta property="og:description" content="Notas técnicas de cómo construí HonorFit, un bloqueador de apps con flexiones para iPhone y Android: la Screen Time API de iOS, el monitoreo de uso en Android y lo que aprendí al publicarlo.">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="apple-itunes-app" content="app-id=6802871620">
+  <link rel="icon" href="../../img/favicon.png">
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    .posts { list-style: none; padding: 0 !important; margin: 0; }
+    .posts li { border-bottom: 1px solid var(--border); padding: 20px 0; margin: 0 !important; }
+    .posts li:first-child { border-top: 1px solid var(--border); }
+    .posts h2 { margin: 0 0 6px; font-size: 1.2rem; }
+    .posts h2 a { color: var(--text); text-decoration: none; }
+    .posts h2 a:hover { color: var(--orange-bright); }
+    .posts .date { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 6px; }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Blog de HonorFit",
+    "url": "https://honorfitapp.com/es/blog/",
+    "inLanguage": "es",
+    "description": "Notas técnicas de cómo construí HonorFit, un bloqueador de apps con flexiones para iPhone y Android.",
+    "author": { "@type": "Person", "name": "Thomas Willheim" },
+    "blogPost": [
+      {
+        "@type": "TechArticle",
+        "headline": "La Screen Time API de iOS en 2026: lo que la documentación de Apple no te cuenta",
+        "url": "https://honorfitapp.com/es/blog/ios-screen-time-api-guide/",
+        "inLanguage": "es",
+        "datePublished": "2026-09-30",
+        "author": { "@type": "Person", "name": "Thomas Willheim" }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../img/icon.png" alt="">
+    <a class="brand" href="../">HonorFit Blocker</a>
+    <a class="link" href="./">Blog</a>
+    <a class="link" href="../../support/">Soporte</a>
+    <a class="link" href="../../privacy/">Privacidad</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>Blog</h1>
+    <p class="meta">Notas de cómo construí HonorFit, un bloqueador de apps con flexiones para iPhone y Android.</p>
+
+    <ul class="posts">
+      <li>
+        <h2><a href="screen-time-api-wishlist/">3 cosas que me gustaría que Apple arreglara en la Screen Time API</a></h2>
+        <p class="date"><time datetime="2026-09-30">30 de septiembre de 2026</time></p>
+        <p>La misma app en iPhone y Android, y la de Android es más cómoda de usar. Solo una app de Tiempo de uso a la vez, un selector que las apps no pueden personalizar y ninguna cuenta atrás en vivo del tiempo que te queda.</p>
+      </li>
+      <li>
+        <h2><a href="ios-screen-time-api-guide/">La Screen Time API de iOS en 2026: lo que la documentación de Apple no te cuenta</a></h2>
+        <p class="date"><time datetime="2026-09-30">30 de septiembre de 2026</time></p>
+        <p>FamilyControls, DeviceActivity y las extensiones de shield desde una app publicada: entitlements para cada extensión, eventos de umbral que nunca se disparan, umbrales fantasma en iOS 26, horarios que empiezan cuando no deben y por qué un shield no puede abrir tu app.</p>
+      </li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../">Inicio</a>
+    <a href="../../support/">Soporte</a>
+    <a href="../../privacy/">Política de privacidad</a>
+    <span class="langs"><a href="../../blog/" hreflang="en" lang="en">English</a><a href="./" hreflang="es" lang="es" aria-current="page">Español</a><a href="../../pt-br/blog/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../de/blog/" hreflang="de" lang="de">Deutsch</a><a href="../../fr/blog/" hreflang="fr" lang="fr">Français</a><a href="../../it/blog/" hreflang="it" lang="it">Italiano</a><a href="../../nl/blog/" hreflang="nl" lang="nl">Nederlands</a><a href="../../pl/blog/" hreflang="pl" lang="pl">Polski</a><a href="../../tr/blog/" hreflang="tr" lang="tr">Türkçe</a><a href="../../id/blog/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../vi/blog/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../th/blog/" hreflang="th" lang="th">ไทย</a><a href="../../ja/blog/" hreflang="ja" lang="ja">日本語</a><a href="../../ko/blog/" hreflang="ko" lang="ko">한국어</a><a href="../../zh-hant/blog/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iOS Screen Time API: Stolperfallen bei FamilyControls & DeviceActivity (2026)</title>
+  <meta name="description" content="Notizen aus der Praxis mit einem iOS-App-Blocker: FamilyControls-Entitlements, DeviceActivity-Thresholds, die nicht feuern, Phantom-Events unter iOS 26, Shields, React Native.">
+  <link rel="canonical" href="https://honorfitapp.com/de/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/ios-screen-time-api-guide/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/de/blog/ios-screen-time-api-guide/">
+  <meta property="og:title" content="Die iOS Screen Time API 2026: Was Apples Dokumentation dir nicht sagt">
+  <meta property="og:description" content="Notizen aus der Praxis mit einem iOS-App-Blocker: FamilyControls-Entitlements, DeviceActivity-Thresholds, die nicht feuern, Phantom-Events unter iOS 26, Shields, React Native.">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-09-30">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Die iOS Screen Time API 2026: Was Apples Dokumentation dir nicht sagt">
+  <meta name="twitter:description" content="FamilyControls, DeviceActivity und Shield-Extensions aus einem echten App-Blocker: das Entitlement-Theater, Phantom-Thresholds, Zeitpläne und Shields, die deine App nicht öffnen können.">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose ol { padding-left: 24px; }
+    .prose pre {
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 14px 0 20px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    .prose pre code { background: none; border: 0; padding: 0; font-size: inherit; color: var(--text); }
+    .prose .label { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--border); border-radius: 999px; padding: 1px 10px; margin-right: 6px; vertical-align: 1px; }
+    .toc { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 16px 22px; margin: 8px 0 28px; }
+    .toc strong { color: var(--text); }
+    .toc ol { margin: 8px 0 0; }
+    .toc li { margin: 3px 0; }
+    .toc a { text-decoration: none; }
+    .table-scroll { overflow-x: auto; margin: 14px 0 20px; }
+    .prose table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+    .prose th, .prose td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; color: var(--text-dim); }
+    .prose th { color: var(--text); background: var(--bg-raised); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "Die iOS Screen Time API 2026: Was Apples Dokumentation dir nicht sagt",
+        "description": "Notizen aus der Praxis mit einem iOS-App-Blocker auf Basis von FamilyControls, DeviceActivity und ManagedSettings: Entitlements pro Extension, App Groups, undurchsichtige Tokens, Threshold-Events, Phantom-Thresholds unter iOS 26, das Verhalten von Zeitplänen, Shield-Extensions und React Native.",
+        "url": "https://honorfitapp.com/de/blog/ios-screen-time-api-guide/",
+        "mainEntityOfPage": "https://honorfitapp.com/de/blog/ios-screen-time-api-guide/",
+        "datePublished": "2026-09-30",
+        "dateModified": "2026-09-30",
+        "image": "https://honorfitapp.com/img/og.png",
+        "inLanguage": "de",
+        "proficiencyLevel": "Expert",
+        "keywords": "Screen Time API, Bildschirmzeit, FamilyControls, DeviceActivity, ManagedSettings, ShieldConfiguration extension, ShieldAction, DeviceActivityMonitor, eventDidReachThreshold, React Native, Expo, react-native-device-activity",
+        "about": ["FamilyControls", "DeviceActivity", "ManagedSettings", "iOS app extensions"],
+        "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+        "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+      },
+      {
+        "@type": "FAQPage",
+        "inLanguage": "de",
+        "mainEntity": [
+          { "@type": "Question", "name": "Brauche ich das Family-Controls-Entitlement für jede Extension?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Ja. Das Entitlement Family Controls (Distribution) wird pro Bundle-ID vergeben. Eine App mit einer DeviceActivityMonitor-, einer ShieldConfiguration- und einer ShieldAction-Extension braucht es für vier Bundle-IDs, und jede App-ID braucht außerdem die gemeinsame App Group." } },
+          { "@type": "Question", "name": "Warum feuert eventDidReachThreshold von DeviceActivity nicht?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Die häufigste Ursache bei mir: ein nicht wiederholter Zeitplan, dessen intervalStart die aktuelle Uhrzeit ist. Bis iOS ihn auswertet, liegt dieser Zeitpunkt in der Vergangenheit, also plant es das nächste passende Intervall ein (morgen), und heute feuert nichts. Den Start ein paar Minuten zurückzudatieren hat das behoben. Bei unregelmäßiger Nutzung unter iOS 26 habe ich außerdem gesehen, dass spätere Thresholds unter einer Minute verloren gehen; einen frischen Monitor neu zu starten hat geholfen." } },
+          { "@type": "Question", "name": "Kann eine ShieldAction- oder ShieldConfiguration-Extension die Haupt-App öffnen?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Nicht über eine unterstützte API. Der Workaround mit NSExtensionContext open hat in meinen Tests unter aktuellem iOS nichts bewirkt. Was ich ausliefere: Die ShieldConfiguration-Extension postet eine lokale Mitteilung, sobald das Shield angezeigt wird; ein Tipp darauf öffnet die App." } },
+          { "@type": "Question", "name": "Kann ich die Screen Time API im iOS-Simulator testen?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Nur teilweise. In Simulatoren mit iOS 26 erscheinen die Autorisierungsabfrage und die Auswahl, aber die Autorisierung ließ sich bei mir nicht abschließen, die Auswahl hatte keine Apps zum Anzeigen, und die DeviceActivityMonitor-Extension lief nie. Alles mit Shields oder Nutzungs-Thresholds braucht ein echtes Gerät." } }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">Blog</a>
+    <a class="link" href="../../../support/">Support</a>
+    <a class="link" href="../../../privacy/">Datenschutz</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>Die iOS Screen Time API 2026: Was Apples Dokumentation dir nicht sagt</h1>
+    <p class="meta">FamilyControls, DeviceActivity und Shield-Extensions, aus der Arbeit an einem App-Blocker, der wirklich im Store ist. Von Thomas Willheim &middot; 30. September 2026</p>
+
+    <p>Im August und September 2026 habe ich einen App-Blocker für iOS fertiggestellt und veröffentlicht. Er nutzt die Bildschirmzeit-Frameworks (FamilyControls, DeviceActivity, ManagedSettings und ManagedSettingsUI) aus React Native heraus, über Expo SDK 57 und die Bibliothek <a href="https://github.com/kingstinct/react-native-device-activity">react-native-device-activity</a> (0.6.1). Apples Dokumentation erklärt dir, was jeder Typ ist. Wie sie sich auf einem echten Handy verhalten, über Nacht, unter iOS 26, steht da kaum.</p>
+    <p>Das hier ist die Liste, die ich gern vorher gehabt hätte. Verhalten, das ich auf einem Gerät gesehen, aber nirgends dokumentiert gefunden habe, ist mit <span class="label">beobachtet</span> markiert; es gilt vielleicht nicht für jede iOS-Version. Punkte, die nur die React-Native-Bibliothek betreffen, sind mit <span class="label">Bibliothek</span> markiert; die kannst du überspringen, wenn du direkt in Swift schreibst.</p>
+
+    <div class="toc">
+      <strong>Inhalt</strong>
+      <ol>
+        <li><a href="#moving-parts">Die beweglichen Teile</a></li>
+        <li><a href="#entitlements">Entitlements: eins pro Bundle-ID</a></li>
+        <li><a href="#app-group">Die App Group ist der einzige Kanal</a></li>
+        <li><a href="#tokens">Tokens sind undurchsichtig, und die Auswahl</a></li>
+        <li><a href="#thresholds">Nutzung mit Threshold-Events messen</a></li>
+        <li><a href="#schedules">Zeitpläne starten nicht, wann du denkst</a></li>
+        <li><a href="#stop-monitoring">stopMonitoring löst intervalDidEnd aus</a></li>
+        <li><a href="#phantom">Phantom-Thresholds unter iOS 26</a></li>
+        <li><a href="#shield">Ein Shield kann deine App nicht öffnen</a></li>
+        <li><a href="#expo">Eigene Extensions durch prebuild retten</a></li>
+        <li><a href="#testing">Xcode 26, der Simulator und Testen</a></li>
+        <li><a href="#android">Und auf Android</a></li>
+        <li><a href="#checklist">Checkliste</a></li>
+        <li><a href="#faq">Kurze Antworten</a></li>
+        <li><a href="#why">Wozu ich das alles brauchte</a></li>
+      </ol>
+    </div>
+
+    <h2 id="moving-parts">1. Die beweglichen Teile</h2>
+    <p>„Die Screen Time API“ besteht aus vier Frameworks und in der Praxis drei App-Extensions:</p>
+    <ul>
+      <li><strong>FamilyControls</strong>: die Autorisierung (<code>AuthorizationCenter</code>, mit <code>.individual</code> für eine App zur Selbstkontrolle) und der <code>FamilyActivityPicker</code>, der eine <code>FamilyActivitySelection</code> aus App-, Kategorie- und Web-Domain-Tokens zurückgibt.</li>
+      <li><strong>ManagedSettings</strong>: ein <code>ManagedSettingsStore</code>, in den du diese Tokens steckst, um sie mit einem Shield zu sperren.</li>
+      <li><strong>DeviceActivity</strong>: Zeitpläne und Events für Nutzungsschwellen (Thresholds). Die Callbacks (<code>intervalDidStart</code>, <code>intervalDidEnd</code>, <code>eventDidReachThreshold</code> und die Warning-Varianten) werden an eine <code>DeviceActivityMonitor</code>-Extension zugestellt, nicht an deine App.</li>
+      <li><strong>ManagedSettingsUI</strong>: eine <code>ShieldConfigurationDataSource</code>-Extension, die das Shield gestaltet, und eine <code>ShieldActionDelegate</code>-Extension, die seine Buttons behandelt.</li>
+    </ul>
+    <p>Die Extensions sind der eigentliche Kern. Meine App ist meistens suspendiert oder beendet, wenn einem Nutzer die Zeit ausgeht, also ist es die Monitor-Extension, die das Shield wieder hochzieht. Plane so, als wäre dein App-Prozess nie da, wenn etwas passiert.</p>
+
+    <h2 id="entitlements">2. Entitlements: eine Anfrage pro Bundle-ID</h2>
+    <p>Das Entitlement Family Controls (Distribution) wird <strong>pro Bundle-ID</strong> genehmigt. Mit drei Extensions sind das vier Anfragen. Meine waren:</p>
+    <ul>
+      <li><code>com.honorfit.blocker</code> (die App)</li>
+      <li><code>com.honorfit.blocker.ShieldConfiguration</code></li>
+      <li><code>com.honorfit.blocker.ShieldAction</code></li>
+      <li><code>com.honorfit.blocker.ActivityMonitorExtension</code></li>
+    </ul>
+    <p>Sobald sie genehmigt sind, aktivierst du die Capability Family Controls (Distribution) für <em>jede</em> App-ID im Entwicklerportal, legst dann eine App Group an und hängst sie an alle vier. Vergisst du eine, lässt sich dieses Target nicht provisionieren. Die Genehmigungen kommen nicht sofort, also stell alle vier Anfragen am ersten Tag, bevor du viel Code geschrieben hast.</p>
+    <p>Die Entitlements-Datei jeder Extension sieht am Ende gleich aus:</p>
+<pre><code>&lt;key&gt;com.apple.developer.family-controls&lt;/key&gt;
+&lt;true/&gt;
+&lt;key&gt;com.apple.security.application-groups&lt;/key&gt;
+&lt;array&gt;
+  &lt;string&gt;group.com.honorfit.blocker&lt;/string&gt;
+&lt;/array&gt;</code></pre>
+    <p>Bei Expo/EAS erstellt der Build-Service nur Provisioning-Profile für Extensions, die er kennt. Ich deklariere jedes Target samt Entitlements unter <code>extra.eas.build.experimental.ios.appExtensions</code> in der <code>app.json</code>:</p>
+<pre><code>"appExtensions": [
+  {
+    "bundleIdentifier": "com.honorfit.blocker.ShieldConfiguration",
+    "targetName": "ShieldConfiguration",
+    "entitlements": {
+      "com.apple.developer.family-controls": true,
+      "com.apple.security.application-groups": ["group.com.honorfit.blocker"]
+    }
+  }
+  // ...same for ShieldAction and ActivityMonitorExtension
+]</code></pre>
+
+    <h2 id="app-group">3. Die App Group ist der einzige Kanal</h2>
+    <p>Deine App und ihre Extensions sind getrennte Prozesse, die fast nie gleichzeitig laufen. Das Einzige, was sie teilen, ist der App-Group-Container, meist als <code>UserDefaults(suiteName:)</code>. Alles, was die Extensions brauchen (die gespeicherte Auswahl, den Shield-Text, was passieren soll, wenn ein Threshold feuert), muss vorher dort hineingeschrieben werden.</p>
+    <p>react-native-device-activity treibt das auf die Spitze. Die App schreibt eine Liste von „Actions“ unter einen Schlüssel wie <code>actions_for_{activity}_{callback}_{event}</code>, und die Monitor-Extension schlägt sie nach, <em>wenn der Callback feuert</em>. Eine nützliche Folge: Du kannst ändern, was ein bereits laufender Monitor tut, ohne ihn neu zu starten. Die Extensions rufen außerdem vor dem Lesen <code>CFPreferencesAppSynchronize</code> auf, damit sie die neuesten Schreibvorgänge der App sehen:</p>
+<pre><code>let appGroup = Bundle.main.object(
+  forInfoDictionaryKey: "REACT_NATIVE_DEVICE_ACTIVITY_APP_GROUP") as? String
+var userDefaults = UserDefaults(suiteName: appGroup)
+
+// in each callback:
+CFPreferencesAppSynchronize(kCFPreferencesCurrentApplication)
+if let actions = userDefaults?.array(forKey: triggeredBy) { /* run them */ }</code></pre>
+
+    <h2 id="tokens">4. Tokens sind undurchsichtig, und die Auswahl</h2>
+    <p>Die Auswahl gibt deiner App <code>ApplicationToken</code>s, <code>ActivityCategoryToken</code>s und <code>WebDomainToken</code>s, sonst nichts. Absichtlich kann die App ein Token nicht zurück in „Instagram“ verwandeln. Zählen kann sie sie aber, deshalb zeigt mein Sperrlisten-Bildschirm „3 Apps, 1 Kategorie“. Das ist das ganze Datenschutzmodell, und es ist ein gutes: Meine App weiß buchstäblich nicht, was du gesperrt hast.</p>
+    <figure>
+      <img src="../../../img/blog/ios-app-picker.webp" alt="Die App-Auswahl der iOS-Bildschirmzeit: eine Liste von App-Kategorien, Gesundheit &amp; Fitness ist aufgeklappt und zeigt ihre Apps" width="660" height="1310" loading="lazy">
+      <figcaption>Apples <code>FamilyActivityPicker</code>. Der Nutzer sieht App-Namen und Symbole; deine App bekommt nur undurchsichtige Tokens zurück.</figcaption>
+    </figure>
+    <p>Bei der Shield-Extension ist es anders. Dort übergibt dir das System eine <code>Application</code> für die gesperrte App, und ich nutze ihren <code>localizedDisplayName</code> im Shield-Text. Die App selbst sieht immer nur Tokens.</p>
+    <p>Zwei praktische Hinweise:</p>
+    <ul>
+      <li><strong>Kategorien bleiben Kategorien.</strong> Wenn der Nutzer „Soziale Netzwerke“ auswählt, bekommst du ein Kategorie-Token, nicht die Apps darin, außer die Auswahl wurde mit <code>includeEntireCategory</code> erstellt. Ich lasse es auf <code>false</code>, damit die angezeigten Zahlen ehrlich sind („1 Kategorie“, nicht eine Anzahl von Apps, die ich nicht benennen kann).</li>
+      <li><span class="label">Bibliothek</span> Der persistierte Picker von react-native-device-activity lädt die gespeicherte Auswahl (die Häkchen beim erneuten Öffnen) nur vor, wenn du die Prop <code>includeEntireCategory</code> übergibst, mit <em>irgendeinem</em> Wert. Erst ihr nativer Setter stößt das Laden an. Ohne die Prop öffnet sich die Auswahl jedes Mal leer, obwohl die Auswahl gespeichert wurde.</li>
+    </ul>
+<pre><code>&lt;DeviceActivitySelectionSheetViewPersisted
+  familyActivitySelectionId="distracting-apps"
+  includeEntireCategory={false}   // must be present, or nothing preloads
+  onSelectionChange={(e) =&gt; setCounts(e.nativeEvent)}
+  onDismissRequest={() =&gt; setPickerVisible(false)}
+/&gt;</code></pre>
+    <p><span class="label">Bibliothek</span> Noch etwas: <code>blockSelection</code> der Bibliothek <em>fügt</em> Tokens zu einer persistierten Sperrliste <em>hinzu</em>. Nachdem der Nutzer seine Auswahl bearbeitet hat, bleiben die entfernten Apps gesperrt. Ich rufe jedes Mal zuerst <code>resetBlocks()</code> auf und sperre dann die aktuelle Auswahl neu.</p>
+
+    <h2 id="thresholds">5. Nutzung mit Threshold-Events messen</h2>
+    <p>HonorFit gibt dir ein Guthaben an Minuten, das nur abläuft, solange eine gesperrte App auf dem Bildschirm ist. DeviceActivity hat keinen Aufruf nach dem Motto „sag mir, wie lange sie es genutzt haben“; es hat Threshold-Events, die feuern, sobald die kumulierte Nutzung einer Auswahl eine bestimmte Dauer erreicht. Also registriere ich ein Event pro 15 Sekunden Nutzung, benannt in Minuten: <code>used-0.25</code>, <code>used-0.5</code>, &hellip; bis zum Guthaben. Viertel sind im binären Gleitkommaformat exakt darstellbar, also überstehen die Namen den Weg durch <code>Number()</code> unverändert. Unter der Bibliothek ist das die ganz normale Apple-API:</p>
+<pre><code>let schedule = DeviceActivitySchedule(
+  intervalStart: DateComponents(hour: 9, minute: 45, second: 0),  // see section 6
+  intervalEnd: DateComponents(hour: 23, minute: 59, second: 59),
+  repeats: false
+)
+let event = DeviceActivityEvent(
+  applications: selection.applicationTokens,
+  categories: selection.categoryTokens,
+  webDomains: selection.webDomainTokens,
+  threshold: DateComponents(minute: 0, second: 15),
+  includesPastActivity: false          // iOS 17.4+
+)
+try DeviceActivityCenter().startMonitoring(
+  DeviceActivityName("honorfit-distracting-apps-1790000000000"),
+  during: schedule,
+  events: [DeviceActivityEvent.Name("used-0.25"): event]  // ...one per step
+)</code></pre>
+    <p><code>includesPastActivity: false</code> (der Standard) bedeutet, dass Nutzung von vor der Registrierung der Events nicht zählt. Das ist wichtig für den Zeitplan-Trick im nächsten Abschnitt.</p>
+    <p>Wenn das letzte Event feuert, setzt die Monitor-Extension das Shield wieder und postet eine „Zeit ist um“-Mitteilung. Jedes 15-Sekunden-Event aktualisiert eine einzige Mitteilung mit fester ID, sie wird also an Ort und Stelle ersetzt und funktioniert als grober Live-Countdown. <code>interruptionLevel = .passive</code> stellt sie still in die Mitteilungszentrale, ohne Banner.</p>
+    <p><span class="label">Bibliothek</span> <strong>Keine Unterstriche in Event- oder Activity-Namen.</strong> Die Bibliothek speichert gefeuerte Events unter <code>events_{activity}_{callback}_{eventName}</code> und zerlegt sie beim Zurücklesen an <code>_</code>. Ein Event namens <code>used_7</code> kommt als <code>used</code> zurück, und nichts passt je zusammen. Das Symptom war ein Guthaben, das nie weniger wurde.</p>
+
+    <h2 id="schedules">6. Zeitpläne starten nicht, wann du denkst</h2>
+    <p>Wenn deine Threshold-Events stillschweigend nie feuern, liegt es wahrscheinlich daran.</p>
+    <h3>„Jetzt“ liegt schon in der Vergangenheit</h3>
+    <p><span class="label">beobachtet</span> Ein nicht wiederholter <code>DeviceActivitySchedule</code> wird mit Datumskomponenten abgeglichen, und der Monitor läuft im nächsten passenden Intervall. Übergibst du die aktuelle Uhrzeit als <code>intervalStart</code>, ist dieser Moment schon vorbei, bis das Framework ihn auswertet. Der nächste Treffer ist <strong>morgen</strong>, und heute feuert nichts: keine Thresholds, keine Callbacks, kein Fehler. Die Lösung ist, den Start zurückzudatieren, sodass „jetzt“ im Intervall liegt:</p>
+<pre><code>const now = new Date();
+const backdated = new Date(now.getTime() - 15 * 60_000);
+const intervalStart =
+  backdated.getDate() === now.getDate()
+    ? { hour: backdated.getHours(), minute: backdated.getMinutes(), second: backdated.getSeconds() }
+    : { hour: 0, minute: 0, second: 0 };   // don't wrap past midnight
+
+await startMonitoring(activityName,
+  { intervalStart, intervalEnd: { hour: 23, minute: 59, second: 59 }, repeats: false },
+  events);</code></pre>
+    <p>Wegen <code>includesPastActivity: false</code> kann das Zurückdatieren dem Nutzer kein früheres Scrollen anrechnen. Außerdem hält es das Intervall über Apples Minimum: Zeitpläne unter 15 Minuten werden abgelehnt, und das trifft jeden, der kurz vor Mitternacht eine Session startet.</p>
+    <h3>Ein Zeitplan, der „jetzt“ enthält, startet sofort</h3>
+    <p><span class="label">beobachtet</span> Die Kehrseite: Ein Zeitplan von 00:00 bis 23:59:59 enthält die aktuelle Uhrzeit, startet also <em>jetzt</em> und nicht erst um die nächste Mitternacht. Zwei Wege, die ich gefunden habe, um für morgen zu planen:</p>
+    <ul>
+      <li><strong>Ein bereits abgelaufener Zeitplan.</strong> <code>[00:00, T)</code>, wobei T eine Minute vor der aktuellen Tageszeit liegt. Die heutige Instanz ist vorbei, also plant das Framework die von morgen ein. So trage ich ein nicht verbrauchtes Guthaben über Mitternacht.</li>
+      <li><strong><code>repeats: true</code> mit abgesicherten Actions.</strong> Die heutige Instanz startet sofort und tut nichts (jede Action ist abgesichert, siehe nächster Abschnitt). Die von morgen macht die eigentliche Arbeit.</li>
+    </ul>
+    <p><span class="label">beobachtet</span> Nutze keine vollständigen Jahr/Monat/Tag-Komponenten in einem Zeitplan, um ein bestimmtes Datum anzusteuern. Als ich das versucht habe, wurden die Extension-Callbacks unzuverlässig, was zu Berichten in den Apple Developer Forums passt (<a href="https://developer.apple.com/forums/thread/729841">Thread 729841</a>). Bleib bei Stunde/Minute/Sekunde.</p>
+    <p>Eine Einschränkung: Dieses Verhalten um Mitternacht zeigt sich nur auf einem Gerät, über Nacht. Ich habe Schutzmechanismen darum gebaut, aber nicht so viele echte Mitternächte protokolliert, wie ich gern hätte. Betrachte diesen Abschnitt also als „was ich gesehen habe“, nicht als Spezifikation.</p>
+
+    <h2 id="stop-monitoring">7. stopMonitoring löst intervalDidEnd aus</h2>
+    <p><span class="label">beobachtet</span> Ruft man <code>stopMonitoring</code> auf, oder <code>startMonitoring</code> mit dem Namen eines Monitors, der schon läuft, ruft iOS <code>intervalDidEnd</code> in deiner Extension auf, als wäre der Zeitplan regulär zu Ende gegangen. Wenn dein <code>intervalDidEnd</code> als Sicherheitsnetz wieder sperrt (meins tut das, damit ein Monitor nicht ablaufen und Apps ungesperrt lassen kann), dann sperrt die Extension jedes Mal, wenn die App einen Monitor stoppt, kurz alles.</p>
+    <p>Ein Nutzer hat das Symptom gemeldet: Spotify pausierte jedes Mal, wenn er HonorFit öffnete. Das Stoppen des Monitors brachte die Extension dazu, die Auswahl kurz zu sperren, was Spotify anhielt, bevor die App die Shields wieder aufhob.</p>
+    <p>Zwei Korrekturen, beide nötig. Erstens: Lösch die Actions der Extension <em>vor</em> dem Stoppen, damit sie nichts mehr auszuführen hat:</p>
+<pre><code>function stopActivities(names: string[]): void {
+  for (const name of names) RNDA.cleanUpAfterActivity(name); // clear actions first
+  RNDA.stopMonitoring(names);                                // then stop
+}</code></pre>
+    <p>Zweitens: Gib jeder <code>intervalDidEnd</code>- und <code>intervalDidStart</code>-Action einen „nicht vor“-Zeitstempel an der echten Grenze des Zeitplans, minus eine Minute Puffer. Die Extension prüft ihn, bevor sie irgendetwas ausführt:</p>
+<pre><code>// TypeScript: register the safety net
+RNDA.configureActions({
+  activityName,
+  callbackName: 'intervalDidEnd',
+  actions: [{
+    type: 'blockSelection',
+    familyActivitySelectionId: 'distracting-apps',
+    neverTriggerBefore: new Date(intervalEndMs - 60_000),
+  }],
+});
+
+// Swift, in the DeviceActivityMonitor extension
+if let neverTriggerBefore = neverTriggerBefore {
+  let now = Date().timeIntervalSince1970 * 1000
+  if now &lt; neverTriggerBefore { return false }   // skip this action
+}</code></pre>
+    <p>In reinem Swift: Speichere die echte Endzeit in der App Group und lass <code>intervalDidEnd</code> abbrechen, wenn es zu früh aufgerufen wird.</p>
+
+    <h2 id="phantom">8. Phantom-Thresholds unter iOS 26</h2>
+    <p>Unter iOS 26.x feuert <code>eventDidReachThreshold</code> manchmal ganz ohne echte Nutzung: direkt nach dem Einplanen oder wenn ein Handy, das eine Weile gesperrt herumlag, hochgenommen oder ans Ladekabel gehängt wird. Apple hat das in Threads im Entwicklerforum bestätigt (<a href="https://developer.apple.com/forums/thread/809410">809410</a>, <a href="https://developer.apple.com/forums/thread/811305">811305</a>, <a href="https://developer.apple.com/forums/thread/814559">814559</a>). Angeblich wurde es in einer Beta von 26.5 behoben, aber danach haben Leute es weiter gemeldet. In meiner App war das Symptom „keine Zeit mehr“, nachdem das Handy in der Hosentasche war, weil die Extension wieder gesperrt hatte und das Guthaben auf null gefallen war.</p>
+    <p>Du kannst nicht verhindern, dass das Event feuert, aber du kannst ihm den Glauben verweigern. Zwei Tatsachen über echte Thresholds erledigen den Großteil:</p>
+    <ol>
+      <li><strong>Nutzung kann die Uhr nicht überholen.</strong> <code>used-7</code> kann legitimerweise nicht früher als 7 Minuten nach dem Scharfschalten des Monitors feuern. Jede Threshold-Action trägt <code>neverTriggerBefore = armedAt + N minutes &minus; 5s</code>, sodass die Extension unmöglich frühe Auslösungen überspringt.</li>
+      <li><strong>Echte Nutzung kommt schrittweise, Phantome kommen als Schwall.</strong> Wenn die App die gefeuerten Events zurückliest, behandelt sie sie als Phantom, wenn der niedrigste und der höchste Threshold innerhalb von etwa 3 Sekunden gefeuert haben, aber eine Minute Nutzung oder mehr auseinanderliegen.</li>
+    </ol>
+<pre><code>// Guard 1: drop thresholds that fired before they could have been reached
+if (at &lt; startedAt + minutes * 60_000 - 5_000) continue;
+
+// Guard 2: lowest and highest fired in the same instant, a minute or more apart
+if (highest.minutes - lowest.minutes &gt;= 1 &amp;&amp;
+    Math.abs(highest.at - lowest.at) &lt;= 3_000) {
+  return { usedMinutes: 0, partialMs: 0 };   // phantom: ignore the lot
+}</code></pre>
+    <p>Guard 2 läuft in der App, nicht in der Extension, ein Phantom kann also trotzdem das Shield hochziehen. Das Guthaben bleibt aber erhalten, und beim nächsten Öffnen der App hebt sie das Shield wieder auf. Die Schwall-Erkennung in der Extension zu machen, würde eigenen Swift-Code brauchen, den ich noch nicht geschrieben habe.</p>
+    <p><span class="label">beobachtet</span> Ein verwandtes Problem geht in die andere Richtung: Thresholds, die feuern sollten, und es nicht tun. Bei Rein-und-raus-Nutzung unter iOS 26 habe ich gesehen, dass der erste 15-Sekunden-Threshold eines frischen Monitors pünktlich feuert und spätere zusammengefasst werden oder ganz wegfallen (<code>used-0.25</code> feuerte, <code>used-0.5</code> und alles danach nie). Mein Workaround: Jeder Monitor, der schon Nutzung gemessen hat, gilt als veraltet, und jedes Mal, wenn die App in den Hintergrund geht, starte ich einen frischen über das restliche Guthaben. Das schenkt dem Nutzer pro Neustart bis zu 15 Sekunden Nutzung, und damit kann ich leben.</p>
+
+    <h2 id="shield">9. Ein Shield kann deine App nicht öffnen</h2>
+    <p>Das naheliegende Design ist ein Shield-Button mit „Mehr Zeit verdienen“, der deine App öffnet. Dafür gibt es keinen unterstützten Weg; laut Apple DTS gibt es keine API, mit der eine Shield-Extension ihre Haupt-App starten kann. Ein <code>ShieldActionDelegate</code> beantwortet einen Button-Tipp mit einer <code>ShieldActionResponse</code> (<code>.none</code>, <code>.close</code> oder <code>.defer</code>), und keine davon öffnet irgendetwas.</p>
+    <p><span class="label">beobachtet</span> Der Workaround, den du finden wirst (<code>NSExtensionContext().open(url)</code> aus der ShieldAction-Extension, den die Bibliothek als <code>openUrl</code> anbietet), hat unter aktuellem iOS nichts bewirkt, als ich ihn im September 2026 auf einem Gerät getestet habe. Der Button hat einfach das Shield geschlossen. Eine Mitteilung beim Button-Tipp zu posten, war bei mir auch unzuverlässig.</p>
+    <p>Was ich stattdessen ausliefere: Das Shield hat einen einzigen Button „Schließen“, und die <strong>ShieldConfiguration</strong>-Extension postet eine lokale Mitteilung, sobald das Shield <em>angezeigt</em> wird. Der Nutzer tippt auf das Banner und landet in der App. Die App schreibt den Inhalt der Mitteilung vorab in die App Group und entfernt die Mitteilung, wenn sie in den Vordergrund kommt. iOS fragt die Shield-Konfiguration pro Anzeige eventuell mehrmals ab, deshalb ist das Posten entprellt:</p>
+<pre><code>func postShieldShownNotification(placeholders: [String: String?]) {
+  guard let config = userDefaults?.dictionary(forKey: "honorfitShieldShownNotification"),
+        let payload = config["payload"] as? [String: Any] else { return }
+
+  let minInterval = config["minIntervalSeconds"] as? Double ?? 30
+  let now = Date().timeIntervalSince1970
+  let lastSentAt = userDefaults?.double(forKey: "honorfitShieldShownNotificationLastSentAt") ?? 0
+  if now - lastSentAt &lt; minInterval { return }
+  userDefaults?.set(now, forKey: "honorfitShieldShownNotificationLastSentAt")
+
+  // builds a UNMutableNotificationContent and adds a UNNotificationRequest
+  // with a fixed identifier, so repeats replace rather than stack
+  sendNotification(contents: payload, placeholders: placeholders)
+}
+
+class ShieldConfigurationExtension: ShieldConfigurationDataSource {
+  override func configuration(shielding application: Application) -&gt; ShieldConfiguration {
+    postShieldShownNotification(placeholders: [
+      "applicationOrDomainDisplayName": application.localizedDisplayName
+    ])
+    return buildShield(/* title, subtitle, colors from the App Group */)
+  }
+  // ...same hook in the category and web-domain overloads
+}</code></pre>
+    <p>Es ist ein Hack, und er setzt voraus, dass der Nutzer Mitteilungen erlaubt, aber es ist der einzige Weg in die App, der bei mir zuverlässig funktioniert hat.</p>
+
+    <h2 id="expo">10. Eigene Extensions durch prebuild retten</h2>
+    <p><span class="label">Bibliothek</span> Wenn du Expo nutzt, führt <code>expo prebuild</code> das Config-Plugin von react-native-device-activity aus, das standardmäßig bei jedem Lauf die mitgelieferten Extension-Quellen der Bibliothek nach <code>./targets</code> kopiert. Meine angepasste ShieldConfiguration wurde stillschweigend überschrieben. Die Lösung ist eine einzige Plugin-Option:</p>
+<pre><code>["react-native-device-activity", {
+  "appleTeamId": "XXXXXXXXXX",
+  "appGroup": "group.com.honorfit.blocker",
+  "copyToTargetFolder": false
+}]</code></pre>
+    <p>Der Preis: Wenn du die Bibliothek aktualisierst, musst du ihre <code>targets/</code> und den gemeinsamen Swift-Code von Hand mit deinen vergleichen und deine Änderungen neu einspielen.</p>
+
+    <h2 id="testing">11. Xcode 26, der Simulator und Testen</h2>
+    <ul>
+      <li><strong>Mit dem iOS-26-SDK bauen.</strong> App Store Connect lehnt inzwischen Uploads ab, die mit einem SDK älter als iOS 26 gebaut wurden (ITMS-90725). Auf EAS pinne ich das Build-Image auf <code>macos-tahoe-26.5-xcode-26.6</code>.</li>
+      <li><strong>Der Simulator bringt dich nur ein Stück weit.</strong> In Simulatoren mit iOS 26 erscheinen die Autorisierungsabfrage und die Auswahl zwar. Aber die Autorisierung wird nie abgeschlossen („Allow with Passcode“ verlangt einen Gerätecode, den der Simulator nicht setzen kann), die Auswahl hat keine Apps zum Auflisten, und die Monitor-Extension läuft nie. Alles aus den Abschnitten 5 bis 9 braucht ein echtes Gerät.</li>
+      <li><strong>ManagedSettings-Aufrufe an die Autorisierung koppeln.</strong> Den Store ohne Autorisierung anzufassen, hat im Simulator eine System-Abfrage nach dem Code aufpoppen lassen, was meine UI-Tests kaputt gemacht hat. Ich prüfe den Autorisierungsstatus vor jedem Shield-Aufruf.</li>
+      <li><strong>Autorisierungsfehler in der UI anzeigen.</strong> TestFlight-Tester haben keine Konsole. Wenn <code>requestAuthorization</code> stillschweigend fehlschlägt, wirkt der Button einfach kaputt. Ich zeige Fehler und Status in einem Hinweisfenster an.</li>
+      <li><strong>Über Nacht testen.</strong> Meine schlimmsten Bugs (die ganze Nacht gesperrt trotz Restzeit, pausierende Musik) waren im Code-Review unsichtbar und ließen sich nur auf einem Gerät über Stunden reproduzieren.</li>
+    </ul>
+
+    <h2 id="android">12. Und auf Android</h2>
+    <p>Zum Vergleich: Android hat kein offizielles Gegenstück, also baust du es selbst. Der Android-Blocker von HonorFit ist ein Vordergrunddienst (Typ <code>specialUse</code>, weil App-Sperren zu keinem der aufgeführten Typen passt), der bei eingeschaltetem Bildschirm einmal pro Sekunde <code>UsageStatsManager</code> abfragt, um zu erfahren, welche App vorne ist. Ist eine gesperrte App offen und das Guthaben null, zeichnet er einen <code>TYPE_APPLICATION_OVERLAY</code>-Sperrbildschirm darüber („Über anderen Apps einblenden“). Ein Boot-Receiver und ein Watchdog-Alarm starten den Dienst nach Neustarts, App-Updates und aggressiven Akku-Managern der Hersteller neu.</p>
+    <p>Die Kompromisse zeigen in die umgekehrte Richtung als bei iOS. Du siehst echte Paketnamen, Datenschutz ist also ein Versprechen, das du hältst, nicht eins, das das Betriebssystem erzwingt. Eine gesperrte App kann bis zu einem Abfrageintervall lang sichtbar sein, und sie läuft unter dem Overlay weiter. Und du schreibst Play-Console-Erklärungen für den Typ des Vordergrunddiensts, die Overlay-Berechtigung und die Paketsichtbarkeit. Einen AccessibilityService habe ich bewusst vermieden, denn der wird von allen am strengsten geprüft.</p>
+
+    <h2 id="checklist">13. Checkliste</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th scope="col">Symptom</th><th scope="col">Wahrscheinliche Ursache</th><th scope="col">Lösung</th></tr></thead>
+        <tbody>
+          <tr><td>Provisioning schlägt für ein Target fehl</td><td>Entitlement oder App Group fehlt für diese Bundle-ID</td><td>Family Controls (Distribution) beantragen und die App Group für jede Bundle-ID anhängen</td></tr>
+          <tr><td>Nie irgendwelche Threshold-Events</td><td><code>intervalStart</code> = jetzt, also ist der Monitor für morgen eingeplant</td><td>Start zurückdatieren; Intervall &ge; 15 Min. halten</td></tr>
+          <tr><td>Monitor für morgen läuft schon heute</td><td>Zeitplan enthält die aktuelle Uhrzeit</td><td>Heute schon abgelaufener <code>[00:00, T)</code>-Zeitplan oder <code>repeats: true</code> mit abgesicherten Actions</td></tr>
+          <tr><td>Apps werden kurz gesperrt, wenn deine App sich öffnet</td><td><code>stopMonitoring</code> löst <code>intervalDidEnd</code> aus</td><td>Actions vor dem Stoppen löschen; mit „nicht vor“-Zeit absichern</td></tr>
+          <tr><td>„Keine Zeit mehr“, nachdem das Handy herumlag</td><td>Phantom-Thresholds unter iOS 26</td><td>Uhrzeit-Guard plus Schwall-Filter</td></tr>
+          <tr><td>Spätere Thresholds feuern nie</td><td>Bei unregelmäßiger Nutzung verworfen/zusammengefasst</td><td>Bei jedem Wechsel in den Hintergrund einen frischen Monitor starten</td></tr>
+          <tr><td>Shield-Button öffnet die App nicht</td><td>Keine unterstützte API</td><td>Beim Anzeigen eine Mitteilung aus ShieldConfiguration posten</td></tr>
+          <tr><td>Gefeuerte Events passen nicht (RN)</td><td>Unterstrich im Event-Namen</td><td><code>used-7</code> nutzen, nicht <code>used_7</code></td></tr>
+          <tr><td>Auswahl öffnet sich leer (RN)</td><td>Prop <code>includeEntireCategory</code> fehlt</td><td>Übergeben, mit beliebigem Wert</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="faq">14. Kurze Antworten</h2>
+    <div class="faq">
+      <details>
+        <summary>Brauche ich das Family-Controls-Entitlement für jede Extension?</summary>
+        <p>Ja. Es wird pro Bundle-ID vergeben. Die App plus eine DeviceActivityMonitor-, eine ShieldConfiguration- und eine ShieldAction-Extension sind vier Genehmigungen, und jede App-ID braucht außerdem die gemeinsame App Group.</p>
+      </details>
+      <details>
+        <summary>Warum feuert eventDidReachThreshold von DeviceActivity nicht?</summary>
+        <p>Bei mir war es meistens ein nicht wiederholter Zeitplan, der „jetzt“ startet und dadurch für morgen eingeplant wird. Datier <code>intervalStart</code> zurück. Unter iOS 26 sind bei Rein-und-raus-Nutzung außerdem spätere Thresholds unter einer Minute verloren gegangen; einen frischen Monitor zu starten hat geholfen.</p>
+      </details>
+      <details>
+        <summary>Kann eine ShieldAction- oder ShieldConfiguration-Extension die Haupt-App öffnen?</summary>
+        <p>Nicht mit einer unterstützten API, und der <code>NSExtensionContext</code>-Workaround hat in meinen Tests unter aktuellem iOS nichts bewirkt. Was ich ausliefere, ist eine lokale Mitteilung, die ShieldConfiguration postet, sobald das Shield angezeigt wird.</p>
+      </details>
+      <details>
+        <summary>Kann ich die Screen Time API im iOS-Simulator testen?</summary>
+        <p>Teilweise. Abfrage und Auswahl erscheinen in Simulatoren mit iOS 26, aber die Autorisierung wurde nicht abgeschlossen, die Auswahl hatte nichts aufzulisten, und die Monitor-Extension lief nie. Nimm ein Gerät.</p>
+      </details>
+    </div>
+
+    <h2 id="why">15. Wozu ich das alles brauchte</h2>
+    <p>Ich habe <a href="../../">HonorFit</a> gebaut, einen App-Blocker, bei dem du dir Bildschirmzeit mit Liegestützen verdienst. Er läuft auf dem Ehrensystem: Du trägst deine Wiederholungen ein, und es gibt keine Kamera, keine KI und keine Netzwerkaufrufe. Alles oben ist das, was nötig war, damit „deine verdienten Minuten laufen nur ab, solange eine gesperrte App auf dem Bildschirm ist“ auf einem iPhone funktioniert. Wenn du es in Aktion sehen willst: Es ist <a href="https://honorfitapp.com/get/?c=blog-de">im App Store und bei Google Play</a>. Falls du hier bist, weil du so eine App willst, statt eine zu bauen: Ich habe aufgeschrieben, <a href="../../../pushup-app-blocker/">wie Liegestütz-App-Blocker funktionieren</a>, und <a href="../../../best-pushup-app-blockers/">einen ehrlichen Überblick über die verfügbaren Apps</a>, Konkurrenz eingeschlossen. Wenn du auf ein Bildschirmzeit-Verhalten gestoßen bist, das hier fehlt, oder festgestellt hast, dass etwas oben unter einem neueren iOS nicht mehr stimmt, würde ich gern davon hören.</p>
+
+    <h2>Weiterlesen</h2>
+    <div class="readnext">
+      <a href="../screen-time-api-wishlist/">3 Dinge, die Apple an der Screen Time API ändern sollte &rarr;</a>
+      <a href="../../../best-pushup-app-blockers/">Die besten Apps, bei denen du Sport machen musst, um dein Handy zu entsperren &rarr;</a>
+      <a href="../">Alle Beiträge &rarr;</a>
+      <a href="../../../vs-screen-time/">HonorFit vs. iPhone-Bildschirmzeit &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">Startseite</a>
+    <a href="../">Blog</a>
+    <a href="../../../support/">Support</a>
+    <a href="../../../privacy/">Datenschutzerklärung</a>
+    <span class="langs"><a href="../../../blog/ios-screen-time-api-guide/" hreflang="en" lang="en">English</a><a href="../../../es/blog/ios-screen-time-api-guide/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/ios-screen-time-api-guide/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="./" hreflang="de" lang="de" aria-current="page">Deutsch</a><a href="../../../fr/blog/ios-screen-time-api-guide/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/ios-screen-time-api-guide/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/ios-screen-time-api-guide/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/ios-screen-time-api-guide/" hreflang="pl" lang="pl">Polski</a><a href="../../../tr/blog/ios-screen-time-api-guide/" hreflang="tr" lang="tr">Türkçe</a><a href="../../../id/blog/ios-screen-time-api-guide/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/ios-screen-time-api-guide/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../../th/blog/ios-screen-time-api-guide/" hreflang="th" lang="th">ไทย</a><a href="../../../ja/blog/ios-screen-time-api-guide/" hreflang="ja" lang="ja">日本語</a><a href="../../../ko/blog/ios-screen-time-api-guide/" hreflang="ko" lang="ko">한국어</a><a href="../../../zh-hant/blog/ios-screen-time-api-guide/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog — Bir Uygulama Engelleyici Yaparken Aldığım Notlar | HonorFit</title>
+  <meta name="description" content="iPhone ve Android için şınavla çalışan bir uygulama engelleyici olan HonorFit'i geliştirirken aldığım teknik notlar: iOS Screen Time API'si, Android'de kullanım takibi ve uygulamayı yayınlarken öğrendiklerim.">
+  <link rel="canonical" href="https://honorfitapp.com/tr/blog/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/">
+  <meta name="theme-color" content="#0D1117">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/tr/blog/">
+  <meta property="og:title" content="Blog — Bir Uygulama Engelleyici Yaparken Aldığım Notlar | HonorFit">
+  <meta property="og:description" content="iPhone ve Android için şınavla çalışan bir uygulama engelleyici olan HonorFit'i geliştirirken aldığım teknik notlar: iOS Screen Time API'si, Android'de kullanım takibi ve uygulamayı yayınlarken öğrendiklerim.">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="apple-itunes-app" content="app-id=6802871620">
+  <link rel="icon" href="../../img/favicon.png">
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    .posts { list-style: none; padding: 0 !important; margin: 0; }
+    .posts li { border-bottom: 1px solid var(--border); padding: 20px 0; margin: 0 !important; }
+    .posts li:first-child { border-top: 1px solid var(--border); }
+    .posts h2 { margin: 0 0 6px; font-size: 1.2rem; }
+    .posts h2 a { color: var(--text); text-decoration: none; }
+    .posts h2 a:hover { color: var(--orange-bright); }
+    .posts .date { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 6px; }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "HonorFit Blog",
+    "url": "https://honorfitapp.com/tr/blog/",
+    "inLanguage": "tr",
+    "description": "iPhone ve Android için şınavla çalışan bir uygulama engelleyici olan HonorFit'i geliştirirken aldığım teknik notlar.",
+    "author": { "@type": "Person", "name": "Thomas Willheim" },
+    "blogPost": [
+      {
+        "@type": "TechArticle",
+        "headline": "2026'da iOS Screen Time API'si: Apple'ın Belgelerinin Söylemedikleri",
+        "url": "https://honorfitapp.com/tr/blog/ios-screen-time-api-guide/",
+        "datePublished": "2026-09-30",
+        "inLanguage": "tr",
+        "author": { "@type": "Person", "name": "Thomas Willheim" }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../img/icon.png" alt="">
+    <a class="brand" href="../">HonorFit Blocker</a>
+    <a class="link" href="./">Blog</a>
+    <a class="link" href="../../support/">Destek</a>
+    <a class="link" href="../../privacy/">Gizlilik</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>Blog</h1>
+    <p class="meta">iPhone ve Android için şınavla çalışan bir uygulama engelleyici olan HonorFit'i geliştirirken aldığım notlar.</p>
+
+    <ul class="posts">
+      <li>
+        <h2><a href="screen-time-api-wishlist/">Screen Time API'sinde Apple'ın düzeltmesini istediğim 3 şey</a></h2>
+        <p class="date"><time datetime="2026-09-30">30 Eylül 2026</time></p>
+        <p>iPhone'da ve Android'de aynı uygulama, ama Android'dekini kullanmak daha keyifli. Aynı anda tek bir Ekran Süresi uygulaması, uygulamaların özelleştiremediği bir seçici ve kalan sürenin canlı bir geri sayımının olmaması.</p>
+      </li>
+      <li>
+        <h2><a href="ios-screen-time-api-guide/">2026'da iOS Screen Time API'si: Apple'ın belgelerinin söylemedikleri</a></h2>
+        <p class="date"><time datetime="2026-09-30">30 Eylül 2026</time></p>
+        <p>Yayındaki bir uygulamadan FamilyControls, DeviceActivity ve kalkan (shield) uzantıları: her uzantı için ayrı entitlement, hiç tetiklenmeyen eşik olayları, iOS 26'nın hayalet eşikleri, yanlış zamanda başlayan zamanlamalar ve bir kalkanın neden uygulamanı açamadığı.</p>
+      </li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../">Ana sayfa</a>
+    <a href="../../support/">Destek</a>
+    <a href="../../privacy/">Gizlilik Politikası</a>
+    <span class="langs"><a href="../../blog/" hreflang="en" lang="en">English</a><a href="../../es/blog/" hreflang="es" lang="es">Español</a><a href="../../pt-br/blog/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../de/blog/" hreflang="de" lang="de">Deutsch</a><a href="../../fr/blog/" hreflang="fr" lang="fr">Français</a><a href="../../it/blog/" hreflang="it" lang="it">Italiano</a><a href="../../nl/blog/" hreflang="nl" lang="nl">Nederlands</a><a href="../../pl/blog/" hreflang="pl" lang="pl">Polski</a><a href="./" hreflang="tr" lang="tr" aria-current="page">Türkçe</a><a href="../../id/blog/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../vi/blog/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../th/blog/" hreflang="th" lang="th">ไทย</a><a href="../../ja/blog/" hreflang="ja" lang="ja">日本語</a><a href="../../ko/blog/" hreflang="ko" lang="ko">한국어</a><a href="../../zh-hant/blog/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

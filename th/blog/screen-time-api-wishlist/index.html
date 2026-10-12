@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3 เรื่องใน Screen Time API ที่ผมอยากให้ Apple แก้ | HonorFit</title>
+  <meta name="description" content="ทำแอปบล็อกแอปตัวเดียวกันบน iPhone และ Android: ทำไม iOS ถึงให้ใช้แอปเวลาหน้าจอได้ทีละแอป ทำไมตัวเลือกแอปถึงใช้ยากนัก และทำไมถึงดูเวลาที่เหลือแบบนับถอยหลังเรียลไทม์ไม่ได้">
+  <link rel="canonical" href="https://honorfitapp.com/th/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/screen-time-api-wishlist/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/th/blog/screen-time-api-wishlist/">
+  <meta property="og:title" content="3 เรื่องใน Screen Time API ที่ผมอยากให้ Apple แก้">
+  <meta property="og:description" content="แอปเดียวกันบน iPhone และ Android แต่ฝั่ง Android ใช้งานสบายกว่า และทั้งหมดมาจากข้อจำกัดสามข้อของ Screen Time API ที่ไม่จำเป็นต้องมีเลย">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-09-30">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="3 เรื่องใน Screen Time API ที่ผมอยากให้ Apple แก้">
+  <meta name="twitter:description" content="ใช้แอปเวลาหน้าจอได้ทีละแอป ตัวเลือกแอปที่ปรับแต่งไม่ได้ และไม่มีตัวนับถอยหลังแบบเรียลไทม์ ทั้งหมดนี้แก้ได้โดยผู้ใช้ไม่ต้องเสียความเป็นส่วนตัวเลย">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose blockquote { border-left: 3px solid var(--border); margin: 14px 0 18px; padding: 4px 0 4px 16px; color: var(--text-dim); }
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0 8px; }
+    .compare figure { margin: 0; }
+    .compare img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    .compare figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; }
+    .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
+    .ask strong { color: var(--text); }
+    .ask ol, .ask ul { margin: 6px 0 0; }
+    figure.single { max-width: 380px; margin: 18px auto 22px; }
+    figure.single img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    figure.single figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; text-align: center; }
+    @media (max-width: 480px) { .compare { gap: 10px; } }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "3 เรื่องใน Screen Time API ที่ผมอยากให้ Apple แก้",
+    "description": "ทำแอปบล็อกแอปตัวเดียวกันบน iPhone และ Android: ใช้แอปเวลาหน้าจอได้ทีละแอป ตัวเลือกแอปที่ปรับแต่งไม่ได้ และไม่มีตัวนับถอยหลังเวลาที่เหลือแบบเรียลไทม์",
+    "url": "https://honorfitapp.com/th/blog/screen-time-api-wishlist/",
+    "mainEntityOfPage": "https://honorfitapp.com/th/blog/screen-time-api-wishlist/",
+    "datePublished": "2026-09-30",
+    "dateModified": "2026-09-30",
+    "image": "https://honorfitapp.com/img/og.png",
+    "inLanguage": "th",
+    "keywords": "Screen Time API, FamilyControls, FamilyActivityPicker, DeviceActivity, Live Activities, แอปบล็อกแอป, iOS vs Android",
+    "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+    "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">Blog</a>
+    <a class="link" href="../../../support/">ช่วยเหลือ</a>
+    <a class="link" href="../../../privacy/">ความเป็นส่วนตัว</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>3 เรื่องใน Screen Time API ที่ผมอยากให้ Apple แก้</h1>
+    <p class="meta">สิ่งที่ผมเจอระหว่างทำแอปบล็อกแอปตัวเดียวกันสำหรับ iPhone และ Android โดย Thomas Willheim &middot; 30 กันยายน 2026</p>
+
+    <p>ผมทำ <a href="../../">HonorFit</a> แอปบล็อกแอปที่คุณต้องวิดพื้นเพื่อแลกเวลาหน้าจอ (ใช้ระบบความซื่อสัตย์ ไม่มีกล้อง) เป็นแอปเดียวกันทั้งบน iPhone และ Android ไอเดียเดียวกัน โค้ดส่วนใหญ่ก็ชุดเดียวกัน และบอกตรงๆ นะครับ เวอร์ชัน Android ใช้งานสบายกว่า</p>
+    <p>ไม่ใช่เพราะ Android บล็อกแอปได้เก่งกว่า จริงๆ แล้ว Screen Time API ของ iOS ทำส่วนการบล็อกได้แน่นมาก ปัญหาคือ iOS บีบคุณไว้สามเรื่อง และดูไม่ออกเลยว่าเรื่องไหนมีไว้เพื่อปกป้องผู้ใช้ เลยมาเป็นลิสต์นี้ พร้อมสิ่งที่ผมอยากขอจาก Apple ผมพยายามเลือกเฉพาะเรื่องที่แก้แล้วไม่มีใครต้องเสียความเป็นส่วนตัว</p>
+    <p>(ถ้าอยากอ่านเวอร์ชันลงรายละเอียดเชิงเทคนิคของการทำแอปบน API นี้ ผมเขียนแยกไว้อีกบทความ: <a href="../ios-screen-time-api-guide/">สิ่งที่เอกสารของ Apple ไม่ได้บอกคุณ</a>)</p>
+
+    <h2 id="one-app">1. ใช้แอปเวลาหน้าจอได้ทีละแอปเท่านั้น</h2>
+    <p>สมมติว่าคุณใช้ Brick, Opal หรือ one sec อยู่แล้ว และอยากลอง HonorFit ด้วย บน iPhone ทำไม่ได้ครับ พอแอปที่สองขอสิทธิ์เข้าถึงเวลาหน้าจอ iOS ไม่แสดงหน้าขออนุญาตด้วยซ้ำ แค่โยน error กลับมาว่า Family Controls ใช้ได้ทีละแอปเท่านั้น ผมเจอ error นี้กับตัวเอง และ<a href="https://developer.apple.com/forums/thread/847096">นักพัฒนาคนอื่นก็เจอเหมือนกัน</a></p>
+    <p>ถ้าจะสลับแอป ต้องไปที่ <strong>การตั้งค่า &rsaquo; เวลาหน้าจอ &rsaquo; แอปที่มีสิทธิ์เข้าถึงเวลาหน้าจอ</strong> ปิดแอปอีกตัว และบางทีก็ต้องรีสตาร์ทมือถือด้วย ตอนนี้ HonorFit ตรวจจับ error นี้ได้แล้วและพาผู้ใช้ทำทีละขั้น เพราะข้อความ error ดิบๆ ไม่มีความหมายอะไรเลยสำหรับคนทั่วไป</p>
+    <figure class="single">
+      <img src="../../../img/blog/ios-screen-time-conflict.webp" alt="การแจ้งเตือนของ HonorFit บน iPhone: มีแอปอื่นใช้เวลาหน้าจออยู่ iOS ให้ควบคุมเวลาหน้าจอได้ทีละแอปเท่านั้น พร้อมขั้นตอนปิดแอปอีกตัวในการตั้งค่า" width="660" height="720" loading="lazy">
+      <figcaption>สิ่งที่ผู้ใช้ iPhone เห็นใน HonorFit เมื่อมีแอปอื่นได้สิทธิ์เข้าถึงเวลาหน้าจอไปแล้ว ตัว iOS เองแค่ส่ง error กลับมาให้แอป คำอธิบายนี้เราเขียนเอง</figcaption>
+    </figure>
+    <p>ที่แปลกคือ ตอนที่ Apple เปิดตัวการขอสิทธิ์แบบนี้ในงาน WWDC22 <a href="https://developer.apple.com/videos/play/wwdc2022/110336/">เขาบอกไว้</a>ว่า การขอสิทธิ์แบบ individual ต่างจากแบบควบคุมโดยผู้ปกครอง ตรงที่ใช้ได้กับกี่แอปก็ได้บนเครื่องเดียว แต่ทุกวันนี้มันไม่ได้เป็นแบบนั้น และผมก็หาเอกสารที่อธิบายเรื่องนี้ไม่เจอเลย</p>
+    <p><strong>ทำไมเรื่องนี้ไม่ได้เป็นผลดีกับผู้ใช้:</strong> คนเราใช้เครื่องมือหลายตัวผสมกัน บางคนอาจใช้ Brick ตอนต้องโฟกัสหนักๆ ที่ทำงาน แล้วใช้ HonorFit เพื่อหาเวลาไว้ไถฟีดตอนเย็น Apple มีกฎสำหรับรวมข้อจำกัดอยู่แล้ว: เวลาที่ <code>ManagedSettingsStore</code> หลายตัวตั้งค่าเดียวกัน <a href="https://developer.apple.com/videos/play/wwdc2022/110336/">Apple บอกไว้ว่า</a> "the most restrictive setting always wins." (การตั้งค่าที่เข้มงวดที่สุดชนะเสมอ) ถ้าใช้กฎเดียวกันข้ามแอป คนก็ใช้ได้ทั้งสองตัว และมือถือก็มีแต่จะถูกล็อก<em>มากขึ้น</em> ไม่มีทางน้อยลง</p>
+    <div class="ask">
+      <strong>สิ่งที่ผมอยากขอ:</strong> ให้แอปมากกว่าหนึ่งตัวถือสิทธิ์ Screen Time แบบ individual ได้ ตามที่ WWDC22 บอกไว้ แล้วรวม shield ของแต่ละแอปด้วยกฎ "เข้มงวดที่สุดชนะ" แบบเดียวกัน ถ้ามีเหตุผลจริงๆ ที่ต้องจำกัด ก็เขียนไว้ในเอกสาร และให้ error code ที่ชัดเจนกับแอป จะได้อธิบายผู้ใช้ได้
+    </div>
+
+    <h2 id="picker">2. ตัวเลือกแอปใช้ยาก และแอปปรับแต่งอะไรไม่ได้</h2>
+    <p>บน iPhone การเลือกแอปที่จะบล็อกต้องใช้ <code>FamilyActivityPicker</code> ของ Apple มันเป็นหน้าต่างของระบบที่แอปเปลี่ยนอะไรไม่ได้ นอกจากข้อความหัวและท้ายอย่างละบรรทัด เปิดมาจะเจอรายการหมวดหมู่ (โซเชียล, เกม, ความบันเทิง...) แล้วต้องแตะเข้าไปในหมวดเพื่อหาแอปจริงๆ ส่วนบน Android ผมทำรายการเองได้ HonorFit เลยแสดงแอปที่ติดตั้งไว้ เรียงตามเวลาที่คุณใช้แต่ละแอปใน 24 ชั่วโมงที่ผ่านมา</p>
+
+    <div class="compare">
+      <figure>
+        <img src="../../../img/blog/ios-app-picker.webp" alt="ตัวเลือกแอปของเวลาหน้าจอบน iOS: รายการหมวดหมู่แอป โดยเปิดหมวดสุขภาพและฟิตเนสให้เห็นแอปข้างใน" width="660" height="1310" loading="lazy">
+        <figcaption><strong>iPhone:</strong> ตัวเลือกของ Apple ขึ้นหมวดหมู่ก่อน ไม่มีข้อมูลการใช้งาน และหน้าตาเหมือนกันทุกแอป</figcaption>
+      </figure>
+      <figure>
+        <img src="../../../img/blog/android-app-picker.webp" alt="ตัวเลือกแอปของ HonorFit บน Android: รายการแอปพร้อมเวลาที่ใช้ใน 24 ชั่วโมงที่ผ่านมา เรียงจากใช้มากที่สุด" width="660" height="1308" loading="lazy">
+        <figcaption><strong>Android:</strong> รายการของ HonorFit เอง เรียงตามเวลาที่ใช้ แอปที่กินเวลาคุณที่สุดเลยอยู่บนสุด</figcaption>
+      </figure>
+    </div>
+
+    <p>มีสองเรื่องที่ขัดใจผมในตัวเลือกของ iOS:</p>
+    <ul>
+      <li><strong>เผลอบล็อกทั้งหมวดได้ง่ายมาก</strong> แค่แตะที่แถวหมวดหมู่แทนที่จะแตะเปิดเข้าไป ก็เท่ากับเลือกทุกแอปในหมวดนั้นไปแล้ว รวมถึงแอปที่จะติดตั้งในอนาคตด้วย สำหรับแอปส่วนใหญ่ นี่ไม่ใช่สิ่งที่ต้องการเลย คุณอยากบล็อก Instagram กับ TikTok ไม่ใช่ “โซเชียล” ทั้งหมด</li>
+      <li><strong>มองไม่เห็นว่าแอปไหนกินเวลาคุณจริงๆ</strong> เหตุผลเดียวที่คนเปิดแอปบล็อกแอปก็คือ “ฉันเล่นมือถือเยอะเกินไป” ตัวเลือกแอปคือช่วงเวลาเดียวที่เขากำลังตัดสินใจว่าจะบล็อกอะไร แต่มันไม่ให้ข้อมูลเลยสักนิดว่าเวลาหายไปไหน iPhone ของคุณรู้เป๊ะๆ ว่าคุณใช้แต่ละแอปไปนานแค่ไหน (ดูได้ในการตั้งค่าเลย) แต่ตัวเลือกแอปกลับไม่แสดง</li>
+    </ul>
+    <p><strong>แก้แล้วไม่เสียความเป็นส่วนตัวเลย</strong> ตัวเลือกแอปถูกวาดโดย iOS ใน process ของมันเอง แอปไม่เคยเห็นว่าข้างในมีอะไร ได้แค่ token ทึบๆ ของสิ่งที่คุณเลือก HonorFit ไม่รู้จริงๆ ว่าคุณเลือกแอปไหน ดังนั้น iOS แสดงเวลาใช้งานในตัวเลือกได้เลย โดยที่แอปก็ยังไม่รู้อะไรเพิ่ม Apple ก็ทำอะไรคล้ายๆ นี้อยู่แล้วกับ extension <code>DeviceActivityReport</code> ที่แสดงการใช้งานของคุณใน sandbox ซึ่งแอปอ่านไม่ได้</p>
+    <div class="ask">
+      <strong>สิ่งที่ผมอยากขอ:</strong>
+      <ol>
+        <li>ออปชันในตัวเลือกแอป ให้กำหนดได้ว่าจะ<strong>เลือกทั้งหมวดหรือเลือกแค่แอป</strong> แอปบล็อกแอปจะได้แสดงรายการเฉพาะแอป ไม่มีการเผลอเลือกทั้งหมวด (และซ่อนเว็บไซต์ได้ถ้าไม่ได้ใช้)</li>
+        <li>ออปชันให้<strong>เรียงตามและแสดงเวลาหน้าจอที่วัดได้</strong>ข้างแต่ละแอป โดยให้ iOS เป็นคนวาด แอปจะได้ไม่เห็นตัวเลขเลย</li>
+      </ol>
+    </div>
+
+    <h2 id="countdown">3. ดูเวลาที่เหลือแบบนับถอยหลังที่แม่นยำไม่ได้</h2>
+    <p>ใน HonorFit เวลาที่คุณหามาได้จะลดลงเฉพาะตอนที่คุณอยู่ในแอปที่ถูกบล็อกจริงๆ สิ่งที่ควรแสดงก็ชัดเจน คือตัวนับถอยหลัง: “เหลือ 12:34” ที่เดินลงระหว่างคุณไถฟีด และหยุดเมื่อคุณออกจากแอป</p>
+    <p><strong>บน Android ทำได้ง่าย</strong> service เบื้องหลังของ HonorFit เช็กทุกวินาทีว่าแอปไหนอยู่บนหน้าจอ และการแจ้งเตือนใช้ตัวนับถอยหลังที่มากับ Android แผงการแจ้งเตือนเลยวาดใหม่เองทุกวินาที แค่ดึงแผงลงมาก็เห็นเวลาที่เหลือแบบละเอียดถึงวินาที</p>
+    <p><strong>บน iPhone ทำไม่ได้</strong> เหตุผลคือ:</p>
+    <ul>
+      <li>iOS ไม่เคยบอกแอปเลยว่าคุณเปิดหรือออกจากแอปที่ถูกบล็อกเมื่อไหร่ ที่ได้มีแค่ event แบบ “การใช้งานสะสมถึงเท่านี้แล้ว” HonorFit ตั้งไว้หนึ่ง event ต่อการใช้งานทุก 15 วินาที และ event เหล่านี้ถูกส่งไปที่ extension เบื้องหลังซึ่งคอยอัปเดตการแจ้งเตือน</li>
+      <li>การแจ้งเตือนปกตินับถอยหลังเองไม่ได้ อย่างมากที่ HonorFit ทำได้คือเปลี่ยนข้อความใหม่ทุกครั้งที่มี event เข้ามา นี่เลยเป็นเหตุผลที่การแจ้งเตือนบน iPhone ขึ้นว่า “เหลือ ~12:30” แบบมีเครื่องหมาย ~ เพราะมันกระโดดทีละ 15 วินาที</li>
+      <li>event พวกนี้ก็ไม่ได้มาตรงเวลาเสมอด้วย บน iOS 26 ผมเคยเห็นมันมาช้า หรือมาทีเดียวหลายอัน</li>
+      <li>Live Activities นับถอยหลังเอง<em>ได้</em> แต่หยุดชั่วคราวไม่ได้ ไม่มีอะไรบอกแอปว่าคุณออกจาก Instagram แล้ว Live Activity เลยจะนับต่อไปเรื่อยๆ ทั้งที่มือถือวางอยู่บนโต๊ะ ซึ่งผิด</li>
+    </ul>
+    <p>สรุปคือผู้ใช้ iPhone ได้แค่ตัวเลขประมาณ ส่วนผู้ใช้ Android ได้ตัวเลขจริง</p>
+    <div class="ask">
+      <strong>สิ่งที่ผมอยากขอ:</strong> ให้ event ของ <code>DeviceActivity</code> ขับตัวนับถอยหลังที่ iOS วาดเองได้ ไม่ว่าจะในการแจ้งเตือน, Live Activity หรือบน shield โดยเดินเฉพาะตอนที่แอปที่ถูกติดตามอยู่บนหน้าจอ iOS ติดตามการใช้งานนั้นละเอียดถึงวินาทีอยู่แล้ว เลยแสดงเวลาได้โดยไม่ต้องส่งข้อมูลใหม่อะไรให้แอป แค่มี callback ง่ายๆ แบบ “เปิด / ปิดแอปที่ถูกบล็อก” ส่งไปที่ monitor extension ก็แก้ได้เกือบหมดแล้ว</div>
+
+    <h2 id="wrap-up">ก็มีแค่นี้ครับ</h2>
+    <p>พูดให้แฟร์กับ Apple หน่อย โมเดลความเป็นส่วนตัวตรงนี้ดีมากจริงๆ แอปไม่เคยรู้ว่าคุณบล็อกอะไรหรือใช้มันมากแค่ไหน และผมไม่อยากให้ตรงนี้เปลี่ยนเลย ทั้งสามเรื่องข้างบนก็ไม่ได้ทำให้มันเปลี่ยน แค่จะทำให้แอปบน iPhone มีประโยชน์ได้เท่ากับเวอร์ชัน Android ที่เป็นอยู่แล้ว</p>
+    <p>ถ้าคุณก็ทำแอปบน Screen Time และอยากได้เรื่องไหนในนี้ ช่วยส่งเรื่องเข้าไปใน <a href="https://feedbackassistant.apple.com/">Feedback Assistant</a> ด้วยนะครับ เท่าที่ผมเข้าใจ รายงานซ้ำๆ หลายฉบับคือวิธีที่ทำให้เรื่องถูกมองเห็น และถ้าแค่อยากลองใช้แอป <a href="https://honorfitapp.com/get/?c=blog-wishlist-th">HonorFit ใช้ฟรีทั้งบน iPhone และ Android</a> หวังว่าหลายคนจะชอบนะครับ!</p>
+
+    <h2>อ่านต่อ</h2>
+    <div class="readnext">
+      <a href="../ios-screen-time-api-guide/">Screen Time API: สิ่งที่เอกสารไม่ได้บอกคุณ &rarr;</a>
+      <a href="../../../vs-screen-time/">HonorFit เทียบกับเวลาหน้าจอของ iPhone &rarr;</a>
+      <a href="../../../best-pushup-app-blockers/">แอปที่ต้องออกกำลังกายก่อนปลดล็อกมือถือ ตัวไหนดีที่สุด &rarr;</a>
+      <a href="../">บทความทั้งหมด &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">หน้าแรก</a>
+    <a href="../">Blog</a>
+    <a href="../../../support/">ช่วยเหลือ</a>
+    <a href="../../../privacy/">นโยบายความเป็นส่วนตัว</a>
+    <span class="langs"><a href="../../../blog/screen-time-api-wishlist/" hreflang="en" lang="en">English</a><a href="../../../es/blog/screen-time-api-wishlist/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/screen-time-api-wishlist/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/screen-time-api-wishlist/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/screen-time-api-wishlist/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/screen-time-api-wishlist/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/screen-time-api-wishlist/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/screen-time-api-wishlist/" hreflang="pl" lang="pl">Polski</a><a href="../../../tr/blog/screen-time-api-wishlist/" hreflang="tr" lang="tr">Türkçe</a><a href="../../../id/blog/screen-time-api-wishlist/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/screen-time-api-wishlist/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="./" hreflang="th" lang="th" aria-current="page">ไทย</a><a href="../../../ja/blog/screen-time-api-wishlist/" hreflang="ja" lang="ja">日本語</a><a href="../../../ko/blog/screen-time-api-wishlist/" hreflang="ko" lang="ko">한국어</a><a href="../../../zh-hant/blog/screen-time-api-wishlist/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

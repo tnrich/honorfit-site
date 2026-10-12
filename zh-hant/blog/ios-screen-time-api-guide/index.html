@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iOS Screen Time API：FamilyControls 與 DeviceActivity 的地雷（2026）</title>
+  <meta name="description" content="上架一個 iOS App 封鎖工具的實戰筆記：FamilyControls entitlement、DeviceActivity 門檻事件不觸發、iOS 26 幽靈事件、封鎖畫面（shield）、React Native。">
+  <link rel="canonical" href="https://honorfitapp.com/zh-hant/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/ios-screen-time-api-guide/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/zh-hant/blog/ios-screen-time-api-guide/">
+  <meta property="og:title" content="2026 年的 iOS Screen Time API：Apple 文件沒告訴你的事">
+  <meta property="og:description" content="上架一個 iOS App 封鎖工具的實戰筆記：FamilyControls entitlement、DeviceActivity 門檻事件不觸發、iOS 26 幽靈事件、封鎖畫面（shield）、React Native。">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-09-30">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="2026 年的 iOS Screen Time API：Apple 文件沒告訴你的事">
+  <meta name="twitter:description" content="從一個已上架的 App 封鎖工具來看 FamilyControls、DeviceActivity 和 shield extension：entitlement 申請、幽靈門檻、排程，以及打不開你 App 的封鎖畫面。">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose ol { padding-left: 24px; }
+    .prose pre {
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 14px 0 20px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    .prose pre code { background: none; border: 0; padding: 0; font-size: inherit; color: var(--text); }
+    .prose .label { display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--border); border-radius: 999px; padding: 1px 10px; margin-right: 6px; vertical-align: 1px; }
+    .toc { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 16px 22px; margin: 8px 0 28px; }
+    .toc strong { color: var(--text); }
+    .toc ol { margin: 8px 0 0; }
+    .toc li { margin: 3px 0; }
+    .toc a { text-decoration: none; }
+    .table-scroll { overflow-x: auto; margin: 14px 0 20px; }
+    .prose table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+    .prose th, .prose td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; color: var(--text-dim); }
+    .prose th { color: var(--text); background: var(--bg-raised); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "2026 年的 iOS Screen Time API：Apple 文件沒告訴你的事",
+        "description": "用 FamilyControls、DeviceActivity 和 ManagedSettings 上架一個 iOS App 封鎖工具的實戰筆記：每個 extension 都要 entitlement、App Group、不透明的 token、門檻事件、iOS 26 幽靈門檻、排程的行為、shield extension，以及 React Native。",
+        "url": "https://honorfitapp.com/zh-hant/blog/ios-screen-time-api-guide/",
+        "mainEntityOfPage": "https://honorfitapp.com/zh-hant/blog/ios-screen-time-api-guide/",
+        "datePublished": "2026-09-30",
+        "dateModified": "2026-09-30",
+        "image": "https://honorfitapp.com/img/og.png",
+        "inLanguage": "zh-Hant",
+        "proficiencyLevel": "Expert",
+        "keywords": "Screen Time API, 螢幕使用時間, FamilyControls, DeviceActivity, ManagedSettings, ShieldConfiguration extension, ShieldAction, DeviceActivityMonitor, eventDidReachThreshold, React Native, Expo, react-native-device-activity",
+        "about": ["FamilyControls", "DeviceActivity", "ManagedSettings", "iOS app extensions"],
+        "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+        "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+      },
+      {
+        "@type": "FAQPage",
+        "inLanguage": "zh-Hant",
+        "mainEntity": [
+          { "@type": "Question", "name": "每個 extension 都需要 Family Controls entitlement 嗎？",
+            "acceptedAnswer": { "@type": "Answer", "text": "是的。Family Controls (Distribution) entitlement 是依 bundle ID 核發的。一個帶有 DeviceActivityMonitor、ShieldConfiguration 和 ShieldAction 三個 extension 的 App，需要四個 bundle ID 都通過核准，而且每個 App ID 也都要加入共用的 App Group。" } },
+          { "@type": "Question", "name": "為什麼 DeviceActivity 的 eventDidReachThreshold 不會觸發？",
+            "acceptedAnswer": { "@type": "Answer", "text": "我最常遇到的原因：一個不重複的排程，intervalStart 設成目前時間。等 iOS 去評估它的時候，那個時間點已經過去了，所以它會排到下一個符合的區間（明天），今天什麼都不會觸發。把開始時間往前推幾分鐘就解決了。另外在 iOS 26 上斷斷續續使用時，我也看過後面那些不到一分鐘的門檻被丟掉；重新啟動一個新的監控有幫助。" } },
+          { "@type": "Question", "name": "ShieldAction 或 ShieldConfiguration extension 能打開主 App 嗎？",
+            "acceptedAnswer": { "@type": "Answer", "text": "沒有任何官方支援的 API 做得到。在我的測試中，NSExtensionContext open 這個變通方法在目前的 iOS 上完全沒反應。我實際上架的做法，是在封鎖畫面顯示時，由 ShieldConfiguration extension 發出一則本機通知；點一下通知就會打開 App。" } },
+          { "@type": "Question", "name": "可以在 iOS 模擬器上測試 Screen Time API 嗎？",
+            "acceptedAnswer": { "@type": "Answer", "text": "只能測一部分。在 iOS 26 模擬器上，授權提示和選擇器會出現，但我沒辦法完成授權，選擇器裡沒有任何 App，DeviceActivityMonitor extension 也從來沒有執行過。任何跟封鎖畫面或使用時間門檻有關的東西，都需要實體裝置。" } }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">部落格</a>
+    <a class="link" href="../../../support/">客服支援</a>
+    <a class="link" href="../../../privacy/">隱私權</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>2026 年的 iOS Screen Time API：Apple 文件沒告訴你的事</h1>
+    <p class="meta">從一個已上架的 App 封鎖工具來看 FamilyControls、DeviceActivity 和 shield extension。作者：Thomas Willheim &middot; 2026 年 9 月 30 日</p>
+
+    <p>2026 年 8 月到 9 月，我都在忙著把一個 App 封鎖工具上架到 iOS。它用的是螢幕使用時間相關的框架（FamilyControls、DeviceActivity、ManagedSettings 和 ManagedSettingsUI），從 React Native 呼叫，透過 Expo SDK 57 和 <a href="https://github.com/kingstinct/react-native-device-activity">react-native-device-activity</a> 函式庫（0.6.1）。Apple 的文件會告訴你每個型別是什麼，但對於它們在真實手機上、跨過一整夜、在 iOS 26 上的實際行為，幾乎隻字未提。</p>
+    <p>這是我當初很希望有人給我的清單。我在裝置上看到、但找不到文件記載的行為，會標上 <span class="label">實測</span>；這些不一定在每個 iOS 版本都成立。只跟 React Native 函式庫有關的項目，會標上 <span class="label">函式庫</span>；如果你直接寫 Swift，可以跳過。</p>
+
+    <div class="toc">
+      <strong>目錄</strong>
+      <ol>
+        <li><a href="#moving-parts">有哪些元件</a></li>
+        <li><a href="#entitlements">Entitlement：每個 bundle ID 各一份</a></li>
+        <li><a href="#app-group">App Group 是唯一的溝通管道</a></li>
+        <li><a href="#tokens">Token 是不透明的，還有選擇器</a></li>
+        <li><a href="#thresholds">用門檻事件計算使用時間</a></li>
+        <li><a href="#schedules">排程不會在你以為的時間開始</a></li>
+        <li><a href="#stop-monitoring">stopMonitoring 會觸發 intervalDidEnd</a></li>
+        <li><a href="#phantom">iOS 26 的幽靈門檻</a></li>
+        <li><a href="#shield">封鎖畫面打不開你的 App</a></li>
+        <li><a href="#expo">讓自訂的 extension 撐過 prebuild</a></li>
+        <li><a href="#testing">Xcode 26、模擬器和測試</a></li>
+        <li><a href="#android">那 Android 呢</a></li>
+        <li><a href="#checklist">檢查清單</a></li>
+        <li><a href="#faq">快速問答</a></li>
+        <li><a href="#why">我為什麼需要搞懂這些</a></li>
+      </ol>
+    </div>
+
+    <h2 id="moving-parts">1. 有哪些元件</h2>
+    <p>所謂的「Screen Time API」，其實是四個框架，實務上再加三個 app extension：</p>
+    <ul>
+      <li><strong>FamilyControls</strong>：負責授權（<code>AuthorizationCenter</code>，自我管理類的 App 用 <code>.individual</code>）和 <code>FamilyActivityPicker</code>，後者會回傳一個 <code>FamilyActivitySelection</code>，裡面是 App、類別和網域的 token。</li>
+      <li><strong>ManagedSettings</strong>：一個 <code>ManagedSettingsStore</code>，把那些 token 放進去，就能用封鎖畫面（shield）把它們擋住。</li>
+      <li><strong>DeviceActivity</strong>：排程和使用時間的門檻事件。回呼（<code>intervalDidStart</code>、<code>intervalDidEnd</code>、<code>eventDidReachThreshold</code>，以及幾個 warning 版本）是送到 <code>DeviceActivityMonitor</code> extension，不是送到你的 App。</li>
+      <li><strong>ManagedSettingsUI</strong>：一個負責封鎖畫面外觀的 <code>ShieldConfigurationDataSource</code> extension，和一個處理封鎖畫面按鈕的 <code>ShieldActionDelegate</code> extension。</li>
+    </ul>
+    <p>重點就在這些 extension。使用者時間用完的時候，我的 App 通常已經被暫停或被系統關掉了，所以是監控 extension 負責把封鎖畫面重新套上去。設計的時候，就當作事情發生時你的 App 程序永遠不在場。</p>
+
+    <h2 id="entitlements">2. Entitlement：每個 bundle ID 都要申請一次</h2>
+    <p>Family Controls (Distribution) entitlement 是<strong>依 bundle ID</strong> 核准的。有三個 extension，就是四份申請。我的是：</p>
+    <ul>
+      <li><code>com.honorfit.blocker</code>（App 本身）</li>
+      <li><code>com.honorfit.blocker.ShieldConfiguration</code></li>
+      <li><code>com.honorfit.blocker.ShieldAction</code></li>
+      <li><code>com.honorfit.blocker.ActivityMonitorExtension</code></li>
+    </ul>
+    <p>核准之後，要在開發者網站上替<em>每一個</em> App ID 開啟 Family Controls (Distribution) capability，然後建立一個 App Group，把四個都加進去。漏掉一個，那個 target 就沒辦法 provision。核准不是馬上就會下來，所以第一天、還沒寫多少程式之前，就把四份申請全部送出去。</p>
+    <p>最後每個 extension 的 entitlements 檔案都長得一樣：</p>
+<pre><code>&lt;key&gt;com.apple.developer.family-controls&lt;/key&gt;
+&lt;true/&gt;
+&lt;key&gt;com.apple.security.application-groups&lt;/key&gt;
+&lt;array&gt;
+  &lt;string&gt;group.com.honorfit.blocker&lt;/string&gt;
+&lt;/array&gt;</code></pre>
+    <p>在 Expo/EAS 上，建置服務只會替它知道的 extension 建立 provisioning profile。我在 <code>app.json</code> 的 <code>extra.eas.build.experimental.ios.appExtensions</code> 底下宣告每個 target 和它的 entitlements：</p>
+<pre><code>"appExtensions": [
+  {
+    "bundleIdentifier": "com.honorfit.blocker.ShieldConfiguration",
+    "targetName": "ShieldConfiguration",
+    "entitlements": {
+      "com.apple.developer.family-controls": true,
+      "com.apple.security.application-groups": ["group.com.honorfit.blocker"]
+    }
+  }
+  // ...same for ShieldAction and ActivityMonitorExtension
+]</code></pre>
+
+    <h2 id="app-group">3. App Group 是唯一的溝通管道</h2>
+    <p>你的 App 和它的 extension 是各自獨立的程序，幾乎從來不會同時在執行。它們唯一共用的東西是 App Group 的容器，通常是透過 <code>UserDefaults(suiteName:)</code>。extension 需要的所有東西（儲存的選擇、封鎖畫面上的文字、門檻觸發時要做什麼）都必須事先寫進去。</p>
+    <p>react-native-device-activity 把這個做法發揮到極致。App 會在像 <code>actions_for_{activity}_{callback}_{event}</code> 這樣的 key 底下寫入一串「動作」（actions），監控 extension 則是在<em>回呼觸發的當下</em>才去查。這帶來一個好處：你可以在不重新啟動的情況下，改變一個已經在跑的監控要做的事。extension 在讀取之前也會先呼叫 <code>CFPreferencesAppSynchronize</code>，所以能看到 App 最新寫入的內容：</p>
+<pre><code>let appGroup = Bundle.main.object(
+  forInfoDictionaryKey: "REACT_NATIVE_DEVICE_ACTIVITY_APP_GROUP") as? String
+var userDefaults = UserDefaults(suiteName: appGroup)
+
+// in each callback:
+CFPreferencesAppSynchronize(kCFPreferencesCurrentApplication)
+if let actions = userDefaults?.array(forKey: triggeredBy) { /* run them */ }</code></pre>
+
+    <h2 id="tokens">4. Token 是不透明的，還有選擇器</h2>
+    <p>選擇器只會交給你的 App <code>ApplicationToken</code>、<code>ActivityCategoryToken</code> 和 <code>WebDomainToken</code>，其他什麼都沒有。這是刻意的設計，App 沒辦法把 token 轉回「Instagram」。它能做的是數有幾個，所以我的封鎖清單畫面會顯示「3 個 App、1 個類別」。這就是整個隱私模型，而且是個好模型：我的 App 真的不知道你封鎖了什麼。</p>
+    <figure>
+      <img src="../../../img/blog/ios-app-picker.webp" alt="iOS 的螢幕使用時間 App 選擇器：一串 App 類別，其中「健康與健身」展開顯示裡面的 App" width="660" height="1310" loading="lazy">
+      <figcaption>Apple 的 <code>FamilyActivityPicker</code>。使用者看得到 App 名稱和圖示，你的 App 只會拿回不透明的 token。</figcaption>
+    </figure>
+    <p>shield extension 就不一樣了。在那裡，系統會把正被封鎖的 App 以 <code>Application</code> 傳給你，我會把它的 <code>localizedDisplayName</code> 用在封鎖畫面的文字裡。App 本身永遠只看得到 token。</p>
+    <p>兩個實務上的提醒：</p>
+    <ul>
+      <li><strong>類別就是類別。</strong>如果使用者選了「社交」，你拿到的是一個類別 token，而不是裡面的 App，除非選擇是用 <code>includeEntireCategory</code> 建立的。我把它設成 <code>false</code>，這樣我顯示的數字才是誠實的（「1 個類別」，而不是一堆我叫不出名字的 App 數量）。</li>
+      <li><span class="label">函式庫</span> react-native-device-activity 的 persisted picker，只有在你傳入 <code>includeEntireCategory</code> 這個 prop 時（<em>任何</em>值都可以），才會預先載入已儲存的選擇（也就是重新打開時的勾選）。觸發載入的是它的原生 setter。沒有這個 prop 的話，就算選擇已經存起來了，選擇器每次打開都是空的。</li>
+    </ul>
+<pre><code>&lt;DeviceActivitySelectionSheetViewPersisted
+  familyActivitySelectionId="distracting-apps"
+  includeEntireCategory={false}   // must be present, or nothing preloads
+  onSelectionChange={(e) =&gt; setCounts(e.nativeEvent)}
+  onDismissRequest={() =&gt; setPickerVisible(false)}
+/&gt;</code></pre>
+    <p><span class="label">函式庫</span> 還有一個：函式庫的 <code>blockSelection</code> 是把 token <em>加進</em>一個持久保存的封鎖清單。使用者編輯選擇之後，被移除的 App 還是會被封鎖。所以我每次都先呼叫 <code>resetBlocks()</code>，再重新封鎖目前的選擇。</p>
+
+    <h2 id="thresholds">5. 用門檻事件計算使用時間</h2>
+    <p>HonorFit 給你一個分鐘數的餘額，只有在被封鎖的 App 顯示在畫面上時才會扣。DeviceActivity 沒有「告訴我他們用了多久」這種呼叫；它有的是門檻事件，在某個選擇的累積使用時間達到一段長度時觸發一次。所以我每 15 秒的使用時間就註冊一個事件，用分鐘來命名：<code>used-0.25</code>、<code>used-0.5</code>&hellip;&hellip;一路到餘額為止。四分之一在二進位浮點數裡是精確的，所以這些名稱經過 <code>Number()</code> 來回轉換也不會跑掉。函式庫底下用的就是 Apple 原本的 API：</p>
+<pre><code>let schedule = DeviceActivitySchedule(
+  intervalStart: DateComponents(hour: 9, minute: 45, second: 0),  // see section 6
+  intervalEnd: DateComponents(hour: 23, minute: 59, second: 59),
+  repeats: false
+)
+let event = DeviceActivityEvent(
+  applications: selection.applicationTokens,
+  categories: selection.categoryTokens,
+  webDomains: selection.webDomainTokens,
+  threshold: DateComponents(minute: 0, second: 15),
+  includesPastActivity: false          // iOS 17.4+
+)
+try DeviceActivityCenter().startMonitoring(
+  DeviceActivityName("honorfit-distracting-apps-1790000000000"),
+  during: schedule,
+  events: [DeviceActivityEvent.Name("used-0.25"): event]  // ...one per step
+)</code></pre>
+    <p><code>includesPastActivity: false</code>（預設值）代表事件註冊之前的使用時間不算數。這點對下一節的排程技巧很重要。</p>
+    <p>最後一個事件觸發時，監控 extension 會重新套上封鎖畫面，並發出一則「時間到了」的通知。每個 15 秒的事件都會更新同一則有固定識別碼的通知，所以它會原地替換，當作一個粗略的即時倒數。<code>interruptionLevel = .passive</code> 會讓它安靜地送進通知中心，不會跳出橫幅。</p>
+    <p><span class="label">函式庫</span> <strong>事件名稱和 activity 名稱裡不要用底線。</strong>函式庫會把觸發過的事件存在 <code>events_{activity}_{callback}_{eventName}</code> 底下，讀回來時再用 <code>_</code> 切開。一個叫 <code>used_7</code> 的事件，讀回來會變成 <code>used</code>，然後永遠對不上。症狀是餘額一直都不會減少。</p>
+
+    <h2 id="schedules">6. 排程不會在你以為的時間開始</h2>
+    <p>如果你的門檻事件默默地從來不觸發，八成就是這個原因。</p>
+    <h3>「現在」已經是過去了</h3>
+    <p><span class="label">實測</span> 一個不重複的 <code>DeviceActivitySchedule</code> 是用日期元件（date components）來比對的，監控會執行下一個符合的區間。如果你把目前的時鐘時間當成 <code>intervalStart</code> 傳進去，等框架去評估它的時候，那一刻已經過了。下一個符合的時間是<strong>明天</strong>，今天什麼都不會觸發：沒有門檻、沒有回呼、也沒有錯誤。解法是把開始時間往前推，讓「現在」落在區間裡面：</p>
+<pre><code>const now = new Date();
+const backdated = new Date(now.getTime() - 15 * 60_000);
+const intervalStart =
+  backdated.getDate() === now.getDate()
+    ? { hour: backdated.getHours(), minute: backdated.getMinutes(), second: backdated.getSeconds() }
+    : { hour: 0, minute: 0, second: 0 };   // don't wrap past midnight
+
+await startMonitoring(activityName,
+  { intervalStart, intervalEnd: { hour: 23, minute: 59, second: 59 }, repeats: false },
+  events);</code></pre>
+    <p>因為有 <code>includesPastActivity: false</code>，往前推開始時間並不會把使用者先前滑手機的時間算進去。它也讓區間維持在 Apple 的最低限制以上：短於 15 分鐘的排程會被拒絕，剛好在午夜前開始一段時段的人就會中招。</p>
+    <h3>包含「現在」的排程會立刻開始</h3>
+    <p><span class="label">實測</span> 反過來說：一個 00:00&ndash;23:59:59 的排程包含了目前時間，所以它會<em>立刻</em>開始，而不是等到下一個午夜。我找到兩種把排程訂到明天的方法：</p>
+    <ul>
+      <li><strong>一個已經過期的排程。</strong><code>[00:00, T)</code>，其中 T 是目前時刻的前一分鐘。今天的這一段已經結束了，所以框架會排明天的。我用這招把沒用完的餘額帶過午夜。</li>
+      <li><strong><code>repeats: true</code> 加上有防護的動作。</strong>今天的這一段會立刻開始，但什麼都不做（每個動作都有防護，見下一節）。真正的工作由明天那一段來做。</li>
+    </ul>
+    <p><span class="label">實測</span> 不要在排程裡用完整的年／月／日元件來指定某個日期。我試的時候，extension 的回呼變得很不可靠，這也跟 Apple Developer Forums 上的回報一致（<a href="https://developer.apple.com/forums/thread/729841">thread 729841</a>）。只用時／分／秒就好。</p>
+    <p>要提醒一點：這些跟午夜有關的行為，只會在裝置上、過一整夜才看得到。我已經針對它們加了防護，但實際記錄過的午夜沒有我希望的那麼多，所以請把這一節當成「我看到的現象」，而不是規格。</p>
+
+    <h2 id="stop-monitoring">7. stopMonitoring 會觸發 intervalDidEnd</h2>
+    <p><span class="label">實測</span> 呼叫 <code>stopMonitoring</code>，或者用一個已經在跑的監控名稱呼叫 <code>startMonitoring</code>，都會讓 iOS 在你的 extension 上呼叫 <code>intervalDidEnd</code>，就好像排程自然結束了一樣。如果你的 <code>intervalDidEnd</code> 會重新封鎖當作安全網（我的就是，這樣監控才不會過期後讓 App 處於沒被封鎖的狀態），那每次 App 停掉一個監控，extension 都會短暫地把所有東西封鎖起來。</p>
+    <p>有位使用者回報了這個症狀：每次打開 HonorFit，Spotify 就會暫停。停止監控讓 extension 把選擇封鎖了一下，Spotify 因此被暫停，然後 App 才又把封鎖畫面解除。</p>
+    <p>兩個解法，兩個都要做。第一，在停止<em>之前</em>先刪掉 extension 的動作，讓它沒東西可以執行：</p>
+<pre><code>function stopActivities(names: string[]): void {
+  for (const name of names) RNDA.cleanUpAfterActivity(name); // clear actions first
+  RNDA.stopMonitoring(names);                                // then stop
+}</code></pre>
+    <p>第二，替每個 <code>intervalDidEnd</code> 和 <code>intervalDidStart</code> 動作加上一個「不早於」的時間戳記，設在排程真正的邊界，再減一分鐘的緩衝。extension 在執行任何東西之前都會先檢查它：</p>
+<pre><code>// TypeScript: register the safety net
+RNDA.configureActions({
+  activityName,
+  callbackName: 'intervalDidEnd',
+  actions: [{
+    type: 'blockSelection',
+    familyActivitySelectionId: 'distracting-apps',
+    neverTriggerBefore: new Date(intervalEndMs - 60_000),
+  }],
+});
+
+// Swift, in the DeviceActivityMonitor extension
+if let neverTriggerBefore = neverTriggerBefore {
+  let now = Date().timeIntervalSince1970 * 1000
+  if now &lt; neverTriggerBefore { return false }   // skip this action
+}</code></pre>
+    <p>如果是純 Swift：把真正的結束時間存在 App Group 裡，讓 <code>intervalDidEnd</code> 在太早被呼叫時直接返回。</p>
+
+    <h2 id="phantom">8. iOS 26 的幽靈門檻</h2>
+    <p>在 iOS 26.x 上，<code>eventDidReachThreshold</code> 有時會在完全沒有實際使用的情況下觸發：剛排好程的時候，或者一支鎖了一陣子的手機被拿起來、插上電的時候。Apple 已經在開發者論壇的討論串裡承認這個問題（<a href="https://developer.apple.com/forums/thread/809410">809410</a>、<a href="https://developer.apple.com/forums/thread/811305">811305</a>、<a href="https://developer.apple.com/forums/thread/814559">814559</a>）。據說在 26.5 beta 修好了，但之後還是一直有人回報。在我的 App 裡，症狀是手機放在口袋一陣子後就顯示「時間用完了」，因為 extension 重新套上封鎖畫面，餘額也被扣到零。</p>
+    <p>你沒辦法阻止事件觸發，但你可以拒絕相信它。真正的門檻有兩個特性，能處理掉大部分的情況：</p>
+    <ol>
+      <li><strong>使用時間不可能跑得比時鐘還快。</strong><code>used-7</code> 不可能在監控啟動後不到 7 分鐘就正當地觸發。每個門檻動作都帶著 <code>neverTriggerBefore = armedAt + N minutes &minus; 5s</code>，所以 extension 會跳過那些不可能這麼早的觸發。</li>
+      <li><strong>真正的使用是一點一點累積的；幽靈事件是一次爆出來的。</strong>App 讀回已觸發的事件時，如果最低和最高的門檻在大約 3 秒內一起觸發，但兩者之間卻差了一分鐘以上的使用時間，就把它當成幽靈事件。</li>
+    </ol>
+<pre><code>// Guard 1: drop thresholds that fired before they could have been reached
+if (at &lt; startedAt + minutes * 60_000 - 5_000) continue;
+
+// Guard 2: lowest and highest fired in the same instant, a minute or more apart
+if (highest.minutes - lowest.minutes &gt;= 1 &amp;&amp;
+    Math.abs(highest.at - lowest.at) &lt;= 3_000) {
+  return { usedMinutes: 0, partialMs: 0 };   // phantom: ignore the lot
+}</code></pre>
+    <p>第二道防護是在 App 裡跑，不是在 extension 裡，所以幽靈事件還是可能把封鎖畫面套上去。不過餘額會保住，下次打開 App 時，它會再把封鎖畫面解除。要在 extension 裡做爆量偵測，得寫自訂的 Swift，這我還沒寫。</p>
+    <p><span class="label">實測</span> 還有一個相關的問題剛好相反：該觸發的門檻沒有觸發。在 iOS 26 上進進出出地使用時，我看過一個新監控的第一個 15 秒門檻準時觸發，但後面的被合併或整個被丟掉（<code>used-0.25</code> 觸發了，<code>used-0.5</code> 之後的都沒有）。我的變通方法是：只要一個監控已經計算過使用時間，就把它當成過期的，每次 App 進入背景時，都用剩下的餘額重新啟動一個新的監控。這樣每次重啟最多會放過 15 秒的使用時間，我可以接受。</p>
+
+    <h2 id="shield">9. 封鎖畫面打不開你的 App</h2>
+    <p>最直覺的設計，是在封鎖畫面放一個寫著「賺更多時間」的按鈕，點了就打開你的 App。但沒有官方支援的方法做得到；Apple DTS 說，沒有任何 API 能讓 shield extension 啟動它的主 App。<code>ShieldActionDelegate</code> 用 <code>ShieldActionResponse</code>（<code>.none</code>、<code>.close</code> 或 <code>.defer</code>）來回應按鈕，而這些沒有一個會打開任何東西。</p>
+    <p><span class="label">實測</span> 你會找到的變通方法（從 ShieldAction extension 呼叫 <code>NSExtensionContext().open(url)</code>，函式庫把它包成 <code>openUrl</code>），我在 2026 年 9 月用實機測試時，在目前的 iOS 上完全沒反應。按鈕只會把封鎖畫面關掉。從按鈕點擊發出通知，對我來說也不可靠。</p>
+    <p>我實際上架的做法是：封鎖畫面上只有一個「關閉」按鈕，而 <strong>ShieldConfiguration</strong> extension 會在封鎖畫面<em>顯示</em>時發出一則本機通知。使用者點一下橫幅，就會進到 App。App 會事先把通知內容寫進 App Group，並在回到前景時把通知清掉。iOS 每次顯示封鎖畫面時可能會要好幾次設定，所以發通知的動作有做 debounce：</p>
+<pre><code>func postShieldShownNotification(placeholders: [String: String?]) {
+  guard let config = userDefaults?.dictionary(forKey: "honorfitShieldShownNotification"),
+        let payload = config["payload"] as? [String: Any] else { return }
+
+  let minInterval = config["minIntervalSeconds"] as? Double ?? 30
+  let now = Date().timeIntervalSince1970
+  let lastSentAt = userDefaults?.double(forKey: "honorfitShieldShownNotificationLastSentAt") ?? 0
+  if now - lastSentAt &lt; minInterval { return }
+  userDefaults?.set(now, forKey: "honorfitShieldShownNotificationLastSentAt")
+
+  // builds a UNMutableNotificationContent and adds a UNNotificationRequest
+  // with a fixed identifier, so repeats replace rather than stack
+  sendNotification(contents: payload, placeholders: placeholders)
+}
+
+class ShieldConfigurationExtension: ShieldConfigurationDataSource {
+  override func configuration(shielding application: Application) -&gt; ShieldConfiguration {
+    postShieldShownNotification(placeholders: [
+      "applicationOrDomainDisplayName": application.localizedDisplayName
+    ])
+    return buildShield(/* title, subtitle, colors from the App Group */)
+  }
+  // ...same hook in the category and web-domain overloads
+}</code></pre>
+    <p>這是個 hack，而且要使用者允許通知才行，但這是我唯一試過能穩定進到 App 的路。</p>
+
+    <h2 id="expo">10. 讓自訂的 extension 撐過 prebuild</h2>
+    <p><span class="label">函式庫</span> 如果你用 Expo，<code>expo prebuild</code> 會執行 react-native-device-activity 的 config plugin，而它預設每次都會把函式庫原本的 extension 原始碼複製到 <code>./targets</code>。我客製過的 ShieldConfiguration 就這樣被默默蓋掉了。解法是一個 plugin 選項：</p>
+<pre><code>["react-native-device-activity", {
+  "appleTeamId": "XXXXXXXXXX",
+  "appGroup": "group.com.honorfit.blocker",
+  "copyToTargetFolder": false
+}]</code></pre>
+    <p>代價是：升級函式庫的時候，你得手動把它的 <code>targets/</code> 和共用的 Swift 跟你的版本做 diff，再把你的修改重新套上去。</p>
+
+    <h2 id="testing">11. Xcode 26、模擬器和測試</h2>
+    <ul>
+      <li><strong>用 iOS 26 SDK 建置。</strong>App Store Connect 現在會拒絕用比 iOS 26 舊的 SDK 建置的上傳（ITMS-90725）。在 EAS 上，我把建置映像檔固定在 <code>macos-tahoe-26.5-xcode-26.6</code>。</li>
+      <li><strong>模擬器（Simulator）只能帶你走一半。</strong>在 iOS 26 模擬器上，授權提示和選擇器確實會出現。但授權永遠完成不了（「Allow with Passcode」（使用密碼允許）需要裝置密碼，而模擬器沒辦法設定），選擇器裡沒有任何 App 可以列出來，監控 extension 也從來不會執行。第 5 到第 9 節的所有東西都需要實體裝置。</li>
+      <li><strong>呼叫 ManagedSettings 之前先檢查授權。</strong>在未授權的狀態下動到 store，會在模擬器上跳出系統的密碼提示，這把我的 UI 測試搞壞了。我在每次呼叫封鎖相關的東西之前，都會先檢查授權狀態。</li>
+      <li><strong>把授權錯誤顯示在 UI 上。</strong>TestFlight 的測試者沒有 console 可以看。如果 <code>requestAuthorization</code> 默默失敗，按鈕看起來就只是壞掉了。我會用一個提示視窗顯示錯誤和狀態。</li>
+      <li><strong>過夜測試。</strong>我最嚴重的 bug（明明還有時間卻整晚被封鎖、音樂一直暫停），在 code review 時完全看不出來，只有在實機上跑好幾個小時才重現得出來。</li>
+    </ul>
+
+    <h2 id="android">12. 那 Android 呢</h2>
+    <p>對照一下，Android 沒有官方認可的對應功能，所以你得自己做。HonorFit 的 Android 封鎖功能是一個前景服務（類型是 <code>specialUse</code>，因為 App 封鎖不屬於清單上任何一種類型），在螢幕亮著的時候每秒輪詢一次 <code>UsageStatsManager</code>，來得知目前在前面的是哪個 App。當被封鎖的 App 在畫面上、而餘額是零的時候，它會在上面畫一個 <code>TYPE_APPLICATION_OVERLAY</code> 鎖定畫面（「顯示在其他應用程式上層」）。一個開機 receiver 和一個 watchdog 鬧鐘，會在重新開機、App 更新，以及遇到手機廠商很兇的省電管理之後，把服務重新啟動。</p>
+    <p>取捨的方向跟 iOS 剛好相反。你看得到真正的套件名稱，所以隱私是你自己遵守的承諾，而不是作業系統強制的。被封鎖的 App 最多可能會顯示一個輪詢間隔那麼久，而且它在覆蓋畫面底下還是會繼續執行。另外，你還得在 Play Console 為前景服務類型、覆蓋權限和套件可見性寫聲明。我刻意避開了 AccessibilityService，它的審查是所有項目裡最嚴格的。</p>
+
+    <h2 id="checklist">13. 檢查清單</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th scope="col">症狀</th><th scope="col">可能的原因</th><th scope="col">解法</th></tr></thead>
+        <tbody>
+          <tr><td>某個 target 的 provisioning 失敗</td><td>那個 bundle ID 少了 entitlement 或 App Group</td><td>每個 bundle ID 都要申請 Family Controls (Distribution)，並加入 App Group</td></tr>
+          <tr><td>門檻事件從來沒觸發過</td><td><code>intervalStart</code> = 現在，所以監控被排到明天</td><td>把開始時間往前推；區間維持 &ge; 15 分鐘</td></tr>
+          <tr><td>本來要明天跑的監控今天就跑了</td><td>排程包含目前時間</td><td>用今天已過期的 <code>[00:00, T)</code> 排程，或 <code>repeats: true</code> 加上有防護的動作</td></tr>
+          <tr><td>打開你的 App 時，其他 App 被閃一下封鎖</td><td><code>stopMonitoring</code> 觸發了 <code>intervalDidEnd</code></td><td>停止前先清掉動作；用「不早於」時間做防護</td></tr>
+          <tr><td>手機放著沒用，卻顯示「時間用完了」</td><td>iOS 26 幽靈門檻</td><td>時鐘時間防護加上爆量過濾</td></tr>
+          <tr><td>後面的門檻從來沒觸發</td><td>斷斷續續使用時被丟掉／合併</td><td>每次進入背景都重新啟動一個新的監控</td></tr>
+          <tr><td>封鎖畫面上的按鈕打不開 App</td><td>沒有官方支援的 API</td><td>封鎖畫面顯示時，由 ShieldConfiguration 發出通知</td></tr>
+          <tr><td>觸發的事件對不上（RN）</td><td>事件名稱裡有底線</td><td>用 <code>used-7</code>，不要用 <code>used_7</code></td></tr>
+          <tr><td>選擇器打開是空的（RN）</td><td>少了 <code>includeEntireCategory</code> prop</td><td>傳入它，任何值都可以</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="faq">14. 快速問答</h2>
+    <div class="faq">
+      <details>
+        <summary>每個 extension 都需要 Family Controls entitlement 嗎？</summary>
+        <p>是的。它是依 bundle ID 核發的。App 加上 DeviceActivityMonitor、ShieldConfiguration 和 ShieldAction 三個 extension，就是四次核准，而且每個 App ID 也都要加入共用的 App Group。</p>
+      </details>
+      <details>
+        <summary>為什麼 DeviceActivity 的 eventDidReachThreshold 不會觸發？</summary>
+        <p>我遇到的通常是一個從「現在」開始的不重複排程，結果被排到明天。把 <code>intervalStart</code> 往前推。在 iOS 26 上進進出出地使用時，後面那些不到一分鐘的門檻也會被丟掉；重新啟動一個新的監控有幫助。</p>
+      </details>
+      <details>
+        <summary>ShieldAction 或 ShieldConfiguration extension 能打開主 App 嗎？</summary>
+        <p>沒有官方支援的 API 做得到，而在我的測試中，<code>NSExtensionContext</code> 這個變通方法在目前的 iOS 上完全沒反應。我實際上架的做法，是在封鎖畫面顯示時從 ShieldConfiguration 發出一則本機通知。</p>
+      </details>
+      <details>
+        <summary>可以在 iOS 模擬器上測試 Screen Time API 嗎？</summary>
+        <p>可以測一部分。iOS 26 模擬器上會出現提示和選擇器，但授權沒辦法完成，選擇器沒有東西可以列，監控 extension 也從來沒執行過。請用實體裝置。</p>
+      </details>
+    </div>
+
+    <h2 id="why">15. 我為什麼需要搞懂這些</h2>
+    <p>我做了 <a href="../../">HonorFit</a>，一個靠做伏地挺身賺螢幕使用時間的 App 封鎖工具。它採用誠實制：你自己輸入做了幾下，沒有鏡頭、沒有 AI，也沒有任何網路連線。上面寫的這些，就是為了讓「你賺到的分鐘數只有在被封鎖的 App 顯示在畫面上時才會扣」在 iPhone 上成立所付出的代價。如果你想看看它實際運作的樣子，<a href="https://honorfitapp.com/get/?c=blog-zh-hant">App Store 和 Google Play 上都有</a>。如果你來這裡是想找一個這樣的 App，而不是想自己做一個，我寫了<a href="../../../pushup-app-blocker/">伏地挺身 App 封鎖工具是怎麼運作的</a>（英文），還有<a href="../../../best-pushup-app-blockers/">一篇誠實的市面上 App 整理</a>（英文），連競爭對手都包含在內。如果你遇到這裡沒寫到的螢幕使用時間行為，或發現上面哪些內容在較新的 iOS 上已經不對了，我很想聽聽看。</p>
+
+    <h2>延伸閱讀</h2>
+    <div class="readnext">
+      <a href="../screen-time-api-wishlist/">我希望 Apple 修好 Screen Time API 的 3 件事 &rarr;</a>
+      <a href="../../../best-pushup-app-blockers/">要你運動才能解鎖手機的最佳 App（英文） &rarr;</a>
+      <a href="../">所有文章 &rarr;</a>
+      <a href="../../../vs-screen-time/">HonorFit 和 iPhone 螢幕使用時間比較（英文） &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">首頁</a>
+    <a href="../">部落格</a>
+    <a href="../../../support/">客服支援</a>
+    <a href="../../../privacy/">隱私權政策</a>
+    <span class="langs"><a href="../../../blog/ios-screen-time-api-guide/" hreflang="en" lang="en">English</a><a href="../../../es/blog/ios-screen-time-api-guide/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/ios-screen-time-api-guide/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/ios-screen-time-api-guide/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/ios-screen-time-api-guide/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/ios-screen-time-api-guide/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/ios-screen-time-api-guide/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/ios-screen-time-api-guide/" hreflang="pl" lang="pl">Polski</a><a href="../../../tr/blog/ios-screen-time-api-guide/" hreflang="tr" lang="tr">Türkçe</a><a href="../../../id/blog/ios-screen-time-api-guide/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/ios-screen-time-api-guide/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../../th/blog/ios-screen-time-api-guide/" hreflang="th" lang="th">ไทย</a><a href="../../../ja/blog/ios-screen-time-api-guide/" hreflang="ja" lang="ja">日本語</a><a href="../../../ko/blog/ios-screen-time-api-guide/" hreflang="ko" lang="ko">한국어</a><a href="./" hreflang="zh-Hant" lang="zh-Hant" aria-current="page">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

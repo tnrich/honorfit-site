@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Screen Time API'sinde Apple'ın Düzeltmesini İstediğim 3 Şey | HonorFit</title>
+  <meta name="description" content="Aynı uygulama engelleyiciyi iPhone ve Android için yaparken gördüklerim: iOS neden aynı anda tek bir Ekran Süresi uygulamasına izin veriyor, uygulama seçici neden bu kadar hantal ve canlı bir geri sayımı neden göremiyorsun.">
+  <link rel="canonical" href="https://honorfitapp.com/tr/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/screen-time-api-wishlist/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/tr/blog/screen-time-api-wishlist/">
+  <meta property="og:title" content="Screen Time API'sinde Apple'ın düzeltmesini istediğim 3 şey">
+  <meta property="og:description" content="iPhone'da ve Android'de aynı uygulama. Android'dekini kullanmak düpedüz daha keyifli ve bunun sebebi, aslında var olması gerekmeyen üç Screen Time API sınırı.">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-09-30">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Screen Time API'sinde Apple'ın düzeltmesini istediğim 3 şey">
+  <meta name="twitter:description" content="Aynı anda tek bir Ekran Süresi uygulaması, özelleştiremediğin bir seçici ve canlı geri sayımın olmaması. Hiçbirinin düzelmesi kullanıcılara gizlilik açısından bir şey kaybettirmez.">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose blockquote { border-left: 3px solid var(--border); margin: 14px 0 18px; padding: 4px 0 4px 16px; color: var(--text-dim); }
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0 8px; }
+    .compare figure { margin: 0; }
+    .compare img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    .compare figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; }
+    .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
+    .ask strong { color: var(--text); }
+    .ask ol, .ask ul { margin: 6px 0 0; }
+    figure.single { max-width: 380px; margin: 18px auto 22px; }
+    figure.single img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    figure.single figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; text-align: center; }
+    @media (max-width: 480px) { .compare { gap: 10px; } }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Screen Time API'sinde Apple'ın düzeltmesini istediğim 3 şey",
+    "description": "Aynı uygulama engelleyiciyi iPhone ve Android için yapmak: aynı anda tek bir Ekran Süresi uygulaması, özelleştirilemeyen bir seçici ve kalan sürenin canlı bir geri sayımının olmaması.",
+    "url": "https://honorfitapp.com/tr/blog/screen-time-api-wishlist/",
+    "mainEntityOfPage": "https://honorfitapp.com/tr/blog/screen-time-api-wishlist/",
+    "datePublished": "2026-09-30",
+    "dateModified": "2026-09-30",
+    "image": "https://honorfitapp.com/img/og.png",
+    "inLanguage": "tr",
+    "keywords": "Screen Time API, Ekran Süresi, FamilyControls, FamilyActivityPicker, DeviceActivity, Live Activities, uygulama engelleyici, iOS ve Android",
+    "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+    "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">Blog</a>
+    <a class="link" href="../../../support/">Destek</a>
+    <a class="link" href="../../../privacy/">Gizlilik</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>Screen Time API'sinde Apple'ın düzeltmesini istediğim 3 şey</h1>
+    <p class="meta">Aynı uygulama engelleyiciyi iPhone ve Android için yaparken karşılaştıklarım. Yazan: Thomas Willheim &middot; 30 Eylül 2026</p>
+
+    <p>Ekran süresini şınav çekerek kazandığın bir uygulama engelleyici olan <a href="../../">HonorFit</a>'i yapıyorum (onur sistemiyle çalışıyor, kamera yok). iPhone'da ve Android'de aynı uygulama: aynı fikir, kodun da çoğu aynı. Peki dürüst olayım mı? Android sürümünü kullanmak daha keyifli.</p>
+    <p>Bunun sebebi Android'in uygulama engellemede daha iyi olması değil. iOS'un Screen Time API'si engelleme kısmında aslında gerçekten sağlam. Sebebi, iOS'un seni üç belirli konuda kısıtlaması ve bu kısıtlamaların hiçbiri kullanıcıyı korumak için orada değil gibi görünüyor. İşte listem ve her biri için Apple'dan ne isteyeceğim. Kimseye gizlilik açısından bir şey kaybettirmeyecek şeylerde kalmaya çalıştım.</p>
+    <p>(Bu API üzerine geliştirmenin işin mutfağına dair halini ayrıca yazdım: <a href="../ios-screen-time-api-guide/">Apple'ın belgelerinin söylemedikleri</a>.)</p>
+
+    <h2 id="one-app">1. Aynı anda yalnızca tek bir Ekran Süresi uygulaman olabilir</h2>
+    <p>Diyelim ki zaten Brick, Opal ya da one sec kullanıyorsun ve HonorFit'i de denemek istiyorsun. iPhone'da bunu yapamazsın. İkinci uygulama Ekran Süresi erişimi istediğinde iOS izin penceresini bile göstermiyor. Sadece Family Controls'ün aynı anda yalnızca tek bir uygulama tarafından kullanılabileceğini söyleyen bir hata fırlatıyor. Bu hatayı kendim de gördüm ve <a href="https://developer.apple.com/forums/thread/847096">başka geliştiriciler de bununla karşılaşıyor</a>.</p>
+    <p>Geçiş yapmak için <strong>Ayarlar &rsaquo; Ekran Süresi &rsaquo; Ekran Süresi Erişimi Olan Uygulamalar</strong> bölümüne gidip diğer uygulamayı kapatman, bazen de telefonunu yeniden başlatman gerekiyor. HonorFit artık bu hatayı algılıyor ve kullanıcıya adım adım yol gösteriyor, çünkü ham hata mesajı normal bir insan için hiçbir şey ifade etmiyor.</p>
+    <figure class="single">
+      <img src="../../../img/blog/ios-screen-time-conflict.webp" alt="iPhone'da HonorFit uyarısı: Ekran Süresi'ni başka bir uygulama kullanıyor. iOS, Ekran Süresi'ni aynı anda yalnızca bir uygulamanın yönetmesine izin verir; altında diğer uygulamayı Ayarlar'dan kapatma adımları" width="660" height="720" loading="lazy">
+      <figcaption>Başka bir uygulamanın zaten Ekran Süresi erişimi varsa iPhone kullanıcılarının HonorFit'te gördüğü ekran. iOS uygulamaya sadece bir hata veriyor; bu açıklama bizim.</figcaption>
+    </figure>
+    <p>İşin tuhaf yanı şu: Apple bu tür yetkilendirmeyi WWDC22'de tanıttığında, ebeveyn denetimi yetkilendirmesinin aksine bireysel yetkilendirmenin bir cihazdaki istenen sayıda uygulama tarafından kullanılabileceğini <a href="https://developer.apple.com/videos/play/wwdc2022/110336/">söylemişti</a>. Bugün olan bu değil ve bunun belgelendiği bir yer de bulamadım.</p>
+    <p><strong>Bu neden kullanıcıların yararına değil:</strong> insanlar araçları bir arada kullanıyor. Biri iş yerindeki yoğun odak seansları için Brick, akşamki scroll süresini kazanmak için de HonorFit kullanabilir. Apple'ın kısıtlamaları birleştirmek için zaten bir kuralı var: birden fazla <code>ManagedSettingsStore</code> aynı şeyi ayarladığında, <a href="https://developer.apple.com/videos/play/wwdc2022/110336/">Apple'ın deyişiyle</a> "the most restrictive setting always wins" (en kısıtlayıcı ayar her zaman kazanır). Aynısını uygulamalar arasında da yapmak, insanların ikisini birden kullanmasını sağlar ve telefon bu şekilde ancak <em>daha</em> kilitli hale gelebilir, asla daha az değil.</p>
+    <div class="ask">
+      <strong>İsteğim:</strong> WWDC22'de anlatıldığı gibi birden fazla uygulamanın bireysel Ekran Süresi yetkisine sahip olmasına izin verin ve kalkanlarını aynı "en kısıtlayıcı olan kazanır" kuralıyla birleştirin. Bu sınırın gerçek bir sebebi varsa, bunu belgeleyin ve uygulamalara durumu açıklayabilmeleri için düzgün bir hata kodu verin.
+    </div>
+
+    <h2 id="picker">2. Uygulama seçici hantal ve uygulamalar onu özelleştiremiyor</h2>
+    <p>iPhone'da hangi uygulamaların engelleneceğini seçmek, Apple'ın <code>FamilyActivityPicker</code>'ı demek. Bu, uygulamanın değiştiremediği bir sistem penceresi; değiştirebildiğin tek şey bir satırlık üst ve alt bilgi metni. Bir kategori listesiyle açılıyor (Sosyal, Oyunlar, Eğlence...) ve asıl uygulamaları bulmak için bir kategorinin içine girmen gerekiyor. Android'de listeyi kendim oluşturuyorum, bu yüzden HonorFit yüklü uygulamalarını son 24 saatte her birini ne kadar kullandığına göre sıralı gösteriyor.</p>
+
+    <div class="compare">
+      <figure>
+        <img src="../../../img/blog/ios-app-picker.webp" alt="iOS Ekran Süresi uygulama seçicisi: uygulama kategorilerinden oluşan bir liste, Health &amp; Fitness kategorisi açılmış ve içindeki uygulamalar görünüyor" width="660" height="1310" loading="lazy">
+        <figcaption><strong>iPhone:</strong> Apple'ın seçicisi. Önce kategoriler, kullanım bilgisi yok, her uygulamada aynı.</figcaption>
+      </figure>
+      <figure>
+        <img src="../../../img/blog/android-app-picker.webp" alt="HonorFit'in Android uygulama seçicisi: uygulamalar son 24 saatteki kullanım süreleriyle, en çok kullanılan en üstte olacak şekilde listelenmiş" width="660" height="1308" loading="lazy">
+        <figcaption><strong>Android:</strong> HonorFit'in kendi listesi, kullanım süresine göre sıralı; en kötü uygulamaların en üstte.</figcaption>
+      </figure>
+    </div>
+
+    <p>iOS'takinde beni rahatsız eden iki şey var:</p>
+    <ul>
+      <li><strong>Yanlışlıkla koca bir kategoriyi engellemek çok kolay.</strong> Kategori satırını açmak yerine ona dokunursan, içindeki tüm uygulamaları seçmiş olursun, sonradan yükleyeceklerin de dahil. Çoğu uygulama için bu asla istediğin şey değil. Sen Instagram ve TikTok'u istiyorsun, "Sosyal" kategorisinin tamamını değil.</li>
+      <li><strong>Gününü asıl hangi uygulamaların yediğini göremiyorsun.</strong> Birinin bir uygulama engelleyici açmasının bütün sebebi "telefonda çok fazla vakit geçiriyorum" olması. Seçici, neyi engelleyeceğine karar verdikleri tek an ve onlara vakitlerinin nereye gittiğine dair sıfır bilgi veriyor. iPhone'un her uygulamada ne kadar vakit geçirdiğini tam olarak biliyor (Ayarlar'da duruyor işte), ama seçici bunu göstermiyor.</li>
+    </ul>
+    <p><strong>Bu hiçbir gizlilik kaybına yol açmaz.</strong> Seçiciyi iOS kendi sürecinde çiziyor. Uygulama içinde ne olduğunu hiç görmüyor, sadece seçtiğin şeyler için opak token'lar alıyor. HonorFit hangi uygulamaları seçtiğini kelimenin tam anlamıyla bilemiyor. Yani iOS kullanım sürelerini doğrudan seçicinin içinde gösterebilir ve uygulama yine hiçbir şey öğrenmez. Apple zaten <code>DeviceActivityReport</code> uzantılarıyla buna benzer bir şey yapıyor: kullanımını, uygulamanın okuyamadığı bir sandbox içinde gösteriyorlar.</p>
+    <div class="ask">
+      <strong>İsteğim:</strong>
+      <ol>
+        <li>Seçicide <strong>kategorilerin tamamını mı yoksa sadece uygulamaları mı</strong> seçileceğini belirleyen bir seçenek; böylece bir uygulama engelleyici, yanlışlıkla kategori seçilemeyen, sadece uygulamalardan oluşan bir liste sunabilir (ve kullanmıyorsa web sitelerini gizleyebilir).</li>
+        <li>Her uygulamanın yanında <strong>ölçülen ekran süresini gösterme ve ona göre sıralama</strong> seçeneği; iOS tarafından çizilir, böylece uygulama bu sayıları hiç görmez.</li>
+      </ol>
+    </div>
+
+    <h2 id="countdown">3. Kalan süren için doğru bir geri sayım göremiyorsun</h2>
+    <p>HonorFit'te kazandığın süre sadece gerçekten engelli bir uygulamanın içindeyken azalıyor. O yüzden gösterilecek en bariz şey bir geri sayım: "12:34 kaldı", sen scroll yaptıkça azalıyor, çıkınca duruyor.</p>
+    <p><strong>Android'de bu kolay.</strong> HonorFit'in arka plan hizmeti her saniye ekranda hangi uygulamanın olduğunu kontrol ediyor ve bildirim, Android'in yerleşik geri sayım sayacını kullanıyor; yani bildirim paneli onu her saniye kendiliğinden yeniden çiziyor. Paneli aşağı çekiyorsun ve tam olarak ne kadar süren kaldığını saniyesi saniyesine görüyorsun.</p>
+    <p><strong>iPhone'da bu mümkün değil</strong> ve sebebi şu:</p>
+    <ul>
+      <li>iOS, engelli bir uygulamayı ne zaman açıp kapattığını uygulamaya hiç söylemiyor. Tek aldığın şey "şu kadar kullanım birikti" olayları. HonorFit her 15 saniyelik kullanım için bir tane ayarlıyor ve bunlar bildirimi güncelleyen bir arka plan uzantısına iletiliyor.</li>
+      <li>Normal bir bildirim kendi kendine geri sayamaz, bu yüzden HonorFit'in yapabileceği en iyi şey her olay geldiğinde metni yenisiyle değiştirmek. iPhone'daki bildirimin dalga işaretiyle "~12:30 kaldı" demesinin sebebi bu: 15 saniyelik adımlarla atlıyor.</li>
+      <li>Üstelik bu olaylar her zaman zamanında da gelmiyor. iOS 26'da geç geldiklerini ya da birkaçının aynı anda geldiğini gördüm.</li>
+      <li>Live Activities (Canlı Etkinlikler) kendi kendine geri <em>sayabiliyor</em>, ama duraklayamıyor. Uygulamaya Instagram'dan çıktığını söyleyen hiçbir şey yok, yani bir Live Activity telefonun masada dururken de saymaya devam eder ve bu yanlış olur.</li>
+    </ul>
+    <p>Sonuç olarak iPhone kullanıcıları kaba bir tahmin görüyor, Android kullanıcıları ise gerçek sayıyı.</p>
+    <div class="ask">
+      <strong>İsteğim:</strong> bir <code>DeviceActivity</code> olayının, iOS'un kendisinin çizdiği bir geri sayımı yönetebilmesine izin verin: bir bildirimde, bir Live Activity'de ya da kalkan ekranında, yalnızca izlenen uygulamalar ekrandayken çalışan bir geri sayım. iOS bu kullanımı zaten saniyesi saniyesine takip ediyor, yani uygulamaya yeni hiçbir şey vermeden süreyi gösterebilir. İzleyici uzantısına basit "engelli uygulama açıldı / kapandı" callback'leri bile sorunun çoğunu çözerdi.</div>
+
+    <h2 id="wrap-up">Hepsi bu</h2>
+    <p>Apple'a hakkını vermek lazım, buradaki gizlilik modeli gerçekten çok iyi. Uygulama neyi engellediğini ya da onu ne kadar kullandığını hiçbir zaman öğrenmiyor ve bunun değişmesini hiç istemem. Yukarıdaki üç şeyin hiçbiri bunu değiştirmez. Sadece iPhone uygulamalarının, Android sürümlerinin zaten olduğu kadar faydalı olmasını sağlarlar.</p>
+    <p>Sen de Screen Time üzerine geliştirme yapıyorsan ve bunlardan birini istiyorsan, lütfen <a href="https://feedbackassistant.apple.com/">Geri Bildirim Asistanı</a>'ndan (Feedback Assistant) bildir. Anladığım kadarıyla bir şeyin fark edilmesini sağlayan şey, aynı konuda gelen çok sayıda rapor. Uygulamayı denemek istiyorsan da <a href="https://honorfitapp.com/get/?c=blog-wishlist-tr">HonorFit iPhone ve Android'de ücretsiz</a>. Belki bazılarınızın hoşuna gider!</p>
+
+    <h2>Okumaya devam et</h2>
+    <div class="readnext">
+      <a href="../ios-screen-time-api-guide/">Screen Time API'si: belgelerin söylemedikleri &rarr;</a>
+      <a href="../../../vs-screen-time/">HonorFit ile iPhone Ekran Süresi karşılaştırması &rarr;</a>
+      <a href="../../../best-pushup-app-blockers/">Telefonunun kilidini açmak için seni spor yaptıran en iyi uygulamalar &rarr;</a>
+      <a href="../">Tüm yazılar &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">Ana sayfa</a>
+    <a href="../">Blog</a>
+    <a href="../../../support/">Destek</a>
+    <a href="../../../privacy/">Gizlilik Politikası</a>
+    <span class="langs"><a href="../../../blog/screen-time-api-wishlist/" hreflang="en" lang="en">English</a><a href="../../../es/blog/screen-time-api-wishlist/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/screen-time-api-wishlist/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/screen-time-api-wishlist/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/screen-time-api-wishlist/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/screen-time-api-wishlist/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/screen-time-api-wishlist/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/screen-time-api-wishlist/" hreflang="pl" lang="pl">Polski</a><a href="./" hreflang="tr" lang="tr" aria-current="page">Türkçe</a><a href="../../../id/blog/screen-time-api-wishlist/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/screen-time-api-wishlist/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../../th/blog/screen-time-api-wishlist/" hreflang="th" lang="th">ไทย</a><a href="../../../ja/blog/screen-time-api-wishlist/" hreflang="ja" lang="ja">日本語</a><a href="../../../ko/blog/screen-time-api-wishlist/" hreflang="ko" lang="ko">한국어</a><a href="../../../zh-hant/blog/screen-time-api-wishlist/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

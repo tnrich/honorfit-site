@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apple이 Screen Time API에서 고쳐 줬으면 하는 3가지 | HonorFit</title>
+  <meta name="description" content="같은 앱 차단 앱을 iPhone과 Android에서 만들어 보니: iOS에서는 왜 스크린 타임 앱을 한 번에 하나만 쓸 수 있는지, 앱 선택기는 왜 그렇게 불편한지, 남은 시간 카운트다운은 왜 실시간으로 볼 수 없는지.">
+  <link rel="canonical" href="https://honorfitapp.com/ko/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/screen-time-api-wishlist/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/ko/blog/screen-time-api-wishlist/">
+  <meta property="og:title" content="Apple이 Screen Time API에서 고쳐 줬으면 하는 3가지">
+  <meta property="og:description" content="iPhone과 Android에서 같은 앱인데, Android 쪽이 그냥 더 쓰기 편해요. 그 이유는 굳이 없어도 되는 Screen Time API의 제약 세 가지예요.">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-09-30">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Apple이 Screen Time API에서 고쳐 줬으면 하는 3가지">
+  <meta name="twitter:description" content="스크린 타임 앱은 한 번에 하나만, 앱이 손댈 수 없는 선택기, 실시간 카운트다운 없음. 어느 것도 사용자의 개인정보를 대가로 치를 필요가 없어요.">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose blockquote { border-left: 3px solid var(--border); margin: 14px 0 18px; padding: 4px 0 4px 16px; color: var(--text-dim); }
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0 8px; }
+    .compare figure { margin: 0; }
+    .compare img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    .compare figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; }
+    .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
+    .ask strong { color: var(--text); }
+    .ask ol, .ask ul { margin: 6px 0 0; }
+    figure.single { max-width: 380px; margin: 18px auto 22px; }
+    figure.single img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    figure.single figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; text-align: center; }
+    @media (max-width: 480px) { .compare { gap: 10px; } }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Apple이 Screen Time API에서 고쳐 줬으면 하는 3가지",
+    "description": "같은 앱 차단 앱을 iPhone과 Android에서 만들어 보니: 스크린 타임 앱은 한 번에 하나만, 앱이 바꿀 수 없는 선택기, 그리고 남은 시간을 실시간으로 보여 주는 카운트다운이 없다는 것.",
+    "url": "https://honorfitapp.com/ko/blog/screen-time-api-wishlist/",
+    "mainEntityOfPage": "https://honorfitapp.com/ko/blog/screen-time-api-wishlist/",
+    "datePublished": "2026-09-30",
+    "dateModified": "2026-09-30",
+    "image": "https://honorfitapp.com/img/og.png",
+    "inLanguage": "ko",
+    "keywords": "Screen Time API, 스크린 타임, FamilyControls, FamilyActivityPicker, DeviceActivity, Live Activities, 앱 차단 앱, iOS vs Android",
+    "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+    "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">블로그</a>
+    <a class="link" href="../../../support/">고객 지원</a>
+    <a class="link" href="../../../privacy/">개인정보</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>Apple이 Screen Time API에서 고쳐 줬으면 하는 3가지</h1>
+    <p class="meta">같은 앱 차단 앱을 iPhone과 Android용으로 만들면서 부딪힌 것들. 글: Thomas Willheim &middot; 2026년 9월 30일</p>
+
+    <p>저는 팔굽혀펴기를 해서 스크린타임을 버는 앱 차단 앱 <a href="../../">HonorFit</a>을 만들고 있어요(양심 시스템, 카메라 없음). iPhone과 Android에서 같은 앱이고, 아이디어도 같고, 코드도 대부분 같아요. 그런데 솔직히요? Android 버전이 더 쓰기 편해요.</p>
+    <p>Android가 앱 차단을 더 잘해서 그런 건 아니에요. iOS의 Screen Time API는 차단 자체는 정말 탄탄해요. 문제는 iOS가 딱 세 가지 지점에서 손발을 묶어 두는데, 그중 어느 것도 사용자를 보호하려고 있는 것 같지 않다는 거예요. 그래서 그 목록과 함께 Apple에 바라는 점을 정리해 봤어요. 누구의 개인정보도 대가로 치르지 않는 것들로만 골랐어요.</p>
+    <p>(이 API로 개발하는 구체적인 이야기는 따로 정리해 뒀어요: <a href="../ios-screen-time-api-guide/">Apple 문서에는 없는 이야기</a>.)</p>
+
+    <h2 id="one-app">1. 스크린 타임 앱은 한 번에 하나만 쓸 수 있어요</h2>
+    <p>이미 Brick, Opal이나 one sec을 쓰고 있는데 HonorFit도 써 보고 싶다고 해 볼게요. iPhone에서는 안 돼요. 두 번째 앱이 스크린 타임 접근 권한을 요청하면 iOS는 권한 요청 창조차 띄우지 않아요. 그냥 Family Controls는 한 번에 한 앱만 쓸 수 있다는 오류를 던질 뿐이에요. 저도 이 오류를 직접 봤고, <a href="https://developer.apple.com/forums/thread/847096">다른 개발자들도 겪고 있어요</a>.</p>
+    <p>앱을 바꾸려면 <strong>설정 &rsaquo; 스크린 타임 &rsaquo; 스크린 타임 접근 권한이 있는 앱</strong>으로 가서 다른 앱을 끄고, 가끔은 폰을 재시동해야 해요. 지금 HonorFit은 이 오류를 감지해서 그 과정을 안내해 줘요. 원래 오류 메시지는 일반 사용자에게 아무 의미도 없으니까요.</p>
+    <figure class="single">
+      <img src="../../../img/blog/ios-screen-time-conflict.webp" alt="iPhone의 HonorFit 알림: 다른 앱이 스크린 타임을 사용 중이며 iOS에서는 한 번에 한 앱만 스크린 타임을 제어할 수 있다는 안내와, 설정에서 다른 앱을 끄는 방법" width="660" height="720" loading="lazy">
+      <figcaption>다른 앱이 이미 스크린 타임 접근 권한을 갖고 있을 때 iPhone 사용자가 HonorFit에서 보는 화면. iOS는 앱에 오류만 넘겨주기 때문에, 이 설명은 저희가 직접 쓴 거예요.</figcaption>
+    </figure>
+    <p>이상한 점은 따로 있어요. Apple이 WWDC22에서 이런 종류의 권한을 처음 소개할 때 <a href="https://developer.apple.com/videos/play/wwdc2022/110336/">이렇게 말했거든요</a>. 자녀 보호용 권한과 달리, 개인용(individual) 권한은 한 기기에서 앱 몇 개든 쓸 수 있다고요. 지금은 그렇게 동작하지 않고, 이 제한이 문서화된 곳도 찾지 못했어요.</p>
+    <p><strong>이게 왜 사용자에게 좋지 않냐면:</strong> 사람들은 도구를 섞어 써요. 회사에서 바짝 집중할 때는 Brick을 쓰고, 저녁에 스크롤할 시간은 HonorFit으로 버는 사람도 있을 수 있죠. Apple에는 이미 제한을 합치는 규칙이 있어요. 여러 <code>ManagedSettingsStore</code>가 같은 항목을 설정하면, <a href="https://developer.apple.com/videos/play/wwdc2022/110336/">Apple의 표현으로는</a> &ldquo;the most restrictive setting always wins&rdquo;(가장 제한적인 설정이 항상 이긴다)예요. 앱 사이에도 똑같이 적용하면 둘 다 쓸 수 있고, 그렇게 해도 폰은 <em>더</em> 잠기기만 할 뿐 덜 잠길 일은 없어요.</p>
+    <div class="ask">
+      <strong>Apple에 바라는 점:</strong> WWDC22에서 설명한 대로 여러 앱이 개인용 스크린 타임 권한을 함께 가질 수 있게 해 주고, 각 앱의 실드는 &lsquo;가장 제한적인 설정이 이긴다&rsquo;는 같은 규칙으로 합쳐 주세요. 이 제한에 진짜 이유가 있다면 문서로 남기고, 앱이 사용자에게 설명할 수 있도록 제대로 된 오류 코드를 주세요.
+    </div>
+
+    <h2 id="picker">2. 앱 선택기가 불편한데, 앱이 손댈 수도 없어요</h2>
+    <p>iPhone에서 차단할 앱을 고르려면 Apple의 <code>FamilyActivityPicker</code>를 써야 해요. 앱이 바꿀 수 있는 건 위아래에 들어가는 안내 문구 한 줄뿐인 시스템 시트예요. 처음엔 카테고리 목록(소셜, 게임, 엔터테인먼트…)이 뜨고, 카테고리를 눌러 들어가야 실제 앱이 보여요. Android에서는 목록을 제가 직접 만들기 때문에, HonorFit은 설치된 앱을 최근 24시간 동안 쓴 시간 순으로 보여 줘요.</p>
+
+    <div class="compare">
+      <figure>
+        <img src="../../../img/blog/ios-app-picker.webp" alt="iOS 스크린 타임 앱 선택기: 앱 카테고리 목록에서 건강 및 피트니스를 펼쳐 그 안의 앱이 보이는 화면" width="660" height="1310" loading="lazy">
+        <figcaption><strong>iPhone:</strong> Apple의 선택기. 카테고리가 먼저 나오고, 사용 시간은 안 보이고, 어느 앱에서 열어도 똑같아요.</figcaption>
+      </figure>
+      <figure>
+        <img src="../../../img/blog/android-app-picker.webp" alt="HonorFit의 Android 앱 선택기: 최근 24시간 사용 시간과 함께 가장 많이 쓴 앱부터 나열된 목록" width="660" height="1308" loading="lazy">
+        <figcaption><strong>Android:</strong> HonorFit이 직접 만든 목록. 사용 시간 순으로 정렬돼서, 제일 문제인 앱이 맨 위에 있어요.</figcaption>
+      </figure>
+    </div>
+
+    <p>iOS 선택기에서 거슬리는 점이 두 가지 있어요.</p>
+    <ul>
+      <li><strong>실수로 카테고리 전체를 차단하기가 정말 쉬워요.</strong> 카테고리를 펼치는 대신 그 줄을 누르면, 그 안의 앱 전부가 선택돼요. 나중에 설치할 앱까지요. 많은 앱에서 이건 절대 원하는 결과가 아니에요. &lsquo;소셜&rsquo; 전체가 아니라 인스타그램과 틱톡을 막고 싶은 거잖아요.</li>
+      <li><strong>어떤 앱이 실제로 하루를 잡아먹는지 볼 수 없어요.</strong> 사람들이 앱 차단 앱을 여는 이유는 결국 &lsquo;폰을 너무 많이 본다&rsquo;예요. 선택기는 뭘 막을지 정하는 바로 그 순간인데, 시간이 어디로 새는지에 대한 정보는 하나도 안 줘요. iPhone은 앱마다 얼마나 썼는지 정확히 알고 있는데도(설정에 그대로 나와 있어요), 선택기에는 안 보여 줘요.</li>
+    </ul>
+    <p><strong>이건 개인정보를 하나도 희생하지 않아요.</strong> 선택기는 iOS가 자기 프로세스에서 그려요. 앱은 그 안에 뭐가 있는지 전혀 보지 못하고, 사용자가 고른 것에 대한 불투명한 토큰만 받아요. HonorFit은 말 그대로 사용자가 어떤 앱을 골랐는지 알 수 없어요. 그러니 iOS가 선택기 안에 사용 시간을 보여 줘도 앱은 여전히 아무것도 알 수 없어요. Apple은 이미 <code>DeviceActivityReport</code> 익스텐션으로 비슷한 일을 하고 있어요. 앱이 읽을 수 없는 샌드박스 안에서 사용 시간을 보여 주는 방식이죠.</p>
+    <div class="ask">
+      <strong>Apple에 바라는 점:</strong>
+      <ol>
+        <li>선택기에서 <strong>카테고리 전체를 고를지, 앱만 고를지</strong> 정하는 옵션. 그러면 앱 차단 앱이 실수로 카테고리가 선택될 일 없는 앱 전용 목록을 보여 줄 수 있어요(웹사이트를 안 쓰는 앱이라면 웹사이트도 숨기고요).</li>
+        <li>각 앱 옆에 <strong>측정된 스크린타임을 표시하고 그 순서로 정렬</strong>하는 옵션. iOS가 직접 그려서 앱은 그 숫자를 절대 보지 못하게요.</li>
+      </ol>
+    </div>
+
+    <h2 id="countdown">3. 남은 시간을 정확한 카운트다운으로 볼 수 없어요</h2>
+    <p>HonorFit에서 번 시간은 차단한 앱을 실제로 쓰고 있을 때만 줄어들어요. 그러니 당연히 보여 주고 싶은 건 카운트다운이에요. &ldquo;12:34 남음&rdquo;이 스크롤하는 동안 줄어들고, 앱을 나가면 멈추는 거요.</p>
+    <p><strong>Android에서는 쉬워요.</strong> HonorFit의 백그라운드 서비스가 매초 화면에 떠 있는 앱을 확인하고, 알림은 Android에 내장된 카운트다운 타이머를 써서 알림 창이 매초 알아서 다시 그려요. 알림 창을 내리면 남은 시간이 초 단위까지 정확히 보여요.</p>
+    <p><strong>iPhone에서는 불가능해요.</strong> 이유는 이래요.</p>
+    <ul>
+      <li>iOS는 사용자가 차단한 앱을 열거나 나갈 때 앱에 절대 알려 주지 않아요. 받을 수 있는 건 &lsquo;사용 시간이 이만큼 쌓였다&rsquo;는 이벤트뿐이에요. HonorFit은 15초 사용마다 이벤트를 하나씩 걸어 두고, 그 이벤트가 알림을 갱신하는 백그라운드 익스텐션으로 전달돼요.</li>
+      <li>일반 알림은 스스로 카운트다운할 수 없어서, HonorFit이 할 수 있는 최선은 이벤트가 올 때마다 문구를 바꿔 끼우는 거예요. 그래서 iPhone 알림에는 &ldquo;약 12:30 남았어요&rdquo;처럼 &lsquo;약&rsquo;이 붙어요. 15초 단위로 뚝뚝 줄어드니까요.</li>
+      <li>그 이벤트가 늘 제때 오는 것도 아니에요. iOS 26에서는 늦게 오거나, 여러 개가 한꺼번에 오는 걸 봤어요.</li>
+      <li>Live Activities는 스스로 카운트다운<em>할 수</em> 있지만, 멈출 수가 없어요. 사용자가 인스타그램을 나갔다고 앱에 알려 주는 게 없으니, Live Activity는 폰이 테이블 위에 놓여 있는 동안에도 계속 줄어들 거고, 그건 틀린 숫자예요.</li>
+    </ul>
+    <p>결국 iPhone 사용자는 대략적인 추정치를 보고, Android 사용자는 진짜 숫자를 봐요.</p>
+    <div class="ask">
+      <strong>Apple에 바라는 점:</strong> <code>DeviceActivity</code> 이벤트로 iOS가 직접 그리는 카운트다운을 띄울 수 있게 해 주세요. 알림이든, Live Activity든, 실드든, 모니터링 중인 앱이 화면에 떠 있을 때만 흘러가게요. iOS는 이미 그 사용 시간을 초 단위로 추적하고 있으니, 앱에 새로운 정보를 하나도 넘기지 않고 시간을 보여 줄 수 있어요. 모니터 익스텐션에 &lsquo;차단한 앱 열림 / 닫힘&rsquo; 콜백만 줘도 대부분 해결될 거예요.</div>
+
+    <h2 id="wrap-up">이게 전부예요</h2>
+    <p>Apple 편을 좀 들자면, 여기 개인정보 모델은 정말 좋아요. 앱은 사용자가 무엇을 차단했는지, 얼마나 쓰는지 절대 알 수 없고, 저는 그게 바뀌지 않았으면 해요. 위의 세 가지는 어느 것도 그걸 바꾸지 않아요. 그저 iPhone 앱도 Android 버전이 이미 그런 것처럼 쓸모 있게 만들어 줄 뿐이에요.</p>
+    <p>스크린 타임으로 개발하고 계시고 이 중에 원하는 게 있다면, <a href="https://feedbackassistant.apple.com/">Feedback Assistant</a>로 꼭 제보해 주세요. 제가 알기로는 같은 제보가 많이 쌓여야 눈에 띄거든요. 그리고 그냥 앱을 써 보고 싶다면, <a href="https://honorfitapp.com/get/?c=blog-wishlist-ko">HonorFit은 iPhone과 Android에서 무료예요</a>. 마음에 들어 하실 분도 있을 거예요!</p>
+
+    <h2>계속 읽기</h2>
+    <div class="readnext">
+      <a href="../ios-screen-time-api-guide/">Screen Time API: 문서에는 없는 이야기 &rarr;</a>
+      <a href="../../../vs-screen-time/">HonorFit vs. iPhone 스크린 타임 &rarr;</a>
+      <a href="../../../best-pushup-app-blockers/">운동해야 폰 잠금이 풀리는 최고의 앱들 &rarr;</a>
+      <a href="../">전체 글 &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">홈</a>
+    <a href="../">블로그</a>
+    <a href="../../../support/">고객 지원</a>
+    <a href="../../../privacy/">개인정보처리방침</a>
+    <span class="langs"><a href="../../../blog/screen-time-api-wishlist/" hreflang="en" lang="en">English</a><a href="../../../es/blog/screen-time-api-wishlist/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/screen-time-api-wishlist/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/screen-time-api-wishlist/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/screen-time-api-wishlist/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/screen-time-api-wishlist/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/screen-time-api-wishlist/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/screen-time-api-wishlist/" hreflang="pl" lang="pl">Polski</a><a href="../../../tr/blog/screen-time-api-wishlist/" hreflang="tr" lang="tr">Türkçe</a><a href="../../../id/blog/screen-time-api-wishlist/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/screen-time-api-wishlist/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../../th/blog/screen-time-api-wishlist/" hreflang="th" lang="th">ไทย</a><a href="../../../ja/blog/screen-time-api-wishlist/" hreflang="ja" lang="ja">日本語</a><a href="./" hreflang="ko" lang="ko" aria-current="page">한국어</a><a href="../../../zh-hant/blog/screen-time-api-wishlist/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
