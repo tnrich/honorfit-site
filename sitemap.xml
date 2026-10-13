@@ -960,7 +960,7 @@
   <url><loc>https://honorfitapp.com/pushscroll-alternative/</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
   <url><loc>https://honorfitapp.com/brick-alternative/</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority></url>
   <url>
-    <loc>https://honorfitapp.com/blog/</loc><lastmod>2026-09-30</lastmod><priority>0.8</priority>
+    <loc>https://honorfitapp.com/blog/</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/"/>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/"/>
@@ -1817,4 +1817,7 @@
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/screen-time-api-wishlist/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/screen-time-api-wishlist/"/>
   </url>
+  <url><loc>https://honorfitapp.com/blog/customize-exercises/</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://honorfitapp.com/blog/kegels-to-unlock-your-phone/</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://honorfitapp.com/blog/no-pushups-low-impact-exercises/</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
 </urlset>
