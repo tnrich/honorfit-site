@@ -46,6 +46,9 @@ const PAGES = [
   'blog/',
   'blog/ios-screen-time-api-guide/',
   'blog/screen-time-api-wishlist/',
+  'blog/customize-exercises/',
+  'blog/kegels-to-unlock-your-phone/',
+  'blog/no-pushups-low-impact-exercises/',
 ];
 
 // English homepage banner, keyed by the browser language's primary subtag.
