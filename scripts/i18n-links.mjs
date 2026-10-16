@@ -49,6 +49,7 @@ const PAGES = [
   'blog/customize-exercises/',
   'blog/kegels-to-unlock-your-phone/',
   'blog/no-pushups-low-impact-exercises/',
+  'no-scroll-november/',
 ];
 
 // English homepage banner, keyed by the browser language's primary subtag.
