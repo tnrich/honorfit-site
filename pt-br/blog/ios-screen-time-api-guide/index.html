@@ -88,13 +88,13 @@
         "inLanguage": "pt-BR",
         "mainEntity": [
           { "@type": "Question", "name": "Preciso do entitlement Family Controls para cada extensão?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Sim. O entitlement Family Controls (Distribution) é concedido por bundle ID. Um app com as extensões DeviceActivityMonitor, ShieldConfiguration e ShieldAction precisa dele aprovado para quatro bundle IDs, e cada App ID também precisa do App Group compartilhado." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Sim. Ele é concedido por bundle ID. O app mais as extensões DeviceActivityMonitor, ShieldConfiguration e ShieldAction são quatro aprovações, e cada App ID também precisa do App Group compartilhado." } },
           { "@type": "Question", "name": "Por que o eventDidReachThreshold do DeviceActivity não dispara?",
-            "acceptedAnswer": { "@type": "Answer", "text": "A causa mais comum que encontrei: um agendamento sem repetição cujo intervalStart é a hora atual. Quando o iOS avalia o agendamento, esse horário já passou, então ele agenda o próximo intervalo que corresponde (amanhã) e nada dispara hoje. Antecipar o início em alguns minutos resolveu. Com uso intermitente no iOS 26, também vi limites posteriores, de menos de um minuto, serem descartados; armar um monitor novo ajudou." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "No meu caso, geralmente era um agendamento sem repetição começando “agora”, que acaba agendado para amanhã. Antecipe o intervalStart. No iOS 26, com uso entra-e-sai, limites posteriores de menos de um minuto também eram descartados; armar um monitor novo ajudou." } },
           { "@type": "Question", "name": "Uma extensão ShieldAction ou ShieldConfiguration consegue abrir o app principal?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Não com nenhuma API suportada. O truque de abrir pelo NSExtensionContext não fez nada no iOS atual nos meus testes. A solução que uso no app é postar uma notificação local a partir da extensão ShieldConfiguration quando o shield aparece; tocar nela abre o app." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Não com uma API suportada, e o truque do NSExtensionContext não fez nada no iOS atual nos meus testes. O que uso no app é uma notificação local postada pela ShieldConfiguration quando o shield é exibido." } },
           { "@type": "Question", "name": "Dá para testar a Screen Time API no Simulador do iOS?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Só em parte. Nos simuladores do iOS 26, o pedido de autorização e o seletor aparecem, mas não consegui concluir a autorização, o seletor não tinha nenhum app para mostrar e a extensão DeviceActivityMonitor nunca rodou. Qualquer coisa que envolva shields ou limites de uso precisa de um aparelho físico." } }
+            "acceptedAnswer": { "@type": "Answer", "text": "Em parte. O pedido de autorização e o seletor aparecem nos simuladores do iOS 26, mas a autorização não terminou, o seletor não tinha nada para listar e a extensão de monitoramento nunca rodou. Use um aparelho." } }
         ]
       }
     ]

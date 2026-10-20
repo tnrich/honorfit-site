@@ -88,13 +88,13 @@
         "inLanguage": "pl",
         "mainEntity": [
           { "@type": "Question", "name": "Czy uprawnienie Family Controls jest potrzebne dla każdego rozszerzenia?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Tak. Uprawnienie Family Controls (Distribution) przyznaje się dla każdego bundle ID osobno. Aplikacja z rozszerzeniami DeviceActivityMonitor, ShieldConfiguration i ShieldAction potrzebuje zatwierdzenia dla czterech bundle ID, a każdy App ID musi też mieć wspólną App Group." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Tak. Przyznaje się je dla każdego bundle ID osobno. Aplikacja plus rozszerzenia DeviceActivityMonitor, ShieldConfiguration i ShieldAction to cztery zatwierdzenia, a każdy App ID musi też mieć wspólną App Group." } },
           { "@type": "Question", "name": "Dlaczego eventDidReachThreshold w DeviceActivity się nie wywołuje?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Najczęstsza przyczyna, na jaką trafiłem: niepowtarzalny harmonogram, którego intervalStart to bieżąca godzina. Zanim iOS go oceni, ta chwila jest już w przeszłości, więc system planuje następny pasujący przedział (jutro) i dziś nic się nie wywołuje. Pomogło cofnięcie początku o kilka minut. Przy przerywanym używaniu na iOS 26 widziałem też, jak późniejsze progi poniżej minuty były gubione; pomagało uzbrojenie nowego monitora." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "U mnie zwykle chodziło o niepowtarzalny harmonogram zaczynający się „teraz”, który zostaje zaplanowany na jutro. Cofnij intervalStart. Na iOS 26, przy używaniu na zmianę (wejście, wyjście), późniejsze progi poniżej minuty też bywały gubione; pomagało uzbrojenie nowego monitora." } },
           { "@type": "Question", "name": "Czy rozszerzenie ShieldAction albo ShieldConfiguration może otworzyć aplikację nadrzędną?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Nie przez żadne wspierane API. Obejście z NSExtensionContext open w moich testach nic nie robiło na obecnym iOS. Obejście, które wypuściłem, to wysyłanie lokalnego powiadomienia z rozszerzenia ShieldConfiguration, gdy osłona się wyświetla; stuknięcie powiadomienia otwiera aplikację." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Nie przez wspierane API, a obejście z NSExtensionContext w moich testach nic nie robiło na obecnym iOS. Wypuściłem lokalne powiadomienie wysyłane z ShieldConfiguration, gdy osłona się wyświetla." } },
           { "@type": "Question", "name": "Czy da się testować Screen Time API w Symulatorze iOS?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Tylko częściowo. W symulatorach iOS 26 pojawia się prośba o autoryzację i okno wyboru, ale u mnie autoryzacji nie dało się dokończyć, okno wyboru nie miało żadnych aplikacji do pokazania, a rozszerzenie DeviceActivityMonitor nigdy się nie uruchomiło. Wszystko, co dotyczy osłon albo progów użycia, wymaga fizycznego urządzenia." } }
+            "acceptedAnswer": { "@type": "Answer", "text": "Częściowo. W symulatorach iOS 26 pojawia się prośba o autoryzację i okno wyboru, ale autoryzacja się nie kończyła, okno wyboru nie miało nic do pokazania, a rozszerzenie monitora nigdy się nie uruchomiło. Używaj urządzenia." } }
         ]
       }
     ]

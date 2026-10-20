@@ -87,13 +87,13 @@
         "@type": "FAQPage",
         "mainEntity": [
           { "@type": "Question", "name": "Do I need the Family Controls entitlement for every extension?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Yes. The Family Controls (Distribution) entitlement is granted per bundle ID. An app with a DeviceActivityMonitor, a ShieldConfiguration and a ShieldAction extension needs it approved for four bundle IDs, and each App ID also needs the shared App Group." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. It’s granted per bundle ID. The app plus a DeviceActivityMonitor, a ShieldConfiguration and a ShieldAction extension is four approvals, and each App ID also needs the shared App Group." } },
           { "@type": "Question", "name": "Why is DeviceActivity eventDidReachThreshold not firing?",
-            "acceptedAnswer": { "@type": "Answer", "text": "The most common cause I hit: a non-repeating schedule whose intervalStart is the current time. By the time iOS evaluates it, that time is in the past, so it schedules the next matching interval (tomorrow) and nothing fires today. Backdating the start by a few minutes fixed it. Under intermittent use on iOS 26 I also saw later sub-minute thresholds get dropped; re-arming a fresh monitor helped." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "For me it was usually a non-repeating schedule starting at “now”, which gets booked for tomorrow. Backdate intervalStart. On iOS 26, under in-and-out usage, later sub-minute thresholds also got dropped; re-arming a fresh monitor helped." } },
           { "@type": "Question", "name": "Can a ShieldAction or ShieldConfiguration extension open the parent app?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Not with any supported API. The NSExtensionContext open workaround did nothing on current iOS in my testing. The workaround I ship is posting a local notification from the ShieldConfiguration extension when the shield is displayed; tapping it opens the app." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Not with a supported API, and the NSExtensionContext workaround did nothing on current iOS in my testing. A local notification posted from ShieldConfiguration when the shield is displayed is what I ship." } },
           { "@type": "Question", "name": "Can I test the Screen Time API in the iOS Simulator?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Only partly. On iOS 26 simulators the authorization prompt and picker appear, but authorization could not be completed for me, the picker had no apps to show, and the DeviceActivityMonitor extension never ran. Anything involving shields or usage thresholds needs a physical device." } }
+            "acceptedAnswer": { "@type": "Answer", "text": "Partly. The prompt and picker appear on iOS 26 simulators, but authorization didn’t complete, the picker had nothing to list, and the monitor extension never ran. Use a device." } }
         ]
       }
     ]

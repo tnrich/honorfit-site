@@ -88,13 +88,13 @@
         "inLanguage": "tr",
         "mainEntity": [
           { "@type": "Question", "name": "Her uzantı için Family Controls entitlement'ı gerekiyor mu?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Evet. Family Controls (Distribution) entitlement'ı bundle ID başına verilir. DeviceActivityMonitor, ShieldConfiguration ve ShieldAction uzantıları olan bir uygulamanın dört bundle ID için onay alması gerekir ve her App ID'ye ortak App Group'un da eklenmesi gerekir." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Evet. Bundle ID başına veriliyor. Uygulama artı bir DeviceActivityMonitor, bir ShieldConfiguration ve bir ShieldAction uzantısı dört onay demek ve her App ID'ye ortak App Group'un da eklenmesi gerekiyor." } },
           { "@type": "Question", "name": "DeviceActivity eventDidReachThreshold neden tetiklenmiyor?",
-            "acceptedAnswer": { "@type": "Answer", "text": "En sık karşılaştığım sebep: intervalStart değeri şu anki saat olan, tekrarlanmayan bir zamanlama. iOS onu değerlendirdiğinde o an çoktan geçmiş oluyor, bu yüzden eşleşen bir sonraki aralığı (yarını) planlıyor ve bugün hiçbir şey tetiklenmiyor. Başlangıcı birkaç dakika geriye almak sorunu çözdü. iOS 26'da aralıklı kullanımda sonraki dakika altı eşiklerin de düştüğünü gördüm; yeni bir izleyiciyi baştan kurmak işe yaradı." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Bende sebep genelde “şimdi” başlayan, tekrarlanmayan bir zamanlamaydı; o da yarına planlanıyor. intervalStart'ı geriye al. iOS 26'da, girip çıkmalı kullanımda sonraki dakika altı eşikler de düştü; yeni bir izleyici kurmak işe yaradı." } },
           { "@type": "Question", "name": "Bir ShieldAction ya da ShieldConfiguration uzantısı ana uygulamayı açabilir mi?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Desteklenen hiçbir API ile açamaz. Testlerimde NSExtensionContext open geçici çözümü güncel iOS'ta hiçbir şey yapmadı. Benim yayına aldığım geçici çözüm, kalkan gösterildiğinde ShieldConfiguration uzantısından yerel bir bildirim göndermek; bildirime dokununca uygulama açılıyor." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Desteklenen bir API ile açamaz ve testlerimde NSExtensionContext geçici çözümü güncel iOS'ta hiçbir şey yapmadı. Benim yayına aldığım şey, kalkan gösterildiğinde ShieldConfiguration'dan gönderilen yerel bir bildirim." } },
           { "@type": "Question", "name": "Screen Time API'sini iOS Simulator'da test edebilir miyim?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Sadece kısmen. iOS 26 simülatörlerinde yetkilendirme istemi ve seçici görünüyor, ama bende yetkilendirme tamamlanamadı, seçicide gösterilecek uygulama yoktu ve DeviceActivityMonitor uzantısı hiç çalışmadı. Kalkanları ya da kullanım eşiklerini içeren her şey için fiziksel bir cihaz gerekiyor." } }
+            "acceptedAnswer": { "@type": "Answer", "text": "Kısmen. İstem ve seçici iOS 26 simülatörlerinde görünüyor, ama yetkilendirme tamamlanmadı, seçicide listelenecek bir şey yoktu ve izleyici uzantısı hiç çalışmadı. Bir cihaz kullan." } }
         ]
       }
     ]

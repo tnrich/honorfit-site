@@ -88,13 +88,13 @@
         "inLanguage": "vi",
         "mainEntity": [
           { "@type": "Question", "name": "Mình có cần entitlement Family Controls cho từng extension không?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Có. Entitlement Family Controls (Distribution) được cấp theo từng bundle ID. Một app có DeviceActivityMonitor, ShieldConfiguration và ShieldAction extension cần được duyệt cho bốn bundle ID, và mỗi App ID cũng cần được gắn App Group dùng chung." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Có. Nó được cấp theo từng bundle ID. App chính cộng với một DeviceActivityMonitor, một ShieldConfiguration và một ShieldAction extension là bốn lần duyệt, và mỗi App ID cũng cần được gắn App Group dùng chung." } },
           { "@type": "Question", "name": "Vì sao eventDidReachThreshold của DeviceActivity không kích hoạt?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Nguyên nhân mình gặp nhiều nhất: một lịch không lặp lại có intervalStart là thời điểm hiện tại. Tới lúc iOS xét lịch, thời điểm đó đã qua, nên nó lên lịch cho khoảng thời gian khớp tiếp theo (ngày mai) và hôm nay không có gì kích hoạt. Lùi giờ bắt đầu lại vài phút là hết lỗi. Trên iOS 26, khi dùng app ngắt quãng, mình cũng thấy các ngưỡng dưới một phút về sau bị bỏ qua; khởi động lại một monitor mới giúp ích." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Với mình, thường là do một lịch không lặp lại bắt đầu từ “bây giờ”, nên bị đặt sang ngày mai. Hãy lùi intervalStart lại. Trên iOS 26, khi dùng app kiểu vào ra liên tục, các ngưỡng dưới một phút về sau cũng bị mất; bật lại một monitor mới giúp ích." } },
           { "@type": "Question", "name": "ShieldAction hay ShieldConfiguration extension có mở được app chính không?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Không có API chính thức nào làm được. Cách lách bằng NSExtensionContext open không có tác dụng gì trên iOS hiện tại khi mình thử. Cách mình đang dùng là gửi một thông báo cục bộ từ ShieldConfiguration extension khi shield được hiển thị; chạm vào thông báo sẽ mở app." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Không bằng API chính thức nào, và cách lách bằng NSExtensionContext không có tác dụng gì trên iOS hiện tại khi mình test. Thứ mình đang dùng là một thông báo cục bộ gửi từ ShieldConfiguration khi shield được hiển thị." } },
           { "@type": "Question", "name": "Có test được Screen Time API trên iOS Simulator không?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Chỉ được một phần. Trên simulator iOS 26, hộp thoại cấp quyền và bộ chọn có hiện ra, nhưng mình không hoàn tất được việc cấp quyền, bộ chọn không có app nào để hiển thị, và DeviceActivityMonitor extension không bao giờ chạy. Mọi thứ liên quan tới shield hay ngưỡng sử dụng đều cần thiết bị thật." } }
+            "acceptedAnswer": { "@type": "Answer", "text": "Được một phần. Hộp thoại cấp quyền và bộ chọn có hiện ra trên simulator iOS 26, nhưng việc cấp quyền không hoàn tất, bộ chọn không có gì để liệt kê, và monitor extension không bao giờ chạy. Hãy dùng thiết bị thật." } }
         ]
       }
     ]

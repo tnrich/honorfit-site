@@ -88,13 +88,13 @@
         "inLanguage": "fr",
         "mainEntity": [
           { "@type": "Question", "name": "Faut-il l’entitlement Family Controls pour chaque extension ?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Oui. L’entitlement Family Controls (Distribution) est accordé par bundle ID. Une appli avec une extension DeviceActivityMonitor, une ShieldConfiguration et une ShieldAction doit le faire approuver pour quatre bundle IDs, et chaque App ID a aussi besoin de l’App Group partagé." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Oui. Il est accordé par bundle ID. L’appli plus une extension DeviceActivityMonitor, une ShieldConfiguration et une ShieldAction, ça fait quatre approbations, et chaque App ID a aussi besoin de l’App Group partagé." } },
           { "@type": "Question", "name": "Pourquoi eventDidReachThreshold de DeviceActivity ne se déclenche pas ?",
-            "acceptedAnswer": { "@type": "Answer", "text": "La cause la plus fréquente chez moi : un planning non répété dont l’intervalStart est l’heure actuelle. Le temps qu’iOS l’évalue, cette heure est déjà passée, donc il programme le prochain intervalle correspondant (demain) et rien ne se déclenche aujourd’hui. Antidater le début de quelques minutes a réglé le problème. Avec une utilisation intermittente sur iOS 26, j’ai aussi vu des seuils ultérieurs de moins d’une minute disparaître ; réarmer un nouveau moniteur a aidé." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Chez moi, c’était en général un planning non répété qui commençait à « maintenant », et qui se retrouvait réservé pour demain. Antidate intervalStart. Sur iOS 26, avec une utilisation par à-coups, des seuils ultérieurs de moins d’une minute disparaissaient aussi ; réarmer un nouveau moniteur a aidé." } },
           { "@type": "Question", "name": "Une extension ShieldAction ou ShieldConfiguration peut-elle ouvrir l’appli parente ?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Pas avec une API officielle. Le contournement via NSExtensionContext open n’a rien fait sur les iOS actuels lors de mes tests. Ce que j’ai mis en production, c’est une notification locale envoyée par l’extension ShieldConfiguration quand le shield s’affiche ; un appui dessus ouvre l’appli." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Pas avec une API officielle, et le contournement via NSExtensionContext n’a rien fait sur les iOS actuels lors de mes tests. Ce que je publie, c’est une notification locale envoyée par ShieldConfiguration quand le shield s’affiche." } },
           { "@type": "Question", "name": "Peut-on tester l’API Screen Time dans le simulateur iOS ?",
-            "acceptedAnswer": { "@type": "Answer", "text": "En partie seulement. Sur les simulateurs iOS 26, la demande d’autorisation et le sélecteur s’affichent, mais je n’ai pas pu aller au bout de l’autorisation, le sélecteur n’avait aucune appli à montrer et l’extension DeviceActivityMonitor ne s’est jamais exécutée. Tout ce qui touche aux shields ou aux seuils d’utilisation demande un vrai appareil." } }
+            "acceptedAnswer": { "@type": "Answer", "text": "En partie. La demande et le sélecteur s’affichent sur les simulateurs iOS 26, mais l’autorisation n’a pas abouti, le sélecteur n’avait rien à lister et l’extension de monitoring ne s’est jamais exécutée. Utilise un appareil." } }
         ]
       }
     ]

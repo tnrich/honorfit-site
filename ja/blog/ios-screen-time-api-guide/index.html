@@ -88,13 +88,13 @@
         "inLanguage": "ja",
         "mainEntity": [
           { "@type": "Question", "name": "すべてのExtensionにFamily ControlsのEntitlementが必要ですか？",
-            "acceptedAnswer": { "@type": "Answer", "text": "はい。Family Controls (Distribution) EntitlementはBundle IDごとに付与されます。DeviceActivityMonitor、ShieldConfiguration、ShieldActionの3つのExtensionを持つアプリなら、4つのBundle IDそれぞれで承認が必要です。さらに、各App IDに共有のApp Groupも設定する必要があります。" } },
+            "acceptedAnswer": { "@type": "Answer", "text": "はい。Bundle IDごとに付与されます。アプリ本体に加えてDeviceActivityMonitor、ShieldConfiguration、ShieldActionの各Extensionで4つの承認が必要で、各App IDには共有のApp Groupも必要です。" } },
           { "@type": "Question", "name": "DeviceActivityのeventDidReachThresholdが発火しないのはなぜですか？",
-            "acceptedAnswer": { "@type": "Answer", "text": "僕がいちばんよく遭遇した原因は、intervalStartを現在時刻にした非繰り返しスケジュールです。iOSが評価する時点でその時刻はもう過去なので、次に一致するインターバル（翌日）が予約され、当日は何も発火しません。開始時刻を数分さかのぼらせたら直りました。また、iOS 26で断続的に使った場合、後半の1分未満のしきい値が落ちることもありました。新しいモニターを登録し直すと改善しました。" } },
+            "acceptedAnswer": { "@type": "Answer", "text": "僕の場合、たいていは「今」から始まる非繰り返しスケジュールが原因で、翌日に予約されていました。intervalStartをさかのぼらせてください。iOS 26でアプリを開いたり閉じたりしながら使っていると、後半の1分未満のしきい値も落ちました。新しいモニターを登録し直すと改善しました。" } },
           { "@type": "Question", "name": "ShieldActionやShieldConfigurationのExtensionから親アプリを開けますか？",
-            "acceptedAnswer": { "@type": "Answer", "text": "サポートされたAPIではできません。NSExtensionContextのopenを使う回避策は、僕が試した限り現行のiOSでは何も起きませんでした。僕が実際にリリースしている回避策は、シールドが表示されたときにShieldConfiguration Extensionからローカル通知を送る方法です。通知をタップするとアプリが開きます。" } },
+            "acceptedAnswer": { "@type": "Answer", "text": "サポートされたAPIではできませんし、NSExtensionContextを使う回避策も、僕が試した限り現行のiOSでは何も起きませんでした。僕がリリースしているのは、シールドが表示されたときにShieldConfigurationからローカル通知を送る方法です。" } },
           { "@type": "Question", "name": "iOSシミュレータでScreen Time APIをテストできますか？",
-            "acceptedAnswer": { "@type": "Answer", "text": "一部だけです。iOS 26のシミュレータでは認可ダイアログとピッカーは表示されますが、僕の環境では認可を完了できず、ピッカーには表示するアプリがなく、DeviceActivityMonitor Extensionも一度も実行されませんでした。シールドや使用時間のしきい値が絡むものはすべて実機が必要です。" } }
+            "acceptedAnswer": { "@type": "Answer", "text": "一部だけです。iOS 26のシミュレータでも認可ダイアログとピッカーは表示されますが、認可は完了せず、ピッカーには何も表示されず、モニターExtensionも動きませんでした。実機を使ってください。" } }
         ]
       }
     ]

@@ -88,13 +88,13 @@
         "inLanguage": "nl",
         "mainEntity": [
           { "@type": "Question", "name": "Heb ik het Family Controls-entitlement nodig voor elke extensie?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Ja. Het Family Controls (Distribution)-entitlement wordt per bundle ID toegekend. Een app met een DeviceActivityMonitor-, een ShieldConfiguration- en een ShieldAction-extensie heeft het dus voor vier bundle ID's nodig, en elke App ID moet ook de gedeelde App Group hebben." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Ja. Het wordt per bundle ID toegekend. De app plus een DeviceActivityMonitor-, een ShieldConfiguration- en een ShieldAction-extensie zijn samen vier goedkeuringen, en elke App ID heeft ook de gedeelde App Group nodig." } },
           { "@type": "Question", "name": "Waarom gaat eventDidReachThreshold van DeviceActivity niet af?",
-            "acceptedAnswer": { "@type": "Answer", "text": "De oorzaak waar ik het vaakst tegenaan liep: een niet-herhalend schema met het huidige tijdstip als intervalStart. Tegen de tijd dat iOS het verwerkt, ligt dat tijdstip in het verleden, dus plant het het volgende passende interval in (morgen) en gaat er vandaag niets af. De start een paar minuten terugzetten loste het op. Bij gebruik met tussenpozen op iOS 26 zag ik ook latere drempels van minder dan een minuut wegvallen; een verse monitor starten hielp." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Bij mij was het meestal een niet-herhalend schema dat ‘nu’ begon en daardoor voor morgen werd ingepland. Zet intervalStart terug. Op iOS 26 vielen bij gebruik met tussenpozen ook latere drempels van minder dan een minuut weg; een verse monitor starten hielp." } },
           { "@type": "Question", "name": "Kan een ShieldAction- of ShieldConfiguration-extensie de hoofdapp openen?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Niet met een ondersteunde API. De workaround met NSExtensionContext open deed in mijn tests niets op de huidige iOS. Wat ik zelf gebruik: de ShieldConfiguration-extensie stuurt een lokale melding als het shield wordt getoond; wie erop tikt, komt in de app." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Niet met een ondersteunde API, en de workaround met NSExtensionContext deed in mijn tests niets op de huidige iOS. Wat ik gebruik, is een lokale melding die ShieldConfiguration stuurt als het shield wordt getoond." } },
           { "@type": "Question", "name": "Kan ik de Screen Time API testen in de iOS Simulator?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Maar voor een deel. In de Simulator met iOS 26 verschijnen de toestemmingsvraag en de kiezer wel, maar bij mij lukte het niet om de toestemming af te ronden, had de kiezer geen apps om te tonen en draaide de DeviceActivityMonitor-extensie nooit. Alles met shields of gebruiksdrempels heeft een echt toestel nodig." } }
+            "acceptedAnswer": { "@type": "Answer", "text": "Deels. In de Simulator met iOS 26 verschijnen de toestemmingsvraag en de kiezer, maar de toestemming werd niet afgerond, de kiezer had niets om te tonen en de monitor-extensie draaide nooit. Gebruik een echt toestel." } }
         ]
       }
     ]

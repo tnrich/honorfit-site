@@ -88,13 +88,13 @@
         "inLanguage": "id",
         "mainEntity": [
           { "@type": "Question", "name": "Apakah aku butuh entitlement Family Controls untuk setiap extension?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Ya. Entitlement Family Controls (Distribution) diberikan per bundle ID. Aplikasi dengan extension DeviceActivityMonitor, ShieldConfiguration, dan ShieldAction butuh persetujuan untuk empat bundle ID, dan setiap App ID juga butuh App Group yang sama." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Ya. Entitlement ini diberikan per bundle ID. Aplikasi ditambah extension DeviceActivityMonitor, ShieldConfiguration, dan ShieldAction berarti empat persetujuan, dan setiap App ID juga butuh App Group yang sama." } },
           { "@type": "Question", "name": "Kenapa eventDidReachThreshold di DeviceActivity tidak terpicu?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Penyebab paling umum yang aku alami: jadwal tidak berulang yang intervalStart-nya adalah waktu saat ini. Saat iOS mengevaluasinya, waktu itu sudah lewat, jadi iOS menjadwalkan interval berikutnya yang cocok (besok) dan hari ini tidak ada yang terpicu. Memundurkan waktu mulainya beberapa menit menyelesaikan masalah ini. Dengan pemakaian yang putus-sambung di iOS 26, aku juga melihat threshold di bawah satu menit yang datang belakangan hilang; memasang ulang monitor baru membantu." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Buatku biasanya karena jadwal tidak berulang yang mulai di “sekarang”, yang akhirnya dijadwalkan untuk besok. Mundurkan intervalStart. Di iOS 26, dengan pemakaian yang keluar-masuk, threshold di bawah satu menit yang datang belakangan juga hilang; memasang ulang monitor baru membantu." } },
           { "@type": "Question", "name": "Bisakah extension ShieldAction atau ShieldConfiguration membuka aplikasi induknya?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Tidak dengan API resmi apa pun. Trik membuka lewat NSExtensionContext tidak berpengaruh apa-apa di iOS versi sekarang saat aku uji. Solusi yang aku pakai di aplikasi adalah mengirim notifikasi lokal dari extension ShieldConfiguration saat shield ditampilkan; mengetuk notifikasi itu membuka aplikasinya." } },
+            "acceptedAnswer": { "@type": "Answer", "text": "Tidak dengan API resmi, dan trik NSExtensionContext tidak berpengaruh apa-apa di iOS versi sekarang saat aku uji. Yang aku pakai di aplikasi adalah notifikasi lokal yang dikirim dari ShieldConfiguration saat shield ditampilkan." } },
           { "@type": "Question", "name": "Bisakah aku menguji Screen Time API di iOS Simulator?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Cuma sebagian. Di simulator iOS 26, permintaan otorisasi dan pemilih aplikasinya muncul, tapi otorisasinya tidak bisa aku selesaikan, pemilihnya tidak punya aplikasi untuk ditampilkan, dan extension DeviceActivityMonitor tidak pernah jalan. Apa pun yang melibatkan shield atau threshold pemakaian butuh perangkat fisik." } }
+            "acceptedAnswer": { "@type": "Answer", "text": "Sebagian. Prompt dan pemilih aplikasinya muncul di simulator iOS 26, tapi otorisasinya tidak selesai, pemilihnya tidak punya apa-apa untuk ditampilkan, dan extension monitor tidak pernah jalan. Pakai perangkat sungguhan." } }
         ]
       }
     ]

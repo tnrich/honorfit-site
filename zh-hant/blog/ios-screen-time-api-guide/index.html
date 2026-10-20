@@ -88,13 +88,13 @@
         "inLanguage": "zh-Hant",
         "mainEntity": [
           { "@type": "Question", "name": "每個 extension 都需要 Family Controls entitlement 嗎？",
-            "acceptedAnswer": { "@type": "Answer", "text": "是的。Family Controls (Distribution) entitlement 是依 bundle ID 核發的。一個帶有 DeviceActivityMonitor、ShieldConfiguration 和 ShieldAction 三個 extension 的 App，需要四個 bundle ID 都通過核准，而且每個 App ID 也都要加入共用的 App Group。" } },
+            "acceptedAnswer": { "@type": "Answer", "text": "是的。它是依 bundle ID 核發的。App 加上 DeviceActivityMonitor、ShieldConfiguration 和 ShieldAction 三個 extension，就是四次核准，而且每個 App ID 也都要加入共用的 App Group。" } },
           { "@type": "Question", "name": "為什麼 DeviceActivity 的 eventDidReachThreshold 不會觸發？",
-            "acceptedAnswer": { "@type": "Answer", "text": "我最常遇到的原因：一個不重複的排程，intervalStart 設成目前時間。等 iOS 去評估它的時候，那個時間點已經過去了，所以它會排到下一個符合的區間（明天），今天什麼都不會觸發。把開始時間往前推幾分鐘就解決了。另外在 iOS 26 上斷斷續續使用時，我也看過後面那些不到一分鐘的門檻被丟掉；重新啟動一個新的監控有幫助。" } },
+            "acceptedAnswer": { "@type": "Answer", "text": "我遇到的通常是一個從「現在」開始的不重複排程，結果被排到明天。把 intervalStart 往前推。在 iOS 26 上進進出出地使用時，後面那些不到一分鐘的門檻也會被丟掉；重新啟動一個新的監控有幫助。" } },
           { "@type": "Question", "name": "ShieldAction 或 ShieldConfiguration extension 能打開主 App 嗎？",
-            "acceptedAnswer": { "@type": "Answer", "text": "沒有任何官方支援的 API 做得到。在我的測試中，NSExtensionContext open 這個變通方法在目前的 iOS 上完全沒反應。我實際上架的做法，是在封鎖畫面顯示時，由 ShieldConfiguration extension 發出一則本機通知；點一下通知就會打開 App。" } },
+            "acceptedAnswer": { "@type": "Answer", "text": "沒有官方支援的 API 做得到，而在我的測試中，NSExtensionContext 這個變通方法在目前的 iOS 上完全沒反應。我實際上架的做法，是在封鎖畫面顯示時從 ShieldConfiguration 發出一則本機通知。" } },
           { "@type": "Question", "name": "可以在 iOS 模擬器上測試 Screen Time API 嗎？",
-            "acceptedAnswer": { "@type": "Answer", "text": "只能測一部分。在 iOS 26 模擬器上，授權提示和選擇器會出現，但我沒辦法完成授權，選擇器裡沒有任何 App，DeviceActivityMonitor extension 也從來沒有執行過。任何跟封鎖畫面或使用時間門檻有關的東西，都需要實體裝置。" } }
+            "acceptedAnswer": { "@type": "Answer", "text": "可以測一部分。iOS 26 模擬器上會出現提示和選擇器，但授權沒辦法完成，選擇器沒有東西可以列，監控 extension 也從來沒執行過。請用實體裝置。" } }
         ]
       }
     ]

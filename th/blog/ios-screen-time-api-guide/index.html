@@ -88,13 +88,13 @@
         "inLanguage": "th",
         "mainEntity": [
           { "@type": "Question", "name": "ต้องขอ entitlement ของ Family Controls ให้ทุก extension เลยไหม?",
-            "acceptedAnswer": { "@type": "Answer", "text": "ใช่ครับ entitlement ของ Family Controls (Distribution) อนุมัติแยกตาม bundle ID แอปที่มี extension DeviceActivityMonitor, ShieldConfiguration และ ShieldAction ต้องได้รับอนุมัติสำหรับสี่ bundle ID และทุก App ID ต้องผูกกับ App Group ที่ใช้ร่วมกันด้วย" } },
+            "acceptedAnswer": { "@type": "Answer", "text": "ใช่ครับ อนุมัติแยกตาม bundle ID ตัวแอปบวก extension DeviceActivityMonitor, ShieldConfiguration และ ShieldAction ก็คือต้องได้รับอนุมัติสี่ครั้ง และทุก App ID ต้องผูกกับ App Group ที่ใช้ร่วมกันด้วย" } },
           { "@type": "Question", "name": "ทำไม eventDidReachThreshold ของ DeviceActivity ไม่ทำงาน?",
-            "acceptedAnswer": { "@type": "Answer", "text": "สาเหตุที่ผมเจอบ่อยที่สุด: schedule แบบไม่ทำซ้ำที่ intervalStart เป็นเวลาปัจจุบัน พอ iOS ประมวลผล เวลานั้นก็ผ่านไปแล้ว ระบบเลยไปจองช่วงถัดไปที่ตรงกัน (พรุ่งนี้) และวันนี้ไม่มีอะไรทำงานเลย ถอยเวลาเริ่มย้อนหลังไปสักสองสามนาทีก็แก้ได้ นอกจากนี้ เวลาใช้งานแบบเข้าๆ ออกๆ บน iOS 26 ผมยังเห็น threshold ระดับต่ำกว่าหนึ่งนาทีที่ตามมาทีหลังหายไปด้วย การตั้ง monitor ใหม่ช่วยได้" } },
+            "acceptedAnswer": { "@type": "Answer", "text": "สำหรับผม ส่วนใหญ่เป็นเพราะ schedule แบบไม่ทำซ้ำที่เริ่ม “ตอนนี้” ซึ่งจะถูกจองไปเป็นพรุ่งนี้ ให้ถอย intervalStart ย้อนหลัง บน iOS 26 เวลาใช้งานแบบเข้าๆ ออกๆ threshold ระดับต่ำกว่าหนึ่งนาทีที่ตามมาทีหลังก็หายไปด้วย การตั้ง monitor ใหม่ช่วยได้" } },
           { "@type": "Question", "name": "extension ShieldAction หรือ ShieldConfiguration เปิดแอปหลักได้ไหม?",
-            "acceptedAnswer": { "@type": "Answer", "text": "ไม่ได้ด้วย API ที่รองรับอย่างเป็นทางการ วิธีอ้อมด้วย NSExtensionContext open ไม่มีผลอะไรเลยบน iOS ปัจจุบันตอนที่ผมทดสอบ วิธีที่ผมใช้ในแอปจริงคือให้ extension ShieldConfiguration โพสต์การแจ้งเตือนในเครื่องตอนที่ shield แสดงขึ้นมา แตะการแจ้งเตือนแล้วจะเปิดแอป" } },
+            "acceptedAnswer": { "@type": "Answer", "text": "ไม่ได้ด้วย API ที่รองรับ และวิธีอ้อมด้วย NSExtensionContext ก็ไม่มีผลอะไรบน iOS ปัจจุบันตอนที่ผมทดสอบ สิ่งที่ผมใช้ในแอปจริงคือการแจ้งเตือนในเครื่องที่โพสต์จาก ShieldConfiguration ตอนที่ shield แสดงขึ้นมา" } },
           { "@type": "Question", "name": "ทดสอบ Screen Time API ใน iOS Simulator ได้ไหม?",
-            "acceptedAnswer": { "@type": "Answer", "text": "ได้แค่บางส่วน บน simulator ของ iOS 26 หน้าขอสิทธิ์และตัวเลือกแอปแสดงขึ้นมา แต่การขอสิทธิ์ทำไม่สำเร็จ ตัวเลือกแอปไม่มีแอปให้แสดง และ extension DeviceActivityMonitor ไม่เคยทำงานเลย อะไรที่เกี่ยวกับ shield หรือ threshold การใช้งานต้องทดสอบบนเครื่องจริง" } }
+            "acceptedAnswer": { "@type": "Answer", "text": "ได้บางส่วน หน้าขอสิทธิ์และตัวเลือกแอปแสดงขึ้นมาบน simulator ของ iOS 26 แต่การขอสิทธิ์ไม่สำเร็จ ตัวเลือกแอปไม่มีอะไรให้แสดง และ monitor extension ไม่เคยทำงาน ใช้เครื่องจริงเถอะครับ" } }
         ]
       }
     ]
