@@ -72,20 +72,25 @@
   //   Android        -> Google Play, with an install referrer utm_source=<channel>
   //   anything else  -> stay on this page and show both store links.
   const PROVIDER_ID = '120468516'; // App Store Connect provider token (pt=); empty = omit pt=
-  // App Store custom product pages (ppid=), per channel: c=reddit / reddit-*
-  // and c=creator / creators / creator-*. Created by the pushup repo's
+  // App Store custom product pages (ppid=), per channel: c=reddit / reddit-*,
+  // c=creator / creators / creator-*, and any channel naming yoga or kegel
+  // (seo-yoga-app-blocker, tiktok-kegels, ...). Created by the pushup repo's
   // scripts/asc-experiments.mjs; until a page is approved (or if it's ever
   // disabled/deleted) Apple shows the default product page, so this is safe.
   const PPIDS = {
     reddit: '6ddd31bd-5b7e-4d2b-884c-b1d57e5e2c80',
     creators: '4908aff6-674f-4fd9-b7bb-48a20f2c510d',
+    yoga: 'eaeec530-2f7f-4164-ada2-73b4d3807be9',
+    kegels: 'ad3686fe-e401-41a6-bf40-18a7a63d82db',
   };
 
   (function () {
     const raw = new URLSearchParams(location.search).get('c') || '';
     const channel = raw.toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40) || 'site';
     const page = /^reddit(-|$)/.test(channel) ? PPIDS.reddit
-      : /^creators?(-|$)/.test(channel) ? PPIDS.creators : '';
+      : /^creators?(-|$)/.test(channel) ? PPIDS.creators
+      : /yoga/.test(channel) ? PPIDS.yoga
+      : /kegel/.test(channel) ? PPIDS.kegels : '';
 
     const iosUrl = 'https://apps.apple.com/app/id6802871620?' +
       (PROVIDER_ID ? 'pt=' + encodeURIComponent(PROVIDER_ID) + '&' : '') +
