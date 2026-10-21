@@ -27,10 +27,43 @@
     <p class="meta">Need help with HonorFit Blocker? Check the FAQ below, or reach out.</p>
 
     <div class="callout">
-      <p><strong>Contact us:</strong> the fastest way to get help is to
-      <a href="https://github.com/tnrich/honorfit-site/issues/new">open an issue on GitHub</a>.
-      Describe what happened, your device model, and your OS version, and we'll get back to you.</p>
-      <a class="btn" href="https://github.com/tnrich/honorfit-site/issues/new">Report a problem</a>
+      <p><strong>Contact us:</strong> send a message below and it lands straight in my inbox.
+      Tell me what happened, your phone model and OS version, and I'll get back to you.</p>
+
+      <form id="contact" class="contact-form" action="https://formsubmit.co/cf8f572a7127778b614caed75050af33" method="POST">
+        <div class="row">
+          <label><span>Name <span class="opt">(optional)</span></span>
+            <input type="text" name="name" autocomplete="name">
+          </label>
+          <label><span>Your email</span>
+            <input type="email" name="email" autocomplete="email" required>
+          </label>
+        </div>
+        <div class="row">
+          <label><span>Phone</span>
+            <select name="platform">
+              <option value="">Choose one</option>
+              <option>iPhone</option>
+              <option>Android</option>
+            </select>
+          </label>
+          <label><span>Model &amp; OS version <span class="opt">(optional)</span></span>
+            <input type="text" name="device" placeholder="e.g. Pixel 8, Android 15">
+          </label>
+        </div>
+        <label><span>Message</span>
+          <textarea name="message" rows="6" required></textarea>
+        </label>
+        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="_subject" value="HonorFit support message">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://honorfitapp.com/support/?sent=1#contact">
+        <button class="btn" type="submit">Send message</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <p class="alt">Prefer GitHub? <a href="https://github.com/tnrich/honorfit-site/issues/new">Open an issue</a> instead.</p>
     </div>
 
     <h2>Frequently asked questions</h2>
@@ -75,6 +108,38 @@
     <a href="../privacy/">Privacy Policy</a>
   </div>
 </footer>
+
+<script>
+(function () {
+  var form = document.getElementById('contact');
+  var status = form.querySelector('.form-status');
+  var button = form.querySelector('button');
+  if (location.search.indexOf('sent=1') !== -1) {
+    status.textContent = "Thanks! Your message is on its way. I'll reply by email.";
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    button.disabled = true;
+    status.className = 'form-status';
+    status.textContent = 'Sending…';
+    fetch(form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/'), {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: new FormData(form)
+    })
+      .then(function (r) { return r.json().then(function (j) { if (!r.ok || String(j.success) !== 'true') throw j; }); })
+      .then(function () {
+        form.reset();
+        status.textContent = "Thanks! Your message is on its way. I'll reply by email.";
+      })
+      .catch(function () {
+        status.className = 'form-status error';
+        status.textContent = "That didn't go through. Try again, or open a GitHub issue below.";
+      })
+      .then(function () { button.disabled = false; });
+  });
+})();
+</script>
 
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
