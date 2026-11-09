@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>สร้างแอปบล็อกแอปบน Android โดยไม่ใช้ AccessibilityService | HonorFit</title>
+  <meta name="description" content="HonorFit บล็อกแอปบน Android ด้วย UsageStatsManager, foreground service แบบ specialUse และ overlay แทน Accessibility API ได้ยังไง: ความล่าช้าในการเขียนของ UsageStats, กฎการเริ่มจากเบื้องหลัง, ระบบประหยัดแบตของแต่ละแบรนด์ และสิ่งที่ต้องแลก">
+  <link rel="canonical" href="https://honorfitapp.com/th/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/android-app-blocker-without-accessibility-service/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/th/blog/android-app-blocker-without-accessibility-service/">
+  <meta property="og:title" content="สร้างแอปบล็อกแอปบน Android โดยไม่ใช้ AccessibilityService">
+  <meta property="og:description" content="UsageStatsManager, foreground service และ overlay: สิ่งที่ต้องทำเพื่อเลิกใช้ Accessibility API ในแอปบล็อกแอปที่ใช้งานจริง">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-11-09">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="สร้างแอปบล็อกแอปบน Android โดยไม่ใช้ AccessibilityService">
+  <meta name="twitter:description" content="UsageStatsManager, foreground service และ overlay: สิ่งที่ต้องทำเพื่อเลิกใช้ Accessibility API ในแอปบล็อกแอปที่ใช้งานจริง">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <meta name="apple-itunes-app" content="app-id=6802871620">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose ol { padding-left: 24px; }
+    .prose pre { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 14px 0 20px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; }
+    .prose pre code { background: none; border: 0; padding: 0; font-size: inherit; color: var(--text); }
+    .toc { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 16px 22px; margin: 8px 0 28px; }
+    .toc strong { color: var(--text); }
+    .toc ol { margin: 8px 0 0; }
+    .toc li { margin: 3px 0; }
+    .toc a { text-decoration: none; }
+    .table-scroll { overflow-x: auto; margin: 14px 0 20px; }
+    .prose table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+    .prose th, .prose td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; color: var(--text-dim); }
+    .prose th { color: var(--text); background: var(--bg-raised); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "สร้างแอปบล็อกแอปบน Android โดยไม่ใช้ AccessibilityService",
+    "description": "HonorFit บล็อกแอปบน Android ด้วย UsageStatsManager, foreground service แบบ specialUse และ overlay แทน Accessibility API ได้ยังไง",
+    "url": "https://honorfitapp.com/th/blog/android-app-blocker-without-accessibility-service/",
+    "mainEntityOfPage": "https://honorfitapp.com/th/blog/android-app-blocker-without-accessibility-service/",
+    "datePublished": "2026-11-09",
+    "dateModified": "2026-11-09",
+    "inLanguage": "th",
+    "keywords": "แอปบล็อกแอป Android, AccessibilityService, UsageStatsManager, PACKAGE_USAGE_STATS, SYSTEM_ALERT_WINDOW, foreground service, specialUse, Kotlin",
+    "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+    "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">Blog</a>
+    <a class="link" href="../../../support/">ช่วยเหลือ</a>
+    <a class="link" href="../../../privacy/">ความเป็นส่วนตัว</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>สร้างแอปบล็อกแอปบน Android โดยไม่ใช้ AccessibilityService</h1>
+    <p class="meta">UsageStatsManager, foreground service และ overlay จากแอปที่ใช้งานจริง โดย Thomas Willheim &middot; 9 พฤศจิกายน 2026</p>
+
+    <p>ผมทำ <a href="../../">HonorFit</a> แอปบล็อกแอปที่คุณต้องวิดพื้นเพื่อแลกเวลาหน้าจอ (ระบบความซื่อสัตย์ ไม่ใช้กล้อง) เวอร์ชัน Android แรกบล็อกแอปแบบเดียวกับแอปบล็อกบน Android ส่วนใหญ่: ใช้ <code>AccessibilityService</code> พอเดือนสิงหาคม ผมรื้อออกทั้งหมด แล้วเปลี่ยนไปใช้ <code>UsageStatsManager</code>, foreground service และหน้าต่าง overlay แทน การบล็อกนุ่มลงนิดหน่อย ขั้นตอนเริ่มต้นใช้งานน่ากลัวน้อยลงเยอะ และการรีวิวของ Play ก็ง่ายขึ้นมาก</p>
+    <p>นี่คือหน้าตาของสถาปัตยกรรมนั้น และเรื่องที่ทำผมเจ็บตัวระหว่างทาง โค้ดทั้งหมดเป็น Kotlin ใน Expo module แบบ local แต่ไม่มีอะไรในนี้ที่เฉพาะกับ React Native เลย</p>
+
+    <div class="toc">
+      <strong>สารบัญ</strong>
+      <ol>
+        <li><a href="#why">ทำไมถึงเลิกใช้ Accessibility API</a></li>
+        <li><a href="#shape">โครงสร้างโดยรวม</a></li>
+        <li><a href="#poll">การ poll UsageStats (และความล่าช้าในการเขียน)</a></li>
+        <li><a href="#overlay">overlay สำหรับล็อก</a></li>
+        <li><a href="#service">ทำให้ service ไม่ตาย</a></li>
+        <li><a href="#small">เรื่องเล็กๆ อื่นๆ</a></li>
+        <li><a href="#tradeoffs">สิ่งที่ต้องแลก</a></li>
+      </ol>
+    </div>
+
+    <h2 id="why">ทำไมถึงเลิกใช้ Accessibility API</h2>
+    <p>accessibility service เป็นเครื่องมือที่ทรงพลังที่สุดที่คุณได้บน Android คุณรู้ทุกครั้งที่หน้าต่างเปลี่ยนทันทีที่มันเกิดขึ้น และ <code>performGlobalAction(GLOBAL_ACTION_HOME)</code> ก็เตะผู้ใช้ออกจากแอปที่ถูกบล็อกได้ทันที นั่นคือเหตุผลที่แอปบล็อกจำนวนมากใช้มัน ส่วนต้นทุนคือ:</p>
+    <ul>
+      <li><strong>หน้าขอสิทธิ์น่ากลัวมาก</strong> Android บอกผู้ใช้ว่าแอปนี้เห็นทุกอย่างบนหน้าจอและทำงานแทนเขาได้ สำหรับแอปที่ขายจุดเด่นว่า &ldquo;ไม่มีข้อมูลออกจากมือถือคุณ&rdquo; การขอสิทธิ์แบบนั้นตั้งแต่วันแรกดูไม่ดีเลย และหลายคนก็เลิกตรงนั้นทันที</li>
+      <li><strong>Google Play ถือว่ามันเป็น API ที่อ่อนไหว</strong> ถ้าคุณไม่ใช่เครื่องมือช่วยการเข้าถึง คุณต้องมีหน้าเปิดเผยข้อมูลที่เห็นชัดในแอป การประกาศใน Play Console และผู้รีวิวที่เห็นด้วยว่ากรณีการใช้งานของคุณโอเค ผมสร้างหน้าต่างเปิดเผยข้อมูลไว้แล้วด้วยซ้ำ แต่ถ้าไม่ต้องใช้เลยจะดีกว่า</li>
+      <li><strong>มันเห็นมากกว่าที่แอปบล็อกต้องการเยอะ</strong> แอปบล็อกต้องการรู้แค่อย่างเดียว: แอปไหนอยู่ข้างหน้า</li>
+    </ul>
+    <p>และข้อมูลนั้นหาได้จากที่อื่น: usage event ที่อยู่เบื้องหลัง Digital Wellbeing</p>
+
+    <h2 id="shape">โครงสร้างโดยรวม</h2>
+    <p>สิทธิ์สามอย่าง ผู้ใช้เป็นคนให้เองทั้งหมดในการตั้งค่า:</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>สิทธิ์</th><th>ใช้ทำอะไร</th></tr></thead>
+        <tbody>
+          <tr><td><code>PACKAGE_USAGE_STATS</code> (&ldquo;สิทธิ์เข้าถึงการใช้งาน&rdquo;)</td><td>อ่าน <code>UsageEvents</code> เพื่อรู้ว่าแอปไหนอยู่ข้างหน้า สิทธิ์นี้ขอตอน runtime ไม่ได้ ต้องส่งผู้ใช้ไปที่หน้าการตั้งค่าแล้วเช็ก app-op เอา</td></tr>
+          <tr><td><code>SYSTEM_ALERT_WINDOW</code> (&ldquo;แสดงทับแอปอื่น&rdquo;)</td><td>วาดหน้าจอล็อกทับแอปที่ถูกบล็อก</td></tr>
+          <tr><td><code>FOREGROUND_SERVICE_SPECIAL_USE</code></td><td>service ที่คอยตรวจจับ การบล็อกแอปไม่เข้ากับประเภท foreground service ที่มีให้เลือกเลย จึงต้องเป็น <code>specialUse</code> พร้อมสตริง subtype ที่อธิบายเหตุผล</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>ส่วนประกอบต่างๆ:</p>
+    <ul>
+      <li><strong><code>ForegroundMonitorService</code></strong> ทำงานเฉพาะตอนที่มีอะไรต้องบังคับใช้ (blocklist ไม่ว่าง และได้สิทธิ์เข้าถึงการใช้งานแล้ว) มันจะถาม <code>UsageStatsManager</code> ทุกวินาทีว่าแอปไหนขึ้นมาอยู่ข้างหน้า และทำแค่ตอนที่หน้าจอเปิดอยู่ แอปที่ถูกบล็อกแต่ยังมีเวลาเหลือจะหักเวลาที่เก็บไว้ พอเหลือศูนย์ก็แสดง overlay</li>
+      <li><strong>การแจ้งเตือนที่บังคับต้องมีของมันคือตัวแสดงโควตา</strong> (&ldquo;เหลือ 12 นาที&rdquo;) สิ่งที่ Android บังคับให้มีเลยได้ทำงานจริงๆ ด้วย</li>
+      <li><strong>state ทั้งหมดอยู่ใน <code>SharedPreferences</code></strong> ไม่ได้อยู่ใน JS service ต้องทำงานต่อได้ตอนที่ runtime ของ React Native ตายไปแล้ว ซึ่งก็คือเกือบตลอดเวลา ฝั่ง JS ฝากเวลาและอ่านยอดคงเหลือผ่าน module ส่วนการบังคับใช้เป็นหน้าที่ของ service</li>
+    </ul>
+    <p>รายการของ service ใน manifest:</p>
+<pre><code>&lt;service
+  android:name=".ForegroundMonitorService"
+  android:exported="false"
+  android:foregroundServiceType="specialUse"&gt;
+  &lt;property
+    android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+    android:value="User-configured app blocking for digital wellbeing: monitors
+      which app is in the foreground (UsageStats) so apps the user chose to block
+      can be locked when their earned screen time runs out." /&gt;
+&lt;/service&gt;</code></pre>
+    <p>คุณยังต้องอธิบายเหตุผลของ <code>specialUse</code> ในการประกาศ foreground service ของ Play Console ด้วย เล่าเรื่องเดียวกันทั้งสองที่จะช่วยได้</p>
+
+    <h2 id="poll">การ poll UsageStats (และความล่าช้าในการเขียน)</h2>
+    <p>ลูปหลักเล็กนิดเดียว สแกน event ตั้งแต่การ poll ครั้งก่อน แล้วเก็บ package ของ <code>MOVE_TO_FOREGROUND</code> ตัวสุดท้ายไว้ (มันเป็นค่าคงที่เดียวกับ <code>ACTIVITY_RESUMED</code> ที่เปลี่ยนชื่อใน API 29):</p>
+<pre><code>val end = System.currentTimeMillis()
+val events = usm.queryEvents(windowStart, end)
+val event = UsageEvents.Event()
+while (events.hasNextEvent()) {
+  events.getNextEvent(event)
+  if (event.eventType == UsageEvents.Event.MOVE_TO_FOREGROUND) {
+    currentForeground = event.packageName
+  }
+}
+// รอบหน้าสแกน 15 วินาทีล่าสุดซ้ำ: ดูด้านล่าง
+windowStart = end - REQUERY_OVERLAP_MS
+handleForeground(currentForeground)</code></pre>
+    <p>ข้อดีที่ได้แถมมาเมื่อเทียบกับ accessibility event: คีย์บอร์ดกับแถบการแจ้งเตือนไม่ใช่ activity เลยไม่เคยโผล่มาเป็น &ldquo;ผู้ใช้ออกจากแอปแล้ว&rdquo; แบบหลอกๆ</p>
+
+    <h3>จุดที่ต้องระวัง: event มาช้า</h3>
+    <p>เวอร์ชันแรกของผมเลื่อนหน้าต่างเวลาไปข้างหน้าอย่างเดียว: poll แต่ละครั้ง query <code>[lastEnd, now]</code> ส่วนใหญ่ก็ใช้ได้ แต่บนมือถือที่เพิ่งเปิดเครื่องใหม่ การเปิดแอปที่ถูกบล็อกครั้งแรกสุดไม่ถูกเห็นเลย UsageStats เขียน event ลงที่เก็บข้อมูลแบบล่าช้า event ที่ประทับเวลา 10:00:00.900 เลยอาจโผล่มาหลังจาก poll ที่ครอบคลุมถึง 10:00:01 ไปแล้ว หน้าต่างที่เลื่อนไปข้างหน้าอย่างเดียวจะข้ามมันไปตลอดกาล</p>
+    <p>วิธีแก้: poll ทุกครั้งสแกนช่วงที่ซ้อนทับย้อนหลังซ้ำ (ผมใช้ 15 วินาที) การเห็น event เดิมสองครั้งไม่มีผลเสีย เพราะยังไง resume ครั้งสุดท้ายในหน้าต่างก็ชนะอยู่ดี event ที่มาช้ากว่า 15 วินาทียังหลุดได้ แต่ผมยังไม่เคยเจอ</p>
+
+    <h3>จุดที่ต้องระวัง: poll แรกต้องมองย้อนไปไกล</h3>
+    <p>ตอนที่ service เริ่มทำงาน (หลังรีสตาร์ต หรือตอนหน้าจอเปิด) ยังไม่มี &ldquo;แอปล่าสุดที่รู้&rdquo; ถ้าผู้ใช้นั่งอยู่ใน TikTok มา 20 นาทีแล้ว และ poll แรกมองย้อนแค่หนึ่งนาที มันจะไม่เห็นอะไรเลยจนกว่าเขาจะสลับแอป poll แรกจึงสแกนย้อนหลังหนึ่งชั่วโมง ซึ่งปลอดภัยเพราะ launcher ก็เป็น activity เหมือนกัน: อะไรที่ resume ล่าสุดก็คือสิ่งที่อยู่ข้างหน้าจริงๆ</p>
+
+    <h3>จุดที่ต้องระวัง: สิทธิ์ที่ถูกถอนดูเหมือนความเงียบ</h3>
+    <p>ถ้าผู้ใช้ปิดสิทธิ์เข้าถึงการใช้งานระหว่างที่ service ทำงานอยู่ <code>queryEvents</code> จะไม่ throw แต่จะคืนค่าว่างเปล่า ค่าที่อ่านได้ล่าสุด (&ldquo;Instagram อยู่ข้างหน้า&rdquo;) ก็จะค้างอยู่ และยอดคงเหลือก็ถูกหักไปเรื่อยๆ ไม่มีวันจบ poll ทุกครั้งเลยเช็ก app-op ก่อน และหยุดนับเวลาถ้าสิทธิ์หายไป:</p>
+<pre><code>fun hasUsageAccess(context: Context): Boolean {
+  val appOps = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+  val mode = appOps.checkOpNoThrow(
+    AppOpsManager.OPSTR_GET_USAGE_STATS, Process.myUid(), context.packageName)
+  return mode == AppOpsManager.MODE_ALLOWED
+}</code></pre>
+
+    <h3>หน้าจอดับคือหยุด</h3>
+    <p>พอหน้าจอดับ service จะสรุปเวลาของ session ที่เปิดอยู่ แล้วหยุด poll ไปเลย ไม่มีใครใช้แอปตอนหน้าจอดับ และลูป 1 Hz ที่ทำงานเฉพาะตอนคุณมองมือถืออยู่ก็กินทรัพยากรน้อย poll แรกหลังหน้าจอเปิดยังจัดการเรื่องขึ้นวันใหม่ด้วย (รีเซ็ตตอนเที่ยงคืน, เวลาพื้นฐานรายวัน) มันเลยเกิดขึ้นก่อนที่ผู้ใช้จะไปถึงแอปที่ถูกบล็อก แม้ว่าเขาจะไม่เคยเปิด HonorFit เลยก็ตาม</p>
+
+    <h2 id="overlay">overlay สำหรับล็อก</h2>
+    <p>ถ้าไม่มี accessibility ก็ไม่มี <code>GLOBAL_ACTION_HOME</code> คุณจึงโยนผู้ใช้ออกจากแอปไม่ได้ ต้องปิดทับมันแทน: หน้าต่าง <code>TYPE_APPLICATION_OVERLAY</code> ที่มีปุ่ม &ldquo;รับเวลาเพิ่ม&rdquo; และปุ่ม &ldquo;กลับหน้าหลัก&rdquo;</p>
+    <ul>
+      <li><strong>ปิดทับทั้งจอ</strong> โดยค่าเริ่มต้น overlay จะถูกเว้นขอบตามแถบระบบ และแอปที่ถูกบล็อกจะโผล่ออกมาตามขอบ <code>FLAG_LAYOUT_NO_LIMITS</code> แก้ได้ ส่วน <code>FLAG_LAYOUT_IN_SCREEN</code> ถูก deprecate ใน API 30 แล้ว เลยใส่เฉพาะเวอร์ชันที่ต่ำกว่า R</li>
+      <li><strong>&ldquo;กลับหน้าหลัก&rdquo; ต้องกลับหน้าหลักจริงๆ</strong> แค่ซ่อน overlay ก็จะเผยแอปที่ถูกบล็อกออกมาอีก แล้ว poll ถัดไปก็ใส่ล็อกกลับเข้าไป ให้เปิด launcher แทน:
+<pre><code>startActivity(Intent(Intent.ACTION_MAIN).apply {
+  addCategory(Intent.CATEGORY_HOME)
+  addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+})</code></pre></li>
+      <li><strong>เปิดก่อน แล้วค่อยซ่อน</strong> ปุ่มรับเวลาเพิ่มจะเปิด HonorFit ซึ่งเป็นการเริ่ม activity จากเบื้องหลัง Android ยอมให้ทำได้เพราะแอปมีหน้าต่าง overlay ที่มองเห็นอยู่ เพราะฉะนั้นให้เริ่ม activity <em>ตอนที่ overlay ยังแสดงอยู่</em> แล้วค่อยเอามันออก ถ้าทำกลับกัน การเปิดจะถูกบล็อกแบบเงียบๆ</li>
+      <li><strong>ไม่มีสิทธิ์ overlay? ก็นับต่อไป</strong> ถ้ายังไม่ได้ให้สิทธิ์ &ldquo;แสดงทับแอปอื่น&rdquo; service ก็ยังหักยอดคงเหลืออย่างซื่อตรง แค่วาดหน้าล็อกไม่ได้จนกว่าจะได้สิทธิ์กลับมา</li>
+    </ul>
+
+    <h2 id="service">ทำให้ service ไม่ตาย</h2>
+    <p>นี่คือส่วนที่ใช้เวลานานที่สุดกว่าจะทำให้ถูก และส่วนใหญ่ไม่เกี่ยวกับโค้ดของคุณเลย</p>
+    <h3>START_STICKY ไม่พอ</h3>
+    <p>&ldquo;แอปที่อยู่ในโหมดสลีป&rdquo; ของ Samsung, MIUI, OnePlus และพวกพ้อง ฆ่า service ที่ทำงานเบื้องหลัง แล้วกลืนการรีสตาร์ตแบบ sticky ไปด้วย แอปบล็อกคือกรณีที่แย่ที่สุด: คนไม่เปิดมันตอนที่ยังมีเวลาเหลือ เลยไม่มีอะไรสังเกตว่าตัวตรวจจับหายไปแล้ว HonorFit ตั้ง alarm แบบซ้ำทุก 15 นาที ที่ไม่แม่นยำและไม่ปลุกเครื่อง เพื่อสั่งให้ service กลับมาทำงาน มันไม่เคยปลุกมือถือ และ alarm ที่ถูกเลื่อนไว้ตอนหน้าจอดับจะทำงานไม่นานหลังหน้าจอเปิด ซึ่งก็คือตอนที่ตัวตรวจจับสำคัญที่สุดพอดี</p>
+    <h3>Android 12+ ไม่ได้ยอมให้คุณเริ่มมันเสมอ</h3>
+    <p>การเริ่ม foreground service จากเบื้องหลัง (alarm, การรีสตาร์ตแบบ sticky) จะ throw <code>ForegroundServiceStartNotAllowedException</code> เว้นแต่คุณมีข้อยกเว้น มีสองข้อที่เกี่ยวกับกรณีนี้: ผู้ใช้ปิดการเพิ่มประสิทธิภาพแบตเตอรี่ให้แอปแล้ว หรือแอปถือสิทธิ์ <code>SYSTEM_ALERT_WINDOW</code> (ข้อนี้ช่วยได้แค่ก่อน Android 15) ดังนั้น:</p>
+    <ul>
+      <li>catch exception แล้วออกไปเงียบๆ ทำให้ process crash ไม่ช่วยใคร และการเปิดแอปครั้งถัดไปก็จะเริ่ม service อยู่ดี</li>
+      <li>ขอให้ผู้ใช้ตั้งการใช้แบตเตอรี่เป็น &ldquo;ไม่จำกัด&rdquo; ในการตั้งค่าของ HonorFit มีการ์ด &ldquo;การทำงานเบื้องหลัง&rdquo; ที่พาไปถึงหน้าที่ถูกต้อง บนมือถือบางรุ่น การตั้งค่านี้คือความต่างระหว่างใช้ได้กับใช้ไม่ได้</li>
+    </ul>
+    <h3>รีบูตและอัปเดต</h3>
+    <p>receiver สำหรับ <code>BOOT_COMPLETED</code> และ <code>MY_PACKAGE_REPLACED</code> จะเริ่มการตรวจจับใหม่ ตัวที่สองลืมง่าย: การอัปเดตอัตโนมัติของ Play จะฆ่า process ของคุณและไม่เคยรีสตาร์ต service ให้ ถ้าไม่มีมัน ทุกการอัปเดตจะปิดแอปบล็อกของคุณเงียบๆ จนกว่าผู้ใช้จะเปิดแอป broadcast ทั้งสองได้รับยกเว้นจากข้อจำกัดการเริ่มจากเบื้องหลัง และ receiver ที่ <code>exported="false"</code> ก็ยังได้รับอยู่</p>
+
+    <h2 id="small">เรื่องเล็กๆ อื่นๆ</h2>
+    <ul>
+      <li><strong>บางแอปต้องบล็อกไม่ได้เด็ดขาด:</strong> การตั้งค่า, นาฬิกา (นาฬิกาปลุก!) และ Personal Safety รวมถึงเวอร์ชันของแต่ละแบรนด์ อย่าง package นาฬิกาของ Samsung กรองพวกนี้ออกจาก blocklist ในโค้ด native ไม่ใช่แค่ในตัวเลือกแอป</li>
+      <li><strong>service ทำงานโดยไม่มี JS เลยเรียก <code>t()</code> ไม่ได้</strong> แอปจะส่งสตริงของ overlay และการแจ้งเตือนเป็นภาษาปัจจุบันเข้าไปใน <code>SharedPreferences</code> และ service จะใช้ภาษาอังกฤษไปก่อนจนกว่าสตริงจะมาถึง</li>
+      <li><strong>session ที่เปิดค้างไว้ข้ามการรีสตาร์ตของ service หักเวลาไม่ได้ในช่วงที่ service ตายอยู่</strong> ตอนเริ่มทำงาน ให้สรุปเวลาที่ผ่านไป (แบบมีเพดาน) แล้วเริ่ม session ใหม่ จะได้ไม่มีใครโดนหักเวลาในช่วงที่ service ไม่ได้อยู่ดู</li>
+      <li><strong>Android 14+ ให้ผู้ใช้ปัดการแจ้งเตือนของ foreground service ทิ้งได้</strong> service จะอัปเดตมันต่อไปเรื่อยๆ (มีการกันซ้ำเพื่อไม่ให้โพสต์ใหม่ทุกวินาที) มันเลยกลับมา</li>
+    </ul>
+
+    <h2 id="tradeoffs">สิ่งที่ต้องแลก</h2>
+    <p>วิธีนี้นุ่มกว่า accessibility และผมอยากพูดตรงๆ เรื่องนี้:</p>
+    <ul>
+      <li>แอปที่ถูกบล็อกจะมองเห็นได้นานสุดหนึ่งรอบ poll (ประมาณหนึ่งวินาที) ก่อนที่ overlay จะขึ้น</li>
+      <li>แอปที่ถูกบล็อกยังทำงานอยู่ใต้ overlay ถ้ามีวิดีโอเล่นอยู่ คุณจะยังได้ยินเสียงจนกว่าจะแตะ &ldquo;กลับหน้าหลัก&rdquo;</li>
+      <li>มันขึ้นอยู่กับว่าแบรนด์มือถือจะปล่อย service ของคุณไว้หรือเปล่า นั่นคือเหตุผลที่การตั้งค่าแบตเตอรี่สำคัญมาก</li>
+    </ul>
+    <p>สำหรับแอปบล็อกที่ใช้ระบบความซื่อสัตย์ นี่คือการแลกที่ถูกต้อง HonorFit ไม่ได้พยายามจะเป็นสิ่งที่ทำลายไม่ได้ คนที่ตั้งใจจะโกงก็แค่บันทึกครั้งที่ไม่ได้ทำ จุดประสงค์คือการหยุดคิดสักนิดและมีราคาที่ต้องจ่าย ไม่ใช่คุก สิ่งที่ได้กลับมาคือหน้าขอสิทธิ์ที่เขียนว่า &ldquo;สิทธิ์เข้าถึงการใช้งาน&rdquo; แทนที่จะเป็น &ldquo;ควบคุมได้ทั้งหมด&rdquo; การรีวิวของ Play ที่ง่ายกว่าเยอะ และ service ที่อ่านแค่อย่างเดียว: ชื่อ package ของแอปที่อยู่ข้างหน้า</p>
+    <p>ถ้าคุณทำบน iOS ด้วย ฝั่งนั้นเป็นอีกโลกหนึ่งเลย ผมเขียนเรื่อง<a href="../ios-screen-time-api-guide/">สิ่งที่เอกสาร Screen Time ของ Apple ไม่ได้บอกคุณ</a>ไว้แล้ว</p>
+
+    <div class="callout">
+      <p><strong>HonorFit Blocker</strong> คือแอปบล็อกแอปที่ใช้ฟรีทั้ง iPhone และ Android แลกเวลาหน้าจอด้วยการวิดพื้น สควอท หรือท่าไหนก็ได้ที่คุณเลือก ใช้ระบบความซื่อสัตย์ ไม่ใช้กล้อง ไม่ต้องมีบัญชี ไม่มีข้อมูลออกจากมือถือคุณ</p>
+      <div class="stores">
+        <a href="https://honorfitapp.com/get/?c=blog-android-blocker-th">โหลด HonorFit ฟรี</a>
+      </div>
+    </div>
+
+    <h2>อ่านต่อ</h2>
+    <div class="readnext">
+      <a href="../ios-screen-time-api-guide/">Screen Time API: สิ่งที่เอกสารไม่ได้บอกคุณ &rarr;</a>
+      <a href="../screen-time-api-wishlist/">3 เรื่องใน Screen Time API ที่ผมอยากให้ Apple แก้ &rarr;</a>
+      <a href="../../../app-blocker-without-camera/">แอปบล็อกแอปที่ไม่ใช้กล้องหรือ AI &rarr;</a>
+      <a href="../">บทความทั้งหมด &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">หน้าแรก</a>
+    <a href="../">Blog</a>
+    <a href="../../../support/">ช่วยเหลือ</a>
+    <a href="../../../privacy/">นโยบายความเป็นส่วนตัว</a>
+    <span class="langs"><a href="../../../blog/android-app-blocker-without-accessibility-service/" hreflang="en" lang="en">English</a><a href="../../../es/blog/android-app-blocker-without-accessibility-service/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/android-app-blocker-without-accessibility-service/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/android-app-blocker-without-accessibility-service/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/android-app-blocker-without-accessibility-service/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/android-app-blocker-without-accessibility-service/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/android-app-blocker-without-accessibility-service/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/android-app-blocker-without-accessibility-service/" hreflang="pl" lang="pl">Polski</a><a href="../../../tr/blog/android-app-blocker-without-accessibility-service/" hreflang="tr" lang="tr">Türkçe</a><a href="../../../id/blog/android-app-blocker-without-accessibility-service/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/android-app-blocker-without-accessibility-service/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="./" hreflang="th" lang="th" aria-current="page">ไทย</a><a href="../../../ja/blog/android-app-blocker-without-accessibility-service/" hreflang="ja" lang="ja">日本語</a><a href="../../../ko/blog/android-app-blocker-without-accessibility-service/" hreflang="ko" lang="ko">한국어</a><a href="../../../zh-hant/blog/android-app-blocker-without-accessibility-service/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

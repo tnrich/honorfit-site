@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Làm app chặn ứng dụng trên Android mà không cần AccessibilityService | HonorFit</title>
+  <meta name="description" content="Cách HonorFit chặn ứng dụng trên Android bằng UsageStatsManager, một foreground service specialUse và một lớp phủ thay vì Accessibility API: độ trễ ghi của UsageStats, quy tắc khởi chạy từ nền, các hãng điện thoại diệt app để tiết kiệm pin, và những đánh đổi.">
+  <link rel="canonical" href="https://honorfitapp.com/vi/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/android-app-blocker-without-accessibility-service/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/vi/blog/android-app-blocker-without-accessibility-service/">
+  <meta property="og:title" content="Làm app chặn ứng dụng trên Android mà không cần AccessibilityService">
+  <meta property="og:description" content="UsageStatsManager, một foreground service và một lớp phủ: những gì cần làm để bỏ Accessibility API khỏi một app chặn ứng dụng đang phát hành.">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-11-09">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Làm app chặn ứng dụng trên Android mà không cần AccessibilityService">
+  <meta name="twitter:description" content="UsageStatsManager, một foreground service và một lớp phủ: những gì cần làm để bỏ Accessibility API khỏi một app chặn ứng dụng đang phát hành.">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <meta name="apple-itunes-app" content="app-id=6802871620">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose ol { padding-left: 24px; }
+    .prose pre { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 14px 0 20px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; }
+    .prose pre code { background: none; border: 0; padding: 0; font-size: inherit; color: var(--text); }
+    .toc { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 16px 22px; margin: 8px 0 28px; }
+    .toc strong { color: var(--text); }
+    .toc ol { margin: 8px 0 0; }
+    .toc li { margin: 3px 0; }
+    .toc a { text-decoration: none; }
+    .table-scroll { overflow-x: auto; margin: 14px 0 20px; }
+    .prose table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+    .prose th, .prose td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; color: var(--text-dim); }
+    .prose th { color: var(--text); background: var(--bg-raised); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Làm app chặn ứng dụng trên Android mà không cần AccessibilityService",
+    "description": "Cách HonorFit chặn ứng dụng trên Android bằng UsageStatsManager, một foreground service specialUse và một lớp phủ thay vì Accessibility API.",
+    "url": "https://honorfitapp.com/vi/blog/android-app-blocker-without-accessibility-service/",
+    "mainEntityOfPage": "https://honorfitapp.com/vi/blog/android-app-blocker-without-accessibility-service/",
+    "datePublished": "2026-11-09",
+    "dateModified": "2026-11-09",
+    "inLanguage": "vi",
+    "keywords": "app chặn ứng dụng Android, AccessibilityService, UsageStatsManager, PACKAGE_USAGE_STATS, SYSTEM_ALERT_WINDOW, foreground service, specialUse, Kotlin",
+    "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+    "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">Blog</a>
+    <a class="link" href="../../../support/">Hỗ trợ</a>
+    <a class="link" href="../../../privacy/">Quyền riêng tư</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>Làm app chặn ứng dụng trên Android mà không cần AccessibilityService</h1>
+    <p class="meta">UsageStatsManager, một foreground service và một lớp phủ, rút ra từ một app đang phát hành. Bài của Thomas Willheim &middot; 9 tháng 11, 2026</p>
+
+    <p>Mình làm <a href="../../">HonorFit</a>, một app chặn ứng dụng mà bạn kiếm thời gian sử dụng màn hình bằng cách hít đất (cơ chế tự giác, không camera). Bản Android đầu tiên chặn ứng dụng theo cách mà phần lớn app chặn trên Android vẫn làm: dùng <code>AccessibilityService</code>. Hồi tháng 8, mình gỡ bỏ hết phần đó và thay bằng <code>UsageStatsManager</code>, một foreground service và một cửa sổ lớp phủ. Việc chặn mềm hơn một chút, phần onboarding bớt đáng sợ đi rất nhiều, và việc duyệt trên Play cũng đơn giản hơn hẳn.</p>
+    <p>Đây là kiến trúc đó trông ra sao và những chỗ mình bị vấp trên đường đi. Toàn bộ code là Kotlin bên trong một Expo module cục bộ, nhưng không có gì ở đây là riêng cho React Native cả.</p>
+
+    <div class="toc">
+      <strong>Nội dung</strong>
+      <ol>
+        <li><a href="#why">Vì sao bỏ Accessibility API</a></li>
+        <li><a href="#shape">Hình dạng tổng thể</a></li>
+        <li><a href="#poll">Polling UsageStats (và độ trễ ghi của nó)</a></li>
+        <li><a href="#overlay">Lớp phủ khóa màn hình</a></li>
+        <li><a href="#service">Giữ cho service luôn chạy</a></li>
+        <li><a href="#small">Những thứ nhỏ hơn</a></li>
+        <li><a href="#tradeoffs">Những đánh đổi</a></li>
+      </ol>
+    </div>
+
+    <h2 id="why">Vì sao bỏ Accessibility API</h2>
+    <p>Accessibility service là công cụ mạnh nhất bạn có trên Android. Bạn được báo về mọi thay đổi cửa sổ ngay khi nó xảy ra, và <code>performGlobalAction(GLOBAL_ACTION_HOME)</code> đá người dùng ra khỏi app bị chặn ngay lập tức. Vì vậy mà rất nhiều app chặn dùng nó. Cái giá phải trả:</p>
+    <ul>
+      <li><strong>Lời nhắc cấp quyền rất đáng sợ.</strong> Android báo cho người dùng rằng app có thể thấy mọi thứ trên màn hình và thao tác thay họ. Với một app mà lời giới thiệu là &ldquo;không có gì rời khỏi điện thoại của bạn&rdquo;, xin quyền đó ngay ngày đầu trông rất tệ, và nhiều người bỏ cuộc luôn ở bước đó.</li>
+      <li><strong>Google Play coi nó là API nhạy cảm.</strong> Nếu bạn không phải công cụ hỗ trợ tiếp cận, bạn cần một phần công bố nổi bật trong app, một bản khai báo trong Play Console, và một người duyệt đồng ý rằng mục đích sử dụng của bạn là ổn. Mình đã làm xong hộp thoại công bố đó. Nhưng mình thà không phải cần đến nó.</li>
+      <li><strong>Nó thấy nhiều hơn hẳn những gì một app chặn cần.</strong> Một app chặn chỉ cần đúng một thông tin: app nào đang ở phía trước.</li>
+    </ul>
+    <p>Thông tin đó có sẵn ở chỗ khác: các sự kiện sử dụng đứng sau Digital Wellbeing.</p>
+
+    <h2 id="shape">Hình dạng tổng thể</h2>
+    <p>Ba quyền, tất cả đều do người dùng cấp trong Cài đặt:</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Quyền</th><th>Dùng để làm gì</th></tr></thead>
+        <tbody>
+          <tr><td><code>PACKAGE_USAGE_STATS</code> (&ldquo;Usage access&rdquo;)</td><td>Đọc <code>UsageEvents</code> để biết app nào đang ở phía trước. Không bao giờ được cấp lúc runtime; bạn đưa người dùng tới màn hình Cài đặt rồi kiểm tra app-op.</td></tr>
+          <tr><td><code>SYSTEM_ALERT_WINDOW</code> (&ldquo;Display over other apps&rdquo;)</td><td>Vẽ màn hình khóa đè lên app bị chặn.</td></tr>
+          <tr><td><code>FOREGROUND_SERVICE_SPECIAL_USE</code></td><td>Service theo dõi. Việc chặn ứng dụng không khớp với loại foreground service nào trong danh sách, nên nó là <code>specialUse</code> kèm một chuỗi subtype giải thích lý do.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Các thành phần:</p>
+    <ul>
+      <li><strong><code>ForegroundMonitorService</code></strong> chỉ chạy khi có thứ cần thực thi (danh sách chặn không trống và đã được cấp Usage access). Mỗi giây một lần, và chỉ khi màn hình đang bật, nó hỏi <code>UsageStatsManager</code> xem app nào vừa lên phía trước. Một app bị chặn còn thời gian sẽ trừ dần số dư đã tích; về 0 thì nó hiện lớp phủ.</li>
+      <li><strong>Thông báo bắt buộc của nó chính là phần hiển thị hạn mức</strong> (&ldquo;còn 12 phút&rdquo;), nên thứ mà Android ép bạn phải có lại làm được việc thật.</li>
+      <li><strong>Toàn bộ trạng thái nằm trong <code>SharedPreferences</code></strong>, không nằm trong JS. Service phải tiếp tục chạy khi runtime React Native đã chết, mà phần lớn thời gian là vậy. Phía JS nạp thời gian và đọc số dư thông qua module; còn service nắm việc thực thi.</li>
+    </ul>
+    <p>Khai báo service trong manifest:</p>
+<pre><code>&lt;service
+  android:name=".ForegroundMonitorService"
+  android:exported="false"
+  android:foregroundServiceType="specialUse"&gt;
+  &lt;property
+    android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+    android:value="User-configured app blocking for digital wellbeing: monitors
+      which app is in the foreground (UsageStats) so apps the user chose to block
+      can be locked when their earned screen time runs out." /&gt;
+&lt;/service&gt;</code></pre>
+    <p>Bạn cũng phải giải trình <code>specialUse</code> trong phần khai báo foreground service của Play Console. Kể cùng một câu chuyện ở cả hai nơi sẽ có ích.</p>
+
+    <h2 id="poll">Polling UsageStats (và độ trễ ghi của nó)</h2>
+    <p>Vòng lặp chính khá nhỏ. Quét các sự kiện kể từ lần poll trước và giữ lại package <code>MOVE_TO_FOREGROUND</code> cuối cùng (đây cùng là hằng số <code>ACTIVITY_RESUMED</code>, chỉ đổi tên ở API 29):</p>
+<pre><code>val end = System.currentTimeMillis()
+val events = usm.queryEvents(windowStart, end)
+val event = UsageEvents.Event()
+while (events.hasNextEvent()) {
+  events.getNextEvent(event)
+  if (event.eventType == UsageEvents.Event.MOVE_TO_FOREGROUND) {
+    currentForeground = event.packageName
+  }
+}
+// Lần sau quét lại 15 giây cuối: xem bên dưới.
+windowStart = end - REQUERY_OVERLAP_MS
+handleForeground(currentForeground)</code></pre>
+    <p>Một lợi ích phụ so với sự kiện accessibility: bàn phím và khay thông báo không phải là activity, nên chúng không bao giờ hiện ra như những lần &ldquo;người dùng rời app&rdquo; giả.</p>
+
+    <h3>Bẫy: sự kiện đến muộn</h3>
+    <p>Bản đầu tiên của mình chỉ đẩy cửa sổ thời gian tiến về phía trước: mỗi lần poll query <code>[lastEnd, now]</code>. Phần lớn thời gian thì chạy ổn, rồi trên một chiếc điện thoại vừa khởi động lạnh, lần mở app bị chặn đầu tiên không bao giờ được nhìn thấy. UsageStats ghi sự kiện vào kho dữ liệu của nó có độ trễ, nên một sự kiện đóng dấu 10:00:00.900 có thể xuất hiện sau một lần poll đã bao trùm tới 10:00:01. Một cửa sổ chỉ tiến về phía trước sẽ bỏ sót nó mãi mãi.</p>
+    <p>Cách sửa: mỗi lần poll quét lại một đoạn chồng lấn phía sau (mình dùng 15 giây). Thấy cùng một sự kiện hai lần cũng chẳng hại gì, vì lần resume cuối cùng trong cửa sổ đằng nào cũng thắng. Một sự kiện đến muộn hơn 15 giây vẫn sẽ bị mất, nhưng mình chưa gặp trường hợp nào.</p>
+
+    <h3>Bẫy: lần poll đầu cần nhìn lại xa</h3>
+    <p>Khi service khởi động (sau khi khởi động lại, hoặc khi màn hình bật lên) chưa có &ldquo;app cuối cùng được biết&rdquo;. Nếu người dùng đã ngồi trong TikTok 20 phút mà lần poll đầu chỉ nhìn lại một phút, nó sẽ không thấy gì cho tới khi họ chuyển app. Vì vậy lần poll đầu quét cả tiếng vừa qua. Làm vậy là an toàn vì launcher cũng là một activity: thứ gì resume cuối cùng thì đúng là thứ đang ở phía trước.</p>
+
+    <h3>Bẫy: bị thu hồi quyền trông giống như im lặng</h3>
+    <p>Nếu người dùng tắt Usage access trong lúc service đang chạy, <code>queryEvents</code> không ném lỗi. Nó chỉ trả về rỗng. Lần đọc cuối của bạn (&ldquo;Instagram đang ở phía trước&rdquo;) bị cũ và số dư bị trừ mãi. Vì vậy mỗi lần poll đều kiểm tra app-op trước và dừng đồng hồ nếu quyền đã mất:</p>
+<pre><code>fun hasUsageAccess(context: Context): Boolean {
+  val appOps = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+  val mode = appOps.checkOpNoThrow(
+    AppOpsManager.OPSTR_GET_USAGE_STATS, Process.myUid(), context.packageName)
+  return mode == AppOpsManager.MODE_ALLOWED
+}</code></pre>
+
+    <h3>Tắt màn hình nghĩa là dừng</h3>
+    <p>Khi màn hình tắt, service tích phiên đang mở và ngừng poll hoàn toàn. Chẳng ai dùng app khi màn hình đã tắt, và một vòng lặp 1 Hz chỉ chạy khi bạn đang nhìn điện thoại thì rất rẻ. Lần poll đầu tiên sau khi màn hình bật lại cũng xử lý việc sang ngày mới (đặt lại lúc nửa đêm, mức cơ bản mỗi ngày), nên việc đó xảy ra trước khi người dùng mở tới app bị chặn, kể cả khi họ chưa từng mở HonorFit.</p>
+
+    <h2 id="overlay">Lớp phủ khóa màn hình</h2>
+    <p>Không có accessibility thì không có <code>GLOBAL_ACTION_HOME</code>, nên bạn không thể ném người dùng ra khỏi app. Thay vào đó, bạn che nó lại: một cửa sổ <code>TYPE_APPLICATION_OVERLAY</code> với nút &ldquo;kiếm thêm thời gian&rdquo; và nút &ldquo;về màn hình chính&rdquo;.</p>
+    <ul>
+      <li><strong>Che toàn bộ màn hình.</strong> Mặc định lớp phủ bị thụt vào theo các thanh hệ thống và app bị chặn ló ra ở mép. <code>FLAG_LAYOUT_NO_LIMITS</code> sửa được chuyện đó. <code>FLAG_LAYOUT_IN_SCREEN</code> đã bị deprecated ở API 30, nên chỉ thêm nó khi dưới R.</li>
+      <li><strong>&ldquo;Về màn hình chính&rdquo; phải về thật.</strong> Ẩn lớp phủ chỉ làm lộ lại app bị chặn, và lần poll tiếp theo lại khóa nó lần nữa. Thay vào đó hãy khởi chạy launcher:
+<pre><code>startActivity(Intent(Intent.ACTION_MAIN).apply {
+  addCategory(Intent.CATEGORY_HOME)
+  addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+})</code></pre></li>
+      <li><strong>Khởi chạy trước, ẩn sau.</strong> Nút kiếm thêm thời gian mở HonorFit, tức là khởi chạy một activity từ nền. Android cho phép vì app đang có một cửa sổ lớp phủ hiển thị. Nên hãy khởi chạy activity <em>trong lúc lớp phủ vẫn đang hiện</em>, rồi mới gỡ nó đi. Làm ngược lại thì việc khởi chạy sẽ bị chặn mà không báo gì.</li>
+      <li><strong>Không có quyền lớp phủ? Vẫn cứ đếm.</strong> Nếu chưa cấp &ldquo;Display over other apps&rdquo;, service vẫn trừ số dư một cách trung thực. Nó chỉ không vẽ được màn hình khóa cho tới khi quyền được cấp lại.</li>
+    </ul>
+
+    <h2 id="service">Giữ cho service luôn chạy</h2>
+    <p>Đây là phần tốn thời gian nhất để làm cho đúng, và phần lớn chẳng liên quan gì tới code của bạn.</p>
+    <h3>START_STICKY là chưa đủ</h3>
+    <p>&ldquo;Ứng dụng ngủ&rdquo; của Samsung, MIUI, OnePlus và các hãng tương tự diệt service chạy nền rồi nuốt luôn lần khởi động lại sticky. Một app chặn là trường hợp tệ nhất cho chuyện này: người ta không mở nó khi còn thời gian, nên chẳng có gì nhận ra trình theo dõi đã biến mất. HonorFit đặt một alarm lặp lại kiểu inexact, non-wakeup mỗi 15 phút để khởi động lại service. Nó không bao giờ đánh thức điện thoại, và các alarm bị hoãn trong lúc màn hình tắt sẽ chạy ngay sau khi màn hình bật lại, đúng lúc trình theo dõi cần có mặt.</p>
+    <h3>Android 12+ không phải lúc nào cũng cho bạn khởi động nó</h3>
+    <p>Khởi động một foreground service từ nền (từ alarm, từ lần khởi động lại sticky) sẽ ném <code>ForegroundServiceStartNotAllowedException</code> trừ khi bạn có ngoại lệ. Hai ngoại lệ quan trọng ở đây: người dùng đã tắt tối ưu hóa pin cho app, hoặc app có quyền <code>SYSTEM_ALERT_WINDOW</code> (cái này chỉ có tác dụng trước Android 15). Vậy nên:</p>
+    <ul>
+      <li>Bắt exception và lặng lẽ thoát ra. Làm crash tiến trình chẳng giúp được ai, và lần mở app tiếp theo đằng nào cũng sẽ khởi động service.</li>
+      <li>Nhờ người dùng đặt mức sử dụng pin thành &ldquo;Không hạn chế&rdquo;. Phần Cài đặt của HonorFit có thẻ &ldquo;Chạy nền ổn định&rdquo; dẫn họ tới đúng màn hình. Trên một số điện thoại, thiết lập đó quyết định app chạy được hay không.</li>
+    </ul>
+    <h3>Khởi động lại máy và cập nhật</h3>
+    <p>Một receiver cho <code>BOOT_COMPLETED</code> và <code>MY_PACKAGE_REPLACED</code> khởi động lại việc theo dõi. Cái thứ hai rất dễ quên: một lần tự động cập nhật từ Play sẽ giết tiến trình của bạn và không bao giờ khởi động lại các service của nó, nên nếu thiếu nó, mỗi lần cập nhật sẽ âm thầm tắt app chặn của bạn cho tới khi người dùng mở app. Cả hai broadcast đều được miễn khỏi giới hạn khởi chạy từ nền, và receiver <code>exported="false"</code> vẫn nhận được chúng.</p>
+
+    <h2 id="small">Những thứ nhỏ hơn</h2>
+    <ul>
+      <li><strong>Một số app tuyệt đối không được phép chặn:</strong> Cài đặt, Đồng hồ (báo thức!) và Personal Safety, cộng với các biến thể của hãng như package đồng hồ của Samsung. Lọc chúng ra khỏi danh sách chặn ở code native, chứ không chỉ ở bộ chọn.</li>
+      <li><strong>Service chạy mà không có JS, nên không gọi được <code>t()</code>.</strong> App đẩy các chuỗi của lớp phủ và thông báo vào <code>SharedPreferences</code> theo ngôn ngữ hiện tại, và service dùng tạm tiếng Anh cho tới khi các chuỗi đó tới nơi.</li>
+      <li><strong>Một phiên còn mở khi service khởi động lại thì không thể bị trừ trong lúc service đã chết.</strong> Khi khởi động, tích phần thời gian đã trôi qua (có giới hạn) rồi bắt đầu một phiên mới, để không ai bị tính tiền cho khoảng thời gian service không có mặt để thấy.</li>
+      <li><strong>Android 14+ cho phép người dùng vuốt bỏ thông báo của foreground service.</strong> Service vẫn tiếp tục cập nhật thông báo (có chống trùng để không đăng lại mỗi giây), nên nó sẽ quay lại.</li>
+    </ul>
+
+    <h2 id="tradeoffs">Những đánh đổi</h2>
+    <p>Cách làm này mềm hơn accessibility, và mình muốn nói thẳng điều đó:</p>
+    <ul>
+      <li>App bị chặn vẫn hiện ra trong tối đa một chu kỳ poll (khoảng một giây) trước khi lớp phủ xuất hiện.</li>
+      <li>App bị chặn vẫn chạy bên dưới lớp phủ. Nếu đang phát video, bạn vẫn nghe tiếng cho tới khi chạm &ldquo;về màn hình chính&rdquo;.</li>
+      <li>Nó phụ thuộc vào việc hãng điện thoại để yên cho service của bạn, nên thiết lập pin mới quan trọng đến vậy.</li>
+    </ul>
+    <p>Với một app chặn theo cơ chế tự giác, đó là đánh đổi đúng đắn. HonorFit không cố trở thành thứ không thể phá. Ai quyết tâm gian lận thì cứ việc ghi những lần tập mình chưa làm. Mục đích là một khoảng dừng và một cái giá, chứ không phải nhà tù. Đổi lại, bạn có một màn hình cấp quyền ghi &ldquo;quyền truy cập dữ liệu sử dụng&rdquo; thay vì &ldquo;toàn quyền kiểm soát&rdquo;, việc duyệt trên Play đơn giản hơn nhiều, và một service chỉ đọc đúng một thứ: tên package của app đang ở phía trước.</p>
+    <p>Nếu bạn cũng làm cho iOS thì bên đó là một thế giới hoàn toàn khác. Mình đã viết về <a href="../ios-screen-time-api-guide/">những điều tài liệu Screen Time của Apple không nói</a>.</p>
+
+    <div class="callout">
+      <p><strong>HonorFit Blocker</strong> là app chặn ứng dụng miễn phí cho iPhone và Android. Kiếm thời gian dùng màn hình bằng hít đất, squat hay bất cứ bài tập nào bạn chọn. Cơ chế tự giác, không camera, không tài khoản, không có gì rời khỏi điện thoại của bạn.</p>
+      <div class="stores">
+        <a href="https://honorfitapp.com/get/?c=blog-android-blocker-vi">Tải HonorFit miễn phí</a>
+      </div>
+    </div>
+
+    <h2>Đọc tiếp</h2>
+    <div class="readnext">
+      <a href="../ios-screen-time-api-guide/">Screen Time API trên iOS: những điều tài liệu không nói &rarr;</a>
+      <a href="../screen-time-api-wishlist/">3 điều mình mong Apple sửa trong Screen Time API &rarr;</a>
+      <a href="../../../app-blocker-without-camera/">App chặn ứng dụng không cần camera hay AI (bằng tiếng Anh) &rarr;</a>
+      <a href="../">Tất cả bài viết &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">Trang chủ</a>
+    <a href="../">Blog</a>
+    <a href="../../../support/">Hỗ trợ</a>
+    <a href="../../../privacy/">Chính sách quyền riêng tư</a>
+    <span class="langs"><a href="../../../blog/android-app-blocker-without-accessibility-service/" hreflang="en" lang="en">English</a><a href="../../../es/blog/android-app-blocker-without-accessibility-service/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/android-app-blocker-without-accessibility-service/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/android-app-blocker-without-accessibility-service/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/android-app-blocker-without-accessibility-service/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/android-app-blocker-without-accessibility-service/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/android-app-blocker-without-accessibility-service/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/android-app-blocker-without-accessibility-service/" hreflang="pl" lang="pl">Polski</a><a href="../../../tr/blog/android-app-blocker-without-accessibility-service/" hreflang="tr" lang="tr">Türkçe</a><a href="../../../id/blog/android-app-blocker-without-accessibility-service/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="./" hreflang="vi" lang="vi" aria-current="page">Tiếng Việt</a><a href="../../../th/blog/android-app-blocker-without-accessibility-service/" hreflang="th" lang="th">ไทย</a><a href="../../../ja/blog/android-app-blocker-without-accessibility-service/" hreflang="ja" lang="ja">日本語</a><a href="../../../ko/blog/android-app-blocker-without-accessibility-service/" hreflang="ko" lang="ko">한국어</a><a href="../../../zh-hant/blog/android-app-blocker-without-accessibility-service/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

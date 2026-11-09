@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>不用 AccessibilityService 打造 Android App 封鎖工具 | HonorFit</title>
+  <meta name="description" content="HonorFit 在 Android 上如何不靠無障礙 API，而是用 UsageStatsManager、specialUse 前景服務和疊加視窗來封鎖 App：UsageStats 的寫入延遲、背景啟動規則、手機廠商的省電殺手，以及其中的取捨。">
+  <link rel="canonical" href="https://honorfitapp.com/zh-hant/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/android-app-blocker-without-accessibility-service/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/zh-hant/blog/android-app-blocker-without-accessibility-service/">
+  <meta property="og:title" content="不用 AccessibilityService 打造 Android App 封鎖工具">
+  <meta property="og:description" content="UsageStatsManager、前景服務和疊加視窗：讓一個已上架的 App 封鎖工具擺脫無障礙 API 的過程。">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-11-09">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="不用 AccessibilityService 打造 Android App 封鎖工具">
+  <meta name="twitter:description" content="UsageStatsManager、前景服務和疊加視窗：讓一個已上架的 App 封鎖工具擺脫無障礙 API 的過程。">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <meta name="apple-itunes-app" content="app-id=6802871620">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose ol { padding-left: 24px; }
+    .prose pre { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 14px 0 20px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; }
+    .prose pre code { background: none; border: 0; padding: 0; font-size: inherit; color: var(--text); }
+    .toc { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 16px 22px; margin: 8px 0 28px; }
+    .toc strong { color: var(--text); }
+    .toc ol { margin: 8px 0 0; }
+    .toc li { margin: 3px 0; }
+    .toc a { text-decoration: none; }
+    .table-scroll { overflow-x: auto; margin: 14px 0 20px; }
+    .prose table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+    .prose th, .prose td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; color: var(--text-dim); }
+    .prose th { color: var(--text); background: var(--bg-raised); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "不用 AccessibilityService 打造 Android App 封鎖工具",
+    "description": "HonorFit 在 Android 上如何不靠無障礙 API，而是用 UsageStatsManager、specialUse 前景服務和疊加視窗來封鎖 App。",
+    "url": "https://honorfitapp.com/zh-hant/blog/android-app-blocker-without-accessibility-service/",
+    "mainEntityOfPage": "https://honorfitapp.com/zh-hant/blog/android-app-blocker-without-accessibility-service/",
+    "datePublished": "2026-11-09",
+    "dateModified": "2026-11-09",
+    "inLanguage": "zh-Hant",
+    "keywords": "Android App 封鎖工具, AccessibilityService, 無障礙服務, UsageStatsManager, PACKAGE_USAGE_STATS, SYSTEM_ALERT_WINDOW, 前景服務, specialUse, Kotlin",
+    "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+    "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">部落格</a>
+    <a class="link" href="../../../support/">客服支援</a>
+    <a class="link" href="../../../privacy/">隱私權</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>不用 AccessibilityService 打造 Android App 封鎖工具</h1>
+    <p class="meta">從一個已上架的 App 來看 UsageStatsManager、前景服務和疊加視窗。作者：Thomas Willheim &middot; 2026 年 11 月 9 日</p>
+
+    <p>我做了 <a href="../../">HonorFit</a>，一個靠做伏地挺身賺螢幕使用時間的 App 封鎖工具（誠實制，不用鏡頭）。第一個 Android 版本封鎖 App 的方式跟大多數 Android 封鎖工具一樣：用 <code>AccessibilityService</code>。8 月的時候我把它整個拔掉，換成 <code>UsageStatsManager</code>、一個前景服務和一個疊加視窗。封鎖變得稍微沒那麼硬，新手引導變得一點都不嚇人，Play 的審查也簡單多了。</p>
+    <p>下面是這個架構長什麼樣子，還有一路上踩到的坑。所有程式碼都是寫在一個本機 Expo module 裡的 Kotlin，但這裡講的東西沒有一樣是 React Native 專屬的。</p>
+
+    <div class="toc">
+      <strong>目錄</strong>
+      <ol>
+        <li><a href="#why">為什麼要拿掉無障礙 API</a></li>
+        <li><a href="#shape">整體架構</a></li>
+        <li><a href="#poll">輪詢 UsageStats（還有它的寫入延遲）</a></li>
+        <li><a href="#overlay">鎖定疊加視窗</a></li>
+        <li><a href="#service">讓服務活下去</a></li>
+        <li><a href="#small">其他小事</a></li>
+        <li><a href="#tradeoffs">取捨</a></li>
+      </ol>
+    </div>
+
+    <h2 id="why">為什麼要拿掉無障礙 API</h2>
+    <p>無障礙服務是 Android 上最強的工具。每次視窗變化你都會立刻收到通知，而 <code>performGlobalAction(GLOBAL_ACTION_HOME)</code> 可以當場把使用者踢出被封鎖的 App。這就是為什麼這麼多封鎖工具都用它。代價是：</p>
+    <ul>
+      <li><strong>權限提示超嚇人。</strong>Android 會告訴使用者，這個 App 可以看到畫面上的所有東西，還能代替他們操作。對一個主打「資料都不會離開你的手機」的 App 來說，第一天就要求這個權限很難看，很多人當場就放棄了。</li>
+      <li><strong>Google Play 把它當成敏感 API。</strong>如果你不是無障礙工具，就需要在 App 裡放顯眼的揭露說明、在 Play Console 填聲明，還要審查人員同意你的用途沒問題。我連揭露說明的對話框都做好了，但我寧願根本不需要它。</li>
+      <li><strong>它看到的東西遠超過封鎖工具需要的。</strong>封鎖工具只需要知道一件事：現在前景是哪個 App。</li>
+    </ul>
+    <p>而這件事在別的地方也拿得到：數位健康（Digital Wellbeing）背後用的那些使用事件。</p>
+
+    <h2 id="shape">整體架構</h2>
+    <p>三個權限，全部由使用者在「設定」裡授予：</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>權限</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td><code>PACKAGE_USAGE_STATS</code>（「使用情況存取權」）</td><td>讀取 <code>UsageEvents</code>，知道前景是哪個 App。這個權限不能在執行階段授予；你要把使用者帶到設定畫面，再檢查 app-op。</td></tr>
+          <tr><td><code>SYSTEM_ALERT_WINDOW</code>（「顯示在其他應用程式上層」）</td><td>在被封鎖的 App 上面畫出鎖定畫面。</td></tr>
+          <tr><td><code>FOREGROUND_SERVICE_SPECIAL_USE</code></td><td>監控服務。封鎖 App 不屬於任何列出來的前景服務類型，所以用 <code>specialUse</code>，再加一個說明原因的子類型字串。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>各個部分：</p>
+    <ul>
+      <li><strong><code>ForegroundMonitorService</code></strong> 只有在有東西需要執行的時候才會跑（封鎖清單不是空的，而且已授予使用情況存取權）。它每秒問一次 <code>UsageStatsManager</code> 現在前景是什麼，而且只在螢幕亮著的時候。被封鎖但還有時間的 App 會扣掉存著的餘額；扣到零就顯示疊加視窗。</li>
+      <li><strong>它必須顯示的通知就是額度顯示</strong>（「還剩 12 分鐘」），所以 Android 硬塞給你的東西也做了正事。</li>
+      <li><strong>所有狀態都存在 <code>SharedPreferences</code></strong>，不在 JS 裡。React Native 的執行環境大部分時間都是死的，服務必須在這種情況下繼續運作。JS 端透過 module 存入時間、讀取餘額；執行封鎖則由服務負責。</li>
+    </ul>
+    <p>服務在 manifest 裡的設定：</p>
+<pre><code>&lt;service
+  android:name=".ForegroundMonitorService"
+  android:exported="false"
+  android:foregroundServiceType="specialUse"&gt;
+  &lt;property
+    android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+    android:value="User-configured app blocking for digital wellbeing: monitors
+      which app is in the foreground (UsageStats) so apps the user chose to block
+      can be locked when their earned screen time runs out." /&gt;
+&lt;/service&gt;</code></pre>
+    <p>你還要在 Play Console 的前景服務聲明裡說明為什麼用 <code>specialUse</code>。兩邊講同一套說法會有幫助。</p>
+
+    <h2 id="poll">輪詢 UsageStats（還有它的寫入延遲）</h2>
+    <p>核心迴圈很小。掃描上次輪詢之後的事件，留下最後一個 <code>MOVE_TO_FOREGROUND</code> 的套件（它跟 <code>ACTIVITY_RESUMED</code> 是同一個常數，在 API 29 改了名字）：</p>
+<pre><code>val end = System.currentTimeMillis()
+val events = usm.queryEvents(windowStart, end)
+val event = UsageEvents.Event()
+while (events.hasNextEvent()) {
+  events.getNextEvent(event)
+  if (event.eventType == UsageEvents.Event.MOVE_TO_FOREGROUND) {
+    currentForeground = event.packageName
+  }
+}
+// 下次重新掃描最後 15 秒：見下文。
+windowStart = end - REQUERY_OVERLAP_MS
+handleForeground(currentForeground)</code></pre>
+    <p>跟無障礙事件比起來有個不錯的附帶好處：鍵盤和通知欄都不是 activity，所以它們永遠不會被誤判成「使用者離開了 App」。</p>
+
+    <h3>地雷：事件會晚到</h3>
+    <p>我的第一版讓時間窗嚴格往前推進：每次輪詢查詢 <code>[lastEnd, now]</code>。大部分時候都沒問題，結果在一支剛冷開機的手機上，第一次打開被封鎖的 App 完全沒被看到。UsageStats 把事件寫進儲存區會有延遲，所以一個時間戳是 10:00:00.900 的事件，可能在一次已經涵蓋到 10:00:01 的輪詢之後才出現。嚴格往前推的時間窗會永遠跳過它。</p>
+    <p>解法：每次輪詢都重新掃描最後一段重疊區間（我用 15 秒）。同一個事件看到兩次沒有壞處，因為不管怎樣，時間窗裡最後一次 resume 說了算。晚超過 15 秒才進來的事件還是會漏掉，但我還沒看過。</p>
+
+    <h3>地雷：第一次輪詢要往回看很久</h3>
+    <p>服務啟動時（重新啟動後，或螢幕亮起時）沒有「最後已知的 App」。如果使用者已經在 TikTok 裡待了 20 分鐘，而第一次輪詢只往回看一分鐘，在他切換 App 之前什麼都看不到。所以第一次輪詢會掃描最近一小時。這樣做是安全的，因為桌面啟動器也是一個 activity：最後一個 resume 的，就真的是現在在前景的。</p>
+
+    <h3>地雷：存取權被撤銷時看起來就是一片安靜</h3>
+    <p>如果使用者在服務執行時關掉使用情況存取權，<code>queryEvents</code> 不會丟例外，只會什麼都不回傳。你最後讀到的結果（「IG 在前景」）就過時了，餘額會一直扣下去。所以每次輪詢都會先檢查 app-op，如果權限沒了就停止計時：</p>
+<pre><code>fun hasUsageAccess(context: Context): Boolean {
+  val appOps = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+  val mode = appOps.checkOpNoThrow(
+    AppOpsManager.OPSTR_GET_USAGE_STATS, Process.myUid(), context.packageName)
+  return mode == AppOpsManager.MODE_ALLOWED
+}</code></pre>
+
+    <h3>螢幕關掉就停</h3>
+    <p>螢幕關掉時，服務會把進行中的使用時段結算，然後完全停止輪詢。螢幕關著不會有人在用 App，而一個只在你看手機時才跑的 1 Hz 迴圈很省。螢幕重新亮起後的第一次輪詢也會處理換日（午夜重置、每日基本額度），所以它會在使用者打開被封鎖的 App 之前就完成，就算他們從來不打開 HonorFit 也一樣。</p>
+
+    <h2 id="overlay">鎖定疊加視窗</h2>
+    <p>沒有無障礙就沒有 <code>GLOBAL_ACTION_HOME</code>，所以你沒辦法把使用者踢出 App，只能把它蓋住：一個 <code>TYPE_APPLICATION_OVERLAY</code> 視窗，上面有「賺更多時間」按鈕和「回到主畫面」按鈕。</p>
+    <ul>
+      <li><strong>蓋住整個螢幕。</strong>預設情況下，疊加視窗會被系統列內縮，被封鎖的 App 會從邊緣露出來。<code>FLAG_LAYOUT_NO_LIMITS</code> 可以解決。<code>FLAG_LAYOUT_IN_SCREEN</code> 在 API 30 已被淘汰，所以只在 R 以下加上它。</li>
+      <li><strong>「回到主畫面」必須真的回到主畫面。</strong>只把疊加視窗隱藏，被封鎖的 App 又會露出來，下一次輪詢又會把鎖放回去。改成啟動桌面啟動器：
+<pre><code>startActivity(Intent(Intent.ACTION_MAIN).apply {
+  addCategory(Intent.CATEGORY_HOME)
+  addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+})</code></pre></li>
+      <li><strong>先啟動，再隱藏。</strong>「賺更多時間」按鈕會打開 HonorFit，這是從背景啟動 activity。Android 允許這麼做，是因為 App 有一個看得見的疊加視窗。所以要<em>在疊加視窗還顯示的時候</em>啟動 activity，然後再把它移除。順序反過來，啟動就會被默默擋掉。</li>
+      <li><strong>沒有疊加權限？照樣計時。</strong>如果沒有授予「顯示在其他應用程式上層」，服務還是會誠實地扣餘額，只是在權限回來之前畫不出鎖定畫面。</li>
+    </ul>
+
+    <h2 id="service">讓服務活下去</h2>
+    <p>這是最花時間才能弄對的部分，而且大多跟你的程式碼無關。</p>
+    <h3>START_STICKY 不夠</h3>
+    <p>Samsung 的「休眠中的應用程式」、MIUI、OnePlus 這些系統會殺掉背景服務，然後把 sticky 重啟吞掉。封鎖工具是最糟的情況：大家還有時間的時候不會打開它，所以監控不見了也沒有東西會發現。HonorFit 設了一個每 15 分鐘一次、不精確、不喚醒的重複鬧鐘，重新把服務拉起來。它從來不會喚醒手機，而螢幕關著時被延後的鬧鐘，會在螢幕亮起後不久觸發，那正是監控最重要的時候。</p>
+    <h3>Android 12 以上不一定讓你啟動它</h3>
+    <p>從背景（鬧鐘、sticky 重啟）啟動前景服務會丟出 <code>ForegroundServiceStartNotAllowedException</code>，除非你有豁免。這裡有兩個相關的：使用者已經關掉這個 App 的電池最佳化，或 App 持有 <code>SYSTEM_ALERT_WINDOW</code>（這個只在 Android 15 之前有用）。所以：</p>
+    <ul>
+      <li>接住這個例外，安靜地退出。讓程序當掉對誰都沒好處，下次打開 App 時服務反正也會啟動。</li>
+      <li>請使用者把電池用量設成「無限制」。HonorFit 的「設定」裡有一張「背景執行穩定性」卡片，會帶他們到正確的畫面。在某些手機上，這個設定就是能不能用的差別。</li>
+    </ul>
+    <h3>重新開機和更新</h3>
+    <p>一個接收 <code>BOOT_COMPLETED</code> 和 <code>MY_PACKAGE_REPLACED</code> 的 receiver 會重新啟動監控。第二個很容易忘記：Play 自動更新會殺掉你的程序，而且從來不會重啟它的服務，所以沒有它的話，每次更新都會默默把你的封鎖工具關掉，直到使用者打開 App 為止。這兩個廣播都不受背景啟動限制，而且 <code>exported="false"</code> 的 receiver 一樣收得到。</p>
+
+    <h2 id="small">其他小事</h2>
+    <ul>
+      <li><strong>有些 App 絕對不能被封鎖：</strong>設定、時鐘（鬧鐘！）和個人安全，還有各家廠商的版本，例如 Samsung 的時鐘套件。要在原生程式碼裡把它們從封鎖清單濾掉，不能只在選擇器裡處理。</li>
+      <li><strong>服務在沒有 JS 的情況下執行，所以不能呼叫 <code>t()</code>。</strong>App 會把疊加視窗和通知的字串，用目前的語言推進 <code>SharedPreferences</code>，在字串送到之前，服務會先用英文。</li>
+      <li><strong>服務重啟期間一直開著的使用時段，在服務死掉的那段時間沒辦法扣時間。</strong>啟動時，把經過的時間結算（有上限），再開始一個新的時段，這樣就沒有人會因為服務不在而被扣到它沒看到的時間。</li>
+      <li><strong>Android 14 以上可以讓使用者滑掉前景服務的通知。</strong>服務會持續更新它（有做去重，所以不會每秒重新發一次），所以它會再回來。</li>
+    </ul>
+
+    <h2 id="tradeoffs">取捨</h2>
+    <p>這個做法比無障礙軟，這點我想先講清楚：</p>
+    <ul>
+      <li>被封鎖的 App 在疊加視窗出現之前，最多會露出一個輪詢間隔（大約一秒）。</li>
+      <li>被封鎖的 App 會在疊加視窗底下繼續執行。如果原本在播影片，在你點「回到主畫面」之前還是聽得到聲音。</li>
+      <li>它要看手機廠商願不願意放過你的服務，這也是為什麼電池設定這麼重要。</li>
+    </ul>
+    <p>對一個誠實制的封鎖工具來說，這是正確的取捨。HonorFit 並不想做到牢不可破。真的想作弊的人，直接記沒做的次數就好了。重點是讓你停一下、付出一點代價，而不是把你關起來。換來的是一個寫著「使用情況存取權」而不是「完全控制」的權限畫面、簡單得多的 Play 審查，以及一個只讀一樣東西的服務：前景 App 的套件名稱。</p>
+    <p>如果你也在做 iOS，那邊完全是另一個世界。我寫了<a href="../ios-screen-time-api-guide/">Apple 的 Screen Time 文件沒告訴你的事</a>。</p>
+
+    <div class="callout">
+      <p><strong>HonorFit Blocker</strong> 是 iPhone 和 Android 上的免費 App 封鎖工具。用伏地挺身、深蹲或任何你選的運動來賺螢幕使用時間。誠實制、不用鏡頭、不用帳號，資料都不會離開你的手機。</p>
+      <div class="stores">
+        <a href="https://honorfitapp.com/get/?c=blog-android-blocker-zh-hant">免費下載 HonorFit</a>
+      </div>
+    </div>
+
+    <h2>延伸閱讀</h2>
+    <div class="readnext">
+      <a href="../ios-screen-time-api-guide/">iOS Screen Time API：文件沒告訴你的事 &rarr;</a>
+      <a href="../screen-time-api-wishlist/">我希望 Apple 修好 Screen Time API 的 3 件事 &rarr;</a>
+      <a href="../../../app-blocker-without-camera/">不用鏡頭也不用 AI 的 App 封鎖工具（英文） &rarr;</a>
+      <a href="../">所有文章 &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">首頁</a>
+    <a href="../">部落格</a>
+    <a href="../../../support/">客服支援</a>
+    <a href="../../../privacy/">隱私權政策</a>
+    <span class="langs"><a href="../../../blog/android-app-blocker-without-accessibility-service/" hreflang="en" lang="en">English</a><a href="../../../es/blog/android-app-blocker-without-accessibility-service/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/android-app-blocker-without-accessibility-service/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/android-app-blocker-without-accessibility-service/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/android-app-blocker-without-accessibility-service/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/android-app-blocker-without-accessibility-service/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/android-app-blocker-without-accessibility-service/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/android-app-blocker-without-accessibility-service/" hreflang="pl" lang="pl">Polski</a><a href="../../../tr/blog/android-app-blocker-without-accessibility-service/" hreflang="tr" lang="tr">Türkçe</a><a href="../../../id/blog/android-app-blocker-without-accessibility-service/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/android-app-blocker-without-accessibility-service/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../../th/blog/android-app-blocker-without-accessibility-service/" hreflang="th" lang="th">ไทย</a><a href="../../../ja/blog/android-app-blocker-without-accessibility-service/" hreflang="ja" lang="ja">日本語</a><a href="../../../ko/blog/android-app-blocker-without-accessibility-service/" hreflang="ko" lang="ko">한국어</a><a href="./" hreflang="zh-Hant" lang="zh-Hant" aria-current="page">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

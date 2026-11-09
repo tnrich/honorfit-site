@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AccessibilityServiceを使わずにAndroidのアプリブロッカーを作る｜HonorFit</title>
+  <meta name="description" content="HonorFitがAndroidで、Accessibility APIの代わりにUsageStatsManager、specialUseのフォアグラウンドサービス、オーバーレイでアプリをブロックするしくみ：UsageStatsの書き込み遅延、バックグラウンド起動の制限、メーカー独自のバッテリー対策、そしてトレードオフ。">
+  <link rel="canonical" href="https://honorfitapp.com/ja/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/android-app-blocker-without-accessibility-service/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/ja/blog/android-app-blocker-without-accessibility-service/">
+  <meta property="og:title" content="AccessibilityServiceを使わずにAndroidのアプリブロッカーを作る">
+  <meta property="og:description" content="UsageStatsManager、フォアグラウンドサービス、オーバーレイ。リリース済みのアプリブロッカーからAccessibility APIを外すのに必要だったこと。">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-11-09">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AccessibilityServiceを使わずにAndroidのアプリブロッカーを作る">
+  <meta name="twitter:description" content="UsageStatsManager、フォアグラウンドサービス、オーバーレイ。リリース済みのアプリブロッカーからAccessibility APIを外すのに必要だったこと。">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <meta name="apple-itunes-app" content="app-id=6802871620">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose ol { padding-left: 24px; }
+    .prose pre { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 14px 0 20px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; }
+    .prose pre code { background: none; border: 0; padding: 0; font-size: inherit; color: var(--text); }
+    .toc { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 16px 22px; margin: 8px 0 28px; }
+    .toc strong { color: var(--text); }
+    .toc ol { margin: 8px 0 0; }
+    .toc li { margin: 3px 0; }
+    .toc a { text-decoration: none; }
+    .table-scroll { overflow-x: auto; margin: 14px 0 20px; }
+    .prose table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+    .prose th, .prose td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; color: var(--text-dim); }
+    .prose th { color: var(--text); background: var(--bg-raised); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "AccessibilityServiceを使わずにAndroidのアプリブロッカーを作る",
+    "description": "HonorFitがAndroidで、Accessibility APIの代わりにUsageStatsManager、specialUseのフォアグラウンドサービス、オーバーレイでアプリをブロックするしくみ。",
+    "url": "https://honorfitapp.com/ja/blog/android-app-blocker-without-accessibility-service/",
+    "mainEntityOfPage": "https://honorfitapp.com/ja/blog/android-app-blocker-without-accessibility-service/",
+    "datePublished": "2026-11-09",
+    "dateModified": "2026-11-09",
+    "inLanguage": "ja",
+    "keywords": "Androidアプリブロッカー, AccessibilityService, ユーザー補助, UsageStatsManager, PACKAGE_USAGE_STATS, SYSTEM_ALERT_WINDOW, フォアグラウンドサービス, specialUse, Kotlin",
+    "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+    "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">ブログ</a>
+    <a class="link" href="../../../support/">サポート</a>
+    <a class="link" href="../../../privacy/">プライバシー</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>AccessibilityServiceを使わずにAndroidのアプリブロッカーを作る</h1>
+    <p class="meta">UsageStatsManager、フォアグラウンドサービス、オーバーレイ。リリース済みのアプリから。Thomas Willheim &middot; 2026年11月9日</p>
+
+    <p>僕は<a href="../../">HonorFit</a>というアプリブロッカーを作っています。腕立て伏せをするとスクリーンタイムを稼げるアプリです（自己申告制で、カメラは使いません）。最初のAndroid版は、Androidのブロッカーの多くと同じやり方、つまり<code>AccessibilityService</code>でアプリをブロックしていました。8月にそれを丸ごと外して、<code>UsageStatsManager</code>、フォアグラウンドサービス、オーバーレイウィンドウに置き換えました。ブロックは少しゆるくなりましたが、オンボーディングはずっと怖くなくなり、Playの審査もずっとシンプルになりました。</p>
+    <p>この記事では、そのアーキテクチャの全体像と、途中でハマったことを紹介します。コードはすべてローカルのExpoモジュール内のKotlinですが、React Native固有の話はひとつもありません。</p>
+
+    <div class="toc">
+      <strong>目次</strong>
+      <ol>
+        <li><a href="#why">Accessibility APIをやめた理由</a></li>
+        <li><a href="#shape">全体の構成</a></li>
+        <li><a href="#poll">UsageStatsのポーリング（と書き込みの遅延）</a></li>
+        <li><a href="#overlay">ロック用オーバーレイ</a></li>
+        <li><a href="#service">サービスを生かし続ける</a></li>
+        <li><a href="#small">細かいこと</a></li>
+        <li><a href="#tradeoffs">トレードオフ</a></li>
+      </ol>
+    </div>
+
+    <h2 id="why">Accessibility APIをやめた理由</h2>
+    <p>ユーザー補助サービス（AccessibilityService）は、Androidで使えるいちばん強力な道具です。ウィンドウが切り替わった瞬間にそれがわかり、<code>performGlobalAction(GLOBAL_ACTION_HOME)</code>を呼べば、ブロック中のアプリからその場でユーザーを追い出せます。多くのブロッカーが使っているのはそのためです。代償はこうです。</p>
+    <ul>
+      <li><strong>許可を求める画面がとにかく怖い。</strong>Androidはユーザーに、このアプリは画面上のすべてを見て、あなたの代わりに操作できます、と伝えます。「データはスマホの外に出ません」を売りにしているアプリが初日にそれを求めるのは印象が悪いですし、そこでやめてしまう人もたくさんいます。</li>
+      <li><strong>Google Playはこれを機密性の高いAPIとして扱う。</strong>ユーザー補助ツールでないなら、アプリ内での目立つ開示、Play Consoleでの申告、そしてその用途でOKだと判断してくれる審査担当者が必要です。開示用のモーダルはもう作ってありましたが、できれば必要ないほうがいい。</li>
+      <li><strong>ブロッカーに必要な範囲をはるかに超えて見えてしまう。</strong>ブロッカーが知る必要があるのは、どのアプリがフォアグラウンドにあるか、ただそれだけです。</li>
+    </ul>
+    <p>そのひとつの事実は、別の場所からも手に入ります。Digital Wellbeingの裏で使われている使用状況イベントです。</p>
+
+    <h2 id="shape">全体の構成</h2>
+    <p>権限は3つで、どれもユーザーが設定画面で許可します。</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>権限</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td><code>PACKAGE_USAGE_STATS</code>（「使用状況へのアクセス」）</td><td><code>UsageEvents</code>を読んで、どのアプリが前面にあるかを知るため。実行時には付与されないので、ユーザーを設定画面に案内して、app-opを確認します。</td></tr>
+          <tr><td><code>SYSTEM_ALERT_WINDOW</code>（「他のアプリの上に重ねて表示」）</td><td>ブロック中のアプリの上にロック画面を描くため。</td></tr>
+          <tr><td><code>FOREGROUND_SERVICE_SPECIAL_USE</code></td><td>監視サービス用。アプリのブロックは、用意されているフォアグラウンドサービスタイプのどれにも当てはまらないので、<code>specialUse</code>にして、理由を説明するサブタイプ文字列を付けます。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>構成要素はこうです。</p>
+    <ul>
+      <li><strong><code>ForegroundMonitorService</code></strong>は、強制すべきものがあるとき（ブロックリストが空でなく、使用状況へのアクセスが許可されているとき）だけ動きます。1秒に1回、それも画面がオンのときだけ、<code>UsageStatsManager</code>に何がフォアグラウンドに来たかを問い合わせます。時間が残っているブロック対象アプリなら貯金された残高を減らし、0になったらオーバーレイを表示します。</li>
+      <li><strong>必須の通知が、残り時間の表示を兼ねています</strong>（「残り12分」）。Androidに押しつけられるものに、ちゃんと仕事をさせているわけです。</li>
+      <li><strong>状態はすべて<code>SharedPreferences</code>に置きます</strong>。JSには置きません。サービスは、React Nativeのランタイムが死んでいるとき（ほとんどの時間がそうです）でも動き続けなければならないからです。JS側はモジュール経由で時間を預け入れて残高を読むだけで、強制はサービスが担当します。</li>
+    </ul>
+    <p>サービスのマニフェストエントリです。</p>
+<pre><code>&lt;service
+  android:name=".ForegroundMonitorService"
+  android:exported="false"
+  android:foregroundServiceType="specialUse"&gt;
+  &lt;property
+    android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+    android:value="User-configured app blocking for digital wellbeing: monitors
+      which app is in the foreground (UsageStats) so apps the user chose to block
+      can be locked when their earned screen time runs out." /&gt;
+&lt;/service&gt;</code></pre>
+    <p>Play Consoleのフォアグラウンドサービスの申告でも、<code>specialUse</code>の理由を説明します。両方で同じ説明をしておくと話が通りやすくなります。</p>
+
+    <h2 id="poll">UsageStatsのポーリング（と書き込みの遅延）</h2>
+    <p>中心となるループは小さいです。前回のポーリング以降のイベントをスキャンして、最後の<code>MOVE_TO_FOREGROUND</code>のパッケージを覚えておきます（<code>ACTIVITY_RESUMED</code>と同じ定数で、API 29で名前が変わりました）。</p>
+<pre><code>val end = System.currentTimeMillis()
+val events = usm.queryEvents(windowStart, end)
+val event = UsageEvents.Event()
+while (events.hasNextEvent()) {
+  events.getNextEvent(event)
+  if (event.eventType == UsageEvents.Event.MOVE_TO_FOREGROUND) {
+    currentForeground = event.packageName
+  }
+}
+// Re-scan the last 15 s next time: see below.
+windowStart = end - REQUERY_OVERLAP_MS
+handleForeground(currentForeground)</code></pre>
+    <p>アクセシビリティイベントと比べて、うれしい副作用もあります。キーボードや通知シェードはアクティビティではないので、「ユーザーがアプリを離れた」という偽の離脱として現れることがありません。</p>
+
+    <h3>ハマりどころ：イベントは遅れて届く</h3>
+    <p>最初のバージョンでは、ウィンドウを厳密に前へ進めていました。毎回のポーリングで<code>[lastEnd, now]</code>を問い合わせるやり方です。だいたいは動いたのですが、コールドスタートしたスマホで、最初にブロック対象アプリを開いたことがまったく検知されませんでした。UsageStatsはイベントを遅れてストアに書き込むので、10:00:00.900のタイムスタンプが付いたイベントが、すでに10:00:01までカバーしたポーリングのあとで現れることがあります。厳密に進むウィンドウだと、そのイベントは永遠にスキップされます。</p>
+    <p>対策：毎回のポーリングで、直前の一定時間（僕は15秒にしています）を重ねて再スキャンします。同じイベントを2回見ても問題ありません。どちらにしても、ウィンドウ内で最後のresumeが勝つからです。15秒より遅れて届いたイベントはやはり失われますが、まだ一度も見たことはありません。</p>
+
+    <h3>ハマりどころ：最初のポーリングは長くさかのぼる</h3>
+    <p>サービスが起動したとき（再起動後や、画面がオンになったとき）には、「最後にわかっているアプリ」がありません。ユーザーがTikTokに20分いて、最初のポーリングが1分しかさかのぼらないと、アプリを切り替えるまで何も見えません。なので、最初のポーリングでは直近1時間をスキャンします。ランチャーもアクティビティなので、これで問題ありません。最後にresumeされたものが、本当に前面にあるものです。</p>
+
+    <h3>ハマりどころ：アクセスを取り消されても、ただの沈黙に見える</h3>
+    <p>サービスの実行中にユーザーが使用状況へのアクセスをオフにしても、<code>queryEvents</code>は例外を投げません。何も返さなくなるだけです。最後の読み取り結果（「Instagramが前面にある」）が古いまま残り、残高がいつまでも減り続けます。なので、毎回のポーリングでまずapp-opを確認して、なくなっていたら時計を止めます。</p>
+<pre><code>fun hasUsageAccess(context: Context): Boolean {
+  val appOps = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+  val mode = appOps.checkOpNoThrow(
+    AppOpsManager.OPSTR_GET_USAGE_STATS, Process.myUid(), context.packageName)
+  return mode == AppOpsManager.MODE_ALLOWED
+}</code></pre>
+
+    <h3>画面オフなら停止</h3>
+    <p>画面がオフになると、サービスは進行中のセッションを精算して、ポーリングを完全に止めます。画面オフでアプリを使っている人はいませんし、スマホを見ているあいだだけ動く1 Hzのループなら負荷はわずかです。画面が再びオンになったあとの最初のポーリングでは、日付の切り替え（深夜0時のリセット、デイリーベース）も処理します。なので、HonorFitを一度も開かなくても、ユーザーがブロック対象アプリにたどり着く前に済んでいます。</p>
+
+    <h2 id="overlay">ロック用オーバーレイ</h2>
+    <p>アクセシビリティがなければ<code>GLOBAL_ACTION_HOME</code>もないので、ユーザーをアプリから追い出すことはできません。代わりに覆い隠します。「時間を稼ぐ」ボタンと「ホームに戻る」ボタンを持った、<code>TYPE_APPLICATION_OVERLAY</code>ウィンドウです。</p>
+    <ul>
+      <li><strong>ディスプレイ全体を覆う。</strong>デフォルトでは、オーバーレイはシステムバーの分だけ内側に置かれ、ブロック中のアプリが端からのぞいてしまいます。<code>FLAG_LAYOUT_NO_LIMITS</code>で直ります。<code>FLAG_LAYOUT_IN_SCREEN</code>はAPI 30で非推奨になったので、R未満でだけ追加します。</li>
+      <li><strong>「ホームに戻る」は、本当にホームに戻らないといけない。</strong>オーバーレイを隠すだけだと、ブロック中のアプリがまた見えて、次のポーリングでまたロックがかかります。代わりにランチャーを起動します。
+<pre><code>startActivity(Intent(Intent.ACTION_MAIN).apply {
+  addCategory(Intent.CATEGORY_HOME)
+  addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+})</code></pre></li>
+      <li><strong>起動してから隠す。</strong>「時間を稼ぐ」ボタンはHonorFitを開きますが、これはバックグラウンドからのアクティビティ起動です。アプリに表示中のオーバーレイウィンドウがあるので、Androidはこれを許可します。なので、<em>オーバーレイを表示したまま</em>アクティビティを起動し、そのあとでオーバーレイを外します。逆の順番にすると、起動が黙ってブロックされます。</li>
+      <li><strong>オーバーレイの権限がなくても、カウントは続ける。</strong>「他のアプリの上に重ねて表示」が許可されていなくても、サービスは正直に残高を減らし続けます。権限が戻るまでロックを描けない、というだけです。</li>
+    </ul>
+
+    <h2 id="service">サービスを生かし続ける</h2>
+    <p>ここがいちばん時間のかかるところで、しかもほとんど自分のコードの問題ではありません。</p>
+    <h3>START_STICKYだけでは足りない</h3>
+    <p>Samsungの「スリープ中のアプリ」、MIUI、OnePlusなどは、バックグラウンドサービスを止めたうえに、stickyな再起動まで握りつぶします。ブロッカーにとってはこれが最悪のケースです。時間が残っているあいだはみんなアプリを開かないので、モニターが消えたことに誰も気づきません。HonorFitは、15分ごとにサービスを立て直す、inexactでnon-wakeupな繰り返しアラームを設定しています。スマホを起こすことはなく、画面オフのあいだに延期されたアラームは、画面がオンになってすぐに発火します。モニターが必要になるのは、まさにそのタイミングです。</p>
+    <h3>Android 12以降では、起動させてもらえないことがある</h3>
+    <p>バックグラウンド（アラームやstickyな再起動）からフォアグラウンドサービスを起動すると、例外扱いの条件を満たしていない限り<code>ForegroundServiceStartNotAllowedException</code>が投げられます。ここで関係するのは2つ。ユーザーがアプリのバッテリー最適化をオフにしている場合と、アプリが<code>SYSTEM_ALERT_WINDOW</code>を持っている場合です（後者が効くのはAndroid 15より前だけです）。なので、こうしています。</p>
+    <ul>
+      <li>例外をキャッチして、静かに抜けます。プロセスをクラッシュさせても誰も得をしませんし、次にアプリを開いたときにどのみちサービスは起動します。</li>
+      <li>ユーザーに、電池使用量を「制限なし」にしてもらいます。HonorFitの設定には「バックグラウンドの安定性」カードがあって、正しい画面まで案内します。スマホによっては、この設定が動くか動かないかの分かれ目です。</li>
+    </ul>
+    <h3>再起動とアップデート</h3>
+    <p><code>BOOT_COMPLETED</code>と<code>MY_PACKAGE_REPLACED</code>のレシーバーで監視を再開します。後者は忘れがちです。Playの自動アップデートはプロセスを終了させたうえ、サービスを再起動してくれません。なので、これがないとアップデートのたびに、ユーザーがアプリを開くまでブロッカーが黙ってオフになります。どちらのブロードキャストもバックグラウンド起動の制限から除外されていて、<code>exported="false"</code>のレシーバーでも受け取れます。</p>
+
+    <h2 id="small">細かいこと</h2>
+    <ul>
+      <li><strong>絶対にブロックできないようにすべきアプリがある：</strong>設定、時計（アラーム！）、Personal Safety、それにSamsungの時計パッケージのようなメーカー独自版です。ピッカーだけでなく、ネイティブコードでもブロックリストから除外します。</li>
+      <li><strong>サービスはJSなしで動くので、<code>t()</code>を呼べない。</strong>アプリがオーバーレイと通知の文字列を現在の言語で<code>SharedPreferences</code>に送り込み、それが届くまでサービスは英語にフォールバックします。</li>
+      <li><strong>サービスの再起動をまたいで開いたままのセッションは、サービスが死んでいたあいだ残高を減らせていない。</strong>起動時に経過した時間を（上限をかけて）精算し、新しいセッションを始めます。そうすれば、サービスがいなくて見ていなかった時間の分を、誰かが差し引かれることはありません。</li>
+      <li><strong>Android 14以降では、フォアグラウンドサービスの通知をスワイプで消せる。</strong>サービスは通知を更新し続ける（毎秒出し直さないように重複は排除しています）ので、通知はまた戻ってきます。</li>
+    </ul>
+
+    <h2 id="tradeoffs">トレードオフ</h2>
+    <p>このやり方はアクセシビリティよりゆるいので、そこは正直に書いておきます。</p>
+    <ul>
+      <li>オーバーレイがかかるまで、ブロック中のアプリが最大1ポーリング間隔（約1秒）見えてしまう。</li>
+      <li>ブロック中のアプリはオーバーレイの下で動き続ける。動画を再生していたら、「ホームに戻る」をタップするまで音は聞こえたまま。</li>
+      <li>メーカーがサービスを放っておいてくれることが前提。だからバッテリーの設定がとても重要。</li>
+    </ul>
+    <p>自己申告制のブロッカーにとっては、これが正しいトレードオフです。HonorFitは絶対に破られないことを目指していません。本気でズルをしたい人は、やっていない回数を記録すればいいだけです。目的は、ひと呼吸おくことと対価を払うことで、牢屋に閉じ込めることではありません。その代わりに、「フルコントロール」ではなく「使用状況へのアクセス」と書かれた権限画面、ずっとシンプルなPlayの審査、そして前面にあるアプリのパッケージ名というたったひとつのことだけを読むサービスが手に入ります。</p>
+    <p>iOSでも作っているなら、向こうはまったく別の世界です。<a href="../ios-screen-time-api-guide/">AppleのScreen Timeのドキュメントに書かれていないこと</a>をまとめています。</p>
+
+    <div class="callout">
+      <p><strong>HonorFit Blocker</strong>は、iPhoneとAndroid向けの無料アプリブロッカーです。腕立て伏せやスクワット、好きなエクササイズでスクリーンタイムを稼げます。自己申告制で、カメラもアカウントも不要、データはスマホの外に出ません。</p>
+      <div class="stores">
+        <a href="https://honorfitapp.com/get/?c=blog-android-blocker-ja">HonorFitを無料で入手</a>
+      </div>
+    </div>
+
+    <h2>あわせて読みたい</h2>
+    <div class="readnext">
+      <a href="../ios-screen-time-api-guide/">Screen Time API：Appleのドキュメントに書かれていないこと &rarr;</a>
+      <a href="../screen-time-api-wishlist/">Screen Time APIでAppleに直してほしい3つのこと &rarr;</a>
+      <a href="../../../app-blocker-without-camera/">カメラもAIも使わないアプリブロッカー（英語） &rarr;</a>
+      <a href="../">すべての記事 &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">ホーム</a>
+    <a href="../">ブログ</a>
+    <a href="../../../support/">サポート</a>
+    <a href="../../../privacy/">プライバシーポリシー</a>
+    <span class="langs"><a href="../../../blog/android-app-blocker-without-accessibility-service/" hreflang="en" lang="en">English</a><a href="../../../es/blog/android-app-blocker-without-accessibility-service/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/android-app-blocker-without-accessibility-service/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/android-app-blocker-without-accessibility-service/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/android-app-blocker-without-accessibility-service/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/android-app-blocker-without-accessibility-service/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/android-app-blocker-without-accessibility-service/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/android-app-blocker-without-accessibility-service/" hreflang="pl" lang="pl">Polski</a><a href="../../../tr/blog/android-app-blocker-without-accessibility-service/" hreflang="tr" lang="tr">Türkçe</a><a href="../../../id/blog/android-app-blocker-without-accessibility-service/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/android-app-blocker-without-accessibility-service/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../../th/blog/android-app-blocker-without-accessibility-service/" hreflang="th" lang="th">ไทย</a><a href="./" hreflang="ja" lang="ja" aria-current="page">日本語</a><a href="../../../ko/blog/android-app-blocker-without-accessibility-service/" hreflang="ko" lang="ko">한국어</a><a href="../../../zh-hant/blog/android-app-blocker-without-accessibility-service/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

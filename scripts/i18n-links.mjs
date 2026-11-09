@@ -52,6 +52,7 @@ const PAGES = [
   'no-scroll-november/',
   'yoga-app-blocker/',
   'kegel-app-blocker/',
+  'blog/android-app-blocker-without-accessibility-service/',
 ];
 
 // English homepage banner, keyed by the browser language's primary subtag.

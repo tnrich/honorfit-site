@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Membuat Aplikasi Blokir Android Tanpa AccessibilityService | HonorFit</title>
+  <meta name="description" content="Cara HonorFit memblokir aplikasi di Android dengan UsageStatsManager, foreground service specialUse, dan overlay, bukan Accessibility API: jeda penulisan UsageStats, aturan start dari latar belakang, pembunuh baterai bawaan pabrikan, dan kompromi yang harus diambil.">
+  <link rel="canonical" href="https://honorfitapp.com/id/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/android-app-blocker-without-accessibility-service/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/id/blog/android-app-blocker-without-accessibility-service/">
+  <meta property="og:title" content="Membuat aplikasi blokir Android tanpa AccessibilityService">
+  <meta property="og:description" content="UsageStatsManager, foreground service, dan overlay: apa saja yang dibutuhkan untuk membuang Accessibility API dari aplikasi blokir yang sudah dirilis.">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-11-09">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Membuat aplikasi blokir Android tanpa AccessibilityService">
+  <meta name="twitter:description" content="UsageStatsManager, foreground service, dan overlay: apa saja yang dibutuhkan untuk membuang Accessibility API dari aplikasi blokir yang sudah dirilis.">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <meta name="apple-itunes-app" content="app-id=6802871620">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose ol { padding-left: 24px; }
+    .prose pre { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 14px 0 20px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; }
+    .prose pre code { background: none; border: 0; padding: 0; font-size: inherit; color: var(--text); }
+    .toc { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 16px 22px; margin: 8px 0 28px; }
+    .toc strong { color: var(--text); }
+    .toc ol { margin: 8px 0 0; }
+    .toc li { margin: 3px 0; }
+    .toc a { text-decoration: none; }
+    .table-scroll { overflow-x: auto; margin: 14px 0 20px; }
+    .prose table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+    .prose th, .prose td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; color: var(--text-dim); }
+    .prose th { color: var(--text); background: var(--bg-raised); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Membuat aplikasi blokir Android tanpa AccessibilityService",
+    "description": "Cara HonorFit memblokir aplikasi di Android dengan UsageStatsManager, foreground service specialUse, dan overlay, bukan Accessibility API.",
+    "url": "https://honorfitapp.com/id/blog/android-app-blocker-without-accessibility-service/",
+    "mainEntityOfPage": "https://honorfitapp.com/id/blog/android-app-blocker-without-accessibility-service/",
+    "datePublished": "2026-11-09",
+    "dateModified": "2026-11-09",
+    "inLanguage": "id",
+    "keywords": "aplikasi blokir Android, AccessibilityService, UsageStatsManager, PACKAGE_USAGE_STATS, SYSTEM_ALERT_WINDOW, foreground service, specialUse, Kotlin",
+    "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+    "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">Blog</a>
+    <a class="link" href="../../../support/">Bantuan</a>
+    <a class="link" href="../../../privacy/">Privasi</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>Membuat aplikasi blokir Android tanpa AccessibilityService</h1>
+    <p class="meta">UsageStatsManager, foreground service, dan overlay, dari aplikasi yang sudah dirilis. Oleh Thomas Willheim &middot; 9 November 2026</p>
+
+    <p>Aku membuat <a href="../../">HonorFit</a>, aplikasi blokir tempat kamu mendapatkan screen time dengan push up (sistem kejujuran, tanpa kamera). Versi Android pertamanya memblokir aplikasi dengan cara yang dipakai kebanyakan aplikasi blokir Android: lewat <code>AccessibilityService</code>. Bulan Agustus aku mencabut semua itu dan menggantinya dengan <code>UsageStatsManager</code>, sebuah foreground service, dan jendela overlay. Blokirnya jadi sedikit lebih longgar, onboarding-nya jadi jauh tidak semenakutkan dulu, dan review Play jadi jauh lebih sederhana.</p>
+    <p>Ini gambaran arsitekturnya dan hal-hal yang menjebakku di sepanjang jalan. Semua kodenya Kotlin di dalam modul Expo lokal, tapi tidak ada yang khusus React Native di sini.</p>
+
+    <div class="toc">
+      <strong>Isi</strong>
+      <ol>
+        <li><a href="#why">Kenapa membuang Accessibility API</a></li>
+        <li><a href="#shape">Bentuk keseluruhannya</a></li>
+        <li><a href="#poll">Polling UsageStats (dan jeda penulisannya)</a></li>
+        <li><a href="#overlay">Overlay layar kunci</a></li>
+        <li><a href="#service">Menjaga service tetap hidup</a></li>
+        <li><a href="#small">Hal-hal kecil lainnya</a></li>
+        <li><a href="#tradeoffs">Kompromi yang diambil</a></li>
+      </ol>
+    </div>
+
+    <h2 id="why">Kenapa membuang Accessibility API</h2>
+    <p>Accessibility service adalah alat paling kuat yang kamu dapat di Android. Kamu dikabari setiap kali ada perubahan jendela, saat itu juga, dan <code>performGlobalAction(GLOBAL_ACTION_HOME)</code> langsung menendang pengguna keluar dari aplikasi yang diblokir. Makanya banyak sekali aplikasi blokir memakainya. Harganya:</p>
+    <ul>
+      <li><strong>Prompt izinnya menakutkan.</strong> Android memberi tahu pengguna bahwa aplikasinya bisa melihat semua yang ada di layar dan bertindak atas nama mereka. Untuk aplikasi yang jualannya &ldquo;tidak ada yang keluar dari HP-mu&rdquo;, meminta itu di hari pertama kelihatan buruk, dan banyak orang langsung mundur di situ.</li>
+      <li><strong>Google Play menganggapnya API sensitif.</strong> Kalau kamu bukan alat aksesibilitas, kamu butuh pengungkapan yang jelas di dalam aplikasi, deklarasi di Play Console, dan reviewer yang setuju bahwa kasus penggunaanmu boleh. Modal pengungkapannya sudah aku buat. Tapi aku lebih suka tidak membutuhkannya.</li>
+      <li><strong>Ia melihat jauh lebih banyak dari yang dibutuhkan aplikasi blokir.</strong> Aplikasi blokir cuma butuh satu fakta: aplikasi mana yang sedang di depan.</li>
+    </ul>
+    <p>Fakta itu tersedia di tempat lain: event pemakaian yang ada di balik Digital Wellbeing.</p>
+
+    <h2 id="shape">Bentuk keseluruhannya</h2>
+    <p>Tiga izin, semuanya diberikan pengguna di Pengaturan:</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Izin</th><th>Untuk apa</th></tr></thead>
+        <tbody>
+          <tr><td><code>PACKAGE_USAGE_STATS</code> (&ldquo;Usage access&rdquo;)</td><td>Membaca <code>UsageEvents</code> untuk tahu aplikasi mana yang di depan. Tidak pernah diberikan saat runtime; kamu mengarahkan pengguna ke layar Pengaturan lalu mengecek app-op-nya.</td></tr>
+          <tr><td><code>SYSTEM_ALERT_WINDOW</code> (&ldquo;Display over other apps&rdquo;)</td><td>Menggambar layar kunci di atas aplikasi yang diblokir.</td></tr>
+          <tr><td><code>FOREGROUND_SERVICE_SPECIAL_USE</code></td><td>Service monitornya. Blokir aplikasi tidak cocok dengan tipe foreground service mana pun yang tersedia, jadi pakai <code>specialUse</code> dengan string subtipe yang menjelaskan alasannya.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Komponen-komponennya:</p>
+    <ul>
+      <li><strong><code>ForegroundMonitorService</code></strong> hanya berjalan selama ada yang perlu ditegakkan (daftar blokir tidak kosong dan Usage access sudah diberikan). Sekali per detik, dan hanya saat layar menyala, service ini bertanya ke <code>UsageStatsManager</code> aplikasi apa yang baru masuk ke depan. Aplikasi yang diblokir dan masih punya waktu akan menguras saldo yang tersimpan; saat saldonya nol, overlay ditampilkan.</li>
+      <li><strong>Notifikasi wajibnya sekaligus jadi tampilan kuota</strong> (&ldquo;sisa 12 mnt&rdquo;), jadi hal yang dipaksakan Android padamu punya fungsi nyata.</li>
+      <li><strong>Semua state disimpan di <code>SharedPreferences</code></strong>, bukan di JS. Service-nya harus tetap bekerja saat runtime React Native mati, yang sebenarnya hampir sepanjang waktu. Sisi JS menyetor waktu dan membaca saldo lewat modul; service-lah yang memegang penegakannya.</li>
+    </ul>
+    <p>Entri manifest untuk service-nya:</p>
+<pre><code>&lt;service
+  android:name=".ForegroundMonitorService"
+  android:exported="false"
+  android:foregroundServiceType="specialUse"&gt;
+  &lt;property
+    android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+    android:value="User-configured app blocking for digital wellbeing: monitors
+      which app is in the foreground (UsageStats) so apps the user chose to block
+      can be locked when their earned screen time runs out." /&gt;
+&lt;/service&gt;</code></pre>
+    <p>Kamu juga perlu menjelaskan alasan <code>specialUse</code> di deklarasi foreground service di Play Console. Menceritakan hal yang sama di kedua tempat itu membantu.</p>
+
+    <h2 id="poll">Polling UsageStats (dan jeda penulisannya)</h2>
+    <p>Loop utamanya kecil. Pindai event sejak polling terakhir dan simpan package <code>MOVE_TO_FOREGROUND</code> yang terakhir (konstantanya sama dengan <code>ACTIVITY_RESUMED</code>, hanya ganti nama di API 29):</p>
+<pre><code>val end = System.currentTimeMillis()
+val events = usm.queryEvents(windowStart, end)
+val event = UsageEvents.Event()
+while (events.hasNextEvent()) {
+  events.getNextEvent(event)
+  if (event.eventType == UsageEvents.Event.MOVE_TO_FOREGROUND) {
+    currentForeground = event.packageName
+  }
+}
+// Pindai ulang 15 detik terakhir di polling berikutnya: lihat di bawah.
+windowStart = end - REQUERY_OVERLAP_MS
+handleForeground(currentForeground)</code></pre>
+    <p>Bonus dibanding event aksesibilitas: keyboard dan panel notifikasi bukan activity, jadi keduanya tidak pernah muncul sebagai &ldquo;pengguna keluar dari aplikasi&rdquo; palsu.</p>
+
+    <h3>Jebakan: event datang terlambat</h3>
+    <p>Versi pertamaku menggeser jendela waktunya selalu maju: tiap polling meng-query <code>[lastEnd, now]</code>. Biasanya jalan, tapi di HP yang baru dinyalakan, pembukaan aplikasi terblokir yang pertama tidak pernah terlihat. UsageStats menulis event ke penyimpanannya dengan jeda, jadi event bertanda waktu 10:00:00.900 bisa muncul setelah polling yang sudah mencakup 10:00:01. Jendela yang selalu maju akan melewatkannya selamanya.</p>
+    <p>Solusinya: setiap polling memindai ulang tumpang-tindih di belakangnya (aku pakai 15 detik). Melihat event yang sama dua kali tidak masalah, karena resume terakhir di jendela itu yang menang. Event yang datang lebih dari 15 detik terlambat tetap akan hilang, tapi aku belum pernah melihatnya.</p>
+
+    <h3>Jebakan: polling pertama butuh lookback yang panjang</h3>
+    <p>Saat service mulai (setelah restart, atau saat layar menyala) belum ada &ldquo;aplikasi terakhir yang diketahui&rdquo;. Kalau pengguna sudah 20 menit di TikTok dan polling pertama cuma melihat satu menit ke belakang, service tidak melihat apa-apa sampai pengguna pindah aplikasi. Jadi polling pertama memindai satu jam terakhir. Itu aman karena launcher juga sebuah activity: apa pun yang terakhir di-resume memang benar-benar yang ada di depan.</p>
+
+    <h3>Jebakan: akses yang dicabut kelihatan seperti hening</h3>
+    <p>Kalau pengguna mematikan Usage access saat service berjalan, <code>queryEvents</code> tidak melempar exception. Ia cuma mengembalikan hasil kosong. Bacaan terakhirmu (&ldquo;Instagram ada di depan&rdquo;) jadi basi dan saldonya terkuras terus. Jadi setiap polling mengecek app-op dulu dan menghentikan jam kalau aksesnya sudah hilang:</p>
+<pre><code>fun hasUsageAccess(context: Context): Boolean {
+  val appOps = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+  val mode = appOps.checkOpNoThrow(
+    AppOpsManager.OPSTR_GET_USAGE_STATS, Process.myUid(), context.packageName)
+  return mode == AppOpsManager.MODE_ALLOWED
+}</code></pre>
+
+    <h3>Layar mati berarti berhenti</h3>
+    <p>Saat layar mati, service menyimpan sesi yang sedang terbuka dan berhenti polling sama sekali. Tidak ada yang memakai aplikasi dengan layar mati, dan loop 1 Hz yang hanya berjalan saat kamu melihat HP itu murah. Polling pertama setelah layar menyala lagi juga menangani pergantian hari (reset tengah malam, jatah harian), jadi itu terjadi sebelum pengguna sampai ke aplikasi yang diblokir, bahkan kalau mereka tidak pernah membuka HonorFit.</p>
+
+    <h2 id="overlay">Overlay layar kunci</h2>
+    <p>Tanpa aksesibilitas tidak ada <code>GLOBAL_ACTION_HOME</code>, jadi kamu tidak bisa melempar pengguna keluar dari aplikasi. Sebagai gantinya kamu menutupinya: jendela <code>TYPE_APPLICATION_OVERLAY</code> dengan tombol &ldquo;dapatkan waktu lagi&rdquo; dan tombol &ldquo;kembali ke layar utama&rdquo;.</p>
+    <ul>
+      <li><strong>Tutupi seluruh layar.</strong> Secara default, overlay-nya diberi inset oleh bilah sistem dan aplikasi yang diblokir mengintip di pinggirnya. <code>FLAG_LAYOUT_NO_LIMITS</code> memperbaikinya. <code>FLAG_LAYOUT_IN_SCREEN</code> sudah deprecated di API 30, jadi tambahkan hanya di bawah R.</li>
+      <li><strong>&ldquo;Kembali ke layar utama&rdquo; harus benar-benar ke layar utama.</strong> Menyembunyikan overlay cuma memperlihatkan aplikasi yang diblokir lagi, dan polling berikutnya memasang kuncinya kembali. Jalankan launcher sebagai gantinya:
+<pre><code>startActivity(Intent(Intent.ACTION_MAIN).apply {
+  addCategory(Intent.CATEGORY_HOME)
+  addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+})</code></pre></li>
+      <li><strong>Jalankan dulu, baru sembunyikan.</strong> Tombol dapatkan waktu membuka HonorFit, dan itu artinya memulai activity dari latar belakang. Android mengizinkannya karena aplikasinya punya jendela overlay yang terlihat. Jadi mulai activity-nya <em>selagi overlay masih tampil</em>, lalu hapus overlay-nya. Kalau urutannya terbalik, peluncurannya diblokir diam-diam.</li>
+      <li><strong>Tidak ada izin overlay? Tetap hitung.</strong> Kalau &ldquo;Display over other apps&rdquo; tidak diberikan, service tetap menguras saldo dengan jujur. Ia cuma tidak bisa menggambar kuncinya sampai izinnya kembali.</li>
+    </ul>
+
+    <h2 id="service">Menjaga service tetap hidup</h2>
+    <p>Bagian inilah yang paling lama untuk dibuat benar, dan sebagian besar bukan soal kodemu.</p>
+    <h3>START_STICKY saja tidak cukup</h3>
+    <p>&ldquo;Aplikasi tidur&rdquo; di Samsung, MIUI, OnePlus, dan kawan-kawannya mematikan service latar belakang lalu menelan restart sticky-nya. Aplikasi blokir adalah kasus terburuk untuk ini: orang tidak membukanya selama mereka masih punya waktu, jadi tidak ada yang sadar monitornya sudah hilang. HonorFit memasang alarm berulang yang inexact dan non-wakeup setiap 15 menit untuk menyalakan ulang service-nya. Alarm ini tidak pernah membangunkan HP, dan alarm yang tertunda selama layar mati akan berbunyi tidak lama setelah layar menyala lagi, tepat saat monitornya dibutuhkan.</p>
+    <h3>Android 12+ tidak selalu mengizinkanmu memulainya</h3>
+    <p>Memulai foreground service dari latar belakang (dari alarm, dari restart sticky) melempar <code>ForegroundServiceStartNotAllowedException</code> kecuali kamu punya pengecualian. Dua yang relevan di sini: pengguna sudah mematikan optimasi baterai untuk aplikasinya, atau aplikasinya punya <code>SYSTEM_ALERT_WINDOW</code> (yang ini cuma membantu sebelum Android 15). Jadi:</p>
+    <ul>
+      <li>Tangkap exception-nya dan mundur dengan tenang. Membuat prosesnya crash tidak membantu siapa pun, dan pembukaan aplikasi berikutnya akan memulai service-nya juga.</li>
+      <li>Minta pengguna mengatur penggunaan baterai ke &ldquo;Tidak dibatasi&rdquo;. Pengaturan HonorFit punya kartu &ldquo;Keandalan di latar belakang&rdquo; yang memandu mereka ke layar yang tepat. Di beberapa HP, pengaturan itu yang menentukan jalan atau tidaknya.</li>
+    </ul>
+    <h3>Reboot dan update</h3>
+    <p>Sebuah receiver untuk <code>BOOT_COMPLETED</code> dan <code>MY_PACKAGE_REPLACED</code> memulai ulang monitornya. Yang kedua gampang terlupa: update otomatis dari Play mematikan prosesmu dan tidak pernah memulai ulang service-nya, jadi tanpa itu setiap update diam-diam mematikan aplikasi blokirmu sampai pengguna membuka aplikasinya. Kedua broadcast itu dikecualikan dari pembatasan start dari latar belakang, dan receiver <code>exported="false"</code> tetap menerimanya.</p>
+
+    <h2 id="small">Hal-hal kecil lainnya</h2>
+    <ul>
+      <li><strong>Beberapa aplikasi tidak boleh bisa diblokir:</strong> Pengaturan, jam (alarm!), dan Personal Safety, plus varian dari pabrikan seperti package jam Samsung. Saring semuanya dari daftar blokir di kode native, bukan cuma di pemilih aplikasi.</li>
+      <li><strong>Service-nya berjalan tanpa JS, jadi tidak bisa memanggil <code>t()</code>.</strong> Aplikasinya mendorong teks overlay dan notifikasi ke <code>SharedPreferences</code> dalam bahasa yang sedang dipakai, dan service-nya memakai bahasa Inggris sampai teks itu tiba.</li>
+      <li><strong>Sesi yang terbuka melewati restart service tidak bisa menguras saldo selama service-nya mati.</strong> Saat mulai, simpan waktu yang sudah berlalu (dibatasi) lalu mulai sesi baru, supaya tidak ada yang ditagih untuk waktu yang tidak sempat dilihat service-nya.</li>
+      <li><strong>Android 14+ membolehkan pengguna menggeser notifikasi foreground service sampai hilang.</strong> Service-nya terus memperbarui notifikasi itu (dengan dedupe supaya tidak memposting ulang setiap detik), jadi notifikasinya muncul lagi.</li>
+    </ul>
+
+    <h2 id="tradeoffs">Kompromi yang diambil</h2>
+    <p>Pendekatan ini lebih longgar dibanding aksesibilitas, dan aku mau terus terang soal itu:</p>
+    <ul>
+      <li>Aplikasi yang diblokir masih terlihat selama paling lama satu interval polling (sekitar satu detik) sebelum overlay-nya muncul.</li>
+      <li>Aplikasi yang diblokir tetap berjalan di bawah overlay. Kalau ada video yang sedang diputar, suaranya masih terdengar sampai kamu mengetuk &ldquo;kembali ke layar utama&rdquo;.</li>
+      <li>Semuanya bergantung pada pabrikan HP yang membiarkan service-mu tetap hidup, makanya pengaturan baterai itu penting sekali.</li>
+    </ul>
+    <p>Untuk aplikasi blokir dengan sistem kejujuran, itu kompromi yang tepat. HonorFit tidak berusaha jadi tidak bisa dibobol. Orang yang memang niat curang bisa saja mencatat rep yang tidak mereka lakukan. Intinya adalah jeda dan harga, bukan penjara. Sebagai gantinya kamu mendapat layar izin yang bilang &ldquo;akses penggunaan&rdquo;, bukan &ldquo;kontrol penuh&rdquo;, review Play yang jauh lebih sederhana, dan service yang membaca persis satu hal: nama package aplikasi yang ada di depan.</p>
+    <p>Kalau kamu juga membangun untuk iOS, di sana dunianya benar-benar lain. Aku sudah menulis soal <a href="../ios-screen-time-api-guide/">yang tidak diceritakan dokumentasi Screen Time Apple</a>.</p>
+
+    <div class="callout">
+      <p><strong>HonorFit Blocker</strong> adalah aplikasi blokir gratis untuk iPhone dan Android. Dapatkan screen time dengan push up, squat, atau latihan apa pun yang kamu pilih. Sistem kejujuran, tanpa kamera, tanpa akun, tidak ada yang keluar dari HP-mu.</p>
+      <div class="stores">
+        <a href="https://honorfitapp.com/get/?c=blog-android-blocker-id">Dapatkan HonorFit gratis</a>
+      </div>
+    </div>
+
+    <h2>Baca juga</h2>
+    <div class="readnext">
+      <a href="../ios-screen-time-api-guide/">Screen Time API iOS: yang tidak diceritakan dokumentasinya &rarr;</a>
+      <a href="../screen-time-api-wishlist/">3 hal di Screen Time API yang aku harap diperbaiki Apple &rarr;</a>
+      <a href="../../../app-blocker-without-camera/">Aplikasi blokir tanpa kamera atau AI (dalam bahasa Inggris) &rarr;</a>
+      <a href="../">Semua tulisan &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">Beranda</a>
+    <a href="../">Blog</a>
+    <a href="../../../support/">Bantuan</a>
+    <a href="../../../privacy/">Kebijakan Privasi</a>
+    <span class="langs"><a href="../../../blog/android-app-blocker-without-accessibility-service/" hreflang="en" lang="en">English</a><a href="../../../es/blog/android-app-blocker-without-accessibility-service/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/android-app-blocker-without-accessibility-service/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/android-app-blocker-without-accessibility-service/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/android-app-blocker-without-accessibility-service/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/android-app-blocker-without-accessibility-service/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/android-app-blocker-without-accessibility-service/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/android-app-blocker-without-accessibility-service/" hreflang="pl" lang="pl">Polski</a><a href="../../../tr/blog/android-app-blocker-without-accessibility-service/" hreflang="tr" lang="tr">Türkçe</a><a href="./" hreflang="id" lang="id" aria-current="page">Bahasa Indonesia</a><a href="../../../vi/blog/android-app-blocker-without-accessibility-service/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../../th/blog/android-app-blocker-without-accessibility-service/" hreflang="th" lang="th">ไทย</a><a href="../../../ja/blog/android-app-blocker-without-accessibility-service/" hreflang="ja" lang="ja">日本語</a><a href="../../../ko/blog/android-app-blocker-without-accessibility-service/" hreflang="ko" lang="ko">한국어</a><a href="../../../zh-hant/blog/android-app-blocker-without-accessibility-service/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

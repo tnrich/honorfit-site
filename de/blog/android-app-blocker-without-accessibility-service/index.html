@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Einen Android-App-Blocker ohne AccessibilityService bauen | HonorFit</title>
+  <meta name="description" content="Wie HonorFit auf Android Apps mit UsageStatsManager, einem specialUse-Foreground-Service und einem Overlay statt der Accessibility API sperrt: Verzögerungen bei UsageStats, Regeln für Starts aus dem Hintergrund, Akku-Killer der Hersteller und die Kompromisse.">
+  <link rel="canonical" href="https://honorfitapp.com/de/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/android-app-blocker-without-accessibility-service/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/de/blog/android-app-blocker-without-accessibility-service/">
+  <meta property="og:title" content="Einen Android-App-Blocker ohne AccessibilityService bauen">
+  <meta property="og:description" content="UsageStatsManager, ein Foreground-Service und ein Overlay: was nötig war, um die Accessibility API aus einem veröffentlichten App-Blocker zu werfen.">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-11-09">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Einen Android-App-Blocker ohne AccessibilityService bauen">
+  <meta name="twitter:description" content="UsageStatsManager, ein Foreground-Service und ein Overlay: was nötig war, um die Accessibility API aus einem veröffentlichten App-Blocker zu werfen.">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <meta name="apple-itunes-app" content="app-id=6802871620">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose ol { padding-left: 24px; }
+    .prose pre { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 14px 0 20px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; }
+    .prose pre code { background: none; border: 0; padding: 0; font-size: inherit; color: var(--text); }
+    .toc { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 16px 22px; margin: 8px 0 28px; }
+    .toc strong { color: var(--text); }
+    .toc ol { margin: 8px 0 0; }
+    .toc li { margin: 3px 0; }
+    .toc a { text-decoration: none; }
+    .table-scroll { overflow-x: auto; margin: 14px 0 20px; }
+    .prose table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+    .prose th, .prose td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; color: var(--text-dim); }
+    .prose th { color: var(--text); background: var(--bg-raised); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Einen Android-App-Blocker ohne AccessibilityService bauen",
+    "description": "Wie HonorFit auf Android Apps mit UsageStatsManager, einem specialUse-Foreground-Service und einem Overlay statt der Accessibility API sperrt.",
+    "url": "https://honorfitapp.com/de/blog/android-app-blocker-without-accessibility-service/",
+    "mainEntityOfPage": "https://honorfitapp.com/de/blog/android-app-blocker-without-accessibility-service/",
+    "datePublished": "2026-11-09",
+    "dateModified": "2026-11-09",
+    "inLanguage": "de",
+    "keywords": "Android App-Blocker, AccessibilityService, UsageStatsManager, PACKAGE_USAGE_STATS, SYSTEM_ALERT_WINDOW, Foreground-Service, specialUse, Kotlin",
+    "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+    "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">Blog</a>
+    <a class="link" href="../../../support/">Support</a>
+    <a class="link" href="../../../privacy/">Datenschutz</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>Einen Android-App-Blocker ohne AccessibilityService bauen</h1>
+    <p class="meta">UsageStatsManager, ein Foreground-Service und ein Overlay, aus einer App, die wirklich im Store ist. Von Thomas Willheim &middot; 9. November 2026</p>
+
+    <p>Ich mache <a href="../../">HonorFit</a>, einen App-Blocker, bei dem du dir Bildschirmzeit mit Liegestützen verdienst (Ehrensystem, keine Kamera). Die erste Android-Version hat Apps so gesperrt wie die meisten Android-Blocker: mit einem <code>AccessibilityService</code>. Im August habe ich den rausgeworfen und durch <code>UsageStatsManager</code>, einen Foreground-Service und ein Overlay-Fenster ersetzt. Die Sperre ist dadurch etwas weicher geworden, das Onboarding viel weniger furchteinflößend und die Prüfung bei Google Play viel einfacher.</p>
+    <p>Hier steht, wie diese Architektur aussieht und worüber ich unterwegs gestolpert bin. Der ganze Code ist Kotlin in einem lokalen Expo-Modul, aber nichts davon ist spezifisch für React Native.</p>
+
+    <div class="toc">
+      <strong>Inhalt</strong>
+      <ol>
+        <li><a href="#why">Warum die Accessibility API rausfliegt</a></li>
+        <li><a href="#shape">Der Aufbau</a></li>
+        <li><a href="#poll">UsageStats abfragen (und die Schreibverzögerung)</a></li>
+        <li><a href="#overlay">Das Sperr-Overlay</a></li>
+        <li><a href="#service">Den Service am Leben halten</a></li>
+        <li><a href="#small">Kleinere Dinge</a></li>
+        <li><a href="#tradeoffs">Die Kompromisse</a></li>
+      </ol>
+    </div>
+
+    <h2 id="why">Warum die Accessibility API rausfliegt</h2>
+    <p>Ein Accessibility-Service ist das mächtigste Werkzeug, das du auf Android bekommst. Du erfährst von jedem Fensterwechsel in dem Moment, in dem er passiert, und <code>performGlobalAction(GLOBAL_ACTION_HOME)</code> wirft den Nutzer sofort aus einer gesperrten App. Deshalb nutzen ihn so viele Blocker. Der Preis dafür:</p>
+    <ul>
+      <li><strong>Die Berechtigungsabfrage ist zum Fürchten.</strong> Android sagt dem Nutzer, dass die App alles auf dem Bildschirm sehen und in seinem Namen handeln kann. Für eine App, deren Versprechen „nichts verlässt dein Handy“ lautet, macht sich das am ersten Tag schlecht, und viele steigen genau da aus.</li>
+      <li><strong>Google Play behandelt sie als sensible API.</strong> Wenn du kein Bedienungshilfe-Tool bist, brauchst du einen gut sichtbaren Hinweis in der App, eine Erklärung in der Play Console und einen Prüfer, der deinen Anwendungsfall für in Ordnung hält. Das Modal mit dem Hinweis hatte ich schon gebaut. Ich brauche es lieber gar nicht.</li>
+      <li><strong>Sie sieht viel mehr, als ein Blocker braucht.</strong> Ein Blocker braucht genau eine Information: welche App im Vordergrund ist.</li>
+    </ul>
+    <p>Genau diese Information gibt es auch woanders: in den Nutzungsereignissen, auf denen Digital Wellbeing aufbaut.</p>
+
+    <h2 id="shape">Der Aufbau</h2>
+    <p>Drei Berechtigungen, alle vom Nutzer in den Einstellungen erteilt:</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Berechtigung</th><th>Wofür</th></tr></thead>
+        <tbody>
+          <tr><td><code>PACKAGE_USAGE_STATS</code> („Zugriff auf Nutzungsdaten“)</td><td><code>UsageEvents</code> lesen, um zu erfahren, welche App vorne ist. Wird nie zur Laufzeit erteilt; du schickst den Nutzer in die Einstellungen und prüfst den App-Op.</td></tr>
+          <tr><td><code>SYSTEM_ALERT_WINDOW</code> („Über anderen Apps einblenden“)</td><td>Den Sperrbildschirm über eine gesperrte App zeichnen.</td></tr>
+          <tr><td><code>FOREGROUND_SERVICE_SPECIAL_USE</code></td><td>Der Monitor-Service. App-Sperren passt in keinen der aufgelisteten Foreground-Service-Typen, also ist es <code>specialUse</code>, mit einem Subtyp-String, der erklärt, warum.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Die Bausteine:</p>
+    <ul>
+      <li><strong><code>ForegroundMonitorService</code></strong> läuft nur, solange es etwas durchzusetzen gibt (eine nicht leere Sperrliste und erteilter Zugriff auf Nutzungsdaten). Einmal pro Sekunde, und nur bei eingeschaltetem Bildschirm, fragt er <code>UsageStatsManager</code>, was in den Vordergrund gekommen ist. Eine gesperrte App mit Restzeit zehrt vom angesparten Guthaben; bei null zeigt er das Overlay.</li>
+      <li><strong>Seine Pflicht-Benachrichtigung ist die Kontingentanzeige</strong> („noch 12 Min.“), so erledigt das, was Android dir aufzwingt, eine echte Aufgabe.</li>
+      <li><strong>Der gesamte Zustand liegt in <code>SharedPreferences</code></strong>, nicht in JS. Der Service muss weiterlaufen, wenn die React-Native-Runtime tot ist, und das ist sie meistens. Die JS-Seite zahlt Zeit ein und liest das Guthaben über das Modul; die Durchsetzung gehört dem Service.</li>
+    </ul>
+    <p>Der Manifest-Eintrag für den Service:</p>
+<pre><code>&lt;service
+  android:name=".ForegroundMonitorService"
+  android:exported="false"
+  android:foregroundServiceType="specialUse"&gt;
+  &lt;property
+    android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+    android:value="User-configured app blocking for digital wellbeing: monitors
+      which app is in the foreground (UsageStats) so apps the user chose to block
+      can be locked when their earned screen time runs out." /&gt;
+&lt;/service&gt;</code></pre>
+    <p>Außerdem begründest du <code>specialUse</code> in der Foreground-Service-Erklärung in der Play Console. Es hilft, an beiden Stellen dieselbe Geschichte zu erzählen.</p>
+
+    <h2 id="poll">UsageStats abfragen (und die Schreibverzögerung)</h2>
+    <p>Die Kernschleife ist klein. Geh die Ereignisse seit der letzten Abfrage durch und merk dir das Paket des letzten <code>MOVE_TO_FOREGROUND</code> (das ist dieselbe Konstante wie <code>ACTIVITY_RESUMED</code>, in API 29 umbenannt):</p>
+<pre><code>val end = System.currentTimeMillis()
+val events = usm.queryEvents(windowStart, end)
+val event = UsageEvents.Event()
+while (events.hasNextEvent()) {
+  events.getNextEvent(event)
+  if (event.eventType == UsageEvents.Event.MOVE_TO_FOREGROUND) {
+    currentForeground = event.packageName
+  }
+}
+// Beim nächsten Mal die letzten 15 s erneut scannen: siehe unten.
+windowStart = end - REQUERY_OVERLAP_MS
+handleForeground(currentForeground)</code></pre>
+    <p>Ein schöner Nebeneffekt gegenüber Accessibility-Events: Die Tastatur und die Benachrichtigungsleiste sind keine Activities, also tauchen sie nie als falsches „der Nutzer hat die App verlassen“ auf.</p>
+
+    <h3>Stolperfalle: Ereignisse kommen verspätet an</h3>
+    <p>Meine erste Version hat das Fenster strikt vorwärts geschoben: Jede Abfrage hat <code>[lastEnd, now]</code> abgefragt. Das hat meistens funktioniert, aber auf einem frisch gestarteten Handy wurde das allererste Öffnen einer gesperrten App nie erkannt. UsageStats schreibt Ereignisse mit Verzögerung in seinen Speicher, ein Ereignis mit dem Zeitstempel 10:00:00.900 kann also nach einer Abfrage auftauchen, die 10:00:01 schon abgedeckt hat. Ein strikt vorrückendes Fenster überspringt es für immer.</p>
+    <p>Die Lösung: Jede Abfrage scannt eine nachlaufende Überlappung erneut (ich nehme 15 Sekunden). Dasselbe Ereignis zweimal zu sehen schadet nicht, denn das letzte Resume im Fenster gewinnt so oder so. Ein Ereignis, das mehr als 15 Sekunden zu spät eintrifft, geht trotzdem verloren, aber das habe ich noch nicht erlebt.</p>
+
+    <h3>Stolperfalle: Die erste Abfrage braucht einen langen Rückblick</h3>
+    <p>Wenn der Service startet (nach einem Neustart oder wenn der Bildschirm angeht), gibt es keine „zuletzt bekannte App“. Wenn der Nutzer schon 20 Minuten in TikTok sitzt und die erste Abfrage nur eine Minute zurückschaut, sieht sie nichts, bis er die App wechselt. Deshalb scannt die erste Abfrage die letzte Stunde. Das ist unbedenklich, weil der Launcher auch eine Activity ist: Was zuletzt fortgesetzt wurde, ist wirklich das, was vorne ist.</p>
+
+    <h3>Stolperfalle: Entzogener Zugriff sieht aus wie Stille</h3>
+    <p>Wenn der Nutzer den Zugriff auf Nutzungsdaten abschaltet, während der Service läuft, wirft <code>queryEvents</code> keinen Fehler. Es liefert einfach nichts. Dein letzter Stand („Instagram ist vorne“) veraltet, und das Guthaben läuft für immer ab. Deshalb prüft jede Abfrage zuerst den App-Op und hält die Uhr an, wenn er weg ist:</p>
+<pre><code>fun hasUsageAccess(context: Context): Boolean {
+  val appOps = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+  val mode = appOps.checkOpNoThrow(
+    AppOpsManager.OPSTR_GET_USAGE_STATS, Process.myUid(), context.packageName)
+  return mode == AppOpsManager.MODE_ALLOWED
+}</code></pre>
+
+    <h3>Bildschirm aus heißt Stopp</h3>
+    <p>Wenn der Bildschirm ausgeht, verbucht der Service die offene Sitzung und hört komplett auf abzufragen. Bei ausgeschaltetem Bildschirm nutzt niemand eine App, und eine 1-Hz-Schleife, die nur läuft, während du aufs Handy schaust, kostet wenig. Die erste Abfrage nach dem Wiedereinschalten kümmert sich außerdem um den Tageswechsel (Zurücksetzen um Mitternacht, Tagesbasis), damit das passiert, bevor der Nutzer eine gesperrte App erreicht, auch wenn er HonorFit nie öffnet.</p>
+
+    <h2 id="overlay">Das Sperr-Overlay</h2>
+    <p>Ohne Accessibility gibt es kein <code>GLOBAL_ACTION_HOME</code>, du kannst den Nutzer also nicht aus einer App werfen. Stattdessen deckst du sie ab: ein <code>TYPE_APPLICATION_OVERLAY</code>-Fenster mit einem Button „Mehr Zeit verdienen“ und einem Button „zum Startbildschirm“.</p>
+    <ul>
+      <li><strong>Deck das ganze Display ab.</strong> Standardmäßig wird das Overlay um die Systemleisten eingerückt, und die gesperrte App lugt an den Rändern hervor. <code>FLAG_LAYOUT_NO_LIMITS</code> behebt das. <code>FLAG_LAYOUT_IN_SCREEN</code> ist seit API 30 veraltet, also füg es nur unterhalb von R hinzu.</li>
+      <li><strong>„Zum Startbildschirm“ muss wirklich zum Startbildschirm gehen.</strong> Das Overlay auszublenden legt nur die gesperrte App wieder frei, und die nächste Abfrage setzt die Sperre wieder drauf. Starte stattdessen den Launcher:
+<pre><code>startActivity(Intent(Intent.ACTION_MAIN).apply {
+  addCategory(Intent.CATEGORY_HOME)
+  addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+})</code></pre></li>
+      <li><strong>Erst starten, dann ausblenden.</strong> Der Verdienen-Button öffnet HonorFit, und das ist ein Activity-Start aus dem Hintergrund. Android erlaubt ihn, weil die App ein sichtbares Overlay-Fenster hat. Starte die Activity also, <em>solange das Overlay noch angezeigt wird</em>, und entferne es danach. Andersherum wird der Start stillschweigend blockiert.</li>
+      <li><strong>Keine Overlay-Berechtigung? Trotzdem weiterzählen.</strong> Wenn „Über anderen Apps einblenden“ nicht erteilt ist, zieht der Service das Guthaben trotzdem ehrlich ab. Er kann die Sperre nur nicht zeichnen, bis die Berechtigung wieder da ist.</li>
+    </ul>
+
+    <h2 id="service">Den Service am Leben halten</h2>
+    <p>Das ist der Teil, bei dem es am längsten dauert, bis er sitzt, und meistens liegt es nicht an deinem Code.</p>
+    <h3>START_STICKY reicht nicht</h3>
+    <p>Samsungs „schlafende Apps“, MIUI, OnePlus und Co. beenden Hintergrund-Services und schlucken dann den Sticky-Neustart. Ein Blocker ist dafür der schlimmste Fall: Solange die Leute noch Zeit übrig haben, öffnen sie ihn nicht, also merkt niemand, dass der Monitor weg ist. HonorFit stellt alle 15 Minuten einen ungenauen, nicht weckenden, wiederkehrenden Alarm, der den Service wieder startet. Er weckt das Handy nie, und Alarme, die bei ausgeschaltetem Bildschirm aufgeschoben wurden, feuern kurz nach dem Einschalten, also genau dann, wenn der Monitor wichtig ist.</p>
+    <h3>Android 12+ lässt dich ihn nicht immer starten</h3>
+    <p>Einen Foreground-Service aus dem Hintergrund zu starten (ein Alarm, ein Sticky-Neustart) wirft <code>ForegroundServiceStartNotAllowedException</code>, außer du hast eine Ausnahme. Zwei, die hier zählen: Der Nutzer hat die Akkuoptimierung für die App ausgeschaltet, oder die App hat <code>SYSTEM_ALERT_WINDOW</code> (das hilft nur vor Android 15). Also:</p>
+    <ul>
+      <li>Fang die Exception ab und brich still ab. Den Prozess abstürzen zu lassen hilft niemandem, und beim nächsten Öffnen der App startet der Service sowieso.</li>
+      <li>Bitte den Nutzer, die Akkunutzung auf „Uneingeschränkt“ zu stellen. In den Einstellungen von HonorFit gibt es eine Karte „Zuverlässigkeit im Hintergrund“, die ihn zum richtigen Bildschirm führt. Auf manchen Handys entscheidet diese Einstellung darüber, ob es funktioniert oder nicht.</li>
+    </ul>
+    <h3>Neustarts und Updates</h3>
+    <p>Ein Receiver für <code>BOOT_COMPLETED</code> und <code>MY_PACKAGE_REPLACED</code> startet das Monitoring neu. Den zweiten vergisst man leicht: Ein automatisches Update über Play beendet deinen Prozess und startet seine Services nie neu, ohne ihn schaltet also jedes Update deinen Blocker still ab, bis der Nutzer die App öffnet. Beide Broadcasts sind von der Einschränkung für Starts aus dem Hintergrund ausgenommen, und ein Receiver mit <code>exported="false"</code> bekommt sie trotzdem.</p>
+
+    <h2 id="small">Kleinere Dinge</h2>
+    <ul>
+      <li><strong>Manche Apps dürfen nie sperrbar sein:</strong> die Einstellungen, die Uhr (Wecker!) und Persönliche Sicherheit, plus Hersteller-Varianten wie das Uhr-Paket von Samsung. Filter sie im nativen Code aus der Sperrliste, nicht nur in der Auswahl.</li>
+      <li><strong>Der Service läuft ohne JS, also kann er <code>t()</code> nicht aufrufen.</strong> Die App schiebt die Texte für Overlay und Benachrichtigung in der aktuellen Sprache in die <code>SharedPreferences</code>, und bis sie da sind, fällt der Service auf Englisch zurück.</li>
+      <li><strong>Eine Sitzung, die über einen Service-Neustart hinweg offen war, konnte nicht abziehen, solange der Service tot war.</strong> Beim Start verbuchst du die vergangene Zeit (begrenzt) und beginnst eine neue Sitzung, damit niemandem Zeit berechnet wird, die der Service gar nicht sehen konnte.</li>
+      <li><strong>Ab Android 14 können Nutzer Foreground-Service-Benachrichtigungen wegwischen.</strong> Der Service aktualisiert sie laufend (mit einer Deduplizierung, damit er sie nicht jede Sekunde neu postet), also kommt sie zurück.</li>
+    </ul>
+
+    <h2 id="tradeoffs">Die Kompromisse</h2>
+    <p>Dieser Ansatz ist weicher als Accessibility, und das will ich offen sagen:</p>
+    <ul>
+      <li>Eine gesperrte App ist bis zu einem Abfrageintervall lang (etwa eine Sekunde) sichtbar, bevor das Overlay erscheint.</li>
+      <li>Die gesperrte App läuft unter dem Overlay weiter. Wenn ein Video lief, hörst du es noch, bis du auf „zum Startbildschirm“ tippst.</li>
+      <li>Es hängt davon ab, dass der Hersteller deinen Service in Ruhe lässt, deshalb ist die Akku-Einstellung so wichtig.</li>
+    </ul>
+    <p>Für einen Blocker nach dem Ehrensystem ist das der richtige Kompromiss. HonorFit will nicht unknackbar sein. Wer unbedingt schummeln will, kann einfach Wiederholungen eintragen, die er nicht gemacht hat. Es geht um eine Pause und einen Preis, nicht um ein Gefängnis. Im Gegenzug bekommst du einen Berechtigungsbildschirm, auf dem „Zugriff auf Nutzungsdaten“ statt „volle Kontrolle“ steht, eine viel einfachere Play-Prüfung und einen Service, der genau eine Sache liest: den Paketnamen der App, die vorne ist.</p>
+    <p>Wenn du auch für iOS baust: Da drüben ist es eine komplett andere Welt. Ich habe aufgeschrieben, <a href="../ios-screen-time-api-guide/">was Apples Screen-Time-Dokumentation dir nicht sagt</a>.</p>
+
+    <div class="callout">
+      <p><strong>HonorFit Blocker</strong> ist ein kostenloser App-Blocker für iPhone und Android. Verdien dir Bildschirmzeit mit Liegestützen, Kniebeugen oder jeder Übung, die du willst. Ehrensystem, keine Kamera, kein Konto, nichts verlässt dein Handy.</p>
+      <div class="stores">
+        <a href="https://honorfitapp.com/get/?c=blog-android-blocker-de">HonorFit gratis laden</a>
+      </div>
+    </div>
+
+    <h2>Weiterlesen</h2>
+    <div class="readnext">
+      <a href="../ios-screen-time-api-guide/">Die Screen Time API: was die Dokumentation dir nicht sagt &rarr;</a>
+      <a href="../screen-time-api-wishlist/">3 Dinge, die Apple an der Screen Time API ändern sollte &rarr;</a>
+      <a href="../../../app-blocker-without-camera/">Ein App-Blocker ohne Kamera und ohne KI (auf Englisch) &rarr;</a>
+      <a href="../">Alle Beiträge &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">Startseite</a>
+    <a href="../">Blog</a>
+    <a href="../../../support/">Support</a>
+    <a href="../../../privacy/">Datenschutzerklärung</a>
+    <span class="langs"><a href="../../../blog/android-app-blocker-without-accessibility-service/" hreflang="en" lang="en">English</a><a href="../../../es/blog/android-app-blocker-without-accessibility-service/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/android-app-blocker-without-accessibility-service/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="./" hreflang="de" lang="de" aria-current="page">Deutsch</a><a href="../../../fr/blog/android-app-blocker-without-accessibility-service/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/android-app-blocker-without-accessibility-service/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/android-app-blocker-without-accessibility-service/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/android-app-blocker-without-accessibility-service/" hreflang="pl" lang="pl">Polski</a><a href="../../../tr/blog/android-app-blocker-without-accessibility-service/" hreflang="tr" lang="tr">Türkçe</a><a href="../../../id/blog/android-app-blocker-without-accessibility-service/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/android-app-blocker-without-accessibility-service/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../../th/blog/android-app-blocker-without-accessibility-service/" hreflang="th" lang="th">ไทย</a><a href="../../../ja/blog/android-app-blocker-without-accessibility-service/" hreflang="ja" lang="ja">日本語</a><a href="../../../ko/blog/android-app-blocker-without-accessibility-service/" hreflang="ko" lang="ko">한국어</a><a href="../../../zh-hant/blog/android-app-blocker-without-accessibility-service/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AccessibilityService Olmadan Android Uygulama Engelleyici Yapmak | HonorFit</title>
+  <meta name="description" content="HonorFit, Android'de uygulamaları Accessibility API yerine UsageStatsManager, specialUse türünde bir ön plan hizmeti ve bir overlay ile nasıl engelliyor: UsageStats yazma gecikmesi, arka plandan başlatma kuralları, pil için hizmet öldüren üreticiler ve ödünleşimler.">
+  <link rel="canonical" href="https://honorfitapp.com/tr/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/android-app-blocker-without-accessibility-service/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/tr/blog/android-app-blocker-without-accessibility-service/">
+  <meta property="og:title" content="AccessibilityService olmadan Android uygulama engelleyici yapmak">
+  <meta property="og:description" content="UsageStatsManager, bir ön plan hizmeti ve bir overlay: yayındaki bir uygulama engelleyiciden Accessibility API'yi çıkarmak neler gerektirdi.">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-11-09">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AccessibilityService olmadan Android uygulama engelleyici yapmak">
+  <meta name="twitter:description" content="UsageStatsManager, bir ön plan hizmeti ve bir overlay: yayındaki bir uygulama engelleyiciden Accessibility API'yi çıkarmak neler gerektirdi.">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <meta name="apple-itunes-app" content="app-id=6802871620">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose ol { padding-left: 24px; }
+    .prose pre { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 14px 0 20px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; }
+    .prose pre code { background: none; border: 0; padding: 0; font-size: inherit; color: var(--text); }
+    .toc { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 16px 22px; margin: 8px 0 28px; }
+    .toc strong { color: var(--text); }
+    .toc ol { margin: 8px 0 0; }
+    .toc li { margin: 3px 0; }
+    .toc a { text-decoration: none; }
+    .table-scroll { overflow-x: auto; margin: 14px 0 20px; }
+    .prose table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+    .prose th, .prose td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; color: var(--text-dim); }
+    .prose th { color: var(--text); background: var(--bg-raised); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "AccessibilityService olmadan Android uygulama engelleyici yapmak",
+    "description": "HonorFit, Android'de uygulamaları Accessibility API yerine UsageStatsManager, specialUse türünde bir ön plan hizmeti ve bir overlay ile nasıl engelliyor.",
+    "url": "https://honorfitapp.com/tr/blog/android-app-blocker-without-accessibility-service/",
+    "mainEntityOfPage": "https://honorfitapp.com/tr/blog/android-app-blocker-without-accessibility-service/",
+    "datePublished": "2026-11-09",
+    "dateModified": "2026-11-09",
+    "inLanguage": "tr",
+    "keywords": "Android uygulama engelleyici, AccessibilityService, UsageStatsManager, PACKAGE_USAGE_STATS, SYSTEM_ALERT_WINDOW, ön plan hizmeti, foreground service, specialUse, Kotlin",
+    "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+    "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">Blog</a>
+    <a class="link" href="../../../support/">Destek</a>
+    <a class="link" href="../../../privacy/">Gizlilik</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>AccessibilityService olmadan Android uygulama engelleyici yapmak</h1>
+    <p class="meta">Yayındaki bir uygulamadan UsageStatsManager, bir ön plan hizmeti ve bir overlay. Yazan: Thomas Willheim &middot; 9 Kasım 2026</p>
+
+    <p>Ekran süresini şınav çekerek kazandığın bir uygulama engelleyici olan <a href="../../">HonorFit</a>'i yapıyorum (onur sistemi, kamera yok). İlk Android sürümü uygulamaları çoğu Android engelleyicisinin yaptığı gibi engelliyordu: bir <code>AccessibilityService</code> ile. Ağustosta bunu söküp attım ve yerine <code>UsageStatsManager</code>, bir ön plan hizmeti (foreground service) ve bir overlay penceresi koydum. Engelleme biraz yumuşadı, ilk kurulum çok daha az korkutucu oldu ve Play incelemesi çok daha basitleşti.</p>
+    <p>Bu yazı o mimarinin neye benzediğini ve yol boyunca başımı ağrıtan şeyleri anlatıyor. Kodun tamamı yerel bir Expo modülünün içinde Kotlin, ama buradaki hiçbir şey React Native'e özgü değil.</p>
+
+    <div class="toc">
+      <strong>İçindekiler</strong>
+      <ol>
+        <li><a href="#why">Accessibility API'den neden vazgeçmeli</a></li>
+        <li><a href="#shape">Genel yapı</a></li>
+        <li><a href="#poll">UsageStats'i yoklamak (ve yazma gecikmesi)</a></li>
+        <li><a href="#overlay">Kilit overlay'i</a></li>
+        <li><a href="#service">Hizmeti hayatta tutmak</a></li>
+        <li><a href="#small">Daha küçük şeyler</a></li>
+        <li><a href="#tradeoffs">Ödünleşimler</a></li>
+      </ol>
+    </div>
+
+    <h2 id="why">Accessibility API'den neden vazgeçmeli</h2>
+    <p>Erişilebilirlik hizmeti, Android'de eline geçebilecek en güçlü araç. Her pencere değişikliğinden anında haberin olur ve <code>performGlobalAction(GLOBAL_ACTION_HOME)</code> kullanıcıyı engelli bir uygulamadan o anda dışarı atar. Bu kadar çok engelleyicinin onu kullanmasının sebebi bu. Bedeli ise:</p>
+    <ul>
+      <li><strong>İzin istemi ürkütücü.</strong> Android kullanıcıya, uygulamanın ekrandaki her şeyi görebildiğini ve onun adına işlem yapabildiğini söylüyor. Sloganı &ldquo;hiçbir şey telefonundan çıkmıyor&rdquo; olan bir uygulama için ilk gün bunu istemek kötü görünüyor ve birçok kişi tam orada vazgeçiyor.</li>
+      <li><strong>Google Play bunu hassas bir API olarak görüyor.</strong> Bir erişilebilirlik aracı değilsen, uygulama içinde belirgin bir açıklamaya, Play Console'da bir beyana ve kullanım amacının uygun olduğunu kabul eden bir inceleyiciye ihtiyacın var. Açıklama penceresini çoktan yapmıştım. Hiç ihtiyaç duymamayı tercih ederim.</li>
+      <li><strong>Bir engelleyicinin ihtiyacından çok daha fazlasını görüyor.</strong> Bir engelleyicinin tam olarak tek bir bilgiye ihtiyacı var: ön planda hangi uygulamanın olduğu.</li>
+    </ul>
+    <p>O tek bilgi başka bir yerden de alınabiliyor: Dijital Denge'nin (Digital Wellbeing) dayandığı kullanım olaylarından.</p>
+
+    <h2 id="shape">Genel yapı</h2>
+    <p>Üç izin; hepsini kullanıcı Ayarlar'dan veriyor:</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>İzin</th><th>Ne için</th></tr></thead>
+        <tbody>
+          <tr><td><code>PACKAGE_USAGE_STATS</code> (&ldquo;Kullanım erişimi&rdquo;)</td><td>Önde hangi uygulamanın olduğunu öğrenmek için <code>UsageEvents</code> okumak. Asla çalışma zamanında verilmez; kullanıcıyı Ayarlar ekranına gönderir ve app-op'u kontrol edersin.</td></tr>
+          <tr><td><code>SYSTEM_ALERT_WINDOW</code> (&ldquo;Diğer uygulamaların üzerinde göster&rdquo;)</td><td>Kilit ekranını engelli bir uygulamanın üstüne çizmek.</td></tr>
+          <tr><td><code>FOREGROUND_SERVICE_SPECIAL_USE</code></td><td>İzleme hizmeti. Uygulama engelleme, listelenen ön plan hizmeti türlerinin hiçbirine uymuyor, bu yüzden nedenini açıklayan bir alt tür metniyle <code>specialUse</code> kullanılıyor.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Parçalar:</p>
+    <ul>
+      <li><strong><code>ForegroundMonitorService</code></strong> yalnızca denetlenecek bir şey varken çalışıyor (boş olmayan bir engel listesi ve verilmiş Kullanım erişimi). Saniyede bir kez ve yalnızca ekran açıkken <code>UsageStatsManager</code>'a ön plana neyin geldiğini soruyor. Süresi kalan engelli bir uygulama biriken bakiyeyi eritiyor; sıfırda hizmet overlay'i gösteriyor.</li>
+      <li><strong>Zorunlu bildirimi aynı zamanda kota göstergesi</strong> (&ldquo;12 dk kaldı&rdquo;), yani Android'in sana dayattığı şey gerçek bir iş görüyor.</li>
+      <li><strong>Tüm durum JS'te değil, <code>SharedPreferences</code>'ta tutuluyor.</strong> Hizmetin, React Native çalışma ortamı ölüyken de çalışmaya devam etmesi gerekiyor, ki zamanın çoğu böyle. JS tarafı modül üzerinden süre yatırıyor ve bakiyeyi okuyor; denetim hizmetin işi.</li>
+    </ul>
+    <p>Hizmetin manifest girdisi:</p>
+<pre><code>&lt;service
+  android:name=".ForegroundMonitorService"
+  android:exported="false"
+  android:foregroundServiceType="specialUse"&gt;
+  &lt;property
+    android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+    android:value="User-configured app blocking for digital wellbeing: monitors
+      which app is in the foreground (UsageStats) so apps the user chose to block
+      can be locked when their earned screen time runs out." /&gt;
+&lt;/service&gt;</code></pre>
+    <p><code>specialUse</code>'u ayrıca Play Console'daki ön plan hizmeti beyanında da gerekçelendiriyorsun. İki yerde de aynı hikâyeyi anlatmak işe yarıyor.</p>
+
+    <h2 id="poll">UsageStats'i yoklamak (ve yazma gecikmesi)</h2>
+    <p>Ana döngü küçük. Son yoklamadan beri olan olayları tara ve son <code>MOVE_TO_FOREGROUND</code> olayının paketini tut (<code>ACTIVITY_RESUMED</code> ile aynı sabit, API 29'da yeniden adlandırıldı):</p>
+<pre><code>val end = System.currentTimeMillis()
+val events = usm.queryEvents(windowStart, end)
+val event = UsageEvents.Event()
+while (events.hasNextEvent()) {
+  events.getNextEvent(event)
+  if (event.eventType == UsageEvents.Event.MOVE_TO_FOREGROUND) {
+    currentForeground = event.packageName
+  }
+}
+// Re-scan the last 15 s next time: see below.
+windowStart = end - REQUERY_OVERLAP_MS
+handleForeground(currentForeground)</code></pre>
+    <p>Erişilebilirlik olaylarına kıyasla hoş bir yan etki: klavye ve bildirim paneli activity değil, bu yüzden asla sahte &ldquo;kullanıcı uygulamadan çıktı&rdquo; çıkışları olarak görünmüyorlar.</p>
+
+    <h3>Tuzak: olaylar geç geliyor</h3>
+    <p>İlk sürümüm pencereyi yalnızca ileriye doğru kaydırıyordu: her yoklama <code>[lastEnd, now]</code> aralığını sorguluyordu. Çoğunlukla işe yaradı, ta ki soğuk başlatılmış bir telefonda engelli bir uygulamanın ilk açılışı hiç görülmeyene kadar. UsageStats olayları deposuna gecikmeyle yazıyor, yani 10:00:00.900 zaman damgalı bir olay, 10:00:01'i zaten kapsamış bir yoklamadan sonra ortaya çıkabiliyor. Yalnızca ileri giden bir pencere onu sonsuza dek atlıyor.</p>
+    <p>Çözüm: her yoklama geriye doğru bir örtüşme payını yeniden tarıyor (ben 15 saniye kullanıyorum). Aynı olayı iki kez görmek zararsız, çünkü her durumda penceredeki son resume kazanıyor. 15 saniyeden daha geç düşen bir olay yine de kaybolur, ama hiç görmedim.</p>
+
+    <h3>Tuzak: ilk yoklamanın uzun bir geriye bakışa ihtiyacı var</h3>
+    <p>Hizmet başladığında (bir yeniden başlatmadan sonra ya da ekran açıldığında) &ldquo;bilinen son uygulama&rdquo; yok. Kullanıcı 20 dakikadır TikTok'taysa ve ilk yoklama sadece bir dakika geriye bakıyorsa, kullanıcı uygulama değiştirene kadar hiçbir şey görmez. Bu yüzden ilk yoklama son bir saati tarıyor. Bu güvenli, çünkü başlatıcı (launcher) da bir activity: en son resume olan şey gerçekten de önde olan şey.</p>
+
+    <h3>Tuzak: geri alınan erişim sessizlik gibi görünüyor</h3>
+    <p>Kullanıcı hizmet çalışırken Kullanım erişimini kapatırsa <code>queryEvents</code> hata fırlatmıyor. Sadece hiçbir şey döndürmüyor. Son okuman (&ldquo;Instagram önde&rdquo;) bayatlıyor ve bakiye sonsuza dek eriyor. Bu yüzden her yoklama önce app-op'u kontrol ediyor ve izin gittiyse saati durduruyor:</p>
+<pre><code>fun hasUsageAccess(context: Context): Boolean {
+  val appOps = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+  val mode = appOps.checkOpNoThrow(
+    AppOpsManager.OPSTR_GET_USAGE_STATS, Process.myUid(), context.packageName)
+  return mode == AppOpsManager.MODE_ALLOWED
+}</code></pre>
+
+    <h3>Ekran kapalıysa dur</h3>
+    <p>Ekran kapandığında hizmet açık oturumu bakiyeye işliyor ve yoklamayı tamamen durduruyor. Ekran kapalıyken kimse uygulama kullanmıyor ve yalnızca telefonuna bakarken çalışan 1 Hz'lik bir döngü ucuz. Ekran tekrar açıldıktan sonraki ilk yoklama gün devrini de (gece yarısı sıfırlama, günlük taban) hallediyor; böylece kullanıcı HonorFit'i hiç açmasa bile bu iş, o engelli bir uygulamaya ulaşmadan önce yapılmış oluyor.</p>
+
+    <h2 id="overlay">Kilit overlay'i</h2>
+    <p>Erişilebilirlik olmadan <code>GLOBAL_ACTION_HOME</code> yok, yani kullanıcıyı bir uygulamadan dışarı atamazsın. Onun yerine üstünü örtüyorsun: &ldquo;daha fazla süre kazan&rdquo; düğmesi ve &ldquo;ana ekrana dön&rdquo; düğmesi olan bir <code>TYPE_APPLICATION_OVERLAY</code> penceresiyle.</p>
+    <ul>
+      <li><strong>Tüm ekranı kapla.</strong> Varsayılan olarak overlay sistem çubukları kadar içeriden başlıyor ve engelli uygulama kenarlardan görünüyor. <code>FLAG_LAYOUT_NO_LIMITS</code> bunu düzeltiyor. <code>FLAG_LAYOUT_IN_SCREEN</code> API 30'da kullanımdan kaldırıldı, o yüzden onu sadece R'nin altında ekle.</li>
+      <li><strong>&ldquo;Ana ekrana dön&rdquo; gerçekten ana ekrana dönmeli.</strong> Overlay'i gizlemek sadece engelli uygulamayı tekrar ortaya çıkarıyor ve bir sonraki yoklama kilidi geri koyuyor. Onun yerine başlatıcıyı aç:
+<pre><code>startActivity(Intent(Intent.ACTION_MAIN).apply {
+  addCategory(Intent.CATEGORY_HOME)
+  addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+})</code></pre></li>
+      <li><strong>Önce başlat, sonra gizle.</strong> Kazanma düğmesi HonorFit'i açıyor; bu da arka plandan bir activity başlatmak demek. Android buna izin veriyor, çünkü uygulamanın görünür bir overlay penceresi var. Yani activity'yi <em>overlay hâlâ görünürken</em> başlat, sonra overlay'i kaldır. Tersini yaparsan başlatma sessizce engelleniyor.</li>
+      <li><strong>Overlay izni yok mu? Yine de saymaya devam et.</strong> &ldquo;Diğer uygulamaların üzerinde göster&rdquo; izni verilmemişse hizmet bakiyeyi yine dürüstçe eritiyor. Sadece izin geri gelene kadar kilidi çizemiyor.</li>
+    </ul>
+
+    <h2 id="service">Hizmeti hayatta tutmak</h2>
+    <p>Doğru yapması en uzun süren kısım bu ve çoğunlukla senin kodunla ilgili değil.</p>
+    <h3>START_STICKY yetmiyor</h3>
+    <p>Samsung'un &ldquo;uyuyan uygulamaları&rdquo;, MIUI, OnePlus ve benzerleri arka plan hizmetlerini öldürüyor ve sonra sticky yeniden başlatmayı yutuyor. Bir engelleyici bunun için en kötü senaryo: insanlar süreleri varken onu açmıyor, bu yüzden izleyicinin gittiğini kimse fark etmiyor. HonorFit, hizmeti yeniden ayağa kaldıran, 15 dakikada bir tekrarlanan, kesin zamanlı olmayan ve cihazı uyandırmayan bir alarm kuruyor. Telefonu asla uyandırmıyor ve ekran kapalıyken ertelenen alarmlar ekran açıldıktan kısa süre sonra çalışıyor; bu da tam olarak izleyicinin önemli olduğu an.</p>
+    <h3>Android 12+ onu başlatmana her zaman izin vermiyor</h3>
+    <p>Arka plandan (bir alarmdan, sticky yeniden başlatmadan) bir ön plan hizmeti başlatmak, bir muafiyetin yoksa <code>ForegroundServiceStartNotAllowedException</code> fırlatıyor. Burada önemli olan iki muafiyet var: kullanıcı uygulama için pil optimizasyonunu kapatmışsa ya da uygulamanın <code>SYSTEM_ALERT_WINDOW</code> izni varsa (bu sonuncusu sadece Android 15'ten önce işe yarıyor). Yani:</p>
+    <ul>
+      <li>İstisnayı yakala ve sessizce çık. Süreci çökertmek kimseye yaramaz; bir sonraki uygulama açılışı zaten hizmeti başlatacak.</li>
+      <li>Kullanıcıdan pil kullanımını &ldquo;Kısıtlanmamış&rdquo; yapmasını iste. HonorFit'in Ayarlar'ında onu doğru ekrana götüren bir &ldquo;Arka plan güvenilirliği&rdquo; kartı var. Bazı telefonlarda çalışıp çalışmaması bu ayara bağlı.</li>
+    </ul>
+    <h3>Yeniden başlatmalar ve güncellemeler</h3>
+    <p><code>BOOT_COMPLETED</code> ve <code>MY_PACKAGE_REPLACED</code> için bir receiver izlemeyi yeniden başlatıyor. İkincisini unutmak kolay: Play'in otomatik güncellemesi sürecini öldürüyor ve hizmetlerini asla yeniden başlatmıyor; yani o olmadan her güncelleme, kullanıcı uygulamayı açana kadar engelleyicini sessizce kapatıyor. İki yayın da arka plandan başlatma kısıtlamasından muaf ve <code>exported="false"</code> olan bir receiver da onları alıyor.</p>
+
+    <h2 id="small">Daha küçük şeyler</h2>
+    <ul>
+      <li><strong>Bazı uygulamalar asla engellenebilir olmamalı:</strong> Ayarlar, saat (alarmlar!) ve Kişisel Güvenlik, artı Samsung'un saat paketi gibi üretici varyantları. Bunları sadece seçicide değil, native kodda da engel listesinden ayıkla.</li>
+      <li><strong>Hizmet JS olmadan çalışıyor, yani <code>t()</code> çağıramıyor.</strong> Uygulama overlay ve bildirim metinlerini geçerli dilde <code>SharedPreferences</code>'a yazıyor, hizmet de bunlar gelene kadar İngilizce kullanıyor.</li>
+      <li><strong>Hizmet yeniden başlatılırken açık kalan bir oturum, hizmet ölüyken bakiyeden düşemiyordu.</strong> Başlangıçta geçen süreyi (bir üst sınırla) hesaba işle ve yeni bir oturum başlat; böylece kimse hizmetin göremediği bir süre için ödeme yapmaz.</li>
+      <li><strong>Android 14+ kullanıcıların ön plan hizmeti bildirimlerini kaydırıp kapatmasına izin veriyor.</strong> Hizmet bildirimi güncellemeye devam ediyor (her saniye yeniden yayınlamasın diye tekilleştirmeyle), böylece bildirim geri geliyor.</li>
+    </ul>
+
+    <h2 id="tradeoffs">Ödünleşimler</h2>
+    <p>Bu yaklaşım erişilebilirlikten daha yumuşak ve bu konuda açık olmak istiyorum:</p>
+    <ul>
+      <li>Engelli bir uygulama, overlay gelmeden önce en fazla bir yoklama aralığı (yaklaşık bir saniye) boyunca görünüyor.</li>
+      <li>Engelli uygulama overlay'in altında çalışmaya devam ediyor. Bir video oynuyorsa, &ldquo;ana ekrana dön&rdquo;e dokunana kadar sesini duymaya devam edersin.</li>
+      <li>Üreticinin hizmetine dokunmamasına bağlı; pil ayarının bu kadar önemli olmasının sebebi de bu.</li>
+    </ul>
+    <p>Onur sistemine dayanan bir engelleyici için bu doğru bir ödünleşim. HonorFit kırılmaz olmaya çalışmıyor. Hile yapmaya kararlı biri zaten yapmadığı tekrarları kaydedebilir. Amaç bir hapishane değil, bir duraklama ve bir bedel. Karşılığında &ldquo;tam kontrol&rdquo; yerine &ldquo;kullanım erişimi&rdquo; diyen bir izin ekranı, çok daha basit bir Play incelemesi ve tam olarak tek bir şeyi okuyan bir hizmet elde ediyorsun: öndeki uygulamanın paket adı.</p>
+    <p>iOS için de geliştiriyorsan, orası bambaşka bir dünya. <a href="../ios-screen-time-api-guide/">Apple'ın Screen Time belgelerinin söylemediklerini</a> de yazdım.</p>
+
+    <div class="callout">
+      <p><strong>HonorFit Blocker</strong>, iPhone ve Android için ücretsiz bir uygulama engelleyici. Ekran süresini şınavla, squat'la ya da seçtiğin herhangi bir egzersizle kazan. Onur sistemi, kamera yok, hesap yok, hiçbir şey telefonundan çıkmıyor.</p>
+      <div class="stores">
+        <a href="https://honorfitapp.com/get/?c=blog-android-blocker-tr">HonorFit'i ücretsiz indir</a>
+      </div>
+    </div>
+
+    <h2>Okumaya devam et</h2>
+    <div class="readnext">
+      <a href="../ios-screen-time-api-guide/">Screen Time API'si: belgelerin söylemedikleri &rarr;</a>
+      <a href="../screen-time-api-wishlist/">Screen Time API'sinde Apple'ın düzeltmesini istediğim 3 şey &rarr;</a>
+      <a href="../../../app-blocker-without-camera/">Kamerasız ve yapay zekâsız bir uygulama engelleyici (İngilizce) &rarr;</a>
+      <a href="../">Tüm yazılar &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">Ana sayfa</a>
+    <a href="../">Blog</a>
+    <a href="../../../support/">Destek</a>
+    <a href="../../../privacy/">Gizlilik Politikası</a>
+    <span class="langs"><a href="../../../blog/android-app-blocker-without-accessibility-service/" hreflang="en" lang="en">English</a><a href="../../../es/blog/android-app-blocker-without-accessibility-service/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/android-app-blocker-without-accessibility-service/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/android-app-blocker-without-accessibility-service/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/android-app-blocker-without-accessibility-service/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/android-app-blocker-without-accessibility-service/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/android-app-blocker-without-accessibility-service/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/android-app-blocker-without-accessibility-service/" hreflang="pl" lang="pl">Polski</a><a href="./" hreflang="tr" lang="tr" aria-current="page">Türkçe</a><a href="../../../id/blog/android-app-blocker-without-accessibility-service/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/android-app-blocker-without-accessibility-service/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../../th/blog/android-app-blocker-without-accessibility-service/" hreflang="th" lang="th">ไทย</a><a href="../../../ja/blog/android-app-blocker-without-accessibility-service/" hreflang="ja" lang="ja">日本語</a><a href="../../../ko/blog/android-app-blocker-without-accessibility-service/" hreflang="ko" lang="ko">한국어</a><a href="../../../zh-hant/blog/android-app-blocker-without-accessibility-service/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
