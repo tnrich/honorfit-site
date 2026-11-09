@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Partner Program — HonorFit Blocker</title>
+  <meta name="description" content="Share HonorFit with your own code: your audience gets 20% off Lifetime Pro and you get 50% of every sale.">
+  <link rel="icon" href="../img/favicon.png">
+  <link rel="canonical" href="https://honorfitapp.com/partners/">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../img/icon.png" alt="">
+    <a class="brand" href="../">HonorFit Blocker</a>
+    <a class="link" href="../blog/">Blog</a>
+    <a class="link" href="../support/">Support</a>
+    <a class="link" href="../privacy/">Privacy</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>Partner Program</h1>
+    <p class="meta">Your audience gets 20% off. You get half of every sale.</p>
+
+    <p>Hey y'all, I'm Thomas. I built HonorFit, the app blocker that makes you earn your scroll time with pushups (honor system, no camera). If you make stuff about fitness, focus, studying or screen time and you think your people would dig it, I'd love to split the money with you.</p>
+
+    <h2>How it works</h2>
+    <ul>
+      <li>You get your own code, like <strong>ALEX20</strong>.</li>
+      <li>Your audience installs HonorFit, opens <strong>Pro</strong>, taps <strong>"Have a partner code?"</strong> and enters it. Lifetime Pro drops from $19.99 to <strong>$15.99</strong> (local prices vary by country).</li>
+      <li>You get <strong>50% of what I actually receive</strong> for every Lifetime purchase made with your code, on iPhone and Android.</li>
+    </ul>
+    <p>The app is free to use (blocking, workouts and stats never cost anything), so your audience can try it before buying anything.</p>
+
+    <h2>What you earn</h2>
+    <p>Apple and Google keep their cut (15–30%) and some countries add sales tax, so a $15.99 sale in the US pays you about <strong>$5.60 to $6.80</strong>. Every sale counts, forever, as long as you're in the program.</p>
+
+    <div class="callout">
+      <p><strong>Want in?</strong> Tell me a bit about where you post. I read every one and reply by email.</p>
+
+      <form id="apply" class="contact-form" action="https://formsubmit.co/cf8f572a7127778b614caed75050af33" method="POST">
+        <div class="row">
+          <label><span>Name</span>
+            <input type="text" name="name" autocomplete="name" required>
+          </label>
+          <label><span>Your email</span>
+            <input type="email" name="email" autocomplete="email" required>
+          </label>
+        </div>
+        <div class="row">
+          <label><span>Where you post</span>
+            <input type="text" name="channel" placeholder="YouTube, TikTok, newsletter… (link)" required>
+          </label>
+          <label><span>Code you'd like <span class="opt">(optional)</span></span>
+            <input type="text" name="code" placeholder="e.g. ALEX20" maxlength="20">
+          </label>
+        </div>
+        <label><span>Anything else? <span class="opt">(optional)</span></span>
+          <textarea name="message" rows="4" placeholder="Audience size, what you make, how you'd talk about HonorFit"></textarea>
+        </label>
+        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="_subject" value="HonorFit partner application">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://honorfitapp.com/partners/?sent=1#apply">
+        <button class="btn" type="submit">Apply</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+
+    <h2 id="terms">Program terms</h2>
+    <p class="meta">Last updated: November 9, 2026</p>
+    <ul>
+      <li><strong>Commission.</strong> 50% of the net proceeds from each HonorFit Pro Lifetime purchase made with your code. Net proceeds are what Apple or Google pays out after their commission, taxes they collect, and refunds, as shown in their monthly sales reports. Monthly subscriptions and purchases made without your code don't count.</li>
+      <li><strong>Payouts.</strong> Monthly, by PayPal or Wise, by the end of the month after the sale (Apple and Google publish their reports a few days into each month). Balances under $10 roll over to the next month. Refunds that come in later are taken off a later payout.</li>
+      <li><strong>Disclose it.</strong> Say clearly that you earn money when people use your code (for example "#ad" or "I get a cut if you use my code"), as the FTC and similar rules elsewhere require.</li>
+      <li><strong>Keep it honest.</strong> No spam, no fake reviews, no coupon or deal-aggregator sites, no paid search ads on the HonorFit name, and no buying with your own code. Don't claim the app verifies exercise or has health benefits it doesn't promise.</li>
+      <li><strong>Taxes.</strong> Your earnings are your income to report. Before the first payout I'll ask for a W-9 (US) or W-8BEN (outside the US).</li>
+      <li><strong>Ending or changing.</strong> Either of us can end this at any time; commission earned before then still gets paid. I'll give 30 days' notice by email before changing these terms.</li>
+    </ul>
+    <p>Questions? Use the form above or the <a href="../support/">support page</a>.</p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../">Home</a>
+    <a href="../support/">Support</a>
+    <a href="../privacy/">Privacy</a>
+    <a href="../terms/">Terms</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var form = document.getElementById('apply');
+  var status = form.querySelector('.form-status');
+  var button = form.querySelector('button');
+  var thanks = "Thanks! Got it. I'll reply by email.";
+  if (location.search.indexOf('sent=1') !== -1) status.textContent = thanks;
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    button.disabled = true;
+    status.className = 'form-status';
+    status.textContent = 'Sending…';
+    fetch(form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/'), {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: new FormData(form)
+    })
+      .then(function (r) { return r.json().then(function (j) { if (!r.ok || String(j.success) !== 'true') throw j; }); })
+      .then(function () {
+        form.reset();
+        status.textContent = thanks;
+      })
+      .catch(function () {
+        status.className = 'form-status error';
+        status.textContent = "That didn't go through. Try again, or use the support page.";
+      })
+      .then(function () { button.disabled = false; });
+  });
+})();
+</script>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

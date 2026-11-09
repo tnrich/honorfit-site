@@ -1531,7 +1531,8 @@
   </url>
   <url><loc>https://honorfitapp.com/support/</loc><lastmod>2026-10-19</lastmod><priority>0.5</priority></url>
   <url><loc>https://honorfitapp.com/privacy/</loc><lastmod>2026-10-22</lastmod><priority>0.3</priority></url>
-  <url><loc>https://honorfitapp.com/terms/</loc><lastmod>2026-09-16</lastmod><priority>0.3</priority></url>
+  <url><loc>https://honorfitapp.com/terms/</loc><lastmod>2026-11-09</lastmod><priority>0.3</priority></url>
+  <url><loc>https://honorfitapp.com/partners/</loc><lastmod>2026-11-09</lastmod><priority>0.5</priority></url>
   <url>
     <loc>https://honorfitapp.com/blog/screen-time-api-wishlist/</loc><lastmod>2026-10-12</lastmod><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/screen-time-api-wishlist/"/>
