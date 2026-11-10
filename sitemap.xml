@@ -1532,7 +1532,291 @@
   <url><loc>https://honorfitapp.com/support/</loc><lastmod>2026-10-19</lastmod><priority>0.5</priority></url>
   <url><loc>https://honorfitapp.com/privacy/</loc><lastmod>2026-10-22</lastmod><priority>0.3</priority></url>
   <url><loc>https://honorfitapp.com/terms/</loc><lastmod>2026-11-09</lastmod><priority>0.3</priority></url>
-  <url><loc>https://honorfitapp.com/partners/</loc><lastmod>2026-11-09</lastmod><priority>0.5</priority></url>
+  <url>
+    <loc>https://honorfitapp.com/partners/</loc><lastmod>2026-11-10</lastmod><priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/partners/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/partners/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/partners/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/partners/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/partners/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/partners/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/partners/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/partners/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/partners/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/es/partners/</loc><lastmod>2026-11-10</lastmod><priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/partners/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/partners/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/partners/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/partners/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/partners/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/partners/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/partners/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/partners/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/partners/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/pt-br/partners/</loc><lastmod>2026-11-10</lastmod><priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/partners/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/partners/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/partners/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/partners/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/partners/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/partners/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/partners/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/partners/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/partners/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/de/partners/</loc><lastmod>2026-11-10</lastmod><priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/partners/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/partners/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/partners/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/partners/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/partners/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/partners/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/partners/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/partners/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/partners/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/fr/partners/</loc><lastmod>2026-11-10</lastmod><priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/partners/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/partners/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/partners/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/partners/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/partners/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/partners/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/partners/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/partners/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/partners/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/it/partners/</loc><lastmod>2026-11-10</lastmod><priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/partners/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/partners/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/partners/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/partners/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/partners/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/partners/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/partners/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/partners/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/partners/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/nl/partners/</loc><lastmod>2026-11-10</lastmod><priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/partners/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/partners/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/partners/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/partners/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/partners/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/partners/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/partners/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/partners/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/partners/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/pl/partners/</loc><lastmod>2026-11-10</lastmod><priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/partners/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/partners/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/partners/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/partners/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/partners/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/partners/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/partners/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/partners/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/partners/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/tr/partners/</loc><lastmod>2026-11-10</lastmod><priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/partners/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/partners/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/partners/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/partners/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/partners/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/partners/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/partners/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/partners/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/partners/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/id/partners/</loc><lastmod>2026-11-10</lastmod><priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/partners/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/partners/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/partners/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/partners/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/partners/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/partners/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/partners/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/partners/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/partners/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/vi/partners/</loc><lastmod>2026-11-10</lastmod><priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/partners/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/partners/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/partners/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/partners/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/partners/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/partners/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/partners/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/partners/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/partners/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/th/partners/</loc><lastmod>2026-11-10</lastmod><priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/partners/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/partners/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/partners/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/partners/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/partners/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/partners/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/partners/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/partners/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/partners/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/ja/partners/</loc><lastmod>2026-11-10</lastmod><priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/partners/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/partners/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/partners/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/partners/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/partners/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/partners/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/partners/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/partners/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/partners/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/ko/partners/</loc><lastmod>2026-11-10</lastmod><priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/partners/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/partners/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/partners/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/partners/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/partners/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/partners/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/partners/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/partners/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/partners/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/zh-hant/partners/</loc><lastmod>2026-11-10</lastmod><priority>0.4</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/partners/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/partners/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/partners/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/partners/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/partners/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/partners/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/partners/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/partners/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/partners/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/partners/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/partners/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/partners/"/>
+  </url>
   <url>
     <loc>https://honorfitapp.com/blog/screen-time-api-wishlist/</loc><lastmod>2026-10-12</lastmod><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/screen-time-api-wishlist/"/>
