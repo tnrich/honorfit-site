@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>歩数でスクリーンタイムを稼げるように：ヘルスケアとヘルスコネクトの歩数同期｜HonorFit</title>
+  <meta name="description" content="HonorFitが、Appleのヘルスケアやヘルスコネクトから歩数を読み取って、アプリ時間に変えられるようになりました。初期設定では1,000歩で3分。オンにする方法、レートの決め方、歩数が0になるときの直し方。">
+  <link rel="canonical" href="https://honorfitapp.com/ja/blog/steps-earn-screen-time/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/steps-earn-screen-time/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/steps-earn-screen-time/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/steps-earn-screen-time/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/steps-earn-screen-time/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/steps-earn-screen-time/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/steps-earn-screen-time/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/steps-earn-screen-time/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/steps-earn-screen-time/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/steps-earn-screen-time/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/steps-earn-screen-time/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/steps-earn-screen-time/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/steps-earn-screen-time/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/steps-earn-screen-time/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/steps-earn-screen-time/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/steps-earn-screen-time/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/steps-earn-screen-time/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/ja/blog/steps-earn-screen-time/">
+  <meta property="og:title" content="歩数でスクリーンタイムを稼げるようになりました">
+  <meta property="og:description" content="HonorFitが、ヘルスケアやヘルスコネクトの歩数をアプリ時間に変えてくれるようになりました。無料で、データはスマホの外に出ません。">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-11-17">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="歩数でスクリーンタイムを稼げるようになりました">
+  <meta name="twitter:description" content="HonorFitが、ヘルスケアやヘルスコネクトの歩数をアプリ時間に変えてくれるようになりました。無料で、データはスマホの外に出ません。">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <meta name="apple-itunes-app" content="app-id=6802871620">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
+    .ask p { color: var(--text-dim); margin: 0; }
+    .ask strong { color: var(--text); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "歩数でスクリーンタイムを稼げるようになりました",
+    "description": "HonorFitが、Appleのヘルスケアやヘルスコネクトから歩数を読み取って、アプリ時間に変えられるようになりました。オンにする方法、レートの決め方、歩数が0になるときの直し方。",
+    "url": "https://honorfitapp.com/ja/blog/steps-earn-screen-time/",
+    "mainEntityOfPage": "https://honorfitapp.com/ja/blog/steps-earn-screen-time/",
+    "datePublished": "2026-11-17",
+    "dateModified": "2026-11-17",
+    "inLanguage": "ja",
+    "keywords": "歩数, 歩数計, ヘルスケア, Apple Health, ヘルスコネクト, Health Connect, ウォーキング, スクリーンタイム, アプリブロッカー, HonorFit",
+    "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+    "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">ブログ</a>
+    <a class="link" href="../../../support/">サポート</a>
+    <a class="link" href="../../../privacy/">プライバシー</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>歩数でスクリーンタイムを稼げるようになりました</h1>
+    <p class="meta">ヘルスケアとヘルスコネクトの歩数同期。HonorFit 1.18.0の新機能です。Thomas Willheim &middot; 2026年11月17日</p>
+
+    <p>どうも！HonorFitの最新機能について、手短に紹介させてください。きっかけは、ユーザーさんからもらった1通のメールです。HonorFitは、腕立て伏せ（スクワットでもケーゲル体操でも、好きな運動でOK）をして、自己申告でスクリーンタイムを稼ぐアプリブロッカーです。カメラは使いません。</p>
+    <p>そのユーザーさんにこう聞かれました。「スマホはもう歩数を数えてるのに、なんでそれで時間を稼げないの？」いい質問です。というわけで、稼げるようにしました。HonorFitは、iPhoneなら<strong>ヘルスケア</strong>（Apple Health）、Androidなら<strong>ヘルスコネクト</strong>から歩数を読み取って、自動でアプリ時間に変えてくれます。</p>
+
+    <h2 id="setup">オンにする方法</h2>
+    <ol>
+      <li>HonorFitを<strong>1.18.0</strong>以降にアップデートします。</li>
+      <li>ホーム画面の<strong>歯車</strong>をタップして、<strong>歩数</strong>カードを探します。</li>
+      <li><strong>ヘルスケアの歩数を同期</strong>（iPhone）または<strong>ヘルスコネクトの歩数を同期</strong>（Android）をオンにします。</li>
+      <li>スマホに聞かれたら<strong>歩数</strong>を許可します。HonorFitがお願いするのは歩数の読み取りだけで、ほかには何もありません。</li>
+    </ol>
+    <p>これで完了です。今日すでに歩いた分もすぐにカウントされて、スイッチの下に「今日の同期」と歩数が表示されます。</p>
+    <p><strong>Androidの場合</strong>はヘルスコネクトが必要です。Android 14からは最初から入っています。それより古いスマホでは、HonorFitがGoogle Playに案内するので、そこから入手してください。それから、Google Fit、Samsung Health、Fitbitのように、ヘルスコネクトに歩数を記録してくれるアプリも必要です。スマホがどこかで歩数を数えていても、それを共有しているとは限らないんです。</p>
+
+    <h2 id="rate">歩数でどれくらいの時間が稼げる？</h2>
+    <p>初期設定では<strong>1,000歩ごとに3分を獲得</strong>します。この値はスイッチのすぐ下で変えられて、1秒未満から好きなだけ大きな値まで設定できます。</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>歩数</th><th>1,000歩で3分（初期設定）</th><th>1,000歩で5分</th></tr></thead>
+        <tbody>
+          <tr><td>2,000歩（20分くらいの散歩）</td><td>6分</td><td>10分</td></tr>
+          <tr><td>5,000歩</td><td>15分</td><td>25分</td></tr>
+          <tr><td>10,000歩</td><td>30分</td><td>50分</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>僕ならこう決めます。のんびり歩くと、だいたい1分に100歩くらいです。時間制の<strong>ウォーキング</strong>を初期設定の「1分ごとに30秒」で使っているなら、1,000歩で5分くらいにしておくと、歩数で稼ぐ時間と、ウォーキングを記録して稼ぐ時間がだいたい同じになります。もともとよく歩く人（犬の散歩、通勤、立ち仕事など）は低めにしておきましょう。そうしないと、毎日タダでアプリのロックが解除されてしまいます。</p>
+
+    <h2 id="when">歩数はいつ反映される？</h2>
+    <p>HonorFitを開くたびです。ブロック中のアプリの時間がなくなって、ロック画面からHonorFitを開いたときも含みます。その日の合計歩数を読み取り、前回から増えた分を貯金して、ホーム画面に「👟 5,000歩で+15m」のように小さく表示します。</p>
+    <p>なので、散歩に行ってからHonorFitを開けば、時間が貯まっています。同じ歩数で二重に時間がもらえることはありません。前回の同期が昨日だった場合は、昨日の遅い時間に歩いた分を、まず昨日の分として加算します。「深夜0時にリセット」をオンにしている場合、その遅い時間の歩数は昨日の履歴には残りますが、今日の時間には加算されません。昨日の残高はすでにリセットされているためです。</p>
+    <p>HonorFitはバックグラウンドでは歩数を読み取りません。読み取るのはアプリを開いたときだけです。歩数の記録は、<strong>履歴</strong>の中にある専用の<strong>歩数</strong>ビューで見られます。</p>
+
+    <h2 id="free">無料なの？</h2>
+    <p>はい、歩数の同期は無料で、歩数に上限もありません。関係してくる無料版の制限は、いつものひとつだけです。<strong>無料版で貯金できるアプリ時間は最大2時間</strong>まで。貯金がいっぱいのときは、それを超えた分は繰り越されません。Pro（米国では月額3ドルまたは買い切り19.99ドル）なら、無制限に貯金できます。</p>
+    <p>細かいことをあと2つ。ハードモードと体調不良モードで変わるのは回数の価値だけで、歩数は変わりません。それから、歩数は連続記録のためのワークアウトにはカウントされません。連続記録を伸ばしたいなら、回数をこなしましょう。</p>
+
+    <div class="ask">
+      <p><strong>自己申告制について、ひとつだけ：</strong>時間制のウォーキングを記録<em>して</em>、歩数も同期すると、同じ散歩で二重に時間をもらうことになります。誰にも止められませんが、どちらか一方にしてください。僕のおすすめは、普段歩き回る分は歩数に任せて、ちゃんとしたワークアウトだけをワークアウトとして記録することです。</p>
+    </div>
+
+    <h2 id="zero">歩数が0のまま？</h2>
+    <ul>
+      <li><strong>iPhone：</strong>iOSは、歩数の読み取りを拒否されたかどうかをアプリに一切教えてくれません。ただ0を返すだけです。<strong>ヘルスケア</strong>アプリを開いてプロフィール写真をタップし、<strong>App &rarr; HonorFit</strong>と進んで<strong>歩数</strong>をオンにしてください。</li>
+      <li><strong>Android：</strong>ヘルスコネクトを開いて（歩数が見つからないときは、HonorFitの歩数カードに<strong>ヘルスコネクトを開く</strong>ボタンが表示されます）、HonorFitが歩数を読み取れるようになっているか確認してください。次に、Google Fit、Samsung Health、Fitbitなどの歩数アプリが、ヘルスコネクトに歩数を書き込んでいるか確認してください。</li>
+      <li>それからHonorFitに戻ってください。設定画面に戻るとすぐに、もう一度確認します。</li>
+    </ul>
+
+    <h2 id="privacy">健康データは大丈夫？</h2>
+    <p>HonorFitが読み取るのはひとつだけ、歩数です。ヘルスケアやヘルスコネクトに何かを書き込むことはありませんし、その数字がスマホの外に出ることもありません。アカウントも、送り先になるサーバーもないんです。詳しくは<a href="../../../privacy/#health">プライバシーポリシー</a>（英語）に書いています。</p>
+    <p>こういうアイデアがあれば、<a href="../../../support/">サポートページ</a>（英語）から送ってください。僕の受信箱に直接届きます。この機能も、誰かが連絡をくれたからこそ生まれました。</p>
+
+    <div class="callout">
+      <p><strong>HonorFit Blocker</strong>は、iPhoneとAndroid向けの無料アプリブロッカーです。腕立て伏せや好きなエクササイズ、そして歩数でスクリーンタイムを稼げます。自己申告制で、カメラは使わず、データはスマホの外に出ません。</p>
+      <div class="stores">
+        <a href="https://honorfitapp.com/get/?c=blog-steps-ja">HonorFitを無料で入手</a>
+      </div>
+    </div>
+
+    <h2>あわせて読みたい</h2>
+    <div class="readnext">
+      <a href="../customize-exercises/">HonorFitのエクササイズをカスタマイズする方法 &rarr;</a>
+      <a href="../no-pushups-low-impact-exercises/">腕立て伏せができない？体にやさしいエクササイズ &rarr;</a>
+      <a href="../../how-to-stop-doomscrolling/">ダラダラスクロールをやめる方法 &rarr;</a>
+      <a href="../">すべての記事 &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">ホーム</a>
+    <a href="../">ブログ</a>
+    <a href="../../../support/">サポート</a>
+    <a href="../../../privacy/">プライバシーポリシー</a>
+    <span class="langs"><a href="../../../blog/steps-earn-screen-time/" hreflang="en" lang="en">English</a><a href="../../../es/blog/steps-earn-screen-time/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/steps-earn-screen-time/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/steps-earn-screen-time/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/steps-earn-screen-time/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/steps-earn-screen-time/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/steps-earn-screen-time/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/steps-earn-screen-time/" hreflang="pl" lang="pl">Polski</a><a href="../../../tr/blog/steps-earn-screen-time/" hreflang="tr" lang="tr">Türkçe</a><a href="../../../id/blog/steps-earn-screen-time/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/steps-earn-screen-time/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../../th/blog/steps-earn-screen-time/" hreflang="th" lang="th">ไทย</a><a href="./" hreflang="ja" lang="ja" aria-current="page">日本語</a><a href="../../../ko/blog/steps-earn-screen-time/" hreflang="ko" lang="ko">한국어</a><a href="../../../zh-hant/blog/steps-earn-screen-time/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
