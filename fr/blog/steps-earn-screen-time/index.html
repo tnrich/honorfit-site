@@ -40,6 +40,9 @@
   <link rel="stylesheet" href="../../../style.css">
   <style>
     .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    figure.single { max-width: 340px; margin: 18px auto 22px; }
+    figure.single img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    figure.single figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; text-align: center; }
     .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
     .ask p { color: var(--text-dim); margin: 0; }
     .ask strong { color: var(--text); }
@@ -89,6 +92,10 @@
       <li>Autorise <strong>Pas</strong> quand ton téléphone te le demande. HonorFit demande seulement à lire tes pas. Rien d’autre.</li>
     </ol>
     <p>C’est tout. Les pas que tu as déjà faits aujourd’hui comptent tout de suite, et tu verras « Synchronisés aujourd’hui » avec ton nombre de pas sous l’interrupteur.</p>
+    <figure class="single">
+      <img src="../../../img/blog/fr/honorfit-steps-settings.webp" alt="La carte Pas dans les Réglages de HonorFit : synchro des pas depuis Santé activée, 3 minutes pour 1 000 pas, 5 000 pas synchronisés aujourd’hui" width="660" height="446" loading="lazy">
+      <figcaption>La carte Pas dans les Réglages sur iPhone, activée.</figcaption>
+    </figure>
     <p><strong>Sur Android</strong>, il te faut Health Connect, intégré au système à partir d’Android 14. Sur les téléphones plus anciens, HonorFit t’envoie sur Google Play pour l’installer. Il te faut aussi une appli qui enregistre tes pas dans Health Connect, comme Google Fit, Samsung Health ou Fitbit. Ce n’est pas parce que ton téléphone compte tes pas quelque part qu’il les partage forcément.</p>
 
     <h2 id="rate">Combien de temps rapportent les pas ?</h2>
@@ -107,6 +114,10 @@
 
     <h2 id="when">Quand est-ce que les pas apparaissent ?</h2>
     <p>Chaque fois que tu ouvres HonorFit. Y compris quand tu l’ouvres depuis l’écran de blocage, une fois que le temps d’une appli bloquée est écoulé. Il lit ton total de la journée, met en banque les pas faits depuis la dernière fois et affiche un petit « 👟 +15m pour 5 000 pas » sur l’écran d’accueil.</p>
+    <figure class="single">
+      <img src="../../../img/blog/fr/honorfit-steps-home.webp" alt="Écran d’accueil de HonorFit : 35 minutes en réserve, avec une bulle « +15 minutes pour 5 000 pas »" width="660" height="306" loading="lazy">
+      <figcaption>Ouvre HonorFit après une marche, et la bulle te dit ce que tes pas t’ont rapporté.</figcaption>
+    </figure>
     <p>Donc le bon réflexe : va marcher, puis ouvre HonorFit, et ton temps est là. Il ne te paie jamais deux fois pour les mêmes pas. Si la dernière synchro date d’hier, les pas que tu as faits tard hier sont d’abord crédités sur hier. Si « Remise à zéro à minuit » est activé, ces pas tardifs apparaissent bien dans l’historique d’hier, mais ils n’ajoutent pas de temps aujourd’hui, puisque le solde d’hier a déjà été remis à zéro.</p>
     <p>HonorFit ne lit pas tes pas en arrière-plan. Il les lit seulement quand tu l’ouvres. Ton historique de pas apparaît dans <strong>Historique</strong>, dans sa propre vue <strong>Pas</strong>.</p>
 

@@ -40,6 +40,9 @@
   <link rel="stylesheet" href="../../../style.css">
   <style>
     .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    figure.single { max-width: 340px; margin: 18px auto 22px; }
+    figure.single img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    figure.single figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; text-align: center; }
     .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
     .ask p { color: var(--text-dim); margin: 0; }
     .ask strong { color: var(--text); }
@@ -89,6 +92,10 @@
       <li>Cho phép <strong>Bước</strong> khi điện thoại hỏi. HonorFit chỉ xin quyền đọc số bước. Ngoài ra không gì khác.</li>
     </ol>
     <p>Vậy là xong. Số bước bạn đã đi hôm nay được tính ngay, và bạn sẽ thấy dòng &ldquo;Đã đồng bộ hôm nay&rdquo; kèm số bước ngay dưới công tắc.</p>
+    <figure class="single">
+      <img src="../../../img/blog/vi/honorfit-steps-settings.webp" alt="Thẻ Bước chân trong Cài đặt của HonorFit: bật đồng bộ bước từ Sức khỏe, 3 phút cho mỗi 1.000 bước, hôm nay đã đồng bộ 5.000 bước" width="660" height="446" loading="lazy">
+      <figcaption>Thẻ Bước chân trong Cài đặt trên iPhone, đang bật.</figcaption>
+    </figure>
     <p><strong>Trên Android</strong> bạn cần Health Connect, có sẵn trong hệ điều hành từ Android 14. Trên máy cũ hơn, HonorFit sẽ đưa bạn sang Google Play để tải về. Bạn cũng cần một ứng dụng ghi số bước vào Health Connect, như Google Fit, Samsung Health hay Fitbit. Điện thoại có đếm bước ở đâu đó chưa chắc đã chia sẻ số bước đó.</p>
 
     <h2 id="rate">Bước chân đổi được bao nhiêu thời gian?</h2>
@@ -107,6 +114,10 @@
 
     <h2 id="when">Khi nào số bước được cộng?</h2>
     <p>Mỗi lần bạn mở HonorFit. Kể cả khi bạn mở nó từ màn hình khóa lúc một app bị chặn đã hết thời gian. App đọc tổng số bước trong ngày, cộng phần bước bạn đi được kể từ lần trước, và hiện một dòng nhỏ &ldquo;👟 +15m từ 5.000 bước&rdquo; ở màn hình chính.</p>
+    <figure class="single">
+      <img src="../../../img/blog/vi/honorfit-steps-home.webp" alt="Màn hình chính của HonorFit: đã tích 35 phút, kèm bong bóng báo +15 phút từ 5.000 bước" width="660" height="306" loading="lazy">
+      <figcaption>Mở HonorFit sau khi đi bộ, bong bóng sẽ cho bạn biết số bước đã kiếm được bao nhiêu.</figcaption>
+    </figure>
     <p>Vậy nên cách dùng là: đi bộ một vòng, rồi mở HonorFit, và thời gian đã nằm sẵn đó. Cùng một số bước sẽ không bao giờ được trả hai lần. Nếu lần đồng bộ trước là hôm qua, những bước bạn đi tối muộn hôm qua sẽ được tính cho hôm qua trước. Nếu bạn bật &ldquo;Đặt lại lúc nửa đêm&rdquo;, những bước đi muộn đó vẫn hiện trong lịch sử hôm qua, nhưng không cộng thêm thời gian cho hôm nay, vì số dư hôm qua đã được đặt lại rồi.</p>
     <p>HonorFit không đọc số bước khi chạy nền. App chỉ đọc khi bạn mở nó. Lịch sử bước chân của bạn nằm trong <strong>Lịch sử</strong>, với một chế độ xem <strong>Bước</strong> riêng.</p>
 

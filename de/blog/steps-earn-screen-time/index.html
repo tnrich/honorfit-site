@@ -40,6 +40,9 @@
   <link rel="stylesheet" href="../../../style.css">
   <style>
     .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    figure.single { max-width: 340px; margin: 18px auto 22px; }
+    figure.single img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    figure.single figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; text-align: center; }
     .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
     .ask p { color: var(--text-dim); margin: 0; }
     .ask strong { color: var(--text); }
@@ -89,6 +92,10 @@
       <li>Erlaube <strong>Schritte</strong>, wenn dein Handy fragt. HonorFit fragt nur, ob es Schritte lesen darf. Sonst nichts.</li>
     </ol>
     <p>Das war’s. Die Schritte, die du heute schon gemacht hast, zählen sofort, und unter dem Schalter siehst du „Heute synchronisiert“ mit deiner Schrittzahl.</p>
+    <figure class="single">
+      <img src="../../../img/blog/de/honorfit-steps-settings.webp" alt="Die Karte Schritte in den HonorFit-Einstellungen: Schritt-Sync aus Apple Health an, 3 Minuten pro 1.000 Schritte, heute 5.000 Schritte synchronisiert" width="660" height="446" loading="lazy">
+      <figcaption>Die Karte Schritte in den Einstellungen am iPhone, eingeschaltet.</figcaption>
+    </figure>
     <p><strong>Auf Android</strong> brauchst du Health Connect, das ab Android 14 eingebaut ist. Auf älteren Handys schickt dich HonorFit zu Google Play, damit du es installieren kannst. Außerdem brauchst du etwas, das Schritte in Health Connect einträgt, zum Beispiel Google Fit, Samsung Health oder Fitbit. Nur weil dein Handy irgendwo Schritte zählt, heißt das nicht immer, dass es sie auch teilt.</p>
 
     <h2 id="rate">Wie viel Zeit bringen Schritte?</h2>
@@ -107,6 +114,10 @@
 
     <h2 id="when">Wann tauchen die Schritte auf?</h2>
     <p>Jedes Mal, wenn du HonorFit öffnest. Auch, wenn du es vom Sperrbildschirm aus öffnest, weil einer gesperrten App die Zeit ausgegangen ist. HonorFit liest deine Tagessumme, schreibt dir die Schritte seit dem letzten Mal gut und zeigt auf dem Startbildschirm ein kleines „👟 +15m für 5.000 Schritte“.</p>
+    <figure class="single">
+      <img src="../../../img/blog/de/honorfit-steps-home.webp" alt="HonorFit-Startbildschirm: 35 Minuten angespart, mit einer Blase „+15 Minuten für 5.000 Schritte“" width="660" height="306" loading="lazy">
+      <figcaption>Öffne HonorFit nach einem Spaziergang, und die Blase sagt dir, was deine Schritte gebracht haben.</figcaption>
+    </figure>
     <p>Der Trick ist also: Geh spazieren, öffne danach HonorFit, und deine Zeit ist da. Für dieselben Schritte bekommst du nie zweimal Zeit. Wenn die letzte Synchronisierung gestern war, werden die Schritte von gestern Abend zuerst noch gestern gutgeschrieben. Ist „Um Mitternacht zurücksetzen“ an, tauchen diese späten Schritte zwar in der Statistik von gestern auf, bringen heute aber keine Zeit, weil das Guthaben von gestern schon zurückgesetzt ist.</p>
     <p>HonorFit liest deine Schritte nicht im Hintergrund, sondern nur, wenn du die App öffnest. Deinen Schrittverlauf findest du unter <strong>Verlauf</strong> in einer eigenen Ansicht <strong>Schritte</strong>.</p>
 

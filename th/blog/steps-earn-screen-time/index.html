@@ -40,6 +40,9 @@
   <link rel="stylesheet" href="../../../style.css">
   <style>
     .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    figure.single { max-width: 340px; margin: 18px auto 22px; }
+    figure.single img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    figure.single figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; text-align: center; }
     .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
     .ask p { color: var(--text-dim); margin: 0; }
     .ask strong { color: var(--text); }
@@ -89,6 +92,10 @@
       <li>อนุญาต <strong>ก้าว</strong> ตอนที่มือถือถาม HonorFit ขอแค่สิทธิ์อ่านจำนวนก้าว ไม่ขออย่างอื่นเลย</li>
     </ol>
     <p>แค่นั้นเอง ก้าวที่คุณเดินไปแล้ววันนี้จะนับทันที และคุณจะเห็น &ldquo;ซิงค์วันนี้&rdquo; พร้อมจำนวนก้าวอยู่ใต้สวิตช์</p>
+    <figure class="single">
+      <img src="../../../img/blog/th/honorfit-steps-settings.webp" alt="การ์ดจำนวนก้าวในการตั้งค่าของ HonorFit: เปิดซิงค์ก้าวจากแอปสุขภาพ 3 นาทีต่อ 1,000 ก้าว และซิงค์วันนี้แล้ว 5,000 ก้าว" width="660" height="446" loading="lazy">
+      <figcaption>การ์ดจำนวนก้าวในการตั้งค่าบน iPhone ที่เปิดอยู่</figcaption>
+    </figure>
     <p><strong>บน Android</strong> ต้องมี Health Connect ซึ่งติดมากับเครื่องตั้งแต่ Android 14 ถ้าเป็นมือถือรุ่นเก่ากว่านั้น HonorFit จะพาคุณไปโหลดที่ Google Play และคุณต้องมีแอปที่บันทึกก้าวลง Health Connect ด้วย เช่น Google Fit, Samsung Health หรือ Fitbit มือถือนับก้าวอยู่ที่ไหนสักที่ ไม่ได้แปลว่ามันจะแชร์ข้อมูลนั้นเสมอไป</p>
 
     <h2 id="rate">ก้าวเดินแลกเวลาได้เท่าไหร่?</h2>
@@ -107,6 +114,10 @@
 
     <h2 id="when">ก้าวจะขึ้นเมื่อไหร่?</h2>
     <p>ทุกครั้งที่คุณเปิด HonorFit รวมถึงตอนที่เปิดจากหน้าจอล็อกเมื่อแอปที่ถูกบล็อกหมดเวลา แอปจะอ่านยอดก้าวทั้งวัน เก็บก้าวที่เดินเพิ่มตั้งแต่ครั้งล่าสุด แล้วแสดง &ldquo;👟 +15m จาก 5,000 ก้าว&rdquo; เล็กๆ ที่หน้าหลัก</p>
+    <figure class="single">
+      <img src="../../../img/blog/th/honorfit-steps-home.webp" alt="หน้าหลักของ HonorFit: สะสมไว้ 35 นาที พร้อมบับเบิลบอกว่า +15 นาทีจาก 5,000 ก้าว" width="660" height="306" loading="lazy">
+      <figcaption>เปิด HonorFit หลังเดินเสร็จ แล้วบับเบิลจะบอกว่าก้าวของคุณได้เวลามาเท่าไร</figcaption>
+    </figure>
     <p>เพราะฉะนั้นเคล็ดลับคือ: ออกไปเดิน แล้วเปิด HonorFit เวลาของคุณก็จะอยู่ตรงนั้น ก้าวเดียวกันจะไม่ได้เวลาซ้ำสองรอบ ถ้าซิงค์ครั้งล่าสุดคือเมื่อวาน ก้าวที่คุณเดินตอนดึกๆ เมื่อวานจะถูกนับให้เมื่อวานก่อน ถ้าเปิด &ldquo;รีเซ็ตตอนเที่ยงคืน&rdquo; ไว้ ก้าวตอนดึกพวกนั้นจะยังแสดงในประวัติของเมื่อวาน แต่จะไม่เพิ่มเวลาให้วันนี้ เพราะยอดเวลาของเมื่อวานถูกรีเซ็ตไปแล้ว</p>
     <p>HonorFit ไม่อ่านจำนวนก้าวในเบื้องหลัง จะอ่านเฉพาะตอนที่คุณเปิดแอปเท่านั้น ประวัติก้าวเดินจะอยู่ใน <strong>ประวัติ</strong> ในมุมมอง <strong>ก้าว</strong> ของมันเอง</p>
 

@@ -40,6 +40,9 @@
   <link rel="stylesheet" href="../../../style.css">
   <style>
     .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    figure.single { max-width: 340px; margin: 18px auto 22px; }
+    figure.single img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    figure.single figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; text-align: center; }
     .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
     .ask p { color: var(--text-dim); margin: 0; }
     .ask strong { color: var(--text); }
@@ -89,6 +92,10 @@
       <li>手機詢問時，允許<strong>步數</strong>。HonorFit 只會要求讀取步數，其他什麼都不要。</li>
     </ol>
     <p>就這樣。你今天已經走的步數馬上就算數，開關下方會顯示「今天已同步」和你的步數。</p>
+    <figure class="single">
+      <img src="../../../img/blog/zh-hant/honorfit-steps-settings.webp" alt="HonorFit 設定裡的步數卡片：已開啟從「健康」同步步數，每 1,000 步 3 分鐘，今天已同步 5,000 步" width="660" height="446" loading="lazy">
+      <figcaption>iPhone 設定裡的步數卡片，已開啟。</figcaption>
+    </figure>
     <p><strong>Android 上</strong>需要 Health Connect，Android 14 起已經內建。比較舊的手機，HonorFit 會帶你到 Google Play 下載。你還需要有東西把步數記錄進 Health Connect，像是 Google Fit、Samsung Health 或 Fitbit。手機在某個地方算了步數，不代表它一定會把步數分享出來。</p>
 
     <h2 id="rate">步數可以換多少時間？</h2>
@@ -107,6 +114,10 @@
 
     <h2 id="when">步數什麼時候會出現？</h2>
     <p>每次你打開 HonorFit 的時候。包括被封鎖的 App 時間用完、你從鎖定畫面打開它的時候。它會讀取你今天的總步數，把上次之後走的步數存進去，然後在首頁顯示一個小小的「👟 5,000 步換得 +15m」。</p>
+    <figure class="single">
+      <img src="../../../img/blog/zh-hant/honorfit-steps-home.webp" alt="HonorFit 首頁：已存 35 分鐘，泡泡顯示 5,000 步換到 +15 分鐘" width="660" height="306" loading="lazy">
+      <figcaption>散步完打開 HonorFit，泡泡會告訴你步數換到多少時間。</figcaption>
+    </figure>
     <p>所以訣竅是：去散個步，然後打開 HonorFit，時間就在那裡了。同樣的步數絕對不會算兩次。如果上次同步是昨天，你昨天晚一點走的步數會先算到昨天。如果你開了「午夜重置」，這些深夜的步數還是會出現在昨天的紀錄裡，但不會加到今天的時間，因為昨天的餘額已經重置了。</p>
     <p>HonorFit 不會在背景讀取你的步數，只有在你打開它的時候才會讀。你的步數紀錄會出現在<strong>歷史紀錄</strong>裡，有自己的<strong>步數</strong>檢視。</p>
 

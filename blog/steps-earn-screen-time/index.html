@@ -40,6 +40,9 @@
   <link rel="stylesheet" href="../../style.css">
   <style>
     .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    figure.single { max-width: 340px; margin: 18px auto 22px; }
+    figure.single img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    figure.single figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; text-align: center; }
     .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
     .ask p { color: var(--text-dim); margin: 0; }
     .ask strong { color: var(--text); }
@@ -89,6 +92,10 @@
       <li>Allow <strong>Steps</strong> when your phone asks. HonorFit only asks to read steps. Nothing else.</li>
     </ol>
     <p>That's it. The steps you've already taken today count right away, and you'll see &ldquo;Synced today&rdquo; with your count under the switch.</p>
+    <figure class="single">
+      <img src="../../img/blog/honorfit-steps-settings.webp" alt="The Steps card in HonorFit's Settings: step sync from Apple Health switched on, 3 minutes per 1,000 steps, 5,000 steps synced today" width="660" height="446" loading="lazy">
+      <figcaption>The Steps card in Settings on iPhone, switched on.</figcaption>
+    </figure>
     <p><strong>On Android</strong> you need Health Connect, which is built in from Android 14. On older phones HonorFit sends you to Google Play to get it. You also need something that records steps into Health Connect, like Google Fit, Samsung Health or Fitbit. Your phone counting steps somewhere doesn't always mean it shares them.</p>
 
     <h2 id="rate">How much time do steps earn?</h2>
@@ -107,6 +114,10 @@
 
     <h2 id="when">When do steps show up?</h2>
     <p>Every time you open HonorFit. That includes opening it from the lock screen when a blocked app runs out of time. It reads your total for the day, banks the steps you took since the last time, and shows a little &ldquo;👟 +15m from 5,000 steps&rdquo; on the home screen.</p>
+    <figure class="single">
+      <img src="../../img/blog/honorfit-steps-home.webp" alt="HonorFit's home screen: 35 minutes banked, with a bubble saying +15 minutes from 5,000 steps" width="660" height="306" loading="lazy">
+      <figcaption>Open HonorFit after a walk and the bubble tells you what your steps earned.</figcaption>
+    </figure>
     <p>So the move is: go for a walk, then open HonorFit, and your time is there. It never pays you twice for the same steps. If the last sync was yesterday, the steps you took late yesterday get credited to yesterday first. With &ldquo;Reset at midnight&rdquo; on, those late steps still show up in yesterday's history, but they don't add time to today, because yesterday's balance has already been reset.</p>
     <p>HonorFit doesn't read your steps in the background. It only reads them when you open it. Your step history shows up in <strong>History</strong> under its own <strong>Steps</strong> view.</p>
 

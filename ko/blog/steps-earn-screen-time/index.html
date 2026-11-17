@@ -40,6 +40,9 @@
   <link rel="stylesheet" href="../../../style.css">
   <style>
     .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    figure.single { max-width: 340px; margin: 18px auto 22px; }
+    figure.single img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    figure.single figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; text-align: center; }
     .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
     .ask p { color: var(--text-dim); margin: 0; }
     .ask strong { color: var(--text); }
@@ -89,6 +92,10 @@
       <li>폰이 물어보면 <strong>걸음 수</strong>를 허용하세요. HonorFit은 걸음 수 읽기만 요청해요. 다른 건 없어요.</li>
     </ol>
     <p>이걸로 끝이에요. 오늘 이미 걸은 걸음도 바로 반영되고, 스위치 아래에 &lsquo;오늘 동기화&rsquo;와 걸음 수가 보여요.</p>
+    <figure class="single">
+      <img src="../../../img/blog/ko/honorfit-steps-settings.webp" alt="HonorFit 설정의 걸음 수 카드: 건강 앱 걸음 수 동기화 켜짐, 1,000걸음마다 3분, 오늘 5,000걸음 동기화됨" width="660" height="446" loading="lazy">
+      <figcaption>iPhone 설정의 걸음 수 카드, 켜진 상태.</figcaption>
+    </figure>
     <p><strong>Android에서는</strong> 헬스 커넥트가 필요해요. Android 14부터는 기본으로 들어 있어요. 그보다 오래된 폰에서는 HonorFit이 Google Play로 안내해 주니까 거기서 받으면 돼요. 그리고 Google Fit, Samsung Health, Fitbit처럼 헬스 커넥트에 걸음 수를 기록해 주는 앱도 있어야 해요. 폰이 어딘가에서 걸음 수를 세고 있다고 해서 꼭 그걸 공유하는 건 아니거든요.</p>
 
     <h2 id="rate">걸음 수로 시간을 얼마나 벌까?</h2>
@@ -107,6 +114,10 @@
 
     <h2 id="when">걸음 수는 언제 들어올까?</h2>
     <p>HonorFit을 열 때마다요. 차단한 앱의 시간이 다 돼서 잠금 화면에서 HonorFit을 열 때도 포함이에요. 그날의 총 걸음 수를 읽고, 지난번 이후에 걸은 만큼을 적립한 다음, 홈 화면에 &lsquo;👟 5,000걸음으로 +15m&rsquo; 같은 작은 알림을 보여 줘요.</p>
+    <figure class="single">
+      <img src="../../../img/blog/ko/honorfit-steps-home.webp" alt="HonorFit 홈 화면: 35분이 모였고, 5,000걸음으로 +15분이라는 말풍선이 떠 있음" width="660" height="306" loading="lazy">
+      <figcaption>걷고 나서 HonorFit을 열면 걸음으로 얼마나 벌었는지 말풍선이 알려 줘요.</figcaption>
+    </figure>
     <p>그러니까 산책하고 나서 HonorFit을 열면 시간이 들어와 있어요. 같은 걸음으로 두 번 시간을 주는 일은 없어요. 마지막 동기화가 어제였다면, 어제 늦게 걸은 걸음은 먼저 어제 몫으로 적립돼요. &lsquo;자정에 초기화&rsquo;를 켜 두었다면, 늦게 걸은 그 걸음은 어제 기록에는 남지만 오늘 시간으로는 더해지지 않아요. 어제 잔액은 이미 초기화됐기 때문이에요.</p>
     <p>HonorFit은 백그라운드에서 걸음 수를 읽지 않아요. 앱을 열 때만 읽어요. 걸음 수 기록은 <strong>기록</strong>에 따로 있는 <strong>걸음 수</strong> 보기에서 볼 수 있어요.</p>
 

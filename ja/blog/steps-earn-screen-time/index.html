@@ -40,6 +40,9 @@
   <link rel="stylesheet" href="../../../style.css">
   <style>
     .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    figure.single { max-width: 340px; margin: 18px auto 22px; }
+    figure.single img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    figure.single figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; text-align: center; }
     .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
     .ask p { color: var(--text-dim); margin: 0; }
     .ask strong { color: var(--text); }
@@ -89,6 +92,10 @@
       <li>スマホに聞かれたら<strong>歩数</strong>を許可します。HonorFitがお願いするのは歩数の読み取りだけで、ほかには何もありません。</li>
     </ol>
     <p>これで完了です。今日すでに歩いた分もすぐにカウントされて、スイッチの下に「今日の同期」と歩数が表示されます。</p>
+    <figure class="single">
+      <img src="../../../img/blog/ja/honorfit-steps-settings.webp" alt="HonorFitの設定にある歩数カード：ヘルスケアからの歩数同期がオン、1,000歩ごとに3分、今日は5,000歩を同期済み" width="660" height="446" loading="lazy">
+      <figcaption>iPhoneの設定にある歩数カード（オンの状態）。</figcaption>
+    </figure>
     <p><strong>Androidの場合</strong>はヘルスコネクトが必要です。Android 14からは最初から入っています。それより古いスマホでは、HonorFitがGoogle Playに案内するので、そこから入手してください。それから、Google Fit、Samsung Health、Fitbitのように、ヘルスコネクトに歩数を記録してくれるアプリも必要です。スマホがどこかで歩数を数えていても、それを共有しているとは限らないんです。</p>
 
     <h2 id="rate">歩数でどれくらいの時間が稼げる？</h2>
@@ -107,6 +114,10 @@
 
     <h2 id="when">歩数はいつ反映される？</h2>
     <p>HonorFitを開くたびです。ブロック中のアプリの時間がなくなって、ロック画面からHonorFitを開いたときも含みます。その日の合計歩数を読み取り、前回から増えた分を貯金して、ホーム画面に「👟 5,000歩で+15m」のように小さく表示します。</p>
+    <figure class="single">
+      <img src="../../../img/blog/ja/honorfit-steps-home.webp" alt="HonorFitのホーム画面：35分が貯まっていて、「5,000歩で+15分」の吹き出しが出ている" width="660" height="306" loading="lazy">
+      <figcaption>歩いたあとにHonorFitを開くと、歩数で何分ゲットしたか吹き出しで教えてくれます。</figcaption>
+    </figure>
     <p>なので、散歩に行ってからHonorFitを開けば、時間が貯まっています。同じ歩数で二重に時間がもらえることはありません。前回の同期が昨日だった場合は、昨日の遅い時間に歩いた分を、まず昨日の分として加算します。「深夜0時にリセット」をオンにしている場合、その遅い時間の歩数は昨日の履歴には残りますが、今日の時間には加算されません。昨日の残高はすでにリセットされているためです。</p>
     <p>HonorFitはバックグラウンドでは歩数を読み取りません。読み取るのはアプリを開いたときだけです。歩数の記録は、<strong>履歴</strong>の中にある専用の<strong>歩数</strong>ビューで見られます。</p>
 

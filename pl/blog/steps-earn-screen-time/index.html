@@ -40,6 +40,9 @@
   <link rel="stylesheet" href="../../../style.css">
   <style>
     .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    figure.single { max-width: 340px; margin: 18px auto 22px; }
+    figure.single img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    figure.single figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; text-align: center; }
     .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
     .ask p { color: var(--text-dim); margin: 0; }
     .ask strong { color: var(--text); }
@@ -89,6 +92,10 @@
       <li>Zezwól na <strong>Kroki</strong>, kiedy telefon zapyta. HonorFit prosi tylko o odczyt kroków. O nic więcej.</li>
     </ol>
     <p>I tyle. Kroki, które już dziś zrobiłeś, liczą się od razu, a pod przełącznikiem zobaczysz &bdquo;Zsynchronizowano dziś&rdquo; z liczbą kroków.</p>
+    <figure class="single">
+      <img src="../../../img/blog/pl/honorfit-steps-settings.webp" alt="Karta Kroki w Ustawieniach HonorFit: synchronizacja kroków ze Zdrowia włączona, 3 minuty za 1000 kroków, dziś zsynchronizowano 5000 kroków" width="660" height="446" loading="lazy">
+      <figcaption>Karta Kroki w Ustawieniach na iPhonie, włączona.</figcaption>
+    </figure>
     <p><strong>Na Androidzie</strong> potrzebujesz Health Connect, który jest wbudowany od Androida 14. Na starszych telefonach HonorFit odeśle cię do Google Play, żeby go pobrać. Potrzebujesz też czegoś, co zapisuje kroki w Health Connect, np. Google Fit, Samsung Health albo Fitbit. To, że telefon gdzieś liczy kroki, nie zawsze znaczy, że je udostępnia.</p>
 
     <h2 id="rate">Ile czasu dają kroki?</h2>
@@ -107,6 +114,10 @@
 
     <h2 id="when">Kiedy pojawiają się kroki?</h2>
     <p>Za każdym razem, gdy otwierasz HonorFit. Także wtedy, gdy otwierasz go z ekranu blokady, kiedy zablokowanej aplikacji skończy się czas. Aplikacja odczytuje sumę z całego dnia, odkłada do banku kroki zrobione od ostatniego razu i pokazuje na ekranie głównym małe &bdquo;👟 +15m za 5000 kroków&rdquo;.</p>
+    <figure class="single">
+      <img src="../../../img/blog/pl/honorfit-steps-home.webp" alt="Ekran główny HonorFit: 35 minut w banku i dymek z informacją +15 minut za 5000 kroków" width="660" height="306" loading="lazy">
+      <figcaption>Otwórz HonorFit po spacerze, a dymek pokaże, ile zarobiły twoje kroki.</figcaption>
+    </figure>
     <p>Więc patent jest taki: idziesz na spacer, potem otwierasz HonorFit i czas już tam jest. Nigdy nie płaci dwa razy za te same kroki. Jeśli ostatnia synchronizacja była wczoraj, kroki zrobione wczoraj późnym wieczorem najpierw zaliczają się do wczoraj. Jeśli masz włączony &bdquo;Reset o północy&rdquo;, te późne kroki nadal pojawią się w historii z wczoraj, ale nie dodadzą czasu na dziś, bo wczorajsze saldo zostało już wyzerowane.</p>
     <p>HonorFit nie odczytuje kroków w tle. Robi to tylko wtedy, gdy go otworzysz. Historię kroków znajdziesz w sekcji <strong>Historia</strong>, w osobnym widoku <strong>Kroki</strong>.</p>
 
