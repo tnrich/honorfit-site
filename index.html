@@ -70,7 +70,7 @@
       th: ['th/', 'th', 'ดูเป็นภาษาไทย →'],
       ja: ['ja/', 'ja', '日本語のページを見る →'],
       ko: ['ko/', 'ko', '한국어로 보기 →'],
-      zh: ['zh-hant/', 'zh-Hant', '查看繁體中文版 →'],
+      'zh-hant': ['zh-hant/', 'zh-Hant', '查看繁體中文版 →'],
     };
     const off = () => { try { localStorage.setItem('langSuggest', 'off'); } catch {} };
     try { if (localStorage.getItem('langSuggest') === 'off') return; } catch {}
@@ -83,13 +83,13 @@
     for (const tag of navigator.languages || [navigator.language || '']) {
       const p = tag.toLowerCase().split('-')[0];
       if (p === 'en') break;
-      // Only Traditional Chinese readers get the zh-Hant page.
-      if (p === 'zh' && !/-(hant|tw|hk|mo)\b/.test(tag.toLowerCase())) continue;
-      if (L[p]) { pick = L[p]; break; }
+      // Traditional (Taiwan, Hong Kong, Macau) vs Simplified Chinese.
+      const k = p === 'zh' && /-(hant|tw|hk|mo)\b/.test(tag.toLowerCase()) ? 'zh-hant' : p;
+      if (L[k]) { pick = L[k]; break; }
     }
     if (!pick) return;
     const box = document.getElementById('lang-suggest'), a = box.querySelector('a');
-    a.href = pick[0]; a.hreflang = pick[1]; a.lang = pick[1]; a.textContent = pick[2];
+    a.href = pick[0]; a.hreflang = pick[1]; a.lang = pick[1]; a.dir = 'auto'; a.textContent = pick[2];
     box.hidden = false;
     box.querySelector('button').onclick = () => { box.hidden = true; off(); };
   })();

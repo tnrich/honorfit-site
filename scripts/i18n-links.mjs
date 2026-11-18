@@ -33,7 +33,9 @@ const LANGS = [
   ['th', 'th/', 'ไทย'],
   ['ja', 'ja/', '日本語'],
   ['ko', 'ko/', '한국어'],
+  ['zh-Hans', 'zh-hans/', '简体中文'],
   ['zh-Hant', 'zh-hant/', '繁體中文'],
+  ['ar', 'ar/', 'العربية'],
 ];
 
 // Pages that exist in more than one language.
@@ -54,6 +56,19 @@ const PAGES = [
   'kegel-app-blocker/',
   'blog/android-app-blocker-without-accessibility-service/',
   'blog/steps-earn-screen-time/',
+  'pushup-app-blocker/',
+  'app-blocker-without-camera/',
+  'opal-alternative/',
+  'one-sec-alternative/',
+  'screenzen-alternative/',
+  'brick-alternative/',
+  'pushscroll-alternative/',
+  'block-instagram-with-pushups/',
+  'block-tiktok-with-pushups/',
+  'block-youtube-with-pushups/',
+  'block-reddit-with-pushups/',
+  'vs-screen-time/',
+  'partners/',
 ];
 
 // English homepage banner, keyed by the browser language's primary subtag.
@@ -71,7 +86,9 @@ const SUGGEST = {
   th: 'ดูเป็นภาษาไทย →',
   ja: '日本語のページを見る →',
   ko: '한국어로 보기 →',
+  'zh-Hans': '查看简体中文版 →',
   'zh-Hant': '查看繁體中文版 →',
+  ar: 'تفضّل العربية؟ اعرض الصفحة بالعربية ←',
 };
 
 const file = (dir, page) => resolve(ROOT, dir + page, 'index.html');
@@ -116,7 +133,7 @@ for (const page of PAGES) {
   const path = file('', '');
   const html = readFileSync(path, 'utf8');
   const entries = LANGS.filter(([c, dir]) => SUGGEST[c] && existsSync(file(dir, '')))
-    .map(([c, dir]) => `      ${c === 'zh-Hant' ? 'zh' : c.split('-')[0]}: ['${dir}', '${c}', '${SUGGEST[c]}'],`)
+    .map(([c, dir]) => `      ${c === 'zh-Hant' ? "'zh-hant'" : c === 'zh-Hans' ? 'zh' : c.split('-')[0]}: ['${dir}', '${c}', '${SUGGEST[c]}'],`)
     .join('\n');
   const dirs = LANGS.filter(([c, dir]) => dir && existsSync(file(dir, ''))).map(([, dir]) => dir.slice(0, -1));
   let out = html.replace(/const L = \{\n[\s\S]*?\n    \};/, `const L = {\n${entries}\n    };`);

@@ -43,7 +43,7 @@ nav .brand {
   font-size: 1.05rem;
   color: var(--text);
   text-decoration: none;
-  margin-right: auto;
+  margin-inline-end: auto;
 }
 nav a.link {
   white-space: nowrap;
@@ -149,13 +149,14 @@ h2 .accent { color: var(--orange); }
   background: var(--bg-raised);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 16px 20px 16px 60px;
+  padding-block: 16px;
+  padding-inline: 60px 20px;
   position: relative;
 }
 .steps li::before {
   content: counter(step);
   position: absolute;
-  left: 18px;
+  inset-inline-start: 18px;
   top: 50%;
   transform: translateY(-50%);
   width: 28px;
@@ -286,7 +287,7 @@ h2 .accent { color: var(--orange); }
 .prose h2 { font-size: 1.25rem; margin: 36px 0 12px; }
 .prose p, .prose li { color: var(--text-dim); }
 .prose p strong, .prose li strong { color: var(--text); }
-.prose ul { padding-left: 24px; margin: 12px 0; }
+.prose ul { padding-inline-start: 24px; margin: 12px 0; }
 .prose li { margin: 6px 0; }
 .prose a { color: var(--orange-bright); }
 .prose code {
@@ -340,7 +341,7 @@ h2 .accent { color: var(--orange); }
 }
 .contact-form button { justify-self: start; border: 0; cursor: pointer; font: inherit; font-weight: 700; margin-top: 0; }
 .contact-form button:disabled { opacity: 0.6; cursor: default; }
-.contact-form .hp { position: absolute; left: -9999px; }
+.contact-form .hp { position: absolute; inset-inline-start: -9999px; }
 .form-status:empty { display: none; }
 .form-status.error { color: #ff7b72; }
 .callout .alt { margin-top: 12px; color: var(--text-dim); font-size: 0.9rem; }
@@ -417,12 +418,12 @@ footer a:hover { color: var(--orange-bright); }
 .readnext a:hover { border-color: var(--orange); }
 
 /* footer language switcher */
-footer .langs { margin-left: auto; display: flex; gap: 10px; flex-wrap: wrap; font-size: 0.85rem; }
+footer .langs { margin-inline-start: auto; display: flex; gap: 10px; flex-wrap: wrap; font-size: 0.85rem; }
 footer .langs a { text-decoration: none; }
 footer .langs a[aria-current] { color: var(--text); }
 
 /* prose extras: numbered steps, screenshots, comparison tables */
-.prose ol { padding-left: 24px; margin: 12px 0; }
+.prose ol { padding-inline-start: 24px; margin: 12px 0; }
 .prose h3 { font-size: 1.05rem; margin: 24px 0 8px; }
 .prose figure { max-width: 280px; margin: 28px auto; }
 .prose figure img {
@@ -434,7 +435,7 @@ footer .langs a[aria-current] { color: var(--text); }
 .prose table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.92rem; }
 .prose th, .prose td {
   border-bottom: 1px solid var(--border);
-  padding: 10px 12px; text-align: left; vertical-align: top; color: var(--text-dim);
+  padding: 10px 12px; text-align: start; vertical-align: top; color: var(--text-dim);
 }
 .prose th { color: var(--text); background: var(--bg-raised); }
 .prose td:first-child { color: var(--text); font-weight: 600; }
@@ -444,3 +445,18 @@ footer .langs a[aria-current] { color: var(--text); }
 .story .bio p + p { margin-top: 14px; }
 .story .bio p:not(.sig) { color: var(--text); font-size: 1.05rem; }
 .story .bio .sig { margin-top: 18px; font-size: 0.95rem; }
+
+/* Right-to-left pages (Arabic). Layout above uses logical properties, so most
+   of it mirrors on its own; these cover what doesn't. */
+[dir="rtl"] body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Arabic", Tahoma, Arial, sans-serif;
+  line-height: 1.75;
+}
+/* Negative tracking breaks Arabic letter joining. */
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] .hero h1, [dir="rtl"] .prose h1 { letter-spacing: 0; }
+/* Code and the screenshot carousel stay left to right. */
+[dir="rtl"] code, [dir="rtl"] pre, [dir="rtl"] kbd { direction: ltr; unicode-bidi: isolate; }
+[dir="rtl"] pre { text-align: left; }
+[dir="rtl"] .carousel { direction: ltr; }
+/* Inputs for email/URLs read better left to right. */
+[dir="rtl"] input[type="email"], [dir="rtl"] input[type="url"] { direction: ltr; text-align: right; }
