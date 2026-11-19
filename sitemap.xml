@@ -289,12 +289,21 @@
     <loc>https://honorfitapp.com/pushup-app-blocker/</loc><lastmod>2026-09-30</lastmod><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/pushup-app-blocker/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/pushup-app-blocker/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/pushup-app-blocker/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/pushup-app-blocker/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/de/pushup-app-blocker/</loc><lastmod>2026-11-18</lastmod><priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/pushup-app-blocker/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/pushup-app-blocker/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/pushup-app-blocker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/pushup-app-blocker/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/fr/pushup-app-blocker/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/pushup-app-blocker/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/pushup-app-blocker/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/pushup-app-blocker/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/pushup-app-blocker/"/>
   </url>
   <url>
@@ -406,48 +415,84 @@
     <loc>https://honorfitapp.com/block-instagram-with-pushups/</loc><lastmod>2026-10-19</lastmod><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/block-instagram-with-pushups/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/block-instagram-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/block-instagram-with-pushups/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/block-instagram-with-pushups/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/de/block-instagram-with-pushups/</loc><lastmod>2026-11-18</lastmod><priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/block-instagram-with-pushups/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/block-instagram-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/block-instagram-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/block-instagram-with-pushups/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/fr/block-instagram-with-pushups/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/block-instagram-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/block-instagram-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/block-instagram-with-pushups/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/block-instagram-with-pushups/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/block-tiktok-with-pushups/</loc><lastmod>2026-10-19</lastmod><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/block-tiktok-with-pushups/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/block-tiktok-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/block-tiktok-with-pushups/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/block-tiktok-with-pushups/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/de/block-tiktok-with-pushups/</loc><lastmod>2026-11-18</lastmod><priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/block-tiktok-with-pushups/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/block-tiktok-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/block-tiktok-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/block-tiktok-with-pushups/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/fr/block-tiktok-with-pushups/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/block-tiktok-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/block-tiktok-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/block-tiktok-with-pushups/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/block-tiktok-with-pushups/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/block-youtube-with-pushups/</loc><lastmod>2026-10-19</lastmod><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/block-youtube-with-pushups/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/block-youtube-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/block-youtube-with-pushups/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/block-youtube-with-pushups/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/de/block-youtube-with-pushups/</loc><lastmod>2026-11-18</lastmod><priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/block-youtube-with-pushups/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/block-youtube-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/block-youtube-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/block-youtube-with-pushups/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/fr/block-youtube-with-pushups/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/block-youtube-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/block-youtube-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/block-youtube-with-pushups/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/block-youtube-with-pushups/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/block-reddit-with-pushups/</loc><lastmod>2026-10-19</lastmod><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/block-reddit-with-pushups/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/block-reddit-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/block-reddit-with-pushups/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/block-reddit-with-pushups/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/de/block-reddit-with-pushups/</loc><lastmod>2026-11-18</lastmod><priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/block-reddit-with-pushups/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/block-reddit-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/block-reddit-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/block-reddit-with-pushups/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/fr/block-reddit-with-pushups/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/block-reddit-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/block-reddit-with-pushups/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/block-reddit-with-pushups/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/block-reddit-with-pushups/"/>
   </url>
   <url>
@@ -739,24 +784,42 @@
     <loc>https://honorfitapp.com/app-blocker-without-camera/</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/app-blocker-without-camera/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/app-blocker-without-camera/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/app-blocker-without-camera/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/app-blocker-without-camera/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/de/app-blocker-without-camera/</loc><lastmod>2026-11-18</lastmod><priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/app-blocker-without-camera/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/app-blocker-without-camera/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/app-blocker-without-camera/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/app-blocker-without-camera/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/fr/app-blocker-without-camera/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/app-blocker-without-camera/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/app-blocker-without-camera/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/app-blocker-without-camera/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/app-blocker-without-camera/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/vs-screen-time/</loc><lastmod>2026-10-02</lastmod><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/vs-screen-time/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/vs-screen-time/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/vs-screen-time/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/vs-screen-time/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/de/vs-screen-time/</loc><lastmod>2026-11-18</lastmod><priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/vs-screen-time/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/vs-screen-time/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/vs-screen-time/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/vs-screen-time/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/fr/vs-screen-time/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/vs-screen-time/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/vs-screen-time/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/vs-screen-time/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/vs-screen-time/"/>
   </url>
   <url>
@@ -1048,60 +1111,105 @@
     <loc>https://honorfitapp.com/opal-alternative/</loc><lastmod>2026-10-19</lastmod><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/opal-alternative/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/opal-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/opal-alternative/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/opal-alternative/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/de/opal-alternative/</loc><lastmod>2026-11-18</lastmod><priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/opal-alternative/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/opal-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/opal-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/opal-alternative/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/fr/opal-alternative/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/opal-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/opal-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/opal-alternative/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/opal-alternative/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/one-sec-alternative/</loc><lastmod>2026-10-19</lastmod><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/one-sec-alternative/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/one-sec-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/one-sec-alternative/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/one-sec-alternative/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/de/one-sec-alternative/</loc><lastmod>2026-11-18</lastmod><priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/one-sec-alternative/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/one-sec-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/one-sec-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/one-sec-alternative/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/fr/one-sec-alternative/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/one-sec-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/one-sec-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/one-sec-alternative/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/one-sec-alternative/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/screenzen-alternative/</loc><lastmod>2026-10-19</lastmod><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/screenzen-alternative/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/screenzen-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/screenzen-alternative/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/screenzen-alternative/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/de/screenzen-alternative/</loc><lastmod>2026-11-18</lastmod><priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/screenzen-alternative/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/screenzen-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/screenzen-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/screenzen-alternative/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/fr/screenzen-alternative/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/screenzen-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/screenzen-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/screenzen-alternative/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/screenzen-alternative/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/pushscroll-alternative/</loc><lastmod>2026-10-19</lastmod><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/pushscroll-alternative/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/pushscroll-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/pushscroll-alternative/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/pushscroll-alternative/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/de/pushscroll-alternative/</loc><lastmod>2026-11-18</lastmod><priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/pushscroll-alternative/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/pushscroll-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/pushscroll-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/pushscroll-alternative/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/fr/pushscroll-alternative/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/pushscroll-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/pushscroll-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/pushscroll-alternative/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/pushscroll-alternative/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/brick-alternative/</loc><lastmod>2026-10-19</lastmod><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/brick-alternative/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/brick-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/brick-alternative/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/brick-alternative/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/de/brick-alternative/</loc><lastmod>2026-11-18</lastmod><priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/brick-alternative/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/brick-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/brick-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/brick-alternative/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/fr/brick-alternative/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/brick-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/brick-alternative/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/brick-alternative/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/brick-alternative/"/>
   </url>
   <url>
@@ -3133,6 +3241,291 @@
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/no-scroll-november/"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/no-scroll-november/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/no-scroll-november/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/new-year-reset/</loc><lastmod>2026-11-19</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/new-year-reset/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/es/new-year-reset/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/new-year-reset/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/pt-br/new-year-reset/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/new-year-reset/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/de/new-year-reset/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/new-year-reset/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/fr/new-year-reset/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/new-year-reset/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/it/new-year-reset/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/new-year-reset/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/nl/new-year-reset/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/new-year-reset/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/pl/new-year-reset/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/new-year-reset/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/tr/new-year-reset/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/new-year-reset/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/id/new-year-reset/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/new-year-reset/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/vi/new-year-reset/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/new-year-reset/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/th/new-year-reset/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/new-year-reset/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/ja/new-year-reset/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/new-year-reset/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/ko/new-year-reset/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/new-year-reset/"/>
+  </url>
+  <url>
+    <loc>https://honorfitapp.com/zh-hant/new-year-reset/</loc><lastmod>2026-11-19</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://honorfitapp.com/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/new-year-reset/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/new-year-reset/"/>
   </url>
   <url>
     <loc>https://honorfitapp.com/yoga-app-blocker/</loc><lastmod>2026-10-19</lastmod><priority>0.8</priority>

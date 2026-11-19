@@ -52,6 +52,7 @@ const PAGES = [
   'blog/kegels-to-unlock-your-phone/',
   'blog/no-pushups-low-impact-exercises/',
   'no-scroll-november/',
+  'new-year-reset/',
   'yoga-app-blocker/',
   'kegel-app-blocker/',
   'blog/android-app-blocker-without-accessibility-service/',
