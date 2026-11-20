@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>واجهة Screen Time API في iOS (2026): 10 فخاخ لا توثّقها Apple</title>
+  <meta name="description" content="استخدام Screen Time API من Apple في تطبيق منشور: صلاحيات FamilyControls، وعتبات DeviceActivity التي لا تنطلق، وأخطاء iOS 26، والدروع، وإعداد Expo.">
+  <link rel="canonical" href="https://honorfitapp.com/ar/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://honorfitapp.com/zh-hans/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="ar" href="https://honorfitapp.com/ar/blog/ios-screen-time-api-guide/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/ios-screen-time-api-guide/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/ar/blog/ios-screen-time-api-guide/">
+  <meta property="og:title" content="واجهة Screen Time API في iOS عام 2026: ما لا تخبرك به وثائق Apple">
+  <meta property="og:description" content="استخدام Screen Time API من Apple في تطبيق منشور: صلاحيات FamilyControls، وعتبات DeviceActivity التي لا تنطلق، وأخطاء iOS 26، والدروع، وإعداد Expo.">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-09-30">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="واجهة Screen Time API في iOS عام 2026: ما لا تخبرك به وثائق Apple">
+  <meta name="twitter:description" content="FamilyControls وDeviceActivity وامتدادات الدرع، من نشر حاجب تطبيقات: رقصة الصلاحيات، والعتبات الوهمية، والجداول، ودروع لا تستطيع فتح تطبيقك.">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose ol { padding-inline-start: 24px; }
+    .prose pre {
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 14px 0 20px;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    .prose pre code { background: none; border: 0; padding: 0; font-size: inherit; color: var(--text); }
+    .prose .label { display: inline-block; font-size: 0.75rem; font-weight: 700; color: var(--gold); border: 1px solid var(--border); border-radius: 999px; padding: 1px 10px; margin-inline-end: 6px; vertical-align: 1px; }
+    .toc { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 16px 22px; margin: 8px 0 28px; }
+    .toc strong { color: var(--text); }
+    .toc ol { margin: 8px 0 0; }
+    .toc li { margin: 3px 0; }
+    .toc a { text-decoration: none; }
+    .table-scroll { overflow-x: auto; margin: 14px 0 20px; }
+    .prose table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+    .prose th, .prose td { border: 1px solid var(--border); padding: 8px 10px; text-align: start; vertical-align: top; color: var(--text-dim); }
+    .prose th { color: var(--text); background: var(--bg-raised); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "headline": "واجهة Screen Time API في iOS عام 2026: ما لا تخبرك به وثائق Apple",
+        "description": "ملاحظات ميدانية من نشر حاجب تطبيقات على iOS باستخدام FamilyControls وDeviceActivity وManagedSettings: صلاحيات لكل امتداد، وApp Groups، ورموز مبهمة، وأحداث العتبات، والعتبات الوهمية في iOS 26، ودلالات الجداول، وامتدادات الدرع، وReact Native.",
+        "url": "https://honorfitapp.com/ar/blog/ios-screen-time-api-guide/",
+        "mainEntityOfPage": "https://honorfitapp.com/ar/blog/ios-screen-time-api-guide/",
+        "datePublished": "2026-09-30",
+        "dateModified": "2026-09-30",
+        "image": "https://honorfitapp.com/img/og.png",
+        "inLanguage": "ar",
+        "proficiencyLevel": "Expert",
+        "keywords": "Screen Time API، FamilyControls، DeviceActivity، ManagedSettings، ShieldConfiguration extension، ShieldAction، DeviceActivityMonitor، eventDidReachThreshold، React Native، Expo، react-native-device-activity",
+        "about": ["FamilyControls", "DeviceActivity", "ManagedSettings", "iOS app extensions"],
+        "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+        "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+      },
+      {
+        "@type": "FAQPage",
+        "inLanguage": "ar",
+        "mainEntity": [
+          { "@type": "Question", "name": "هل أحتاج صلاحية Family Controls لكل امتداد؟",
+            "acceptedAnswer": { "@type": "Answer", "text": "نعم. تُمنح لكل معرّف حزمة. التطبيق مع امتداد DeviceActivityMonitor وShieldConfiguration وShieldAction يعني أربع موافقات، وكل App ID يحتاج أيضًا App Group المشتركة." } },
+          { "@type": "Question", "name": "لماذا لا ينطلق eventDidReachThreshold في DeviceActivity؟",
+            "acceptedAnswer": { "@type": "Answer", "text": "عندي كان السبب غالبًا جدولًا غير متكرر يبدأ «الآن»، فيُحجز للغد. أرجِع intervalStart إلى الوراء. وفي iOS 26، مع الاستخدام المتقطع، كانت العتبات اللاحقة التي تقل عن دقيقة تسقط أيضًا؛ وإعادة تسليح مراقب جديد ساعدت." } },
+          { "@type": "Question", "name": "هل يستطيع امتداد ShieldAction أو ShieldConfiguration فتح التطبيق الأم؟",
+            "acceptedAnswer": { "@type": "Answer", "text": "ليس بواجهة مدعومة، والحل البديل عبر NSExtensionContext لم يفعل شيئًا على iOS الحالي في تجاربي. ما أنشره هو إشعار محلي يُرسل من ShieldConfiguration حين يُعرض الدرع." } },
+          { "@type": "Question", "name": "هل يمكنني اختبار Screen Time API في محاكي iOS؟",
+            "acceptedAnswer": { "@type": "Answer", "text": "جزئيًا. نافذة الإذن والمُنتقي يظهران في محاكيات iOS 26، لكن التفويض لم يكتمل، والمُنتقي لم يكن فيه ما يعرضه، وامتداد المراقبة لم يعمل أبدًا. استخدم جهازًا حقيقيًا." } }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">المدونة</a>
+    <a class="link" href="../../../support/">الدعم</a>
+    <a class="link" href="../../../privacy/">الخصوصية</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>واجهة Screen Time API في iOS عام 2026: ما لا تخبرك به وثائق Apple</h1>
+    <p class="meta">FamilyControls وDeviceActivity وامتدادات الدرع، من نشر حاجب تطبيقات. بقلم Thomas Willheim &middot; 30 سبتمبر، 2026</p>
+
+    <p>قضيت أغسطس وسبتمبر 2026 في نشر حاجب تطبيقات على iOS. يستخدم أطر مدة استخدام الجهاز (FamilyControls وDeviceActivity وManagedSettings وManagedSettingsUI) من React Native، عبر Expo SDK 57 ومكتبة <a href="https://github.com/kingstinct/react-native-device-activity">react-native-device-activity</a> (الإصدار 0.6.1). وثائق Apple تخبرك ما هو كل نوع. لكنها تقول القليل جدًا عن سلوكه على هاتف حقيقي، طوال الليل، على iOS 26.</p>
+    <p>هذه القائمة التي تمنيت لو كانت لديّ. السلوك الذي رأيته على جهاز ولم أجده موثقًا عليه وسم <span class="label">ملاحظة</span>؛ وقد لا يصح على كل إصدار من iOS. والبنود الخاصة بمكتبة React Native عليها وسم <span class="label">المكتبة</span>؛ تخطّها إذا كنت تكتب Swift مباشرة.</p>
+
+    <div class="toc">
+      <strong>المحتويات</strong>
+      <ol>
+        <li><a href="#moving-parts">الأجزاء المتحركة</a></li>
+        <li><a href="#entitlements">الصلاحيات: واحدة لكل معرّف حزمة</a></li>
+        <li><a href="#app-group">App Group هي القناة الوحيدة</a></li>
+        <li><a href="#tokens">الرموز مبهمة، والمُنتقي</a></li>
+        <li><a href="#thresholds">قياس الاستخدام بأحداث العتبات</a></li>
+        <li><a href="#schedules">الجداول لا تبدأ حين تظن</a></li>
+        <li><a href="#stop-monitoring">stopMonitoring تطلق intervalDidEnd</a></li>
+        <li><a href="#phantom">العتبات الوهمية في iOS 26</a></li>
+        <li><a href="#shield">الدرع لا يستطيع فتح تطبيقك</a></li>
+        <li><a href="#expo">الحفاظ على الامتدادات المخصصة عبر prebuild</a></li>
+        <li><a href="#testing">Xcode 26 والمحاكي والاختبار</a></li>
+        <li><a href="#android">وعلى Android</a></li>
+        <li><a href="#checklist">قائمة تحقق</a></li>
+        <li><a href="#faq">إجابات سريعة</a></li>
+        <li><a href="#why">لماذا احتجت كل هذا</a></li>
+      </ol>
+    </div>
+
+    <h2 id="moving-parts">1. الأجزاء المتحركة</h2>
+    <p>«Screen Time API» هي أربعة أطر، وعمليًا ثلاثة امتدادات للتطبيق:</p>
+    <ul>
+      <li><strong>FamilyControls</strong>: التفويض (<code>AuthorizationCenter</code>، مع <code>.individual</code> لتطبيق ضبط النفس) و<code>FamilyActivityPicker</code>، الذي يُرجع <code>FamilyActivitySelection</code> فيها رموز التطبيقات والفئات ونطاقات الويب.</li>
+      <li><strong>ManagedSettings</strong>: <code>ManagedSettingsStore</code> تضع فيه تلك الرموز لتحجبها بدرع.</li>
+      <li><strong>DeviceActivity</strong>: الجداول وأحداث عتبات الاستخدام. الاستدعاءات (<code>intervalDidStart</code> و<code>intervalDidEnd</code> و<code>eventDidReachThreshold</code> ونسخ التحذير منها) تُسلَّم إلى امتداد <code>DeviceActivityMonitor</code>، لا إلى تطبيقك.</li>
+      <li><strong>ManagedSettingsUI</strong>: امتداد <code>ShieldConfigurationDataSource</code> يصمم شكل الدرع، وامتداد <code>ShieldActionDelegate</code> يتعامل مع أزراره.</li>
+    </ul>
+    <p>الامتدادات هي جوهر الأمر. تطبيقي يكون عادة معلّقًا أو مقتولًا حين ينفد وقت المستخدم، فامتداد المراقبة هو الذي يعيد رفع الدرع. صمّم كأن عملية تطبيقك لن تكون موجودة أبدًا حين تحدث الأشياء.</p>
+
+    <h2 id="entitlements">2. الصلاحيات: طلب واحد لكل معرّف حزمة</h2>
+    <p>صلاحية Family Controls (Distribution) تُعتمد <strong>لكل معرّف حزمة</strong>. مع ثلاثة امتدادات، هذه أربعة طلبات. طلباتي كانت:</p>
+    <ul>
+      <li><code>com.honorfit.blocker</code> (التطبيق)</li>
+      <li><code>com.honorfit.blocker.ShieldConfiguration</code></li>
+      <li><code>com.honorfit.blocker.ShieldAction</code></li>
+      <li><code>com.honorfit.blocker.ActivityMonitorExtension</code></li>
+    </ul>
+    <p>بعد اعتمادها، فعّل قدرة Family Controls (Distribution) على <em>كل</em> App ID في بوابة المطورين، ثم أنشئ App Group واحدة وأرفقها بالأربعة. إذا نسيت واحدًا فلن يُجهَّز ذلك الهدف. الموافقات ليست فورية، فقدّم الطلبات الأربعة في اليوم الأول، قبل أن تكتب الكثير من الكود.</p>
+    <p>ملف الصلاحيات لكل امتداد يصبح متطابقًا:</p>
+<pre><code>&lt;key&gt;com.apple.developer.family-controls&lt;/key&gt;
+&lt;true/&gt;
+&lt;key&gt;com.apple.security.application-groups&lt;/key&gt;
+&lt;array&gt;
+  &lt;string&gt;group.com.honorfit.blocker&lt;/string&gt;
+&lt;/array&gt;</code></pre>
+    <p>على Expo/EAS، خدمة البناء لا تنشئ ملفات التجهيز إلا للامتدادات التي تعرفها. أعلن كل هدف، مع صلاحياته، تحت <code>extra.eas.build.experimental.ios.appExtensions</code> في <code>app.json</code>:</p>
+<pre><code>"appExtensions": [
+  {
+    "bundleIdentifier": "com.honorfit.blocker.ShieldConfiguration",
+    "targetName": "ShieldConfiguration",
+    "entitlements": {
+      "com.apple.developer.family-controls": true,
+      "com.apple.security.application-groups": ["group.com.honorfit.blocker"]
+    }
+  }
+  // ...same for ShieldAction and ActivityMonitorExtension
+]</code></pre>
+
+    <h2 id="app-group">3. App Group هي القناة الوحيدة</h2>
+    <p>تطبيقك وامتداداته عمليات منفصلة لا تعمل معًا في الوقت نفسه تقريبًا أبدًا. الشيء الوحيد المشترك بينها هو حاوية App Group، عادة على شكل <code>UserDefaults(suiteName:)</code>. كل ما تحتاجه الامتدادات (الاختيار المحفوظ، ونص الدرع، وما يجب فعله حين تنطلق عتبة) يجب أن يُكتب هناك مسبقًا.</p>
+    <p>مكتبة react-native-device-activity تأخذ هذا إلى أقصاه. يكتب التطبيق قائمة «إجراءات» تحت مفتاح مثل <code>actions_for_{activity}_{callback}_{event}</code>، ويبحث عنها امتداد المراقبة <em>حين ينطلق الاستدعاء</em>. نتيجة مفيدة: يمكنك تغيير ما يفعله مراقب يعمل أصلًا دون إعادة تشغيله. والامتدادات تستدعي أيضًا <code>CFPreferencesAppSynchronize</code> قبل القراءة، فترى آخر ما كتبه التطبيق:</p>
+<pre><code>let appGroup = Bundle.main.object(
+  forInfoDictionaryKey: "REACT_NATIVE_DEVICE_ACTIVITY_APP_GROUP") as? String
+var userDefaults = UserDefaults(suiteName: appGroup)
+
+// in each callback:
+CFPreferencesAppSynchronize(kCFPreferencesCurrentApplication)
+if let actions = userDefaults?.array(forKey: triggeredBy) { /* run them */ }</code></pre>
+
+    <h2 id="tokens">4. الرموز مبهمة، والمُنتقي</h2>
+    <p>يعطي المُنتقي تطبيقك <code>ApplicationToken</code> و<code>ActivityCategoryToken</code> و<code>WebDomainToken</code>، ولا شيء غيرها. بحكم التصميم، لا يستطيع التطبيق تحويل الرمز إلى «إنستغرام». ما يستطيعه هو عدّها، فتعرض شاشة قائمة الحجب عندي «3 تطبيقات، فئة واحدة». هذا هو نموذج الخصوصية كله، وهو نموذج جيد: تطبيقي حرفيًا لا يعرف ما الذي حجبته.</p>
+    <figure>
+      <img src="../../../img/blog/ios-app-picker.webp" alt="مُنتقي تطبيقات مدة استخدام الجهاز في iOS: قائمة بفئات التطبيقات، مع فئة الصحة واللياقة مفتوحة لتعرض تطبيقاتها" width="660" height="1310" loading="lazy">
+      <figcaption><code>FamilyActivityPicker</code> من Apple. يرى المستخدم أسماء التطبيقات وأيقوناتها؛ وتطبيقك لا يحصل إلا على رموز مبهمة.</figcaption>
+    </figure>
+    <p>امتداد الدرع مختلف. هناك يمرر لك النظام <code>Application</code> للتطبيق المحجوب، وأستخدم <code>localizedDisplayName</code> الخاص به في نص الدرع. التطبيق نفسه لا يرى إلا الرموز.</p>
+    <p>ملاحظتان عمليتان:</p>
+    <ul>
+      <li><strong>الفئات تبقى فئات.</strong> إذا اختار المستخدم «التواصل الاجتماعي»، تحصل على رمز فئة، لا على التطبيقات التي فيها، إلا إذا أُنشئ الاختيار مع <code>includeEntireCategory</code>. أبقيه <code>false</code> لتكون الأعداد التي أعرضها صادقة («فئة واحدة»، لا عدد تطبيقات لا أستطيع تسميتها).</li>
+      <li><span class="label">المكتبة</span> المُنتقي المحفوظ في react-native-device-activity لا يحمّل الاختيار المحفوظ مسبقًا (علامات الاختيار عند إعادة الفتح) إلا إذا مررت خاصية <code>includeEntireCategory</code>، بـ<em>أي</em> قيمة. دالة الضبط الأصلية لها هي ما يطلق التحميل. بدون الخاصية، يفتح المُنتقي فارغًا كل مرة رغم أن الاختيار محفوظ.</li>
+    </ul>
+<pre><code>&lt;DeviceActivitySelectionSheetViewPersisted
+  familyActivitySelectionId="distracting-apps"
+  includeEntireCategory={false}   // must be present, or nothing preloads
+  onSelectionChange={(e) =&gt; setCounts(e.nativeEvent)}
+  onDismissRequest={() =&gt; setPickerVisible(false)}
+/&gt;</code></pre>
+    <p><span class="label">المكتبة</span> وواحدة أخرى: <code>blockSelection</code> في المكتبة <em>تضيف</em> رموزًا إلى قائمة حجب محفوظة. بعد أن يعدّل المستخدم اختياره، تبقى التطبيقات المحذوفة محجوبة. أستدعي <code>resetBlocks()</code> أولًا ثم أعيد حجب الاختيار الحالي في كل مرة.</p>
+
+    <h2 id="thresholds">5. قياس الاستخدام بأحداث العتبات</h2>
+    <p>يعطيك HonorFit رصيدًا من الدقائق لا ينقص إلا وتطبيق محجوب على الشاشة. ليس في DeviceActivity استدعاء من نوع «أخبرني كم استخدموه»؛ بل فيه أحداث عتبات تنطلق مرة واحدة حين يبلغ الاستخدام التراكمي لاختيار ما مدة معينة. لذلك أسجّل حدثًا لكل 15 ثانية من الاستخدام، مسمّى بالدقائق: <code>used-0.25</code> و<code>used-0.5</code> &hellip; حتى الرصيد. الأرباع دقيقة تمامًا في الفاصلة العائمة الثنائية، فتعود الأسماء سليمة عبر <code>Number()</code>. تحت المكتبة، هذه واجهة Apple العادية:</p>
+<pre><code>let schedule = DeviceActivitySchedule(
+  intervalStart: DateComponents(hour: 9, minute: 45, second: 0),  // see section 6
+  intervalEnd: DateComponents(hour: 23, minute: 59, second: 59),
+  repeats: false
+)
+let event = DeviceActivityEvent(
+  applications: selection.applicationTokens,
+  categories: selection.categoryTokens,
+  webDomains: selection.webDomainTokens,
+  threshold: DateComponents(minute: 0, second: 15),
+  includesPastActivity: false          // iOS 17.4+
+)
+try DeviceActivityCenter().startMonitoring(
+  DeviceActivityName("honorfit-distracting-apps-1790000000000"),
+  during: schedule,
+  events: [DeviceActivityEvent.Name("used-0.25"): event]  // ...one per step
+)</code></pre>
+    <p><code>includesPastActivity: false</code> (القيمة الافتراضية) تعني أن الاستخدام قبل تسجيل الأحداث لا يُحسب. وهذا مهم للحيلة في القسم التالي.</p>
+    <p>حين ينطلق الحدث الأخير، يعيد امتداد المراقبة تطبيق الدرع ويرسل إشعار «انتهى الوقت». كل حدث من 15 ثانية يحدّث إشعارًا واحدًا بمعرّف ثابت، فيُستبدل في مكانه ويعمل كعدّ تنازلي مباشر تقريبي. <code>interruptionLevel = .passive</code> يوصله بهدوء إلى مركز الإشعارات بلا لافتة.</p>
+    <p><span class="label">المكتبة</span> <strong>لا تضع شرطات سفلية في أسماء الأحداث أو الأنشطة.</strong> تحفظ المكتبة الأحداث المنطلقة تحت <code>events_{activity}_{callback}_{eventName}</code> وتحللها بالتقسيم عند <code>_</code>. حدث اسمه <code>used_7</code> يعود <code>used</code>، ولا شيء يطابقه أبدًا. العَرَض كان رصيدًا لا ينقص أبدًا.</p>
+
+    <h2 id="schedules">6. الجداول لا تبدأ حين تظن</h2>
+    <p>إذا كانت أحداث العتبات لا تنطلق أبدًا بصمت، فالسبب غالبًا هذا.</p>
+    <h3>«الآن» صار في الماضي أصلًا</h3>
+    <p><span class="label">ملاحظة</span> <code>DeviceActivitySchedule</code> غير المتكرر يُطابَق مع مكونات التاريخ، ويشغّل المراقب الفترة التالية المطابقة. إذا مررت الوقت الحالي كـ <code>intervalStart</code>، فحين يقيّمه الإطار تكون تلك اللحظة قد مضت. المطابقة التالية تكون <strong>غدًا</strong>، واليوم لا ينطلق شيء: لا عتبات، ولا استدعاءات، ولا خطأ. الحل أن ترجع بداية الفترة إلى الوراء لتكون «الآن» داخلها:</p>
+<pre><code>const now = new Date();
+const backdated = new Date(now.getTime() - 15 * 60_000);
+const intervalStart =
+  backdated.getDate() === now.getDate()
+    ? { hour: backdated.getHours(), minute: backdated.getMinutes(), second: backdated.getSeconds() }
+    : { hour: 0, minute: 0, second: 0 };   // don't wrap past midnight
+
+await startMonitoring(activityName,
+  { intervalStart, intervalEnd: { hour: 23, minute: 59, second: 59 }, repeats: false },
+  events);</code></pre>
+    <p>الإرجاع إلى الوراء لا يمكن أن يحاسب المستخدم على تصفح سابق، بسبب <code>includesPastActivity: false</code>. ويبقي الفترة فوق الحد الأدنى لدى Apple أيضًا: الجداول الأقصر من 15 دقيقة تُرفض، وهذا يلدغ كل من يبدأ جلسة قبل منتصف الليل بقليل.</p>
+    <h3>الجدول الذي يحتوي «الآن» يبدأ فورًا</h3>
+    <p><span class="label">ملاحظة</span> الوجه الآخر: جدول من 00:00 إلى 23:59:59 يحتوي الوقت الحالي، فيبدأ <em>الآن</em>، لا عند منتصف الليل التالي. وجدت طريقتين لحجز الغد:</p>
+    <ul>
+      <li><strong>جدول منتهٍ أصلًا.</strong> <code>[00:00, T)</code> حيث T قبل الوقت الحالي من اليوم بدقيقة. نسخة اليوم انتهت، فيحجز الإطار نسخة الغد. أستخدم هذا لترحيل رصيد لم يُنفق إلى ما بعد منتصف الليل.</li>
+      <li><strong><code>repeats: true</code> مع إجراءات محمية.</strong> نسخة اليوم تبدأ فورًا ولا تفعل شيئًا (كل إجراء محمي، انظر القسم التالي). ونسخة الغد تؤدي العمل الحقيقي.</li>
+    </ul>
+    <p><span class="label">ملاحظة</span> لا تستخدم مكونات السنة/الشهر/اليوم الكاملة في جدول لاستهداف تاريخ معين. صارت استدعاءات الامتداد غير موثوقة حين جربت ذلك، وهذا يطابق تقارير في منتديات مطوري Apple (<a href="https://developer.apple.com/forums/thread/729841">الموضوع 729841</a>). التزم بالساعة/الدقيقة/الثانية.</p>
+    <p>تحفّظ: سلوكيات منتصف الليل هذه لا تظهر إلا على جهاز، طوال الليل. بنيت حمايات حولها، لكني لم أراقب منتصفات ليل حقيقية بالقدر الذي أريده، فتعامل مع هذا القسم على أنه «ما رأيته»، لا مواصفة.</p>
+
+    <h2 id="stop-monitoring">7. stopMonitoring تطلق intervalDidEnd</h2>
+    <p><span class="label">ملاحظة</span> استدعاء <code>stopMonitoring</code>، أو استدعاء <code>startMonitoring</code> باسم مراقب يعمل أصلًا، يجعل iOS يستدعي <code>intervalDidEnd</code> في امتدادك كأن الجدول انتهى طبيعيًا. إذا كان <code>intervalDidEnd</code> عندك يعيد الدرع كشبكة أمان (عندي يفعل، حتى لا ينتهي مراقب ويترك التطبيقات بلا حجب)، فكل مرة يوقف فيها التطبيق مراقبًا، يحجب الامتداد كل شيء للحظة.</p>
+    <p>أبلغ مستخدم عن العَرَض: Spotify يتوقف في كل مرة يفتح فيها HonorFit. إيقاف المراقب جعل الامتداد يحجب الاختيار للحظة، فعلّق Spotify، قبل أن يرفع التطبيق الدروع من جديد.</p>
+    <p>حلّان، وكلاهما ضروري. أولًا، احذف إجراءات الامتداد <em>قبل</em> الإيقاف، فلا يبقى له ما يشغّله:</p>
+<pre><code>function stopActivities(names: string[]): void {
+  for (const name of names) RNDA.cleanUpAfterActivity(name); // clear actions first
+  RNDA.stopMonitoring(names);                                // then stop
+}</code></pre>
+    <p>ثانيًا، أعطِ كل إجراء في <code>intervalDidEnd</code> و<code>intervalDidStart</code> طابعًا زمنيًا «ليس قبل» عند الحد الحقيقي للجدول، ناقص دقيقة احتياطية. يتحقق الامتداد منه قبل تشغيل أي شيء:</p>
+<pre><code>// TypeScript: register the safety net
+RNDA.configureActions({
+  activityName,
+  callbackName: 'intervalDidEnd',
+  actions: [{
+    type: 'blockSelection',
+    familyActivitySelectionId: 'distracting-apps',
+    neverTriggerBefore: new Date(intervalEndMs - 60_000),
+  }],
+});
+
+// Swift, in the DeviceActivityMonitor extension
+if let neverTriggerBefore = neverTriggerBefore {
+  let now = Date().timeIntervalSince1970 * 1000
+  if now &lt; neverTriggerBefore { return false }   // skip this action
+}</code></pre>
+    <p>بـ Swift العادية: احفظ وقت النهاية الحقيقي في App Group واجعل <code>intervalDidEnd</code> ينسحب حين يُستدعى مبكرًا.</p>
+
+    <h2 id="phantom">8. العتبات الوهمية في iOS 26</h2>
+    <p>في iOS 26.x، ينطلق <code>eventDidReachThreshold</code> أحيانًا دون أي استخدام حقيقي: مباشرة بعد الجدولة، أو حين يُرفع هاتف بقي مقفلًا فترة أو يُوصل بالشاحن. اعترفت Apple بذلك في مواضيع منتدى المطورين (<a href="https://developer.apple.com/forums/thread/809410">809410</a>، <a href="https://developer.apple.com/forums/thread/811305">811305</a>، <a href="https://developer.apple.com/forums/thread/814559">814559</a>). قيل إنه أُصلح في نسخة تجريبية من 26.5، لكن الناس واصلوا الإبلاغ عنه بعدها. في تطبيقي كان العَرَض «انتهى الوقت» بعد أن بقي الهاتف في الجيب، لأن الامتداد أعاد الدرع ونزل الرصيد إلى الصفر.</p>
+    <p>لا يمكنك منع الحدث من الانطلاق، لكن يمكنك أن ترفض تصديقه. حقيقتان عن العتبات الحقيقية تؤديان معظم العمل:</p>
+    <ol>
+      <li><strong>الاستخدام لا يمكن أن يسبق ساعة الحائط.</strong> لا يمكن لـ <code>used-7</code> أن ينطلق مشروعًا بعد أقل من 7 دقائق من تسليح المراقب. كل إجراء عتبة يحمل <code>neverTriggerBefore = armedAt + N minutes &minus; 5s</code>، فيتخطى الامتداد الانطلاقات المبكرة المستحيلة.</li>
+      <li><strong>الاستخدام الحقيقي يصل تدريجيًا؛ والوهمي يصل دفعة واحدة.</strong> حين يقرأ التطبيق الأحداث المنطلقة، يعتبرها وهمية إذا انطلقت أدنى عتبة وأعلاها خلال نحو 3 ثوانٍ من بعضهما لكنهما تغطيان دقيقة أو أكثر من الاستخدام.</li>
+    </ol>
+<pre><code>// Guard 1: drop thresholds that fired before they could have been reached
+if (at &lt; startedAt + minutes * 60_000 - 5_000) continue;
+
+// Guard 2: lowest and highest fired in the same instant, a minute or more apart
+if (highest.minutes - lowest.minutes &gt;= 1 &amp;&amp;
+    Math.abs(highest.at - lowest.at) &lt;= 3_000) {
+  return { usedMinutes: 0, partialMs: 0 };   // phantom: ignore the lot
+}</code></pre>
+    <p>الحماية الثانية تعمل في التطبيق، لا في الامتداد، فالوهمي يمكنه رفع الدرع مع ذلك. لكن الرصيد ينجو، وفي المرة التالية التي يُفتح فيها التطبيق يرفع الدرع من جديد. كشف الدفعات داخل الامتداد يحتاج Swift مخصصًا لم أكتبه بعد.</p>
+    <p><span class="label">ملاحظة</span> مشكلة قريبة تسير في الاتجاه المعاكس: عتبات يجب أن تنطلق ولا تنطلق. مع الاستخدام المتقطع في iOS 26، رأيت أول عتبة من 15 ثانية لمراقب جديد تنطلق في وقتها، والعتبات اللاحقة تُدمج أو تسقط تمامًا (انطلق <code>used-0.25</code>، ولم ينطلق <code>used-0.5</code> وما بعده أبدًا). حلي البديل أن أعتبر أي مراقب قاس استخدامًا بالفعل مراقبًا قديمًا، وأسلّح مراقبًا جديدًا على الرصيد المتبقي، في كل مرة يذهب فيها التطبيق إلى الخلفية. هذا يسامح حتى 15 ثانية من الاستخدام في كل إعادة تشغيل، ولا بأس عندي بذلك.</p>
+
+    <h2 id="shield">9. الدرع لا يستطيع فتح تطبيقك</h2>
+    <p>التصميم البديهي زر في الدرع يقول «اكسب وقتًا أكثر» ويفتح تطبيقك. لا توجد طريقة مدعومة لفعل ذلك؛ يقول فريق Apple DTS إنه لا توجد واجهة تسمح لامتداد الدرع بتشغيل تطبيقه الأم. <code>ShieldActionDelegate</code> يرد على ضغطة الزر بـ <code>ShieldActionResponse</code> (<code>.none</code> أو <code>.close</code> أو <code>.defer</code>)، ولا شيء منها يفتح أي شيء.</p>
+    <p><span class="label">ملاحظة</span> الحل البديل الذي ستجده (<code>NSExtensionContext().open(url)</code> من امتداد ShieldAction، الذي تعرضه المكتبة باسم <code>openUrl</code>) لم يفعل شيئًا على iOS الحالي حين جربته على جهاز في سبتمبر 2026. الزر أغلق الدرع فقط. وإرسال إشعار من ضغطة الزر كان غير موثوق عندي أيضًا.</p>
+    <p>ما أنشره بدلًا من ذلك: للدرع زر واحد «إغلاق»، وامتداد <strong>ShieldConfiguration</strong> يرسل إشعارًا محليًا كلما <em>عُرض</em> الدرع. يضغط المستخدم على اللافتة فيصل إلى التطبيق. يكتب التطبيق حمولة الإشعار في App Group مسبقًا، ويزيل الإشعار حين يعود إلى الواجهة. قد يطلب iOS إعداد الدرع عدة مرات في العرض الواحد، فالإرسال مقيّد بفاصل زمني:</p>
+<pre><code>func postShieldShownNotification(placeholders: [String: String?]) {
+  guard let config = userDefaults?.dictionary(forKey: "honorfitShieldShownNotification"),
+        let payload = config["payload"] as? [String: Any] else { return }
+
+  let minInterval = config["minIntervalSeconds"] as? Double ?? 30
+  let now = Date().timeIntervalSince1970
+  let lastSentAt = userDefaults?.double(forKey: "honorfitShieldShownNotificationLastSentAt") ?? 0
+  if now - lastSentAt &lt; minInterval { return }
+  userDefaults?.set(now, forKey: "honorfitShieldShownNotificationLastSentAt")
+
+  // builds a UNMutableNotificationContent and adds a UNNotificationRequest
+  // with a fixed identifier, so repeats replace rather than stack
+  sendNotification(contents: payload, placeholders: placeholders)
+}
+
+class ShieldConfigurationExtension: ShieldConfigurationDataSource {
+  override func configuration(shielding application: Application) -&gt; ShieldConfiguration {
+    postShieldShownNotification(placeholders: [
+      "applicationOrDomainDisplayName": application.localizedDisplayName
+    ])
+    return buildShield(/* title, subtitle, colors from the App Group */)
+  }
+  // ...same hook in the category and web-domain overloads
+}</code></pre>
+    <p>إنها حيلة، وتعتمد على أن يسمح المستخدم بالإشعارات، لكنها الطريق الوحيد إلى التطبيق الذي نجح بشكل موثوق عندي.</p>
+
+    <h2 id="expo">10. الحفاظ على الامتدادات المخصصة عبر prebuild</h2>
+    <p><span class="label">المكتبة</span> إذا كنت تستخدم Expo، فإن <code>expo prebuild</code> يشغّل إضافة الإعداد في react-native-device-activity، التي تنسخ افتراضيًا ملفات الامتدادات الأصلية من المكتبة إلى <code>./targets</code> في كل تشغيل. استُبدل امتداد ShieldConfiguration المخصص عندي بصمت. الحل خيار واحد في الإضافة:</p>
+<pre><code>["react-native-device-activity", {
+  "appleTeamId": "XXXXXXXXXX",
+  "appGroup": "group.com.honorfit.blocker",
+  "copyToTargetFolder": false
+}]</code></pre>
+    <p>الثمن: حين تحدّث المكتبة، قارن <code>targets/</code> وملفات Swift المشتركة فيها بملفاتك يدويًا، وأعد تطبيق تغييراتك.</p>
+
+    <h2 id="testing">11. Xcode 26 والمحاكي والاختبار</h2>
+    <ul>
+      <li><strong>ابنِ بـ iOS 26 SDK.</strong> صار App Store Connect يرفض الرفع المبني بـ SDK أقدم من iOS 26 (ITMS-90725). على EAS أثبّت صورة البناء على <code>macos-tahoe-26.5-xcode-26.6</code>.</li>
+      <li><strong>المحاكي يوصلك إلى منتصف الطريق فقط.</strong> في محاكيات iOS 26، تظهر نافذة التفويض والمُنتقي فعلًا. لكن التفويض لا يكتمل أبدًا («السماح برمز الدخول» يريد رمز دخول للجهاز لا يستطيع المحاكي ضبطه)، والمُنتقي لا يجد تطبيقات ليعرضها، وامتداد المراقبة لا يعمل أبدًا. كل ما في الأقسام من 5 إلى 9 يحتاج جهازًا حقيقيًا.</li>
+      <li><strong>احمِ استدعاءات ManagedSettings بالتحقق من التفويض.</strong> لمس المخزن دون تفويض أظهر طلب رمز دخول من النظام في المحاكي، فكسر اختبارات الواجهة عندي. أتحقق من حالة التفويض قبل أي استدعاء للدرع.</li>
+      <li><strong>اعرض أخطاء التفويض في الواجهة.</strong> مختبرو TestFlight ليست لديهم وحدة تحكم. إذا فشل <code>requestAuthorization</code> بصمت، يبدو الزر معطلًا فقط. أعرض الخطأ والحالة في تنبيه.</li>
+      <li><strong>اختبر طوال الليل.</strong> أسوأ أخطائي (حجب طوال الليل مع وجود وقت، وتوقف الموسيقى) كانت غير مرئية في مراجعة الكود، ولم تظهر إلا على جهاز على مدى ساعات.</li>
+    </ul>
+
+    <h2 id="android">12. وعلى Android</h2>
+    <p>للمقارنة، ليس في Android مقابل رسمي، فتبنيه بنفسك. حاجب HonorFit على Android خدمة في المقدمة (من نوع <code>specialUse</code>، لأن حجب التطبيقات لا يناسب أيًا من الأنواع المدرجة) تستعلم من <code>UsageStatsManager</code> مرة كل ثانية والشاشة مضاءة لتعرف أي تطبيق في الواجهة. حين يكون تطبيق محجوب ظاهرًا والرصيد صفرًا، ترسم فوقه شاشة قفل <code>TYPE_APPLICATION_OVERLAY</code> («الظهور فوق التطبيقات الأخرى»). مستقبِل الإقلاع ومنبه مراقبة يعيدان تشغيل الخدمة بعد إعادة التشغيل، وتحديثات التطبيق، ومديري البطارية العدوانيين لدى الشركات المصنّعة.</p>
+    <p>المقايضات تشير في الاتجاه المعاكس لـ iOS. ترى أسماء الحزم الحقيقية، فالخصوصية وعد تحفظه أنت لا وعد يفرضه النظام. والتطبيق المحجوب قد يظهر لمدة تصل إلى دورة استعلام واحدة، ويظل يعمل تحت الطبقة. وستكتب إقرارات في Play Console لنوع الخدمة في المقدمة وإذن الطبقة ورؤية الحزم. تجنبت عمدًا AccessibilityService، التي تخضع لأشد مراجعة على الإطلاق.</p>
+
+    <h2 id="checklist">13. قائمة تحقق</h2>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th scope="col">العَرَض</th><th scope="col">السبب المحتمل</th><th scope="col">الحل</th></tr></thead>
+        <tbody>
+          <tr><td>فشل التجهيز لهدف واحد</td><td>صلاحية أو App Group مفقودة على معرّف الحزمة ذاك</td><td>اطلب Family Controls (Distribution) وأرفق App Group لكل معرّف حزمة</td></tr>
+          <tr><td>لا أحداث عتبات، أبدًا</td><td><code>intervalStart</code> = الآن، فيُحجز المراقب للغد</td><td>أرجع البداية إلى الوراء؛ وأبقِ الفترة &ge; 15 دقيقة</td></tr>
+          <tr><td>مراقب مخصص للغد يعمل اليوم</td><td>الجدول يحتوي الوقت الحالي</td><td>جدول منتهٍ اليوم <code>[00:00, T)</code>، أو <code>repeats: true</code> مع إجراءات محمية</td></tr>
+          <tr><td>التطبيقات تُحجب للحظة حين يُفتح تطبيقك</td><td><code>stopMonitoring</code> تطلق <code>intervalDidEnd</code></td><td>امسح الإجراءات قبل الإيقاف؛ واحمِها بوقت «ليس قبل»</td></tr>
+          <tr><td>«انتهى الوقت» بعد أن بقي الهاتف خاملًا</td><td>العتبات الوهمية في iOS 26</td><td>حماية بساعة الحائط مع مرشح الدفعات</td></tr>
+          <tr><td>العتبات اللاحقة لا تنطلق أبدًا</td><td>تسقط أو تُدمج مع الاستخدام المتقطع</td><td>سلّح مراقبًا جديدًا عند كل انتقال إلى الخلفية</td></tr>
+          <tr><td>زر الدرع لا يفتح التطبيق</td><td>لا توجد واجهة مدعومة</td><td>أرسل إشعارًا من ShieldConfiguration عند العرض</td></tr>
+          <tr><td>الأحداث المنطلقة لا تطابق (RN)</td><td>شرطة سفلية في اسم الحدث</td><td>استخدم <code>used-7</code>، لا <code>used_7</code></td></tr>
+          <tr><td>المُنتقي يفتح فارغًا (RN)</td><td>خاصية <code>includeEntireCategory</code> مفقودة</td><td>مرّرها، بأي قيمة</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="faq">14. إجابات سريعة</h2>
+    <div class="faq">
+      <details>
+        <summary>هل أحتاج صلاحية Family Controls لكل امتداد؟</summary>
+        <p>نعم. تُمنح لكل معرّف حزمة. التطبيق مع امتداد DeviceActivityMonitor وShieldConfiguration وShieldAction يعني أربع موافقات، وكل App ID يحتاج أيضًا App Group المشتركة.</p>
+      </details>
+      <details>
+        <summary>لماذا لا ينطلق eventDidReachThreshold في DeviceActivity؟</summary>
+        <p>عندي كان السبب غالبًا جدولًا غير متكرر يبدأ «الآن»، فيُحجز للغد. أرجِع <code>intervalStart</code> إلى الوراء. وفي iOS 26، مع الاستخدام المتقطع، كانت العتبات اللاحقة التي تقل عن دقيقة تسقط أيضًا؛ وإعادة تسليح مراقب جديد ساعدت.</p>
+      </details>
+      <details>
+        <summary>هل يستطيع امتداد ShieldAction أو ShieldConfiguration فتح التطبيق الأم؟</summary>
+        <p>ليس بواجهة مدعومة، والحل البديل عبر <code>NSExtensionContext</code> لم يفعل شيئًا على iOS الحالي في تجاربي. ما أنشره هو إشعار محلي يُرسل من ShieldConfiguration حين يُعرض الدرع.</p>
+      </details>
+      <details>
+        <summary>هل يمكنني اختبار Screen Time API في محاكي iOS؟</summary>
+        <p>جزئيًا. نافذة الإذن والمُنتقي يظهران في محاكيات iOS 26، لكن التفويض لم يكتمل، والمُنتقي لم يكن فيه ما يعرضه، وامتداد المراقبة لم يعمل أبدًا. استخدم جهازًا حقيقيًا.</p>
+      </details>
+    </div>
+
+    <h2 id="why">15. لماذا احتجت كل هذا</h2>
+    <p>بنيت <a href="../../">HonorFit</a>، حاجب تطبيقات تكسب فيه وقتك أمام الشاشة بتمارين الضغط. يعمل بنظام الشرف: تكتب تكراراتك، ولا كاميرا، ولا ذكاء اصطناعي، ولا اتصالات بالشبكة. كل ما سبق هو ما تطلّبه جعل «دقائقك المكتسبة لا تنقص إلا وتطبيق محجوب على الشاشة» يعمل على iPhone. إذا أردت أن تراه يعمل، فهو <a href="https://honorfitapp.com/get/?c=blog-ar">على App Store وGoogle Play</a>. وإذا كنت هنا لأنك تريد تطبيقًا كهذا لا أن تبنيه، فقد كتبت عن <a href="../../../pushup-app-blocker/">كيف تعمل حاجبات التطبيقات بتمارين الضغط</a> (بالإنجليزية) و<a href="../../../best-pushup-app-blockers/">مراجعة صادقة للموجود منها</a> (بالإنجليزية)، بما فيها المنافسون. وإذا واجهت سلوكًا في مدة استخدام الجهاز غير موجود هنا، أو وجدت أن شيئًا مما سبق خطأ على iOS أحدث، فيسعدني أن أسمع عنه.</p>
+
+    <h2>اقرأ أيضًا</h2>
+    <div class="readnext">
+      <a href="../screen-time-api-wishlist/">3 أشياء أتمنى أن تصلحها Apple في Screen Time API &larr;</a>
+      <a href="../../../best-pushup-app-blockers/">أفضل التطبيقات التي تجعلك تتمرن لتفتح هاتفك (بالإنجليزية) &larr;</a>
+      <a href="../">كل المقالات &larr;</a>
+      <a href="../../../vs-screen-time/">HonorFit مقابل مدة استخدام الجهاز في iPhone (بالإنجليزية) &larr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">الرئيسية</a>
+    <a href="../">المدونة</a>
+    <a href="../../../support/">الدعم</a>
+    <a href="../../../privacy/">سياسة الخصوصية</a>
+    <span class="langs"><a href="../../../blog/ios-screen-time-api-guide/" hreflang="en" lang="en">English</a><a href="../../../es/blog/ios-screen-time-api-guide/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/ios-screen-time-api-guide/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/ios-screen-time-api-guide/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/ios-screen-time-api-guide/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/ios-screen-time-api-guide/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/ios-screen-time-api-guide/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/ios-screen-time-api-guide/" hreflang="pl" lang="pl">Polski</a><a href="../../../tr/blog/ios-screen-time-api-guide/" hreflang="tr" lang="tr">Türkçe</a><a href="../../../id/blog/ios-screen-time-api-guide/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/ios-screen-time-api-guide/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../../th/blog/ios-screen-time-api-guide/" hreflang="th" lang="th">ไทย</a><a href="../../../ja/blog/ios-screen-time-api-guide/" hreflang="ja" lang="ja">日本語</a><a href="../../../ko/blog/ios-screen-time-api-guide/" hreflang="ko" lang="ko">한국어</a><a href="../../../zh-hans/blog/ios-screen-time-api-guide/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a><a href="../../../zh-hant/blog/ios-screen-time-api-guide/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a><a href="./" hreflang="ar" lang="ar" aria-current="page">العربية</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

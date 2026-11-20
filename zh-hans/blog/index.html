@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>博客：开发 App 屏蔽工具的笔记 | HonorFit</title>
+  <meta name="description" content="开发 HonorFit 这个 iPhone 和 Android 都能用的俯卧撑 App 屏蔽工具时留下的技术笔记：iOS Screen Time API、Android 的使用情况监控，还有上架过程中学到的事。">
+  <link rel="canonical" href="https://honorfitapp.com/zh-hans/blog/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://honorfitapp.com/zh-hans/blog/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/">
+  <link rel="alternate" hreflang="ar" href="https://honorfitapp.com/ar/blog/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/">
+  <meta name="theme-color" content="#0D1117">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/zh-hans/blog/">
+  <meta property="og:title" content="博客：开发 App 屏蔽工具的笔记 | HonorFit">
+  <meta property="og:description" content="开发 HonorFit 这个 iPhone 和 Android 都能用的俯卧撑 App 屏蔽工具时留下的技术笔记：iOS Screen Time API、Android 的使用情况监控，还有上架过程中学到的事。">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="apple-itunes-app" content="app-id=6802871620">
+  <link rel="icon" href="../../img/favicon.png">
+  <link rel="stylesheet" href="../../style.css">
+  <style>
+    .posts { list-style: none; padding: 0 !important; margin: 0; }
+    .posts li { border-bottom: 1px solid var(--border); padding: 20px 0; margin: 0 !important; }
+    .posts li:first-child { border-top: 1px solid var(--border); }
+    .posts h2 { margin: 0 0 6px; font-size: 1.2rem; }
+    .posts h2 a { color: var(--text); text-decoration: none; }
+    .posts h2 a:hover { color: var(--orange-bright); }
+    .posts .date { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 6px; }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "HonorFit 博客",
+    "url": "https://honorfitapp.com/zh-hans/blog/",
+    "inLanguage": "zh-Hans",
+    "description": "开发 HonorFit 这个 iPhone 和 Android 都能用的俯卧撑 App 屏蔽工具时留下的技术笔记。",
+    "author": { "@type": "Person", "name": "Thomas Willheim" },
+    "blogPost": [
+      {
+        "@type": "BlogPosting",
+        "headline": "你走的步数，现在也能换屏幕使用时间",
+        "url": "https://honorfitapp.com/zh-hans/blog/steps-earn-screen-time/",
+        "inLanguage": "zh-Hans",
+        "datePublished": "2026-11-17",
+        "author": { "@type": "Person", "name": "Thomas Willheim" }
+      },
+      {
+        "@type": "TechArticle",
+        "headline": "不用 AccessibilityService 打造 Android App 屏蔽工具",
+        "url": "https://honorfitapp.com/zh-hans/blog/android-app-blocker-without-accessibility-service/",
+        "inLanguage": "zh-Hans",
+        "datePublished": "2026-11-09",
+        "author": { "@type": "Person", "name": "Thomas Willheim" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "HonorFit 怎么自定义运动项目",
+        "url": "https://honorfitapp.com/zh-hans/blog/customize-exercises/",
+        "datePublished": "2026-10-13",
+        "inLanguage": "zh-Hans",
+        "author": { "@type": "Person", "name": "Thomas Willheim" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "做凯格尔运动来解锁手机：用凯格尔运动和臀桥当解锁运动",
+        "url": "https://honorfitapp.com/zh-hans/blog/kegels-to-unlock-your-phone/",
+        "datePublished": "2026-10-13",
+        "inLanguage": "zh-Hans",
+        "author": { "@type": "Person", "name": "Thomas Willheim" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "做不了俯卧撑？用低冲击运动解锁你的 App",
+        "url": "https://honorfitapp.com/zh-hans/blog/no-pushups-low-impact-exercises/",
+        "datePublished": "2026-10-13",
+        "inLanguage": "zh-Hans",
+        "author": { "@type": "Person", "name": "Thomas Willheim" }
+      },
+      {
+        "@type": "TechArticle",
+        "headline": "2026 年的 iOS Screen Time API：Apple 文档没告诉你的事",
+        "url": "https://honorfitapp.com/zh-hans/blog/ios-screen-time-api-guide/",
+        "inLanguage": "zh-Hans",
+        "datePublished": "2026-09-30",
+        "author": { "@type": "Person", "name": "Thomas Willheim" }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../img/icon.png" alt="">
+    <a class="brand" href="../">HonorFit Blocker</a>
+    <a class="link" href="./">博客</a>
+    <a class="link" href="../../support/">客服支持</a>
+    <a class="link" href="../../privacy/">隐私</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>博客</h1>
+    <p class="meta">开发 HonorFit 的笔记。HonorFit 是一个 iPhone 和 Android 都能用的俯卧撑 App 屏蔽工具。</p>
+
+    <ul class="posts">
+      <li>
+        <h2><a href="steps-earn-screen-time/">你走的步数，现在也能换屏幕使用时间</a></h2>
+        <p class="date"><time datetime="2026-11-17">2026 年 11 月 17 日</time></p>
+        <p>HonorFit 会从 Apple“健康”或 Health Connect 读取你的步数，换成 App 时间。免费，而且数据不会离开你的手机。</p>
+      </li>
+      <li>
+        <h2><a href="android-app-blocker-without-accessibility-service/">不用 AccessibilityService 打造 Android App 屏蔽工具</a></h2>
+        <p class="date"><time datetime="2026-11-09">2026 年 11 月 9 日</time></p>
+        <p>UsageStatsManager、前台服务和叠加窗口：让一个已上架的 App 屏蔽工具摆脱无障碍 API 的过程。</p>
+      </li>
+      <li>
+        <h2><a href="customize-exercises/">HonorFit 怎么自定义运动项目</a></h2>
+        <p class="date"><time datetime="2026-10-13">2026 年 10 月 13 日</time></p>
+        <p>帮运动项目改名、添加和删除，设置每一个能赚多少屏幕使用时间，还有把走路、瑜伽、HIIT 这类计时运动用分钟而不是次数来记录。另外说明哪些免费、哪些是 Pro。</p>
+      </li>
+      <li>
+        <h2><a href="kegels-to-unlock-your-phone/">做凯格尔运动来解锁手机</a></h2>
+        <p class="date"><time datetime="2026-10-13">2026 年 10 月 13 日</time></p>
+        <p>用凯格尔运动和臀桥当解锁运动。凯格尔运动没有人看得到，这正是不用摄像头的诚信制最适合它的原因。附设置步骤和建议数值。</p>
+      </li>
+      <li>
+        <h2><a href="no-pushups-low-impact-exercises/">做不了俯卧撑？用低冲击运动解锁你的 App</a></h2>
+        <p class="date"><time datetime="2026-10-13">2026 年 10 月 13 日</time></p>
+        <p>走路、伸展、椅子深蹲、扶墙俯卧撑，还有其他温和、在办公桌就能做的动作，用来赚屏幕使用时间，再附几组可以直接抄的设置。</p>
+      </li>
+      <li>
+        <h2><a href="screen-time-api-wishlist/">我希望 Apple 修好 Screen Time API 的 3 件事</a></h2>
+        <p class="date"><time datetime="2026-09-30">2026 年 9 月 30 日</time></p>
+        <p>同一个 App 做在 iPhone 和 Android 上，结果 Android 版比较好用。一次只能有一个屏幕使用时间 App、一个 App 没办法自定义的选择器，还有看不到剩余时间的实时倒计时。</p>
+      </li>
+      <li>
+        <h2><a href="ios-screen-time-api-guide/">2026 年的 iOS Screen Time API：Apple 文档没告诉你的事</a></h2>
+        <p class="date"><time datetime="2026-09-30">2026 年 9 月 30 日</time></p>
+        <p>从一个已上架的 App 来看 FamilyControls、DeviceActivity 和 shield extension：每个 extension 都要申请 entitlement、永远不会触发的门槛事件、iOS 26 的幽灵门槛、在错误时间开始的调度，以及为什么屏蔽界面（shield）打不开你的 App。</p>
+      </li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../">首页</a>
+    <a href="../../support/">客服支持</a>
+    <a href="../../privacy/">隐私政策</a>
+    <span class="langs"><a href="../../blog/" hreflang="en" lang="en">English</a><a href="../../es/blog/" hreflang="es" lang="es">Español</a><a href="../../pt-br/blog/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../de/blog/" hreflang="de" lang="de">Deutsch</a><a href="../../fr/blog/" hreflang="fr" lang="fr">Français</a><a href="../../it/blog/" hreflang="it" lang="it">Italiano</a><a href="../../nl/blog/" hreflang="nl" lang="nl">Nederlands</a><a href="../../pl/blog/" hreflang="pl" lang="pl">Polski</a><a href="../../tr/blog/" hreflang="tr" lang="tr">Türkçe</a><a href="../../id/blog/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../vi/blog/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../th/blog/" hreflang="th" lang="th">ไทย</a><a href="../../ja/blog/" hreflang="ja" lang="ja">日本語</a><a href="../../ko/blog/" hreflang="ko" lang="ko">한국어</a><a href="./" hreflang="zh-Hans" lang="zh-Hans" aria-current="page">简体中文</a><a href="../../zh-hant/blog/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a><a href="../../ar/blog/" hreflang="ar" lang="ar">العربية</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

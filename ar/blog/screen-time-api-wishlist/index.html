@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3 أشياء أتمنى أن تصلحها Apple في Screen Time API | HonorFit</title>
+  <meta name="description" content="بناء حاجب التطبيقات نفسه على iPhone وAndroid: لماذا لا يسمح iOS إلا بتطبيق واحد لمدة استخدام الجهاز في كل مرة، ولماذا مُنتقي التطبيقات مربك، ولماذا لا ترى عدًّا تنازليًا مباشرًا.">
+  <link rel="canonical" href="https://honorfitapp.com/ar/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://honorfitapp.com/zh-hans/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="ar" href="https://honorfitapp.com/ar/blog/screen-time-api-wishlist/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/screen-time-api-wishlist/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/ar/blog/screen-time-api-wishlist/">
+  <meta property="og:title" content="3 أشياء أتمنى أن تصلحها Apple في Screen Time API">
+  <meta property="og:description" content="التطبيق نفسه على iPhone وAndroid. نسخة Android أريح في الاستخدام، والسبب ثلاثة قيود في Screen Time API لا داعي لوجودها.">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-09-30">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="3 أشياء أتمنى أن تصلحها Apple في Screen Time API">
+  <meta name="twitter:description" content="تطبيق واحد فقط لمدة استخدام الجهاز في كل مرة، ومُنتقٍ لا يمكن تخصيصه، ولا عدّ تنازلي مباشر. ولا شيء من ذلك يجب أن يكلف المستخدمين أي خصوصية.">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose blockquote { border-inline-start: 3px solid var(--border); margin: 14px 0 18px; padding-block: 4px; padding-inline: 16px 0; color: var(--text-dim); }
+    .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0 8px; }
+    .compare figure { margin: 0; }
+    .compare img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    .compare figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; }
+    .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
+    .ask strong { color: var(--text); }
+    .ask ol, .ask ul { margin: 6px 0 0; }
+    figure.single { max-width: 380px; margin: 18px auto 22px; }
+    figure.single img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    figure.single figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; text-align: center; }
+    @media (max-width: 480px) { .compare { gap: 10px; } }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "3 أشياء أتمنى أن تصلحها Apple في Screen Time API",
+    "description": "بناء حاجب التطبيقات نفسه على iPhone وAndroid: تطبيق واحد فقط لمدة استخدام الجهاز في كل مرة، ومُنتقٍ لا يمكن تخصيصه، ولا عدّ تنازلي مباشر للوقت المتبقي.",
+    "url": "https://honorfitapp.com/ar/blog/screen-time-api-wishlist/",
+    "mainEntityOfPage": "https://honorfitapp.com/ar/blog/screen-time-api-wishlist/",
+    "datePublished": "2026-09-30",
+    "dateModified": "2026-09-30",
+    "image": "https://honorfitapp.com/img/og.png",
+    "inLanguage": "ar",
+    "keywords": "Screen Time API، FamilyControls، FamilyActivityPicker، DeviceActivity، Live Activities، حاجب التطبيقات، iOS مقابل Android",
+    "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+    "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">المدونة</a>
+    <a class="link" href="../../../support/">الدعم</a>
+    <a class="link" href="../../../privacy/">الخصوصية</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>3 أشياء أتمنى أن تصلحها Apple في Screen Time API</h1>
+    <p class="meta">ما واجهته وأنا أبني حاجب التطبيقات نفسه لـ iPhone وAndroid. بقلم Thomas Willheim &middot; 30 سبتمبر، 2026</p>
+
+    <p>أنا أصنع <a href="../../">HonorFit</a>، حاجب تطبيقات تكسب فيه وقتك أمام الشاشة بتمارين الضغط (نظام الشرف، بلا كاميرا). إنه التطبيق نفسه على iPhone وAndroid، الفكرة نفسها، والكود نفسه في معظمه. وبصراحة؟ نسخة Android أريح في الاستخدام.</p>
+    <p>وليس السبب أن Android أفضل في حجب التطبيقات. واجهة Screen Time API في iOS متينة جدًا في جزء الحجب نفسه. السبب أن iOS يقيّدك في ثلاثة أشياء محددة، ولا يبدو أن أيًا منها موجود لحماية المستخدمين. فهذه قائمتي، مع ما أطلبه من Apple. حاولت أن ألتزم بأشياء لا تكلف أحدًا أي خصوصية.</p>
+    <p>(إذا أردت النسخة التقنية التفصيلية عن البناء على هذه الواجهة، فقد كتبتها في مقالة منفصلة: <a href="../ios-screen-time-api-guide/">ما لا تخبرك به وثائق Apple</a>.)</p>
+
+    <h2 id="one-app">1. لا يمكنك امتلاك أكثر من تطبيق واحد لمدة استخدام الجهاز في كل مرة</h2>
+    <p>لنفترض أنك تستخدم Brick أو Opal أو one sec، وتريد تجربة HonorFit أيضًا. على iPhone لا تستطيع. حين يطلب التطبيق الثاني صلاحية مدة استخدام الجهاز، لا يعرض iOS حتى نافذة طلب الإذن. يرمي خطأً فقط يقول إن Family Controls متاح لتطبيق واحد فقط في كل مرة. رأيت هذا الخطأ بنفسي، و<a href="https://developer.apple.com/forums/thread/847096">مطورون آخرون يواجهونه أيضًا</a>.</p>
+    <p>لكي تبدّل، عليك الذهاب إلى <strong>الإعدادات &lsaquo; مدة استخدام الجهاز &lsaquo; التطبيقات التي لديها وصول إلى مدة استخدام الجهاز</strong>، وإيقاف التطبيق الآخر، وأحيانًا إعادة تشغيل هاتفك. صار HonorFit يكتشف هذا الخطأ ويرشد الناس خلال هذه الخطوات، لأن رسالة الخطأ الخام لا تعني شيئًا لشخص عادي.</p>
+    <figure class="single">
+      <img src="../../../img/blog/ios-screen-time-conflict.webp" alt="تنبيه HonorFit على iPhone: تطبيق آخر يستخدم مدة استخدام الجهاز. يسمح iOS لتطبيق واحد فقط بالتحكم في مدة استخدام الجهاز في كل مرة، مع خطوات لإيقاف التطبيق الآخر من الإعدادات" width="660" height="720" loading="lazy">
+      <figcaption>ما يراه مستخدمو iPhone في HonorFit حين يكون لدى تطبيق آخر صلاحية مدة استخدام الجهاز. iOS نفسه يعطي التطبيق خطأً فقط، فهذا الشرح من عندنا.</figcaption>
+    </figure>
+    <p>والغريب في الأمر: حين قدّمت Apple هذا النوع من التفويض في WWDC22، <a href="https://developer.apple.com/videos/play/wwdc2022/110336/">قالت</a> إن التفويض الفردي، بخلاف تفويض الرقابة الأبوية، يمكن أن تستخدمه أي عدد من التطبيقات على الجهاز. هذا ليس ما يحدث اليوم، ولم أجده موثقًا في أي مكان.</p>
+    <p><strong>لماذا لا يخدم هذا مصلحة المستخدمين:</strong> الناس يجمعون بين الأدوات. قد يستخدم شخص ما Brick لجلسات تركيز صارمة في العمل، وHonorFit ليكسب تصفحه في المساء. لدى Apple أصلًا قاعدة لدمج القيود: حين تضبط عدة <code>ManagedSettingsStore</code> الشيء نفسه، فبحسب <a href="https://developer.apple.com/videos/play/wwdc2022/110336/">كلام Apple</a> «الإعداد الأكثر تقييدًا يفوز دائمًا». تطبيق الأمر نفسه عبر التطبيقات سيتيح للناس استخدام الاثنين، والهاتف بهذه الطريقة لا يمكن إلا أن يصبح <em>أكثر</em> تقييدًا، لا أقل أبدًا.</p>
+    <div class="ask">
+      <strong>ما أطلبه:</strong> اسمحوا لأكثر من تطبيق بامتلاك تفويض مدة استخدام الجهاز الفردي، كما وُصف في WWDC22، وادمجوا دروعها بقاعدة «الأكثر تقييدًا يفوز» نفسها. وإذا كان للقيد سبب حقيقي، فوثّقوه وأعطوا التطبيقات رمز خطأ واضحًا لتتمكن من شرحه.
+    </div>
+
+    <h2 id="picker">2. مُنتقي التطبيقات مربك، والتطبيقات لا تستطيع تخصيصه</h2>
+    <p>على iPhone، اختيار التطبيقات التي تريد حجبها يعني <code>FamilyActivityPicker</code> من Apple. إنها نافذة نظام لا يستطيع التطبيق تغييرها، باستثناء سطر نص في الأعلى وآخر في الأسفل. تفتح على قائمة فئات (التواصل الاجتماعي، الألعاب، الترفيه...)، وتدخل إلى الفئة لتجد التطبيقات الفعلية. على Android، أبني القائمة بنفسي، فيعرض HonorFit تطبيقاتك المثبتة مرتبة بحسب مقدار استخدامك لكل منها في آخر 24 ساعة.</p>
+
+    <div class="compare">
+      <figure>
+        <img src="../../../img/blog/ios-app-picker.webp" alt="مُنتقي تطبيقات مدة استخدام الجهاز في iOS: قائمة بفئات التطبيقات، مع فئة الصحة واللياقة مفتوحة لتعرض تطبيقاتها" width="660" height="1310" loading="lazy">
+        <figcaption><strong>iPhone:</strong> مُنتقي Apple. الفئات أولًا، بلا بيانات استخدام، وهو نفسه في كل التطبيقات.</figcaption>
+      </figure>
+      <figure>
+        <img src="../../../img/blog/android-app-picker.webp" alt="مُنتقي التطبيقات في HonorFit على Android: التطبيقات مع وقت الاستخدام في آخر 24 ساعة، الأكثر استخدامًا أولًا" width="660" height="1308" loading="lazy">
+        <figcaption><strong>Android:</strong> قائمة HonorFit الخاصة، مرتبة بحسب وقت الاستخدام، فتظهر أسوأ تطبيقاتك في الأعلى مباشرة.</figcaption>
+      </figure>
+    </div>
+
+    <p>شيئان يزعجانني في نسخة iOS:</p>
+    <ul>
+      <li><strong>من السهل جدًا أن تحجب فئة كاملة بالخطأ.</strong> اضغط على صف الفئة بدل فتحها، وتكون قد اخترت كل تطبيق فيها، بما فيها التطبيقات التي ستثبتها لاحقًا. ولكثير من التطبيقات هذا ليس ما تريده أبدًا. أنت تريد إنستغرام وتيك توك، لا «التواصل الاجتماعي».</li>
+      <li><strong>لا ترى أي التطبيقات تلتهم يومك فعلًا.</strong> السبب الوحيد الذي يجعل أحدهم يفتح حاجب تطبيقات هو «أقضي وقتًا طويلًا جدًا على هاتفي». والمُنتقي هو اللحظة الوحيدة التي يقرر فيها ما سيحجبه، ولا يعطيه أي معلومة عن أين يذهب وقته. هاتفك يعرف بالضبط كم قضيت في كل تطبيق (الرقم موجود في الإعدادات)، لكن المُنتقي لا يعرضه.</li>
+    </ul>
+    <p><strong>هذا لن يكلف أي خصوصية.</strong> المُنتقي يرسمه iOS في عمليته الخاصة. التطبيق لا يرى أبدًا ما فيه، بل رموزًا مبهمة فقط لما اخترته. HonorFit لا يستطيع حرفيًا أن يعرف أي التطبيقات اخترت. فيمكن لـ iOS أن يعرض أوقات الاستخدام داخل المُنتقي، ولن يعرف التطبيق شيئًا. وApple تفعل شيئًا كهذا أصلًا مع امتدادات <code>DeviceActivityReport</code>، التي تعرض استخدامك داخل بيئة معزولة لا يستطيع التطبيق قراءتها.</p>
+    <div class="ask">
+      <strong>ما أطلبه:</strong>
+      <ol>
+        <li>خيار في المُنتقي لاختيار <strong>فئات كاملة أو تطبيقات فقط</strong>، ليتمكن حاجب التطبيقات من عرض قائمة تطبيقات فقط دون اختيار فئات بالخطأ (وإخفاء المواقع إن لم يكن يستخدمها).</li>
+        <li>خيار <strong>للترتيب بحسب وقت الشاشة المقاس وعرضه</strong> بجانب كل تطبيق، يرسمه iOS بحيث لا يرى التطبيق الأرقام أبدًا.</li>
+      </ol>
+    </div>
+
+    <h2 id="countdown">3. لا يمكنك رؤية عدّ تنازلي دقيق لوقتك المتبقي</h2>
+    <p>في HonorFit، لا ينقص وقتك المكتسب إلا وأنت داخل تطبيق محجوب فعلًا. فالشيء البديهي الذي يجب عرضه هو عدّ تنازلي: «12:34 متبقية»، يتناقص وأنت تتصفح ويتوقف حين تخرج.</p>
+    <p><strong>على Android هذا سهل.</strong> خدمة HonorFit في الخلفية تتحقق من التطبيق الظاهر على الشاشة كل ثانية، والإشعار يستخدم مؤقت العدّ التنازلي المدمج في Android، فيعيد شريط الإشعارات رسمه كل ثانية من تلقاء نفسه. تسحب الشريط للأسفل فترى بالضبط كم تبقى لك من الوقت، بالثانية.</p>
+    <p><strong>على iPhone هذا غير ممكن</strong>، وإليك السبب:</p>
+    <ul>
+      <li>لا يخبر iOS التطبيق أبدًا حين تفتح تطبيقًا محجوبًا أو تخرج منه. كل ما تحصل عليه أحداث من نوع «تراكم هذا القدر من الاستخدام». يضبط HonorFit حدثًا لكل 15 ثانية من الاستخدام، وتُرسل إلى امتداد في الخلفية يحدّث الإشعار.</li>
+      <li>الإشعار العادي لا يستطيع العدّ التنازلي بنفسه، فأقصى ما يستطيعه HonorFit هو تبديل النص كلما وصل حدث. لهذا يقول إشعار iPhone «~12:30 متبقية» مع علامة التقريب: إنه يقفز بخطوات من 15 ثانية.</li>
+      <li>وتلك الأحداث لا تصل دائمًا في وقتها أيضًا. في iOS 26 رأيتها تتأخر، أو تصل عدة أحداث معًا.</li>
+      <li>الأنشطة المباشرة (Live Activities) <em>تستطيع</em> العدّ التنازلي بنفسها، لكنها لا تستطيع التوقف مؤقتًا. لا شيء يخبر التطبيق أنك خرجت من إنستغرام، فسيظل النشاط المباشر يعدّ والهاتف على الطاولة، وهذا خطأ.</li>
+    </ul>
+    <p>فيحصل مستخدمو iPhone على تقدير تقريبي، بينما يحصل مستخدمو Android على الرقم الحقيقي.</p>
+    <div class="ask">
+      <strong>ما أطلبه:</strong> اسمحوا لحدث <code>DeviceActivity</code> بأن يشغّل عدًّا تنازليًا يرسمه iOS بنفسه: في إشعار، أو نشاط مباشر، أو الدرع، ولا يعمل إلا والتطبيقات المراقبة على الشاشة. iOS يتتبع هذا الاستخدام بالثانية أصلًا، فيمكنه عرض الوقت دون أن يعطي التطبيق أي شيء جديد. حتى استدعاءات بسيطة من نوع «فُتح التطبيق المحجوب / أُغلق» لامتداد المراقبة ستحل معظم المشكلة.</div>
+
+    <h2 id="wrap-up">هذا كل شيء</h2>
+    <p>إنصافًا لـ Apple، نموذج الخصوصية هنا ممتاز فعلًا. التطبيق لا يعرف أبدًا ما الذي حجبته أو كم تستخدمه، وأكره أن يتغير ذلك. ولا شيء من الأشياء الثلاثة أعلاه سيغيّره. ستتيح فقط لتطبيقات iPhone أن تكون مفيدة بقدر نسخ Android الحالية.</p>
+    <p>إذا كنت تبني على مدة استخدام الجهاز أيضًا وتريد أيًا من هذه، فأرجوك قدّمها في <a href="https://feedbackassistant.apple.com/">Feedback Assistant</a>. بحسب ما فهمت، التقارير المكررة هي ما يلفت الانتباه إلى الأشياء. وإذا أردت فقط تجربة التطبيق، فإن <a href="https://honorfitapp.com/get/?c=blog-wishlist-ar">HonorFit مجاني على iPhone وAndroid</a>. ربما يعجب بعضكم!</p>
+
+    <h2>اقرأ أيضًا</h2>
+    <div class="readnext">
+      <a href="../ios-screen-time-api-guide/">Screen Time API: ما لا تخبرك به الوثائق &larr;</a>
+      <a href="../../../vs-screen-time/">HonorFit مقابل مدة استخدام الجهاز في iPhone (بالإنجليزية) &larr;</a>
+      <a href="../../../best-pushup-app-blockers/">أفضل التطبيقات التي تجعلك تتمرن لتفتح هاتفك (بالإنجليزية) &larr;</a>
+      <a href="../">كل المقالات &larr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">الرئيسية</a>
+    <a href="../">المدونة</a>
+    <a href="../../../support/">الدعم</a>
+    <a href="../../../privacy/">سياسة الخصوصية</a>
+    <span class="langs"><a href="../../../blog/screen-time-api-wishlist/" hreflang="en" lang="en">English</a><a href="../../../es/blog/screen-time-api-wishlist/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/screen-time-api-wishlist/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/screen-time-api-wishlist/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/screen-time-api-wishlist/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/screen-time-api-wishlist/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/screen-time-api-wishlist/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/screen-time-api-wishlist/" hreflang="pl" lang="pl">Polski</a><a href="../../../tr/blog/screen-time-api-wishlist/" hreflang="tr" lang="tr">Türkçe</a><a href="../../../id/blog/screen-time-api-wishlist/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/screen-time-api-wishlist/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../../th/blog/screen-time-api-wishlist/" hreflang="th" lang="th">ไทย</a><a href="../../../ja/blog/screen-time-api-wishlist/" hreflang="ja" lang="ja">日本語</a><a href="../../../ko/blog/screen-time-api-wishlist/" hreflang="ko" lang="ko">한국어</a><a href="../../../zh-hans/blog/screen-time-api-wishlist/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a><a href="../../../zh-hant/blog/screen-time-api-wishlist/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a><a href="./" hreflang="ar" lang="ar" aria-current="page">العربية</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

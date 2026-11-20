@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>بناء حاجب تطبيقات على Android دون AccessibilityService | HonorFit</title>
+  <meta name="description" content="كيف يحجب HonorFit التطبيقات على Android باستخدام UsageStatsManager وخدمة specialUse في المقدمة وطبقة فوق الشاشة بدل واجهة Accessibility: تأخر كتابة UsageStats، وقواعد التشغيل من الخلفية، وقاتلو البطارية لدى الشركات المصنّعة، والمقايضات.">
+  <link rel="canonical" href="https://honorfitapp.com/ar/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://honorfitapp.com/zh-hans/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="ar" href="https://honorfitapp.com/ar/blog/android-app-blocker-without-accessibility-service/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/android-app-blocker-without-accessibility-service/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/ar/blog/android-app-blocker-without-accessibility-service/">
+  <meta property="og:title" content="بناء حاجب تطبيقات على Android دون AccessibilityService">
+  <meta property="og:description" content="UsageStatsManager وخدمة في المقدمة وطبقة فوق الشاشة: ما الذي تطلّبه إخراج واجهة Accessibility من حاجب تطبيقات منشور.">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-11-09">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="بناء حاجب تطبيقات على Android دون AccessibilityService">
+  <meta name="twitter:description" content="UsageStatsManager وخدمة في المقدمة وطبقة فوق الشاشة: ما الذي تطلّبه إخراج واجهة Accessibility من حاجب تطبيقات منشور.">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <meta name="apple-itunes-app" content="app-id=6802871620">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    .prose ol { padding-inline-start: 24px; }
+    .prose pre { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 14px 0 20px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; }
+    .prose pre code { background: none; border: 0; padding: 0; font-size: inherit; color: var(--text); }
+    .toc { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 16px 22px; margin: 8px 0 28px; }
+    .toc strong { color: var(--text); }
+    .toc ol { margin: 8px 0 0; }
+    .toc li { margin: 3px 0; }
+    .toc a { text-decoration: none; }
+    .table-scroll { overflow-x: auto; margin: 14px 0 20px; }
+    .prose table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+    .prose th, .prose td { border: 1px solid var(--border); padding: 8px 10px; text-align: start; vertical-align: top; color: var(--text-dim); }
+    .prose th { color: var(--text); background: var(--bg-raised); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "بناء حاجب تطبيقات على Android دون AccessibilityService",
+    "description": "كيف يحجب HonorFit التطبيقات على Android باستخدام UsageStatsManager وخدمة specialUse في المقدمة وطبقة فوق الشاشة بدل واجهة Accessibility.",
+    "url": "https://honorfitapp.com/ar/blog/android-app-blocker-without-accessibility-service/",
+    "mainEntityOfPage": "https://honorfitapp.com/ar/blog/android-app-blocker-without-accessibility-service/",
+    "datePublished": "2026-11-09",
+    "dateModified": "2026-11-09",
+    "inLanguage": "ar",
+    "keywords": "حاجب تطبيقات Android، AccessibilityService، UsageStatsManager، PACKAGE_USAGE_STATS، SYSTEM_ALERT_WINDOW، خدمة في المقدمة، specialUse، Kotlin",
+    "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+    "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">المدونة</a>
+    <a class="link" href="../../../support/">الدعم</a>
+    <a class="link" href="../../../privacy/">الخصوصية</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>بناء حاجب تطبيقات على Android دون AccessibilityService</h1>
+    <p class="meta">UsageStatsManager وخدمة في المقدمة وطبقة فوق الشاشة، من تطبيق منشور فعلًا. بقلم Thomas Willheim &middot; 9 نوفمبر، 2026</p>
+
+    <p>أنا أصنع <a href="../../">HonorFit</a>، حاجب تطبيقات تكسب فيه وقتك أمام الشاشة بتمارين الضغط (نظام الشرف، بلا كاميرا). أول نسخة على Android كانت تحجب التطبيقات بالطريقة التي تتبعها معظم حاجبات Android: عبر <code>AccessibilityService</code>. في أغسطس انتزعت ذلك واستبدلته بـ <code>UsageStatsManager</code> وخدمة في المقدمة ونافذة فوق الشاشة. صار الحجب ألين قليلًا، وصار الإعداد الأولي أقل إخافة بكثير، وصارت مراجعة Play أبسط بكثير.</p>
+    <p>هذا شكل تلك البنية، والأشياء التي لدغتني في الطريق. الكود كله بلغة Kotlin داخل وحدة Expo محلية، لكن لا شيء هنا خاص بـ React Native.</p>
+
+    <div class="toc">
+      <strong>المحتويات</strong>
+      <ol>
+        <li><a href="#why">لماذا التخلي عن واجهة Accessibility</a></li>
+        <li><a href="#shape">الشكل العام</a></li>
+        <li><a href="#poll">الاستعلام الدوري من UsageStats (وتأخر الكتابة فيه)</a></li>
+        <li><a href="#overlay">طبقة القفل</a></li>
+        <li><a href="#service">إبقاء الخدمة حية</a></li>
+        <li><a href="#small">أشياء أصغر</a></li>
+        <li><a href="#tradeoffs">المقايضات</a></li>
+      </ol>
+    </div>
+
+    <h2 id="why">لماذا التخلي عن واجهة Accessibility</h2>
+    <p>خدمة إمكانية الوصول أقوى أداة تحصل عليها في Android. تعلم بكل تغيير في النوافذ لحظة حدوثه، و<code>performGlobalAction(GLOBAL_ACTION_HOME)</code> تطرد المستخدم من التطبيق المحجوب فورًا. لهذا تستخدمها حاجبات كثيرة. أما التكاليف:</p>
+    <ul>
+      <li><strong>نافذة طلب الإذن مرعبة.</strong> يخبر Android المستخدم أن التطبيق يستطيع رؤية كل شيء على الشاشة والتصرف نيابة عنه. لتطبيق شعاره «لا شيء يغادر هاتفك»، طلب ذلك في اليوم الأول مظهر سيئ، وكثيرون ينسحبون عند هذه النقطة.</li>
+      <li><strong>Google Play تعاملها كواجهة حساسة.</strong> إذا لم تكن أداة إمكانية وصول، فأنت تحتاج إلى إفصاح بارز داخل التطبيق، وإقرار في Play Console، ومراجع يوافق على أن حالة استخدامك مقبولة. كانت نافذة الإفصاح جاهزة عندي. لكني أفضّل ألا أحتاجها.</li>
+      <li><strong>ترى أكثر بكثير مما يحتاجه الحاجب.</strong> الحاجب يحتاج حقيقة واحدة بالضبط: أي تطبيق في المقدمة.</li>
+    </ul>
+    <p>وهذه الحقيقة الواحدة متاحة في مكان آخر: أحداث الاستخدام التي تقف خلف «الصحة الرقمية».</p>
+
+    <h2 id="shape">الشكل العام</h2>
+    <p>ثلاث أذونات، يمنحها المستخدم كلها من الإعدادات:</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>الإذن</th><th>الغرض منه</th></tr></thead>
+        <tbody>
+          <tr><td><code>PACKAGE_USAGE_STATS</code> («الوصول إلى بيانات الاستخدام»)</td><td>قراءة <code>UsageEvents</code> لمعرفة أي تطبيق في الواجهة. لا يُمنح أثناء التشغيل أبدًا؛ ترسل المستخدم إلى شاشة الإعدادات وتتحقق من app-op.</td></tr>
+          <tr><td><code>SYSTEM_ALERT_WINDOW</code> («الظهور فوق التطبيقات الأخرى»)</td><td>رسم شاشة القفل فوق التطبيق المحجوب.</td></tr>
+          <tr><td><code>FOREGROUND_SERVICE_SPECIAL_USE</code></td><td>خدمة المراقبة. حجب التطبيقات لا يناسب أيًا من أنواع الخدمات في المقدمة المدرجة، فهي <code>specialUse</code> مع نص فرعي يشرح السبب.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>المكونات:</p>
+    <ul>
+      <li><strong><code>ForegroundMonitorService</code></strong> لا تعمل إلا حين يكون هناك ما يجب فرضه (قائمة حجب غير فارغة وإذن الوصول إلى بيانات الاستخدام ممنوح). مرة كل ثانية، وفقط والشاشة مضاءة، تسأل <code>UsageStatsManager</code> عمّا انتقل إلى المقدمة. التطبيق المحجوب الذي تبقى له وقت يستهلك من الرصيد المدّخر؛ وعند الصفر تُظهر الطبقة.</li>
+      <li><strong>إشعارها الإلزامي هو عرض الرصيد</strong> («12 دقيقة متبقية»)، فالشيء الذي يفرضه Android عليك يؤدي عملًا حقيقيًا.</li>
+      <li><strong>كل الحالة محفوظة في <code>SharedPreferences</code></strong>، لا في JS. يجب أن تستمر الخدمة في العمل حين تكون بيئة React Native ميتة، وهذا أغلب الوقت. جانب JS يودع الوقت ويقرأ الرصيد عبر الوحدة؛ والخدمة تملك الفرض.</li>
+    </ul>
+    <p>مدخل الخدمة في ملف manifest:</p>
+<pre><code>&lt;service
+  android:name=".ForegroundMonitorService"
+  android:exported="false"
+  android:foregroundServiceType="specialUse"&gt;
+  &lt;property
+    android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+    android:value="User-configured app blocking for digital wellbeing: monitors
+      which app is in the foreground (UsageStats) so apps the user chose to block
+      can be locked when their earned screen time runs out." /&gt;
+&lt;/service&gt;</code></pre>
+    <p>وتبرّر <code>specialUse</code> أيضًا في إقرار الخدمات في المقدمة في Play Console. رواية القصة نفسها في المكانين تساعد.</p>
+
+    <h2 id="poll">الاستعلام الدوري من UsageStats (وتأخر الكتابة فيه)</h2>
+    <p>الحلقة الأساسية صغيرة. امسح الأحداث منذ آخر استعلام واحتفظ بآخر حزمة <code>MOVE_TO_FOREGROUND</code> (وهو الثابت نفسه <code>ACTIVITY_RESUMED</code>، أعيدت تسميته في API 29):</p>
+<pre><code>val end = System.currentTimeMillis()
+val events = usm.queryEvents(windowStart, end)
+val event = UsageEvents.Event()
+while (events.hasNextEvent()) {
+  events.getNextEvent(event)
+  if (event.eventType == UsageEvents.Event.MOVE_TO_FOREGROUND) {
+    currentForeground = event.packageName
+  }
+}
+// Re-scan the last 15 s next time: see below.
+windowStart = end - REQUERY_OVERLAP_MS
+handleForeground(currentForeground)</code></pre>
+    <p>ميزة جانبية لطيفة مقارنة بأحداث إمكانية الوصول: لوحة المفاتيح وشريط الإشعارات ليسا activities، فلا يظهران أبدًا كخروج زائف من نوع «غادر المستخدم التطبيق».</p>
+
+    <h3>فخ: الأحداث تصل متأخرة</h3>
+    <p>نسختي الأولى كانت تحرّك النافذة إلى الأمام فقط: كل استعلام يطلب <code>[lastEnd, now]</code>. نجح ذلك غالبًا، ثم على هاتف بدأ للتو من الإيقاف، لم تُرصد أبدًا أول مرة فُتح فيها تطبيق محجوب. UsageStats يكتب الأحداث في مخزنه بتأخير، فالحدث المختوم بـ 10:00:00.900 قد يظهر بعد استعلام غطّى أصلًا 10:00:01. والنافذة التي تتقدم فقط تتخطاه إلى الأبد.</p>
+    <p>الحل: كل استعلام يعيد مسح تداخل خلفي (أستخدم 15 ثانية). رؤية الحدث نفسه مرتين لا تضر، لأن آخر استئناف في النافذة يفوز في الحالتين. الحدث الذي يصل متأخرًا أكثر من 15 ثانية سيضيع، لكني لم أرَ واحدًا.</p>
+
+    <h3>فخ: الاستعلام الأول يحتاج نظرة طويلة إلى الوراء</h3>
+    <p>حين تبدأ الخدمة (بعد إعادة تشغيل، أو حين تضيء الشاشة) لا يوجد «آخر تطبيق معروف». إذا كان المستخدم جالسًا في تيك توك منذ 20 دقيقة، والاستعلام الأول لا ينظر إلا دقيقة إلى الوراء، فلن يرى شيئًا حتى يبدّل التطبيق. لذلك يمسح الاستعلام الأول الساعة الأخيرة. وهذا آمن لأن المشغّل (launcher) هو activity أيضًا: ما استؤنف أخيرًا هو فعلًا ما في الواجهة.</p>
+
+    <h3>فخ: سحب الإذن يبدو كالصمت</h3>
+    <p>إذا أوقف المستخدم الوصول إلى بيانات الاستخدام والخدمة تعمل، فإن <code>queryEvents</code> لا ترمي استثناءً. ترجع لا شيء فحسب. قراءتك الأخيرة («إنستغرام في الواجهة») تصبح قديمة، والرصيد ينقص إلى الأبد. لذلك يتحقق كل استعلام من app-op أولًا ويوقف العدّاد إذا اختفى:</p>
+<pre><code>fun hasUsageAccess(context: Context): Boolean {
+  val appOps = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+  val mode = appOps.checkOpNoThrow(
+    AppOpsManager.OPSTR_GET_USAGE_STATS, Process.myUid(), context.packageName)
+  return mode == AppOpsManager.MODE_ALLOWED
+}</code></pre>
+
+    <h3>الشاشة مطفأة تعني توقف</h3>
+    <p>حين تنطفئ الشاشة، تدّخر الخدمة الجلسة المفتوحة وتتوقف عن الاستعلام تمامًا. لا أحد يستخدم تطبيقًا والشاشة مطفأة، وحلقة بتردد 1 هرتز لا تعمل إلا وأنت تنظر إلى هاتفك رخيصة. وأول استعلام بعد عودة الشاشة يتولى أيضًا الانتقال إلى يوم جديد (إعادة الضبط عند منتصف الليل، الرصيد اليومي)، فيحدث ذلك قبل أن يصل المستخدم إلى تطبيق محجوب، حتى لو لم يفتح HonorFit أبدًا.</p>
+
+    <h2 id="overlay">طبقة القفل</h2>
+    <p>بلا إمكانية الوصول لا يوجد <code>GLOBAL_ACTION_HOME</code>، فلا يمكنك طرد المستخدم من التطبيق. بل تغطيه: نافذة <code>TYPE_APPLICATION_OVERLAY</code> فيها زر «اكسب وقتًا أكثر» وزر «اذهب إلى الشاشة الرئيسية».</p>
+    <ul>
+      <li><strong>غطِّ الشاشة كلها.</strong> افتراضيًا تُزاح الطبقة بمقدار أشرطة النظام، فيطلّ التطبيق المحجوب من الحواف. <code>FLAG_LAYOUT_NO_LIMITS</code> تصلح ذلك. أما <code>FLAG_LAYOUT_IN_SCREEN</code> فقد أُهملت في API 30، فأضفها فقط لما قبل R.</li>
+      <li><strong>«اذهب إلى الشاشة الرئيسية» يجب أن يذهب إليها فعلًا.</strong> إخفاء الطبقة يكشف التطبيق المحجوب مجددًا، والاستعلام التالي يعيد القفل. شغّل المشغّل بدلًا من ذلك:
+<pre><code>startActivity(Intent(Intent.ACTION_MAIN).apply {
+  addCategory(Intent.CATEGORY_HOME)
+  addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+})</code></pre></li>
+      <li><strong>شغّل، ثم أخفِ.</strong> زر الكسب يفتح HonorFit، وهذا تشغيل activity من الخلفية. يسمح Android بذلك لأن لدى التطبيق نافذة طبقة ظاهرة. فشغّل الـ activity <em>والطبقة لا تزال ظاهرة</em>، ثم أزلها. افعلها بالعكس وسيُمنع التشغيل بصمت.</li>
+      <li><strong>لا إذن للطبقة؟ واصل العدّ على أي حال.</strong> إذا لم يُمنح «الظهور فوق التطبيقات الأخرى»، تظل الخدمة تستهلك الرصيد بأمانة. لكنها لا تستطيع رسم القفل حتى يعود الإذن.</li>
+    </ul>
+
+    <h2 id="service">إبقاء الخدمة حية</h2>
+    <p>هذا الجزء الذي يستغرق أطول وقت لضبطه، ومعظمه ليس له علاقة بكودك.</p>
+    <h3>START_STICKY لا يكفي</h3>
+    <p>«التطبيقات النائمة» في Samsung، وMIUI، وOnePlus وأمثالها تقتل الخدمات في الخلفية ثم تبتلع إعادة التشغيل اللاصقة. والحاجب أسوأ حالة لهذا: الناس لا يفتحونه ما دام لديهم وقت، فلا شيء يلاحظ أن المراقب اختفى. يضبط HonorFit منبهًا متكررًا غير دقيق ولا يوقظ الجهاز كل 15 دقيقة يعيد تأكيد الخدمة. لا يوقظ الهاتف أبدًا، والمنبهات المؤجلة والشاشة مطفأة تنطلق بعد عودتها بقليل، وهذا بالضبط حين يهم المراقب.</p>
+    <h3>Android 12 وما بعده لن يسمح لك دائمًا بتشغيلها</h3>
+    <p>تشغيل خدمة في المقدمة من الخلفية (منبه، إعادة تشغيل لاصقة) يرمي <code>ForegroundServiceStartNotAllowedException</code> ما لم يكن لديك استثناء. اثنان يهمان هنا: أن يكون المستخدم قد أوقف تحسين البطارية للتطبيق، أو أن يملك التطبيق <code>SYSTEM_ALERT_WINDOW</code> (وهذا لا يفيد إلا قبل Android 15). لذلك:</p>
+    <ul>
+      <li>التقط الاستثناء وانسحب بهدوء. إسقاط العملية لا يساعد أحدًا، وفتح التطبيق التالي سيشغّل الخدمة على أي حال.</li>
+      <li>اطلب من المستخدم ضبط استخدام البطارية على «غير مقيّد». في إعدادات HonorFit بطاقة «الموثوقية في الخلفية» ترشده إلى الشاشة الصحيحة. في بعض الهواتف هذا الإعداد هو الفرق بين أن يعمل وألا يعمل.</li>
+    </ul>
+    <h3>إعادة التشغيل والتحديثات</h3>
+    <p>مستقبِل لـ <code>BOOT_COMPLETED</code> و<code>MY_PACKAGE_REPLACED</code> يعيد تشغيل المراقبة. الثاني سهل النسيان: التحديث التلقائي من Play يقتل عمليتك ولا يعيد تشغيل خدماتها أبدًا، فبدونه كل تحديث يوقف حاجبك بصمت حتى يفتح المستخدم التطبيق. كلا البثّين مستثنى من قيد التشغيل من الخلفية، والمستقبِل بـ <code>exported="false"</code> يستقبلهما مع ذلك.</p>
+
+    <h2 id="small">أشياء أصغر</h2>
+    <ul>
+      <li><strong>بعض التطبيقات يجب ألا تُحجب أبدًا:</strong> الإعدادات، والساعة (المنبهات!)، والسلامة الشخصية، إضافة إلى نسخ الشركات المصنّعة مثل حزمة الساعة في Samsung. استبعدها من قائمة الحجب في الكود الأصلي، لا في المُنتقي فقط.</li>
+      <li><strong>الخدمة تعمل بلا JS، فلا تستطيع استدعاء <code>t()</code>.</strong> يدفع التطبيق نصوص الطبقة والإشعار إلى <code>SharedPreferences</code> باللغة الحالية، وتعود الخدمة إلى الإنجليزية حتى تصل.</li>
+      <li><strong>الجلسة المفتوحة عبر إعادة تشغيل الخدمة لم تكن تستهلك شيئًا والخدمة ميتة.</strong> عند البدء، ادّخر ما انقضى (بحد أقصى) وابدأ جلسة جديدة، حتى لا يُحاسَب أحد على وقت لم تكن الخدمة موجودة لتراه.</li>
+      <li><strong>Android 14 وما بعده يسمح للمستخدمين بإزاحة إشعارات الخدمات في المقدمة.</strong> تواصل الخدمة تحديثه (مع منع التكرار حتى لا تعيد نشره كل ثانية)، فيعود.</li>
+    </ul>
+
+    <h2 id="tradeoffs">المقايضات</h2>
+    <p>هذا الأسلوب ألين من إمكانية الوصول، وأريد أن أكون صريحًا في ذلك:</p>
+    <ul>
+      <li>التطبيق المحجوب يبقى ظاهرًا لمدة تصل إلى دورة استعلام واحدة (نحو ثانية) قبل أن تظهر الطبقة.</li>
+      <li>التطبيق المحجوب يظل يعمل تحت الطبقة. إذا كان فيديو يعمل، فستسمعه حتى تضغط «اذهب إلى الشاشة الرئيسية».</li>
+      <li>يعتمد على أن تترك الشركة المصنّعة خدمتك وشأنها، ولهذا يهم إعداد البطارية كثيرًا.</li>
+    </ul>
+    <p>لحاجب بنظام الشرف، هذه هي المقايضة الصحيحة. HonorFit لا يحاول أن يكون غير قابل للكسر. من يصمم على الغش يستطيع ببساطة تسجيل تكرارات لم يؤدها. الهدف وقفة وثمن، لا سجن. وفي المقابل تحصل على شاشة إذن تقول «الوصول إلى بيانات الاستخدام» بدل «التحكم الكامل»، ومراجعة Play أبسط بكثير، وخدمة تقرأ شيئًا واحدًا بالضبط: اسم حزمة التطبيق الذي في الواجهة.</p>
+    <p>وإذا كنت تبني على iOS أيضًا، فهو عالم مختلف تمامًا هناك. كتبت عن <a href="../ios-screen-time-api-guide/">ما لا تخبرك به وثائق Screen Time من Apple</a>.</p>
+
+    <div class="callout">
+      <p><strong>HonorFit Blocker</strong> حاجب تطبيقات مجاني لـ iPhone وAndroid. اكسب وقتك أمام الشاشة بتمارين الضغط أو القرفصاء أو أي تمرين تختاره. نظام الشرف، بلا كاميرا، بلا حساب، ولا شيء يغادر هاتفك.</p>
+      <div class="stores">
+        <a href="https://honorfitapp.com/get/?c=blog-android-blocker-ar">حمّل HonorFit مجانًا</a>
+      </div>
+    </div>
+
+    <h2>اقرأ أيضًا</h2>
+    <div class="readnext">
+      <a href="../ios-screen-time-api-guide/">واجهة Screen Time API في iOS: ما لا تخبرك به الوثائق &larr;</a>
+      <a href="../screen-time-api-wishlist/">3 أشياء أتمنى أن تصلحها Apple في Screen Time API &larr;</a>
+      <a href="../../../app-blocker-without-camera/">حاجب تطبيقات بلا كاميرا ولا ذكاء اصطناعي (بالإنجليزية) &larr;</a>
+      <a href="../">كل المقالات &larr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">الرئيسية</a>
+    <a href="../">المدونة</a>
+    <a href="../../../support/">الدعم</a>
+    <a href="../../../privacy/">سياسة الخصوصية</a>
+    <span class="langs"><a href="../../../blog/android-app-blocker-without-accessibility-service/" hreflang="en" lang="en">English</a><a href="../../../es/blog/android-app-blocker-without-accessibility-service/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/android-app-blocker-without-accessibility-service/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/android-app-blocker-without-accessibility-service/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/android-app-blocker-without-accessibility-service/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/android-app-blocker-without-accessibility-service/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/android-app-blocker-without-accessibility-service/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/android-app-blocker-without-accessibility-service/" hreflang="pl" lang="pl">Polski</a><a href="../../../tr/blog/android-app-blocker-without-accessibility-service/" hreflang="tr" lang="tr">Türkçe</a><a href="../../../id/blog/android-app-blocker-without-accessibility-service/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/android-app-blocker-without-accessibility-service/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../../th/blog/android-app-blocker-without-accessibility-service/" hreflang="th" lang="th">ไทย</a><a href="../../../ja/blog/android-app-blocker-without-accessibility-service/" hreflang="ja" lang="ja">日本語</a><a href="../../../ko/blog/android-app-blocker-without-accessibility-service/" hreflang="ko" lang="ko">한국어</a><a href="../../../zh-hans/blog/android-app-blocker-without-accessibility-service/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a><a href="../../../zh-hant/blog/android-app-blocker-without-accessibility-service/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a><a href="./" hreflang="ar" lang="ar" aria-current="page">العربية</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
