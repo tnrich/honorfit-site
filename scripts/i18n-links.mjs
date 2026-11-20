@@ -70,6 +70,7 @@ const PAGES = [
   'block-reddit-with-pushups/',
   'vs-screen-time/',
   'partners/',
+  'blog/affiliate-codes-without-a-backend/',
 ];
 
 // English homepage banner, keyed by the browser language's primary subtag.

@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>没有后端的独立 App 怎么做联盟代码：每个合作伙伴一个隐藏的 App 内购买项目 | HonorFit</title>
+  <meta name="description" content="我怎么在一个没有服务器、没有账号的 iOS 和 Android App 里，加入创作者折扣代码和 50% 分成：每个合作伙伴一个隐藏的 App 内购买项目，代码向商店查找验证，分成则用 Apple 和 Google 自己的销售报表来算。">
+  <link rel="canonical" href="https://honorfitapp.com/zh-hans/blog/affiliate-codes-without-a-backend/">
+  <link rel="alternate" hreflang="en" href="https://honorfitapp.com/blog/affiliate-codes-without-a-backend/">
+  <link rel="alternate" hreflang="es" href="https://honorfitapp.com/es/blog/affiliate-codes-without-a-backend/">
+  <link rel="alternate" hreflang="pt-BR" href="https://honorfitapp.com/pt-br/blog/affiliate-codes-without-a-backend/">
+  <link rel="alternate" hreflang="de" href="https://honorfitapp.com/de/blog/affiliate-codes-without-a-backend/">
+  <link rel="alternate" hreflang="fr" href="https://honorfitapp.com/fr/blog/affiliate-codes-without-a-backend/">
+  <link rel="alternate" hreflang="it" href="https://honorfitapp.com/it/blog/affiliate-codes-without-a-backend/">
+  <link rel="alternate" hreflang="nl" href="https://honorfitapp.com/nl/blog/affiliate-codes-without-a-backend/">
+  <link rel="alternate" hreflang="pl" href="https://honorfitapp.com/pl/blog/affiliate-codes-without-a-backend/">
+  <link rel="alternate" hreflang="tr" href="https://honorfitapp.com/tr/blog/affiliate-codes-without-a-backend/">
+  <link rel="alternate" hreflang="id" href="https://honorfitapp.com/id/blog/affiliate-codes-without-a-backend/">
+  <link rel="alternate" hreflang="vi" href="https://honorfitapp.com/vi/blog/affiliate-codes-without-a-backend/">
+  <link rel="alternate" hreflang="th" href="https://honorfitapp.com/th/blog/affiliate-codes-without-a-backend/">
+  <link rel="alternate" hreflang="ja" href="https://honorfitapp.com/ja/blog/affiliate-codes-without-a-backend/">
+  <link rel="alternate" hreflang="ko" href="https://honorfitapp.com/ko/blog/affiliate-codes-without-a-backend/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://honorfitapp.com/zh-hans/blog/affiliate-codes-without-a-backend/">
+  <link rel="alternate" hreflang="zh-Hant" href="https://honorfitapp.com/zh-hant/blog/affiliate-codes-without-a-backend/">
+  <link rel="alternate" hreflang="ar" href="https://honorfitapp.com/ar/blog/affiliate-codes-without-a-backend/">
+  <link rel="alternate" hreflang="x-default" href="https://honorfitapp.com/blog/affiliate-codes-without-a-backend/">
+  <meta name="theme-color" content="#0D1117">
+  <meta name="author" content="Thomas Willheim">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="HonorFit Blocker">
+  <meta property="og:url" content="https://honorfitapp.com/zh-hans/blog/affiliate-codes-without-a-backend/">
+  <meta property="og:title" content="没有后端的独立 App 怎么做联盟代码">
+  <meta property="og:description" content="每个合作伙伴一个隐藏的 App 内购买项目。代码由商店验证，谁卖了什么则看商店的销售报表。">
+  <meta property="og:image" content="https://honorfitapp.com/img/og.png">
+  <meta property="article:published_time" content="2026-11-20">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="没有后端的独立 App 怎么做联盟代码">
+  <meta name="twitter:description" content="每个合作伙伴一个隐藏的 App 内购买项目。代码由商店验证，谁卖了什么则看商店的销售报表。">
+  <meta name="twitter:image" content="https://honorfitapp.com/img/og.png">
+  <meta name="apple-itunes-app" content="app-id=6802871620">
+  <link rel="icon" href="../../../img/favicon.png">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    .prose h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+    .prose p, .prose ul, .prose ol { margin-bottom: 14px; }
+    figure.single { max-width: 340px; margin: 18px auto 22px; }
+    figure.single img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 14px; }
+    figure.single figcaption { font-size: 0.85rem; color: var(--text-dim); margin-top: 8px; line-height: 1.45; text-align: center; }
+    .prose ol { padding-left: 24px; }
+    .prose pre { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin: 14px 0 20px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; }
+    .prose pre code { background: none; border: 0; padding: 0; font-size: inherit; color: var(--text); }
+    .ask { background: var(--bg-raised); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 16px 0 24px; }
+    .ask p { color: var(--text-dim); margin: 0; }
+    .ask strong { color: var(--text); }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "没有后端的独立 App 怎么做联盟代码：每个合作伙伴一个隐藏的 App 内购买项目",
+    "description": "我怎么在一个没有服务器、没有账号的 iOS 和 Android App 里，加入创作者折扣代码和 50% 分成：每个合作伙伴一个隐藏的 App 内购买项目，代码向商店查找验证，分成则用 Apple 和 Google 的销售报表来算。",
+    "url": "https://honorfitapp.com/zh-hans/blog/affiliate-codes-without-a-backend/",
+    "mainEntityOfPage": "https://honorfitapp.com/zh-hans/blog/affiliate-codes-without-a-backend/",
+    "datePublished": "2026-11-20",
+    "dateModified": "2026-11-20",
+    "inLanguage": "zh-Hans",
+    "keywords": "联盟行销计划, App 内购买, 折扣代码, 优惠代码, StoreKit, Google Play Billing, App Store Connect API, Play Developer API, oneTimeProducts, 销售报表, React Native, Expo, expo-iap",
+    "author": { "@type": "Person", "name": "Thomas Willheim", "url": "https://honorfitapp.com/" },
+    "publisher": { "@type": "Organization", "name": "HonorFit Blocker", "url": "https://honorfitapp.com/", "logo": { "@type": "ImageObject", "url": "https://honorfitapp.com/img/icon.png" } }
+  }
+  </script>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <img src="../../../img/icon.png" alt="">
+    <a class="brand" href="../../">HonorFit Blocker</a>
+    <a class="link" href="../">博客</a>
+    <a class="link" href="../../../support/">客服支持</a>
+    <a class="link" href="../../../privacy/">隐私</a>
+  </div>
+</nav>
+
+<main class="prose">
+  <div class="wrap">
+    <h1>没有后端的独立 App 怎么做联盟代码</h1>
+    <p class="meta">每个合作伙伴一个隐藏的 App 内购买项目，账就交给商店来记。作者：Thomas Willheim &middot; 2026 年 11 月 20 日</p>
+
+    <p>大家好。HonorFit 是一款用俯卧撑赚屏幕使用时间的 App 屏蔽工具，采诚信制。它没有账号，也没有服务器。你的数据留在手机上，因为它根本没有别的地方可去。</p>
+    <p>后来有位创作者问我有没有联盟行销计划。我也想做：创作者拿到一组代码，他们的粉丝买<strong>终身版 Pro 打八折</strong>，创作者则从每笔销售拿到<strong>我收入的 50%</strong>。但我看过的每一种联盟行销做法，都默认你有一个后端来保存代码、追踪点击、把购买对应到合作伙伴。我不想为了这件事专门做一个后端，更不想为此打破“什么都不会离开你的手机”这个原则。</p>
+    <p>所以我改用下面这个做法。iPhone 和 Android 都能用，内容只有付费墙的一个小改动，加上我笔电上的一支脚本。</p>
+
+    <h2 id="store-codes">为什么不用商店自己的优惠代码？</h2>
+    <p>Apple 有优惠代码（offer code），但 Google Play 的一次性产品优惠代码只能把商品免费送出去，没有“打八折”这种选项。我想要一组在两个商店都一样好用的代码，所以商店代码就出局了。</p>
+    <p>而且就算能打折，还有第二个问题：我每个月都得知道每笔销售是来自<em>谁的</em>代码，才能付钱给大家。</p>
+
+    <h2 id="trick">诀窍：每个合作伙伴都有自己的商品</h2>
+    <p>HonorFit 本来就把终身版 Pro 当成一次性购买项目 <code>honorfit_pro_lifetime</code> 在卖，价格 19.99 美元。每个合作伙伴都会拿到这个商品的一份复本，ID 里带着他们的代码，价格设为 15.99 美元：</p>
+<pre><code>honorfit_pro_lifetime            $19.99   （所有人看到的商品）
+honorfit_pro_lifetime_p_alex20   $15.99   （只有输入代码 ALEX20 才会出现）</code></pre>
+    <p>光是这一个决定，就搞定了平常要靠后端做的三件事：</p>
+    <ul>
+      <li><strong>验证代码。</strong>代码<em>就是</em>商品 ID。App 去问商店这个商品存不存在，存在的话，代码就是真的。</li>
+      <li><strong>折扣。</strong>就是商品的价格而已，商店会像处理其他价格一样，帮每个国家换算成当地价格。</li>
+      <li><strong>归属。</strong>Apple 和 Google 的销售报表本来就会依商品 ID 列出每一笔销售。<code>..._p_alex20</code> 的销售，就是 ALEX20 的销售。</li>
+    </ul>
+    <p>除非输入代码，否则没有人看得到这些商品。App 内购买项目只要你不主动推广，就不会出现在任何一个商店的页面上，所以合作伙伴商品只对知道代码的人存在。</p>
+
+    <h2 id="app">App 这一端</h2>
+    <p>付费墙的“回复购买项目”下方多了一个小小的“有合作伙伴代码吗？”链接。点下去会出现一个文字字段。用户输入代码后，我先把它整理干净，再向商店查找那个商品。这里用的是 <a href="https://github.com/hyochan/expo-iap">expo-iap</a>，但直接用 StoreKit 或 Play Billing 也是同样的概念：</p>
+<pre><code>const PARTNER_PREFIX = 'honorfit_pro_lifetime_p_';
+
+// "alex-20 " -&gt; "ALEX20"。商品 ID 也容不下太多其他字符。
+export function normalizePartnerCode(input: string) {
+  const code = input.replace(/[\s-]/g, '').toUpperCase();
+  return /^[A-Z0-9]{3,20}$/.test(code) ? code : null;
+}
+
+export async function lookupPartnerCode(code: string) {
+  const sku = PARTNER_PREFIX + code.toLowerCase();
+  const products = await fetchProducts({ skus: [sku], type: 'in-app' });
+  const product = products?.find((p) =&gt; p.id === sku);
+  return product ? { code, sku, price: product.displayPrice } : null;
+}</code></pre>
+    <p>如果商品有回来，终身版的卡片就会显示 <s>19.99 美元</s> <strong>15.99 美元</strong>，购买按钮也会改买合作伙伴的商品，而不是一般的那个。如果没回来，字段会显示代码无效。商店错误会有自己的消息，这样手机脱机时，就不会跟人家说他手上真的代码是假的。</p>
+    <figure class="single">
+      <img src="../../../img/blog/zh-hans/honorfit-partner-code.webp" alt="应用合作伙伴代码 ALEX20 的 HonorFit Pro 界面：终身版显示划掉的 $19.99 和一次付清 $15.99" width="660" height="441" loading="lazy">
+      <figcaption>输入 ALEX20 之后的 Pro 界面。</figcaption>
+    </figure>
+    <p>最后一块是权限判断。App 里所有问“这是不是 Pro 商品？”的地方，以前都是拿两个 ID 的清单来比对。现在改成检查前缀，所以购买监听器和“回复购买项目”会把合作伙伴购买当成跟终身版一模一样：</p>
+<pre><code>export const isProSku = (sku: string) =&gt;
+  sku === MONTHLY_SKU || sku === LIFETIME_SKU || sku.startsWith(PARTNER_PREFIX);</code></pre>
+    <p>因为代码是向商店查找验证的，添加合作伙伴完全不需要更新 App。App 里没有一份需要随时更新的代码清单。</p>
+
+    <h2 id="products">用 API 创建商品</h2>
+    <p>每多一个合作伙伴就要在两个后台手动建一次商品，很快就会烦死，所以 <code>bun run affiliate add ALEX20 "Alex" "alex@example.com"</code> 会一次把两边都做好：</p>
+    <h3>App Store Connect</h3>
+    <ol>
+      <li>用合作伙伴的商品 ID 创建 App 内购买项目（非消耗性）。</li>
+      <li>把终身版商品每种语言的显示名称和说明都拷贝过来。</li>
+      <li>设置 15.99 美元的美国基准价格，其他国家的价格由 Apple 自动换算。</li>
+      <li>拷贝终身版的国家／地区供应设置，上传审核用的截屏，再写一段审核备注，清楚告诉审核人员代码字段在哪里、要输入哪个代码。</li>
+    </ol>
+    <p>接着用 <code>bun run affiliate submit ALEX20</code> 送交 App 审核。每个合作伙伴商品都要个别审核，通常一两天内完成。Apple 只会批准审核人员实际找得到的 App 内购买项目，所以代码字段得先出现在已上架的 App 里。</p>
+    <h3>Google Play</h3>
+    <p>我第一次试的是旧的 <code>inappproducts</code> 端点，结果回了一个 403，叫我迁移。一次性产品现在放在 <code>oneTimeProducts</code> 底下，一个产品可以有一个以上的购买选项。脚本会：</p>
+    <ol>
+      <li>把终身版的商店信息和税务设置拷贝到一个新的一次性产品。</li>
+      <li>对 15.99 美元运行 <code>pricing:convertRegionPrices</code>，取得每个地区的价格。</li>
+      <li>用这些价格创建一个购买选项，再用 <code>purchaseOptions:batchUpdateStates</code> 激活它。</li>
+    </ol>
+    <p>Play 的商品不用审核，马上就会上线。</p>
+
+    <h2 id="payouts">用商店报表付钱给合作伙伴</h2>
+    <p>每个月一次，<code>bun run affiliate report 2026-11</code> 会抓两个商店的报表，算出每个合作伙伴赚了多少：</p>
+    <ul>
+      <li><strong>Apple：</strong>App Store Connect API 的每月 Sales Summary 报表。每一列都有 SKU、数量，以及以买家币种计算的开发者收益。我用当月最后一天的汇率把收益换算成美元。Apple 是用它自己的汇率付款，所以这只是估计值，但拿来付款已经够接近了。（小陷阱：报表版本要指定 <code>1_0</code>。<code>1_1</code> 在这份报表上回了 400。）</li>
+      <li><strong>Google：</strong>每月收益报表，是放在你 Play Console 的 Cloud Storage bucket 里的一个 zip。每一笔扣款、Google 手续费、税金和退款都已经是独立的列，所以依 SKU 加总就能得到真正的净收入。</li>
+    </ul>
+    <p>每个合作伙伴拿净收入的 50%，最低为零，脚本会输出一份我可以直接拿来付款的 CSV。</p>
+    <div class="ask">
+      <p><strong>Play 的小陷阱：</strong>服务账户要在 Play Console 里有“查看财务数据”权限，才能下载收益报表。我打开之后，这个账户已经可以<em>列出</em>文件，但下载还是回 403，大概持续了一天。如果你也遇到这种情况，先等一等，再考虑去改 bucket 权限。</p>
+    </div>
+
+    <h2 id="tradeoffs">取舍</h2>
+    <ul>
+      <li><strong>每个合作伙伴一个商品。</strong>只有少数几位创作者的话没问题。如果有几百位，反正你也会需要真正的基础架构。</li>
+      <li><strong>Apple 的每个商品都要审核。</strong>新合作伙伴的代码在 Android 上当天就能用，在 iPhone 上则要晚一两天。</li>
+      <li><strong>代码是公开的。</strong>任何人都可以输入 ALEX20，这正是重点。计划条款禁止放上优惠券网站、禁止用自己的代码购买，退款会从之后的分成中扣除。</li>
+      <li><strong>没有点击追踪。</strong>我知道哪些代码卖出去了，但不知道谁从哪里来。对一个不追踪用户的 App 来说，我觉得这样很好。</li>
+    </ul>
+
+    <h3>额外提示：确认在 App 外完成的购买</h3>
+    <p>这是同一周刚好遇到的事。如果有人在 Play 商店兑换 Google Play 优惠代码，购买是在你的 App 外完成的，所以你的购买监听器永远不会收到。Google 会把 3 天内没有确认（acknowledge）的购买退款。现在 HonorFit 在 Android 上，每次启动和每次回到前台时都会检查已拥有的购买，确认还没确认的那些，然后解锁 Pro。</p>
+
+    <h2 id="partners">想要一组代码吗？</h2>
+    <p>写这篇文章的时候，这个计划的合作伙伴是零。如果你在做健身、专注、读书或屏幕使用时间相关的内容，觉得你的粉丝会喜欢 HonorFit，<a href="../../partners/">合作伙伴页面</a>有详细说明和一份简短的表单。你的粉丝买终身版打八折，而每一笔用你代码的销售，你都能拿到我收入的一半。</p>
+
+    <div class="callout">
+      <p><strong>HonorFit Blocker</strong> 是一款免费的 iPhone 和 Android App 屏蔽工具。用俯卧撑或任何你选的运动赚屏幕使用时间。诚信制、不用摄像头，什么都不会离开你的手机。</p>
+      <div class="stores">
+        <a href="https://honorfitapp.com/get/?c=blog-affiliate-codes-zh-hans">免费下载 HonorFit</a>
+      </div>
+    </div>
+
+    <h2>延伸阅读</h2>
+    <div class="readnext">
+      <a href="../android-app-blocker-without-accessibility-service/">不用 AccessibilityService 打造 Android App 屏蔽工具 &rarr;</a>
+      <a href="../ios-screen-time-api-guide/">iOS Screen Time API：文档没告诉你的事 &rarr;</a>
+      <a href="../">所有文章 &rarr;</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 HonorFit Blocker</span>
+    <a href="../../">首页</a>
+    <a href="../">博客</a>
+    <a href="../../../support/">客服支持</a>
+    <a href="../../../privacy/">隐私政策</a>
+    <span class="langs"><a href="../../../blog/affiliate-codes-without-a-backend/" hreflang="en" lang="en">English</a><a href="../../../es/blog/affiliate-codes-without-a-backend/" hreflang="es" lang="es">Español</a><a href="../../../pt-br/blog/affiliate-codes-without-a-backend/" hreflang="pt-BR" lang="pt-BR">Português</a><a href="../../../de/blog/affiliate-codes-without-a-backend/" hreflang="de" lang="de">Deutsch</a><a href="../../../fr/blog/affiliate-codes-without-a-backend/" hreflang="fr" lang="fr">Français</a><a href="../../../it/blog/affiliate-codes-without-a-backend/" hreflang="it" lang="it">Italiano</a><a href="../../../nl/blog/affiliate-codes-without-a-backend/" hreflang="nl" lang="nl">Nederlands</a><a href="../../../pl/blog/affiliate-codes-without-a-backend/" hreflang="pl" lang="pl">Polski</a><a href="../../../tr/blog/affiliate-codes-without-a-backend/" hreflang="tr" lang="tr">Türkçe</a><a href="../../../id/blog/affiliate-codes-without-a-backend/" hreflang="id" lang="id">Bahasa Indonesia</a><a href="../../../vi/blog/affiliate-codes-without-a-backend/" hreflang="vi" lang="vi">Tiếng Việt</a><a href="../../../th/blog/affiliate-codes-without-a-backend/" hreflang="th" lang="th">ไทย</a><a href="../../../ja/blog/affiliate-codes-without-a-backend/" hreflang="ja" lang="ja">日本語</a><a href="../../../ko/blog/affiliate-codes-without-a-backend/" hreflang="ko" lang="ko">한국어</a><a href="./" hreflang="zh-Hans" lang="zh-Hans" aria-current="page">简体中文</a><a href="../../../zh-hant/blog/affiliate-codes-without-a-backend/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a><a href="../../../ar/blog/affiliate-codes-without-a-backend/" hreflang="ar" lang="ar">العربية</a></span>
+  </div>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434f652f52bb41bdb27125a749694863"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
