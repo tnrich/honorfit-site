@@ -69,6 +69,7 @@ const PAGES = [
   'block-youtube-with-pushups/',
   'block-reddit-with-pushups/',
   'vs-screen-time/',
+  'phone-addiction/',
   'partners/',
   'blog/affiliate-codes-without-a-backend/',
 ];
