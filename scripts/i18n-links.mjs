@@ -72,6 +72,7 @@ const PAGES = [
   'phone-addiction/',
   'partners/',
   'blog/affiliate-codes-without-a-backend/',
+  'blog/how-much-screen-time-per-rep/',
 ];
 
 // English homepage banner, keyed by the browser language's primary subtag.
